@@ -1,6 +1,12 @@
 MmCms::Application.routes.draw do
 
-  #devise_for :users
+  namespace :cms do
+    namespace :admin do
+      devise_for :users, :class_name => 'Cms::User'
+    end
+  end
+
+  root :to => 'application#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
