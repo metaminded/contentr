@@ -41,5 +41,12 @@ module MmCms
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
+
+    # Configure generators
+    config.generators do |g|
+      g.orm             :mongoid
+      g.template_engine :erb
+      g.test_framework  :rspec, :fixture => false
+    end
   end
 end
