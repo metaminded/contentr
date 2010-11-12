@@ -10,7 +10,7 @@ class MmCms::PagesController < MmCms::ApplicationController
 
   def show
     path = params[:path]
-    redirect_to cms_url(:path => '/index') if path.blank? # index should always exist
+    return redirect_to cms_url(:path => MmCms::Site.default_page_path) if path.blank?
 
     @item = MmCms::Item.find_by_path(path)
     @item.present? ? render_item : render_item_not_found
@@ -19,8 +19,7 @@ class MmCms::PagesController < MmCms::ApplicationController
 protected
 
   def render_item
-    render_liquid_template('index')
-    #render :text => "You are on page: #{@page.name} - #{@page.data.where(:name => 'foo').first}"
+    render_liquid_template
   end
 
   def render_item_not_found
@@ -86,10 +85,11 @@ protected
   # Renders a Liquid template (for the current action) together
   # with a Liquid layout.
   #
-  def render_liquid_template(template_name, options = {})
+  def render_liquid_template(options = {})
     # Merge the options hash with some useful defaults
     options = {
-      :layout    => 'default',
+      :layout    => @item.layout,
+      :template  => @item.template,
       :assigns   => {},
       :registers => {}
     }.merge(options)
@@ -99,16 +99,13 @@ protected
 
     # Global assignments that are always available
     options[:assigns]['request_params']  = request.params
-    options[:assigns]['layout']          = options[:layout]
-    options[:assigns]['template']        = template_name
     options[:assigns]['item']            = @item
-    #options[:assigns]['item']            = ::TemplateDataDrop.new(@item)
 
     # Global registers that are always available
     options[:registers]['controller'] = self
 
     # Load the template identified by the given template name.
-    template_file    = get_liquid_template(template_name)
+    template_file    = get_liquid_template(options[:template])
     template_content = template_file.render!(options[:assigns], { :registers => options[:registers] })
     options[:assigns]['content_for_layout'] = template_content
 

@@ -7,8 +7,7 @@ MmCms::Application.routes.draw do
     end
 
     # Render frontend pages
-    get '/*path' => 'pages#show'
-    root :to => redirect('/cms/index')
+    get '/(*path)' => 'pages#show', :as => 'cms'
   end
 
   root :to => 'application#index'

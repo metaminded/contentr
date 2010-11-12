@@ -12,4 +12,8 @@ class MmCms::Site
     File.join(self.themes_path, theme_name)
   end
 
+  def self.default_page_path
+    'page-1'
+  end
+
 end
