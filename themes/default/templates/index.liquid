@@ -1,0 +1,17 @@
+<p>Page name: {{item.name}}</p>
+
+<p>Page slug: {{item.slug}}</p>
+
+<p>Page path: {{item.path}}</p>
+
+<p>Data 'foo': {{item.data.foo}}</p>
+
+<p>Data 'bar': {{item.data.bar}}</p>
+
+<p>Dataset item 1 (same as 'bar'): {{item.dataset[1]}}</p>
+
+<p>Loop Dataset:<br/>
+  {% for i in item.dataset %}
+    {{ i }}<br/>
+  {% endfor %}
+</p>

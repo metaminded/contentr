@@ -1,4 +1,4 @@
-class Cms::User
+class MmCms::User
 
   # Includes
   include Mongoid::Document

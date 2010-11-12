@@ -1,9 +1,9 @@
 MmCms::Application.routes.draw do
 
-  namespace :cms do
+  scope '/cms', :module => 'mm_cms' do
     # Admin
     namespace :admin do
-      devise_for :users, :class_name => 'Cms::User'
+      devise_for :users, :class_name => 'MmCms::User'
     end
 
     # Render frontend pages
