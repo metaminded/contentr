@@ -12,8 +12,6 @@ module MmCms
     field :name
     field :slug, :index => true
     field :path, :index => true
-    #references_many :children, :class_name => 'MmCms::Item', :foreign_key => :parent_id, :inverse_of => :parent
-    #referenced_in :parent, :class_name => 'MmCms::Item', :inverse_of => :children, :index => true
     embeds_many :data, :class_name => 'MmCms::Data::Item' do
       def get(name)
         @target.select { |data| data.name == name }.first

@@ -1,7 +1,7 @@
 class MmCms::Site
 
   def self.themes_path
-    File.join(Rails.root, 'themes')
+    File.join(Rails.root, 'app', 'views', 'mm_cms')
   end
 
   def self.theme_name
