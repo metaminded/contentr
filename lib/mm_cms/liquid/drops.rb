@@ -1,7 +1,5 @@
 # coding: utf-8
 
-module MmMmCmsLiquid::Drops end
+module MmCms::Liquid::Drops end
 
-# Load all the drops of the library
-#
-Dir[File.dirname(__FILE__) + '/drops/*.rb'].each { |f| require f }
+Dir[File.dirname(__FILE__) + '/drops/*.rb'].each { |f| require_dependency f }

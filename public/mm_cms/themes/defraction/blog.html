@@ -1,0 +1,310 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Defraction HTML Portfolio/Business Template</title>
+<style type="text/css">
+@import url('css/style.css');
+@import url('css/superfish.css');
+@import url('css/nivo-slider.css');
+</style>
+<!--[if IE 7]>
+<style type="text/css">
+@import url('css/ie7style.css');
+</style>
+<![endif]-->
+<!--[if IE 8]>
+<style type="text/css">
+@import url('css/ie8style.css');
+</style>
+<![endif]--> 
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.nivo.slider.pack.js"></script>
+<script type="text/javascript" src="js/jquery.bxSlider.min.js"></script>
+<script type="text/javascript" src="js/jquery.prettyPhoto.js"></script>
+<script type="text/javascript" src="js/hoverIntent.js"></script> 
+<script type="text/javascript" src="js/superfish.js"></script>
+<script type="text/javascript"> 
+jQuery(function(){
+	jQuery('ul.sf-menu').superfish();
+});
+$(window).load(function() {
+	$('.slider').nivoSlider();
+});
+$(document).ready(function(){
+	$('#bx').bxSlider({
+		pager: true,
+		auto: true,
+		speed: 700,
+		pause: 5000
+	});
+});
+$(document).ready(function(){
+	$("a[rel^='prettyPhoto']").prettyPhoto();
+});
+</script>
+</head>
+
+<body>
+<!-- START HEADER AREA -->
+<div id="header">
+
+	<!-- Start Logo -->
+	<div id="logo">
+    	<a href="index.html"><img src="images/logo.gif" alt="Defraction" /></a>
+    </div>
+    
+    <!-- Start searchbar -->
+    <div id="search">
+    	<input type="text" class="searchinput" value="Search the site..." onfocus="if (this.value == 'Search the site...') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Search the site...';}" /><input type="submit" value="" class="searchsubmit" />
+    </div>
+    
+    <!-- Start page navigation -->
+    <div id="navigation">
+		<ul class="sf-menu"> 
+			<li> 
+				<a href="index.html"><strong>Home</strong><span>homepage</span></a>
+                <ul>
+                	<li><a href="index.html">Home Style 1</a></li>
+                    <li><a href="index-two.html">Home Style 2</a></li>
+                </ul>
+			</li> 
+			<li> 
+				<a href="services.html"><strong>Services</strong><span>what we do</span></a> 
+                <ul> 
+					<li> 
+						<a href="default.html">Standard Layout</a> 
+					</li> 
+		    <li>
+			<a href="footer-threecolumn.html">Three Column Footer</a>
+		    </li> 
+                    <li>
+                    	<a href="#">Sub Menu 1</a>
+                        <ul>
+                        	<li><a href="#">Sub Menu 2</a></li>
+                        </ul>
+                    </li>
+                </ul>
+			</li> 
+			<li> 
+				<a href="portfolio.html"><strong>Portfolio</strong><span>our work</span></a>
+                <ul>
+                	<li>
+                    	<a href="portfolio.html">Portfolio Style 1</a>
+                    </li>
+                	<li>
+                    	<a href="portfolio-onecolumn.html">Portfolio Style 2</a>
+                    </li>
+                    <li>
+                    	<a href="detailed.html">Detailed Portfolio</a>
+                    </li>
+                </ul>
+			</li> 
+			<li> 
+				<a href="about.html"><strong>About Us</strong><span>our story</span></a> 
+			</li>
+            <li> 
+				<a href="blog.html"><strong>Blog</strong><span>get updated</span></a>
+                <ul> 
+					<li> 
+						<a href="blog.html">Blog Index</a> 
+					</li> 
+					<li> 
+						<a href="single.html">Blog Post</a> 
+					</li> 
+                </ul>
+			</li>	
+            <li> 
+				<a href="contact.php"><strong>Contact Us</strong><span>get in touch</span></a> 
+			</li>	
+		</ul> 
+	</div>
+</div>
+<!-- END HEADER AREA -->
+
+<!-- START CONTENT AREA -->
+<div class="container">
+
+	<!-- Start breadcrumbs section -->
+	<div class="breadcrumbs">
+    	<a href="index.html">Home</a> &raquo; Our Blog
+    </div>
+    
+    <!-- Sub top for content area top image -->
+	<div id="sub-top">
+	</div>
+    
+    <!-- Start content/sidebar -->
+	<div id="sub-content">
+    	
+        <!-- Start content section left of sidebar -->
+		<div id="content">
+        
+        	<!-- Start Blog Post BLOCK -->
+        	<div class="blogpost">
+            	<h2><a href="single.html">A Blog Post Title Will Go Here</a></h2>
+                <span class="post-meta">By <a href="#">Caden Grant</a> | <a href="#">September 26th, 2010</a> | <a href="#">20 comments</a></span>
+                
+                <p>Lorem ipsum dolor sit amet, <a href="#">consectetur adipiscing elit</a>. Sed vel leo vitae mi iaculis tincidunt. Sed 
+ipsum diam, semper et adipiscing sit amet, gravida ac ipsum. Phasellus rutrum est non eros ultrices 
+a molestie tellus suscipit. Nunc eleifend, nisl vel cursus hendrerit, arcu risus sagittis lorem, nec 
+gravida massa lacus non nulla. Praesent urna diam, cursus ac eleifend mattis, euismod et nisi. 
+Vestibulum id leo sit amet nisi. Aliquam erat volutpat. Nam egestas mollis ultrices. Praesent nec 
+tellus est, et convallis mauris.</p>
+				<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+                <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+            </div>
+            <!-- COPY WHOLE BLOCK ABOVE TO DUPLICATE BLOG POST -->
+            
+            <!-- Start Another Blog Post BLOCK -->
+            <div class="blogpost">
+            	<h2><a href="single.html">A Blog Post Title Will Go Here</a></h2>
+                <span class="post-meta">By <a href="#">Caden Grant</a> | <a href="#">September 26th, 2010</a> | <a href="#">20 comments</a></span>
+                
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel leo vitae mi iaculis tincidunt. Sed 
+ipsum diam, semper et adipiscing sit amet, gravida ac ipsum. Phasellus rutrum est non eros ultrices 
+a molestie tellus suscipit. Nunc eleifend, nisl vel cursus hendrerit, arcu risus sagittis lorem, nec 
+gravida massa lacus non nulla. Praesent urna diam, cursus ac eleifend mattis, euismod et nisi. 
+Vestibulum id leo sit amet nisi. Aliquam erat volutpat. Nam egestas mollis ultrices. Praesent nec 
+tellus est, et convallis mauris.</p>
+				<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+                <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+            </div>
+        </div>
+        
+        <!-- START THE SIDEBAR -->
+        <div id="sidebar">
+        	<h3>Recent Blog Posts</h3>
+            	<ul>
+                	<li><a href="#">A Blog Post Title Will Go Here</a></li>
+                    <li><a href="#">This Is Another Blog Post Title</a></li>
+                    <li><a href="#">And Another Here</a></li>
+                    <li><a href="#">Hello World!</a></li>
+                </ul>
+                
+             <!-- Divide sections -->
+            <div class="divider"></div>
+            
+            <h3>From Our Portfolio</h3>
+           	<div class="featured">
+            	<a href="portfolio.html"><img src="images/featured.png" alt="Defraction HTML Template" /></a>
+            </div>
+            <p><a href="portfolio.html">View More &raquo;</a></p>
+            
+            <!-- Divide sections -->
+            <div class="divider"></div>
+            
+            <!-- Start column -->
+            <div class="sidebar-column">
+            	<h3>Categories</h3>
+                <ul>
+                	<li><a href="#">Some Category</a></li>
+                    <li><a href="#">Another</a></li>
+                    <li><a href="#">News</a></li>
+                    <li><a href="#">Uncategorized</a></li>
+                </ul>
+            </div>
+            
+            <!-- Start Another Column -->
+            <div class="sidebar-column">
+            	<h3>Archives</h3>
+                <ul>
+                	<li><a href="#">October 2010</a></li>
+                    <li><a href="#">September 2010</a></li>
+                    <li><a href="#">August 2010</a></li>
+                    <li><a href="#">July 2010</a></li>
+                </ul>
+            </div>
+            
+            <!-- Divide sections -->
+            <div class="divider"></div>
+            
+            <h3>Some Heading</h3>
+            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+            
+        </div>
+	</div>
+    
+    <!-- Sub bottom for content area bottom image -->
+	<div id="sub-bottom">
+	</div>
+</div>
+<!-- END CONTENT AREA -->
+
+
+	
+
+<!-- START FOOTER AREA -->
+<div id="footer-wrap">
+	<div id="footer">
+    	<!-- Start first column out of four -->
+    	<div class="one-fourth">
+        	<h4>Lorem Ipsum</h4>
+            <ul>
+            	<li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+        </div>
+        
+        <!-- Start second column -->
+        <div class="one-fourth">
+        	<h4>Lorem Ipsum</h4>
+            <ul>
+            	<li><a href="#">Pellentesque habitant</a></li>
+                <li><a href="#">Vestibulum tortor quam</a></li>
+                <li><a href="#">Mauris placerat</a></li>
+                <li><a href="#">Donec eu libero</a></li>
+                <li><a href="#">Lorem Ipsum</a></li>
+            </ul>
+        </div>
+        
+        <!-- Start third column -->
+        <div class="one-fourth">
+        	<h4>Contact Us</h4>
+            <p>Denver Office Headquarters<br />
+5830 West 37th Place<br />
+Los Angeles, CA 80201</p>
+
+<p>Tel: +1-723-452-4920<br />
+Fax: +1-723-452-4920</p>
+
+<p>hello@yourdomain.com</p>
+        </div>
+        
+        <!-- Start fourth column -->
+        <div class="one-fourth-last">
+        	<h4>Our Newsletter</h4>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+            <form action="" method="get">
+            	<input type="text" value="Your email address..." class="newsinput" onfocus="if (this.value == 'Your email address...') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Search email address...';}" /><br />
+                <input type="submit" class="newssubmit" value="Sign Up" />
+            </form>
+        </div>
+    </div>
+    
+    <!-- Start bottom footer -->
+    <div id="bottom-footer">
+    	<!-- Set container to make with 960px -->
+    	<div class="container">
+    		<div class="three-fourths">
+        		<p>Copyright &copy; 2010 Caden Grant - All Rights Reserved</p>
+        	</div>
+        	<div class="one-fourth-last">
+        		<ul class="social">
+                	<li><a href="#"><img src="images/komodomedia_32/facebook_32.png" alt="Connect With Us On Facebook" /></a></li>
+                    <li><a href="#"><img src="images/komodomedia_32/twitter_32.png" alt="Connect With Us On Facebook" /></a></li>
+                    <li><a href="#"><img src="images/komodomedia_32/flickr_32.png" alt="Connect With Us On Facebook" /></a></li>
+                    <li><a href="#"><img src="images/komodomedia_32/linkedin_32.png" alt="Connect With Us On Facebook" /></a></li>
+                </ul>
+        	</div>
+        </div>
+    </div>
+    <!-- end bottom footer -->
+    
+</div>
+<!-- END FOOTER AREA -->
+</body>
+</html>

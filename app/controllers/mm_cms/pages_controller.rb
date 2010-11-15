@@ -75,7 +75,7 @@ protected
     theme_path = theme_name.present? ? File.join(MmCms::Site.themes_path, theme_name) : MmCms::Site.theme_path
 
     # load the template
-    liquid_template = File.join(theme_path, layout ? "layout" : "templates", "#{name}.liquid")
+    liquid_template = File.join(theme_path, layout ? "#{name}.layout" : "#{name}.template")
     raise "No such template file #{liquid_template}" unless File.exists?(liquid_template)
 
     File.read(liquid_template)
@@ -100,6 +100,7 @@ protected
     # Global assignments that are always available
     options[:assigns]['request_params']  = request.params
     options[:assigns]['item']            = @item
+    options[:assigns]['theme_name']      = MmCms::Site.theme_name
 
     # Global registers that are always available
     options[:registers]['controller'] = self

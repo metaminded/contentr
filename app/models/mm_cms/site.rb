@@ -1,11 +1,11 @@
 class MmCms::Site
 
   def self.themes_path
-    File.join(Rails.root, 'app', 'views', 'mm_cms')
+    File.join(Rails.root, 'public', 'mm_cms', 'themes')
   end
 
   def self.theme_name
-    'default'
+    'defraction'
   end
 
   def self.theme_path
@@ -13,7 +13,7 @@ class MmCms::Site
   end
 
   def self.default_page_path
-    'page-1'
+    'home'
   end
 
 end

@@ -54,7 +54,7 @@ module MmCms
   ##
   # TBD
   #
-  class ItemLiquidProxy < Liquid::Drop
+  class ItemLiquidProxy < ::Liquid::Drop
 
     def initialize(item)
       @item = item
@@ -84,7 +84,7 @@ module MmCms
   ##
   # TBD
   #
-  class ItemDataLiquidProxy < Liquid::Drop
+  class ItemDataLiquidProxy < ::Liquid::Drop
 
     def initialize(data)
       @data = data

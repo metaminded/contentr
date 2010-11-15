@@ -4,13 +4,12 @@ module MmCms
     field :layout, :default => 'default'
     field :template, :default => 'default'
 
-    def layout
-      self.read_attribute(:layout) || 'default'
-    end
+    # Protect attributes from mass assignment
+    attr_accessible :layout, :template
 
-    def template
-      self.read_attribute(:template) || 'default'
-    end
+    # Validation
+    validates_presence_of :layout
+    validates_presence_of :template
 
     # Liquid
     def to_liquid
@@ -24,6 +23,10 @@ module MmCms
   class PageLiquidProxy < ItemLiquidProxy
     def layout
       @item.layout
+    end
+
+    def template
+      @item.template
     end
   end
 end
