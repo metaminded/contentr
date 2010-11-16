@@ -1,19 +1,49 @@
-class MmCms::Site
+module MmCms
 
-  def self.themes_path
-    File.join(Rails.root, 'public', 'mm_cms', 'themes')
+  class Site
+
+    def initialize
+      # nope
+    end
+
+    def themes_path
+      File.join(Rails.root, 'public', 'mm_cms', 'themes')
+    end
+
+    def theme_name
+      'defraction'
+    end
+
+    def theme_path
+      File.join(self.themes_path, theme_name)
+    end
+
+    def default_page_path
+      'home'
+    end
+
+    def navigation
+      MmCms::Page.all
+    end
+
+    def to_liquid
+      MmCms::SiteLiquidProxy.new(self)
+    end
   end
 
-  def self.theme_name
-    'defraction'
-  end
+  class SiteLiquidProxy < ::Liquid::Drop
 
-  def self.theme_path
-    File.join(self.themes_path, theme_name)
-  end
+    def initialize(site)
+      @site = site
+    end
 
-  def self.default_page_path
-    'home'
+    def theme_name
+      @site.theme_name
+    end
+
+    def navigation
+      @site.navigation
+    end
   end
 
 end

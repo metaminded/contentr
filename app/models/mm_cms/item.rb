@@ -10,6 +10,7 @@ module MmCms
 
     # Fields & Relations
     field :name
+    field :description
     field :slug, :index => true
     field :path, :index => true
     embeds_many :data, :class_name => 'MmCms::Data::Item' do
@@ -24,7 +25,7 @@ module MmCms
     validates_uniqueness_of :slug
 
     # Protect attributes from mass assignment
-    attr_accessible :name, :parent
+    attr_accessible :name, :description, :parent
 
     # Callbacks
     before_validation :generate_slug
@@ -70,6 +71,10 @@ module MmCms
 
     def name
       @item.name
+    end
+
+    def description
+      @item.description
     end
 
     def slug

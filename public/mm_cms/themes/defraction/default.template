@@ -1,1 +1,51 @@
-DEFAULT PAGE
+<!-- Start breadcrumbs section -->
+<div class="breadcrumbs">
+  <a href="index.html">Home</a> &raquo; Standard Layout
+</div>
+
+<!-- Sub top for content area top image -->
+<div id="sub-top">
+</div>
+
+<!-- Start content/sidebar -->
+<div id="sub-content">
+  <!-- Start content section left of sidebar -->
+  <div id="content">
+    You are on page: {{item.name}} ({{item.path}})<br/>
+    Your template: {{item.template}}
+  </div>
+  <!-- End Content -->
+
+  <!-- START THE SIDEBAR -->
+  <div id="sidebar">
+    <h3>Sub Navigation</h3>
+    <ul>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="portfolio-onecolumn.html">Portfolio Style 2</a></li>
+      <li><a href="detailed.html">Detailed Portfolio Page</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="single.html">Singe Blog Post</a></li>
+      <li><a href="footer-threecolumn.html">Three Column Footer</a></li>
+      <li><a href="fullwidth.html">Fullwidth Page</a></li>
+    </ul>
+
+    <!-- Divide sections -->
+    <div class="divider"></div>
+
+    <h3>From Our Portfolio</h3>
+    <div class="featured">
+      <a href="portfolio.html"><img src="{{'images/featured.png' | asset_url}}" alt="Defraction HTML Template" /></a>
+    </div>
+    <p><a href="portfolio.html">View More &raquo;</a></p>
+
+    <!-- Divide sections -->
+    <div class="divider"></div>
+
+    <h3>Some Heading</h3>
+    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+  </div>
+</div>
+
+<!-- Sub bottom for content area bottom image -->
+<div id="sub-bottom">
+</div>

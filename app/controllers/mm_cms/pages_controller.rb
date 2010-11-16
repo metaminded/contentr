@@ -3,14 +3,14 @@
 class MmCms::PagesController < MmCms::ApplicationController
 
   # Global filters, setup, etc.
-  before_filter :setup_liquid
+  before_filter :setup_site, :setup_liquid
 
   # (Naive) template caching
   @@cached_templates = {}
 
   def show
     path = params[:path]
-    return redirect_to cms_url(:path => MmCms::Site.default_page_path) if path.blank?
+    return redirect_to cms_url(:path => @site.default_page_path) if path.blank?
 
     @item = MmCms::Item.find_by_path(path)
     @item.present? ? render_item : render_item_not_found
@@ -26,6 +26,10 @@ protected
     render :text => "No such page", :status => 404
   end
 
+  def setup_site
+    @site = MmCms::Site.new # Site is a singleton. FIXME!!
+  end
+
   #######################################################################################
   #
   # Liquid Support
@@ -38,7 +42,7 @@ protected
   # @BeforeFilter
   #
   def setup_liquid
-    Liquid::Template.file_system = Liquid::LocalFileSystem.new(MmCms::Site.theme_name)
+    Liquid::Template.file_system = Liquid::LocalFileSystem.new(@site.theme_name)
   end
 
   ##
@@ -72,7 +76,7 @@ protected
 
     # override theme by request if available
     theme_name = params[:__theme] if params[:__theme].present?
-    theme_path = theme_name.present? ? File.join(MmCms::Site.themes_path, theme_name) : MmCms::Site.theme_path
+    theme_path = theme_name.present? ? File.join(@site.themes_path, theme_name) : @site.theme_path
 
     # load the template
     liquid_template = File.join(theme_path, layout ? "#{name}.layout" : "#{name}.template")
@@ -98,9 +102,9 @@ protected
     options[:layout] = params[:__layout] if params[:__layout].present?
 
     # Global assignments that are always available
-    options[:assigns]['request_params']  = request.params
-    options[:assigns]['item']            = @item
-    options[:assigns]['theme_name']      = MmCms::Site.theme_name
+    options[:assigns]['request_params'] = request.params
+    options[:assigns]['item']           = @item
+    options[:assigns]['site']           = @site
 
     # Global registers that are always available
     options[:registers]['controller'] = self
