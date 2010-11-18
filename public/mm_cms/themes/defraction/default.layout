@@ -63,7 +63,7 @@ $(document).ready(function(){
   <div id="navigation">
     <ul class="sf-menu">
     {% for item in site.navigation %}
-      <li><a href="{{item.path}}"><strong>{{item.name}}</strong><span>{{item.description}}</span></a></li>
+      <li><a href="{{item.path | site_url }}"><strong>{{item.name}}</strong><span>{{item.description}}</span></a></li>
     {% endfor %}
     </ul>
 
