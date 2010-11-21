@@ -1,0 +1,26 @@
+{
+    name: default,
+    metadata...
+    fields: {
+        {
+            name: Name,
+            type: String,
+            label: Name,
+            ...
+        },
+        {
+            name: phone,
+            type: String,
+            label: Telefon,
+            ...
+        },
+        {
+            name: gender,
+            type: select,
+            label: Geschlecht,
+            values: {"male", "female", "unknown"},
+            ...
+        },
+        ...
+    }
+}
