@@ -10,4 +10,14 @@ class MmCms::Data::Item
   # Validations
   validates_presence_of :name
 
+  # Objects string representation
+  def to_s
+    value.to_s
+  end
+
+  # Objects liquid representation
+  def to_liquid
+    to_s
+  end
+
 end
