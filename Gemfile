@@ -11,6 +11,7 @@ gem 'cancan'
 gem 'haml'
 gem 'liquid'
 gem 'stringex'
+gem 'json'
 
 group :development, :test do
   gem 'rspec'

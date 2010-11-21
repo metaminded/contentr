@@ -1,6 +1,5 @@
 {
     name: default,
-    metadata...
     fields: {
         {
             name: Name,
