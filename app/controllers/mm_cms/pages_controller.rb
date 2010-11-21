@@ -116,7 +116,7 @@ protected
     theme_path = theme_name.present? ? File.join(@site.themes_path, theme_name) : @site.theme_path
 
     # load the template
-    liquid_template = File.join(theme_path, layout ? "#{name}.layout" : "#{name}.template")
+    liquid_template = File.join(theme_path, layout ? "#{name}.layout.html" : "#{name}.template.html")
     raise "No such template file #{liquid_template}" unless File.exists?(liquid_template)
 
     File.read(liquid_template)
