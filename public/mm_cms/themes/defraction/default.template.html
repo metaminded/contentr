@@ -1,8 +1,8 @@
 <!-- Start breadcrumbs section -->
 <div class="breadcrumbs">
-  <a href="{{'' | site_url}}">Home</a>
+  <a href="{{'' | url}}">Home</a>
   {% breadcrumb %}
-    &raquo; <a href="{{page.path | site_url}}">{{page.name}}</a>
+    &raquo; <a href="{{page.path | url}}">{{page.name}}</a>
   {% endbreadcrumb %}
 </div>
 
@@ -26,7 +26,7 @@
       <ul>
         {% nav for page %}
           <li>
-            <a href="{{page.path | site_url}}">{{page.name}}</a>
+            <a href="{{page.path | url}}">{{page.name}}</a>
           </li>
         {% endnav %}
       </ul>
@@ -37,15 +37,17 @@
 
     <h3>From Our Portfolio</h3>
     <div class="featured">
-      <a href="portfolio.html"><img src="{{'images/featured.png' | asset_url}}" alt="Defraction HTML Template" /></a>
+      <a href="{{'portfolio' | url}}"><img src="{{'images/featured.png' | asset_url}}" alt="Defraction HTML Template" /></a>
     </div>
-    <p><a href="portfolio.html">View More &raquo;</a></p>
+    <p><a href="{{'portfolio' | url}}">View More &raquo;</a></p>
 
     <!-- Divide sections -->
     <div class="divider"></div>
 
     <h3>Some Heading</h3>
-    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+    <p>
+      {% lorem 1 paragraphs %}
+    </p>
   </div>
 </div>
 

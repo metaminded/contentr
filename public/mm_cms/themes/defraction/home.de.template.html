@@ -24,16 +24,8 @@
         <a href="#" class="button">Read More</a>
       </li>
       <li>
-        <img src="/mm_cms/themes/defraction/images/ipad.png" alt="iPad" style="float: left;" />
+        <img src="{{'images/ipad.png' | asset_url}}" alt="iPad" style="float: left;" />
         <h2>And this will be your third slide.</h2>
-        <p>
-          {% lorem 1 paragraphs %}
-        </p>
-        <a href="#" class="button">Read More</a>
-      </li>
-      <li>
-        <img src="/mm_cms/themes/defraction/images/browser.png" alt="iPad" style="float: left;" />
-        <h2>This will be your fourth slide and you can easily add more! As many as you want!</h2>
         <p>
           {% lorem 1 paragraphs %}
         </p>
@@ -43,7 +35,7 @@
   </div>
 
   <div class="message">
-    <a href="{{'portfolio' | site_url}}" class="portfolio-button">View Our Portfolio</a>
+    <a href="{{'portfolio' | url}}" class="portfolio-button">View Our Portfolio</a>
     <h3>{{page.data.message}}</h3>
   </div>
 
@@ -53,7 +45,7 @@
     <p>
       {% lorem 1 paragraphs %}
     </p>
-    <a href="{{'services' | site_url}}" class="button">Read More</a>
+    <a href="{{'services' | url}}" class="button">Read More</a>
   </div>
   <div class="column">
     <img src="{{'images/quote.gif' | asset_url}}" alt="Reason #3" style="float: left;" />
@@ -69,7 +61,7 @@
     <p>
       {% lorem 1 paragraphs %}
     </p>
-    <a href="{{'portfolio' | site_url}}" class="button">Read More</a>
+    <a href="{{'portfolio' | url}}" class="button">Read More</a>
   </div>
 </div>
 

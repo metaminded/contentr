@@ -51,7 +51,7 @@ $(document).ready(function(){
 <div id="header">
   <!-- Start Logo -->
   <div id="logo">
-    <a href="{{'' | site_url}}"><img src="{{'images/logo.gif' | asset_url}}" alt="Defraction" /></a>
+    <a href="{{'' | url}}"><img src="{{'images/logo.gif' | asset_url}}" alt="Defraction" /></a>
   </div>
 
   <!-- Start searchbar -->
@@ -64,17 +64,17 @@ $(document).ready(function(){
     <ul class="sf-menu">
       {% nav %}
         <li>
-          <a href="{{page.path | site_url}}"><strong>{{page.name}}</strong><span>{{page.description}}</span></a>
+          <a href="{{page.path | url}}"><strong>{{page.name}}</strong><span>{{page.description}}</span></a>
           {% if page.has_children %}
             <ul>
               {% nav for page %}
                 <li>
-                  <a href="{{page.path | site_url}}">{{page.name}}</a>
+                  <a href="{{page.path | url}}">{{page.name}}</a>
                   {% if page.has_children %}
                     <ul>
                       {% nav for page %}
                         <li>
-                          <a href="{{page.path | site_url}}">{{page.name}}</a>
+                          <a href="{{page.path | url}}">{{page.name}}</a>
                         </li>
                       {% endnav %}
                     </ul>
