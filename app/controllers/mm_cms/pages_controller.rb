@@ -3,7 +3,7 @@
 class MmCms::PagesController < MmCms::ApplicationController
 
   # Global filters, setup, etc.
-  before_filter :setup_site, :setup_liquid
+  before_filter :setup_site, :setup_locale, :setup_liquid
 
   # (Naive) template caching
   @@cached_templates = {}
@@ -28,6 +28,11 @@ protected
 
   def setup_site
     @site = MmCms::Site.new # Site is a singleton. FIXME!!
+  end
+
+  def setup_locale
+    # if params[:locale] is nil then I18n.default_locale will be used
+    I18n.locale = params[:locale]
   end
 
   #######################################################################################
@@ -117,10 +122,16 @@ protected
     theme_name = params[:__theme] if params[:__theme].present?
     theme_path = theme_name.present? ? File.join(@site.themes_path, theme_name) : @site.theme_path
 
-    # load the template
+    # is there localized version of the template?
+    if (I18n.locale != I18n.default_locale)
+      liquid_template = File.join(theme_path, layout ? "#{name}.#{I18n.locale}.layout.html" : "#{name}.#{I18n.locale}.template.html")
+      return File.read(liquid_template) if File.exists?(liquid_template)
+    end
+
+    # no localized version available or using the default locale
+    # lets find the default template
     liquid_template = File.join(theme_path, layout ? "#{name}.layout.html" : "#{name}.template.html")
     raise "No such template file #{liquid_template}" unless File.exists?(liquid_template)
-
     File.read(liquid_template)
   end
 

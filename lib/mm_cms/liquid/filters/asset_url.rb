@@ -6,7 +6,20 @@ module MmCms::Liquid::Filters::AssetUrl
     site = @context['site']
     theme_name = site.theme_name
     if source.present? and theme_name.present?
-      File.join('/', 'mm_cms', 'themes', theme_name, source)
+      baseurl  = File.join('mm_cms', 'themes', theme_name)
+      basepath = File.join(Rails.root, 'public', baseurl)
+      path     = source
+
+      if (I18n.locale != I18n.default_locale)
+        dirname  = File.dirname(path)
+        extname  = File.extname(path)
+        filename = File.basename(path, extname)
+        lfilename = "#{filename}.#{I18n.locale}#{extname}"
+        file = File.join(basepath, dirname, lfilename)
+        return File.join('/', baseurl, dirname, lfilename) if File.exists?(file)
+      end
+
+      File.join('/', baseurl, path)
     else
       ""
     end
