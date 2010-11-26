@@ -12,8 +12,8 @@ class MmCms::PagesController < MmCms::ApplicationController
     path = params[:path]
     return redirect_to cms_url(:path => @site.default_page_path) if path.blank?
 
-    @item = MmCms::Page.find_by_path(path)
-    @item.present? ? render_page : render_page_not_found
+    @page = MmCms::Page.find_by_path(path)
+    @page.present? ? render_page : render_page_not_found
   end
 
 protected
@@ -52,8 +52,8 @@ protected
   def render_liquid_template(options = {})
     # Merge the options hash with some useful defaults
     options = {
-      :layout    => @item.layout,
-      :template  => @item.template,
+      :layout    => @page.layout,
+      :template  => @page.template,
       :assigns   => {},
       :registers => {}
     }.merge(options)
@@ -63,11 +63,13 @@ protected
 
     # Global assignments that are always available
     options[:assigns]['request_params'] = request.params
-    options[:assigns]['item']           = @item
+    options[:assigns]['page']           = @page
     options[:assigns]['site']           = @site
 
     # Global registers that are always available
     options[:registers]['controller'] = self
+    options[:registers]['page']       = @page
+    options[:registers]['site']       = @site
 
     # Load the template identified by the given template name.
     template_file    = get_liquid_template(options[:template])

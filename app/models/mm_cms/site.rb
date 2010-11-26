@@ -22,10 +22,6 @@ module MmCms
       'home'
     end
 
-    def navigation
-      MmCms::Page.all
-    end
-
     def to_liquid
       MmCms::SiteLiquidProxy.new(self)
     end
@@ -39,10 +35,6 @@ module MmCms
 
     def theme_name
       @site.theme_name
-    end
-
-    def navigation
-      @site.navigation
     end
   end
 

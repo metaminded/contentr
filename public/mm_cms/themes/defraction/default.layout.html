@@ -62,70 +62,30 @@ $(document).ready(function(){
   <!-- Start page navigation -->
   <div id="navigation">
     <ul class="sf-menu">
-    {% for item in site.navigation %}
-      <li><a href="{{item.path | site_url }}"><strong>{{item.name}}</strong><span>{{item.description}}</span></a></li>
-    {% endfor %}
-    </ul>
-
-    <!--
-    <ul class="sf-menu">
-      <li>
-        <a href="index.html"><strong>Home</strong><span>homepage</span></a>
-        <ul>
-          <li><a href="index.html">Home Style 1</a></li>
-          <li><a href="index-two.html">Home Style 2</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="services.html"><strong>Services</strong><span>what we do</span></a>
-        <ul>
-          <li>
-            <a href="default.html">Standard Layout</a>
-          </li>
-          <li>
-            <a href="footer-threecolumn.html">Three Column Footer</a>
-          </li>
-          <li>
-            <a href="#">Sub Menu 1</a>
+      {% nav %}
+        <li>
+          <a href="{{page.path | site_url}}"><strong>{{page.name}}</strong><span>{{page.description}}</span></a>
+          {% if page.has_children %}
             <ul>
-              <li><a href="#">Sub Menu 2</a></li>
+              {% nav for page %}
+                <li>
+                  <a href="{{page.path | site_url}}">{{page.name}}</a>
+                  {% if page.has_children %}
+                    <ul>
+                      {% nav for page %}
+                        <li>
+                          <a href="{{page.path | site_url}}">{{page.name}}</a>
+                        </li>
+                      {% endnav %}
+                    </ul>
+                  {% endif %}
+                </li>
+              {% endnav %}
             </ul>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a href="portfolio.html"><strong>Portfolio</strong><span>our work</span></a>
-        <ul>
-          <li>
-            <a href="portfolio.html">Portfolio Style 1</a>
-          </li>
-          <li>
-            <a href="portfolio-onecolumn.html">Portfolio Style 2</a>
-          </li>
-          <li>
-            <a href="detailed.html">Detailed Portfolio</a>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a href="about.html"><strong>About Us</strong><span>our story</span></a>
-      </li>
-      <li>
-        <a href="blog.html"><strong>Blog</strong><span>get updated</span></a>
-        <ul>
-          <li>
-            <a href="blog.html">Blog Index</a>
-          </li>
-          <li>
-            <a href="single.html">Blog Post</a>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a href="contact.php"><strong>Contact Us</strong><span>get in touch</span></a>
-      </li>
+          {% endif %}
+        </li>
+      {% endnav %}
     </ul>
-    -->
   </div>
 </div>
 <!-- END HEADER AREA -->

@@ -9,10 +9,10 @@ module MmCms
     include Mongoid::Tree
 
     # Fields & Relations
-    field :name
-    field :description
-    field :slug, :index => true
-    field :path, :index => true
+    field :name,        :type => String
+    field :description, :type => String
+    field :slug,        :type => String,  :index => true
+    field :path,        :type => String,  :index => true
     embeds_many :data, :class_name => 'MmCms::Data::Item' do
       def get(name)
         @target.select { |data| data.name == name }.first
@@ -84,6 +84,15 @@ module MmCms
     def path
       @item.path
     end
+
+    def has_children
+      @item.children.count > 0
+    end
+
+    def children
+      @item.children
+    end
+
   end
 
   ##

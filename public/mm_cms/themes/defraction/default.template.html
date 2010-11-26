@@ -11,23 +11,23 @@
 <div id="sub-content">
   <!-- Start content section left of sidebar -->
   <div id="content">
-    You are on page: {{item.name}} ({{item.path}})<br/>
-    Your template: {{item.template}}
+    You are on page: {{page.name}} ({{page.path}})<br/>
+    Your template: {{page.template}}
   </div>
   <!-- End Content -->
 
   <!-- START THE SIDEBAR -->
   <div id="sidebar">
-    <h3>Sub Navigation</h3>
-    <ul>
-      <li><a href="portfolio.html">Portfolio</a></li>
-      <li><a href="portfolio-onecolumn.html">Portfolio Style 2</a></li>
-      <li><a href="detailed.html">Detailed Portfolio Page</a></li>
-      <li><a href="blog.html">Blog</a></li>
-      <li><a href="single.html">Singe Blog Post</a></li>
-      <li><a href="footer-threecolumn.html">Three Column Footer</a></li>
-      <li><a href="fullwidth.html">Fullwidth Page</a></li>
-    </ul>
+    {% if page.has_children %}
+      <h3>Sub Navigation</h3>
+      <ul>
+        {% nav for page %}
+          <li>
+            <a href="{{page.path | site_url}}">{{page.name}}</a>
+          </li>
+        {% endnav %}
+      </ul>
+    {% endif %}
 
     <!-- Divide sections -->
     <div class="divider"></div>
