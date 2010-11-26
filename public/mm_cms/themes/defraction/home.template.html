@@ -4,65 +4,73 @@
 
 <!-- Start Content -->
 <div id="home-content">
-<h2 class="welcome">Welcome to Defraction! We design beautiful websites! {{item.name}}</h2>
-    <div id="bxslider">
-      <ul id="bx">
-        <li>
-            <img src="/mm_cms/themes/defraction/images/ipad.png" alt="iPad" style="float: left;" />
-            <h2>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</h2>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-been the industrys standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy
-text of the printing and typesetting industry.</p>
-      <a href="#" class="button">Read More</a>
-
-          </li>
-            <li>
-            <img src="/mm_cms/themes/defraction/images/browser.png" alt="iPad" style="float: left;" />
-            <h2>This Will Be Your Second Slide</h2>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-been the industrys standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy
-text of the printing and typesetting industry.</p>
-      <a href="#" class="button">Read More</a>
-          </li>
-            <li>
-            <img src="/mm_cms/themes/defraction/images/ipad.png" alt="iPad" style="float: left;" />
-            <h2>And this will be your third slide.</h2>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-been the industrys standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy
-text of the printing and typesetting industry.</p>
-      <a href="#" class="button">Read More</a>
-          </li>
-            <li>
-            <img src="/mm_cms/themes/defraction/images/browser.png" alt="iPad" style="float: left;" />
-            <h2>This will be your fourth slide and you can easily add more! As many as you want!</h2>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-been the industrys standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy
-text of the printing and typesetting industry.</p>
-      <a href="#" class="button">Read More</a>
-          </li>
-        </ul>
-    </div>
-
-    <div class="message">
-      <a href="#" class="portfolio-button">View Our Portfolio</a>
-      <h3>Lorem Ipsum is simply dummy text of the printing and typesetting<br />industry. It's been the standard dummy text since the 1500's!</h3>
-    </div>
-
-    <div class="column">
-      <img src="/mm_cms/themes/defraction/images/gears.gif" alt="Reason #3" style="float: left;" /><h3>Our Services</h3>
-        <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+  <h2 class="welcome">{{page.data.welcome_headline}}</h2>
+  <div id="bxslider">
+    <ul id="bx">
+      <li>
+        <img src="/mm_cms/themes/defraction/images/ipad.png" alt="iPad" style="float: left;" />
+        <h2>This Will Be Your First Slide</h2>
+        <p>
+          {% lorem 1 paragraphs %}
+        </p>
         <a href="#" class="button">Read More</a>
-    </div>
-    <div class="column">
-      <img src="/mm_cms/themes/defraction/images/quote.gif" alt="Reason #3" style="float: left;" /><h3>Customer Support</h3>
-        <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+      </li>
+      <li>
+        <img src="/mm_cms/themes/defraction/images/browser.png" alt="iPad" style="float: left;" />
+        <h2>This Will Be Your Second Slide</h2>
+        <p>
+          {% lorem 1 paragraphs %}
+        </p>
         <a href="#" class="button">Read More</a>
-    </div>
-    <div class="column">
-      <img src="/mm_cms/themes/defraction/images/portfolioicon.gif" alt="Reason #3" style="float: left;" /><h3>Our Portfolio</h3>
-        <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+      </li>
+      <li>
+        <img src="/mm_cms/themes/defraction/images/ipad.png" alt="iPad" style="float: left;" />
+        <h2>And this will be your third slide.</h2>
+        <p>
+          {% lorem 1 paragraphs %}
+        </p>
         <a href="#" class="button">Read More</a>
-    </div>
+      </li>
+      <li>
+        <img src="/mm_cms/themes/defraction/images/browser.png" alt="iPad" style="float: left;" />
+        <h2>This will be your fourth slide and you can easily add more! As many as you want!</h2>
+        <p>
+          {% lorem 1 paragraphs %}
+        </p>
+        <a href="#" class="button">Read More</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="message">
+    <a href="{{'portfolio' | site_url}}" class="portfolio-button">View Our Portfolio</a>
+    <h3>{{page.data.message}}</h3>
+  </div>
+
+  <div class="column">
+    <img src="{{'images/gears.gif' | asset_url}}" alt="Reason #3" style="float: left;" />
+    <h3>Our Services</h3>
+    <p>
+      {% lorem 1 paragraphs %}
+    </p>
+    <a href="{{'services' | site_url}}" class="button">Read More</a>
+  </div>
+  <div class="column">
+    <img src="{{'images/quote.gif' | asset_url}}" alt="Reason #3" style="float: left;" />
+    <h3>Customer Support</h3>
+    <p>
+      {% lorem 1 paragraphs %}
+    </p>
+    <a href="#" class="button">Read More</a>
+  </div>
+  <div class="column">
+    <img src="{{'images/portfolioicon.gif' | asset_url}}" alt="Reason #3" style="float: left;" />
+    <h3>Our Portfolio</h3>
+    <p>
+      {% lorem 1 paragraphs %}
+    </p>
+    <a href="{{'portfolio' | site_url}}" class="button">Read More</a>
+  </div>
 </div>
 
 <!-- Start home bottom -->

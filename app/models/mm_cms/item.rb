@@ -7,6 +7,7 @@ module MmCms
     # Includes
     include Mongoid::Document
     include Mongoid::Tree
+    include Mongoid::Tree::Ordering
 
     # Fields & Relations
     field :name,        :type => String
@@ -65,9 +66,9 @@ module MmCms
       MmCms::ItemDataLiquidProxy.new(@item.data)
     end
 
-    def dataset
-      @item.data
-    end
+    #def dataset
+    #  @item.data
+    #end
 
     def name
       @item.name
@@ -90,7 +91,7 @@ module MmCms
     end
 
     def children
-      @item.children
+      @item.children.asc(:position)
     end
 
   end

@@ -1,5 +1,6 @@
-# create some dummy data
-
+#
+# Create some pages
+#
 home_page      = MmCms::Page.create!(:name => 'Home', :description => 'homework', :template => 'home')
 services_page  = MmCms::Page.create!(:name => 'Services', :description => 'what we do')
 portfolio_page = MmCms::Page.create!(:name => 'Portfolio', :description => 'our work')
@@ -9,9 +10,20 @@ subpage_2 = MmCms::Page.create!(:name => 'Services Subpage 2', :parent => servic
 
 sub_subpage_1 = MmCms::Page.create!(:name => 'Sub Sub Page 1', :parent => subpage_1)
 
-#page2 = MmCms::Page.create!(:name => 'Page 2', :parent => page1)
-#page2.data << MmCms::Data::StringData.new(:name => 'foo', :string_value => 'Hello world.')
-#page2.data << MmCms::Data::StringData.new(:name => 'bar', :string_value => 'Here we go.')
-#page2.save!
+#
+# Create some data for the homepage
+#
+home_page.data << MmCms::Data::StringData.new(
+  :name  => 'welcome_headline',
+  :value => 'Welcome to Defraction! We design beautiful websites!'
+)
+home_page.data << MmCms::Data::StringData.new(
+  :name  => 'message',
+  :value => 'Lorem Ipsum is simply dummy text of the printing and typesetting<br />industry. It\'s been the standard dummy text since the 1500\'s!'
+)
+home_page.save!
 
+#
+# Finished we are!
+#
 puts "Dummy data created!"

@@ -12,6 +12,7 @@ gem 'haml'
 gem 'liquid'
 gem 'stringex'
 gem 'json'
+gem 'lorem'
 
 group :development, :test do
   gem 'rspec'

@@ -16,9 +16,9 @@ class MmCms::Liquid::Tags::Nav < ::Liquid::Block
     current_page = context[@page_name]
     pages = []
     if (current_page.present?)
-      pages = current_page.children
+      pages = current_page.children.asc(:position)
     else
-      pages = MmCms::Page.roots
+      pages = MmCms::Page.roots.asc(:position)
     end
 
     result = []

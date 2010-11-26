@@ -54,6 +54,7 @@ GEM
       thor (~> 0.14.4)
     json (1.4.6)
     liquid (2.2.2)
+    lorem (0.1.2)
     mail (2.2.10)
       activesupport (>= 2.3.6)
       i18n (~> 0.4.1)
@@ -122,6 +123,7 @@ DEPENDENCIES
   jquery-rails
   json
   liquid
+  lorem
   mongoid (= 2.0.0.beta.20)
   mongoid-tree!
   rails (= 3.0.3)
