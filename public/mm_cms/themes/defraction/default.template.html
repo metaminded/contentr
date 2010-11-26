@@ -1,6 +1,9 @@
 <!-- Start breadcrumbs section -->
 <div class="breadcrumbs">
-  <a href="index.html">Home</a> &raquo; Standard Layout
+  <a href="{{'' | site_url}}">Home</a>
+  {% breadcrumb %}
+    &raquo; <a href="{{page.path | site_url}}">{{page.name}}</a>
+  {% endbreadcrumb %}
 </div>
 
 <!-- Sub top for content area top image -->
