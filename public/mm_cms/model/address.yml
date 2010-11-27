@@ -1,0 +1,19 @@
+address:
+  label: Adresse
+  description: Adresse wie sie im Buche steht.
+  fields:
+    firstname:
+      label: Vorname
+      description: Der Vorname
+      type: String
+      required: true
+      format: '[A-Z][a-z]*'
+    age:
+      label: Alter
+      description: Das Alter von dem Sack
+      type: Integer
+      required: no
+      min_value: 18
+      max_value: 20
+      
+horst: asas

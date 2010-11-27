@@ -41,7 +41,7 @@ module MmCms
     def to_liquid
       MmCms::ItemLiquidProxy.new(self)
     end
-
+    
   protected
 
     def generate_slug
