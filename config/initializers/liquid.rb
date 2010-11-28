@@ -1,1 +1,1 @@
-require_dependency 'mm_cms/liquid'
+require 'mm_cms/liquid'
