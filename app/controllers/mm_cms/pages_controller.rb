@@ -25,21 +25,28 @@ protected
   end
 
   def setup_liquid
-    @liquid = MmCms::Liquid::RenderEngine.new(@site.themes_path, @site.theme_name, request)
+    theme_name = @site.theme_name
+    theme_name = params[:__theme] if params[:__theme].present?
+
+    @liquid = MmCms::Liquid::RenderEngine.new(@site.themes_path, theme_name)
   end
 
   def render_page
-    render :text => @liquid.render_template(@page.layout, @page.template,
+    # override layout by request if available
+    layout = @page.layout
+    layout = params[:__layout] if params[:__layout].present?
+
+    render :text => @liquid.render_template(layout, @page.template,
       :assigns   => {
         'request_params' => request.params,
         'page'           => @page,
         'site'           => @site
       },
       :registers => {
-        'controller' => self,
-        'request'    => request,
-        'page'       => @page,
-        'site'       => @site
+        'liquid'  => @liquid,
+        'request' => request,
+        'page'    => @page,
+        'site'    => @site
       }
     )
   end

@@ -19,11 +19,9 @@ module MmCms::Liquid::Tags
     end
 
     def render(context)
-      site    = context.registers['site']
-      request = context.registers['request']
+      liquid = context.registers['liquid']
 
-      if (site and request)
-        liquid  = MmCms::Liquid::RenderEngine.new(site.themes_path, site.theme_name, request)
+      if (liquid)
         partial = liquid.parse_template(@template_name)
         context.stack do
           @attributes.each do |key, value|

@@ -7,10 +7,9 @@ module MmCms::Liquid
     ##
     # Setup the Liquid template engine.
     #
-    def initialize(themes_path, theme_name, request)
+    def initialize(themes_path, theme_name)
       @themes_path = themes_path
       @theme_name  = theme_name
-      @request     = request
 
       Liquid::Template.file_system = Liquid::LocalFileSystem.new(@themes_path)
     end
@@ -27,9 +26,6 @@ module MmCms::Liquid
         :assigns   => {},
         :registers => {}
       }.merge(options)
-
-      # override layout by request if available
-      options[:layout] = @request.params[:__layout] if @request and @request.params[:__layout].present?
 
       # Load the template identified by the given template name.
       template_file    = parse_template(options[:template], 'template')
@@ -60,9 +56,7 @@ module MmCms::Liquid
       raise "Illegal template name '#{name}'" unless name =~ /^[a-zA-Z0-9_]+$/
       raise "Illegal template type '#{type}'" unless %w(template layout).member?(type)
 
-      # override theme by request if available
-      theme_name = @request.params[:__theme] if @request and @request.params[:__theme].present?
-      theme_path = theme_name.present? ? File.join(@themes_path, theme_name) : File.join(@themes_path, @theme_name)
+      theme_path = File.join(@themes_path, @theme_name)
 
       # is there localized version of the template?
       if (I18n.locale != I18n.default_locale)
