@@ -29,7 +29,7 @@ protected
   end
 
   def render_page
-    render :text => @liquid.render_liquid_template(@page.layout, @page.template,
+    render :text => @liquid.render_template(@page.layout, @page.template,
       :assigns   => {
         'request_params' => request.params,
         'page'           => @page,

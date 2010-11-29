@@ -19,7 +19,7 @@ module MmCms::Liquid
     # Renders a Liquid template (for the current action) together
     # with a Liquid layout.
     #
-    def render_liquid_template(layout, template, options = {})
+    def render_template(layout, template, options = {})
       # Merge the options hash with some useful defaults
       options = {
         :layout    => layout,
@@ -32,12 +32,12 @@ module MmCms::Liquid
       options[:layout] = @request.params[:__layout] if @request and @request.params[:__layout].present?
 
       # Load the template identified by the given template name.
-      template_file    = get_liquid_template(options[:template])
+      template_file    = parse_template(options[:template])
       template_content = template_file.render!(options[:assigns], { :registers => options[:registers] })
       options[:assigns]['content_for_layout'] = template_content
 
       # Load the Liquid layout file.
-      layout_file    = get_liquid_template(options[:layout], true)
+      layout_file    = parse_template(options[:layout], true)
       layout_content = layout_file.render!(options[:assigns], { :registers => options[:registers] })
 
       # Finally return the final result
@@ -47,8 +47,8 @@ module MmCms::Liquid
     ##
     # Loads and parses the a Liquid template
     #
-    def get_liquid_template(name, layout = false)
-      t = load_liquid_template(name, layout)
+    def parse_template(name, layout = false)
+      t = load_template(name, layout)
       return Liquid::Template.parse(t)
     end
 
@@ -56,7 +56,7 @@ module MmCms::Liquid
     # Loads a Liquid template for the current account from
     # the file system.
     #
-    def load_liquid_template(name, layout = false)
+    def load_template(name, layout = false)
       raise "Illegal template name '#{name}'" unless name =~ /^[a-zA-Z0-9_]+$/
 
       # override theme by request if available
