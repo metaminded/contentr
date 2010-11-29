@@ -32,12 +32,12 @@ module MmCms::Liquid
       options[:layout] = @request.params[:__layout] if @request and @request.params[:__layout].present?
 
       # Load the template identified by the given template name.
-      template_file    = parse_template(options[:template])
+      template_file    = parse_template(options[:template], 'template')
       template_content = template_file.render!(options[:assigns], { :registers => options[:registers] })
       options[:assigns]['content_for_layout'] = template_content
 
       # Load the Liquid layout file.
-      layout_file    = parse_template(options[:layout], true)
+      layout_file    = parse_template(options[:layout], 'layout')
       layout_content = layout_file.render!(options[:assigns], { :registers => options[:registers] })
 
       # Finally return the final result
@@ -47,8 +47,8 @@ module MmCms::Liquid
     ##
     # Loads and parses the a Liquid template
     #
-    def parse_template(name, layout = false)
-      t = load_template(name, layout)
+    def parse_template(name, type = 'template')
+      t = load_template(name, type)
       return Liquid::Template.parse(t)
     end
 
@@ -56,8 +56,9 @@ module MmCms::Liquid
     # Loads a Liquid template for the current account from
     # the file system.
     #
-    def load_template(name, layout = false)
+    def load_template(name, type = 'template')
       raise "Illegal template name '#{name}'" unless name =~ /^[a-zA-Z0-9_]+$/
+      raise "Illegal template type '#{type}'" unless %w(template layout).member?(type)
 
       # override theme by request if available
       theme_name = @request.params[:__theme] if @request and @request.params[:__theme].present?
@@ -65,13 +66,13 @@ module MmCms::Liquid
 
       # is there localized version of the template?
       if (I18n.locale != I18n.default_locale)
-        liquid_template = File.join(theme_path, layout ? "#{name}.#{I18n.locale}.layout.html" : "#{name}.#{I18n.locale}.template.html")
+        liquid_template = File.join(theme_path, "#{name}.#{I18n.locale}.#{type}.html")
         return File.read(liquid_template) if File.exists?(liquid_template)
       end
 
       # no localized version available or using the default locale
       # lets find the default template
-      liquid_template = File.join(theme_path, layout ? "#{name}.layout.html" : "#{name}.template.html")
+      liquid_template = File.join(theme_path, "#{name}.#{type}.html")
       raise "No such template file #{liquid_template}" unless File.exists?(liquid_template)
       File.read(liquid_template)
     end
