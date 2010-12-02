@@ -15,7 +15,7 @@ module MmCms
       @@models = mfiles.map do |mf|
         YAML.load_file(mf)
       end.inject({}) do |p,h|
-        p.merge h
+        p.merge(h)
       end.map |k,v|
         ItemDescription.new(k, v)
       end

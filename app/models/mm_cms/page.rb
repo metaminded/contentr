@@ -1,7 +1,7 @@
 module MmCms
   class Page < Item
     # Fields
-    field :layout, :default => 'default'
+    field :layout,   :default => 'default'
     field :template, :default => 'default'
 
     # Protect attributes from mass assignment
