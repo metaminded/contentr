@@ -1,6 +1,9 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.0.3'
+#gem 'rails', :git => 'git://github.com/rails/rails.git'
+#gem 'rack', :git => 'git://github.com/rack/rack.git'
+
 gem 'devise'
 gem 'mongoid'
 gem 'mm_cms', :path => File.expand_path('../../')

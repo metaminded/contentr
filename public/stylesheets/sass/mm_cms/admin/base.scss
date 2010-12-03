@@ -1,0 +1,43 @@
+/* Reset */
+@import 'reset';
+
+/* 960.gs */
+@import '960';
+
+/* Basics */
+body { font: 14px/1.5 'Helvetica Neue', Arial, 'Liberation Sans', FreeSans, sans-serif; color: #444; }
+
+hr { border: 0 #ccc solid; border-top-width: 1px; clear: both; height: 0; }
+
+/* Headings */
+h1 { font-size: 130%; }
+h2 { font-size: 120%; }
+h3 { font-size: 110%; }
+h4 { font-size: 100%; }
+h5 { font-size: 100%; }
+h6 { font-size: 100%; }
+
+/* Spacing */
+ol { list-style: decimal; }
+ul { list-style: disc; list-style-position: inside; }
+li { margin-left: 15px; }
+p,
+dl,
+hr,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ol,
+ul,
+pre,
+table,
+address,
+fieldset { margin: 0.25em 0; }
+
+/* Alignment */
+.align-left { text-align: left; }
+.align-right { text-align: right; }
+.align-center { text-align: center; }
