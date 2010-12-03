@@ -1,3 +1,5 @@
+require 'lorem'
+
 class MmCms::Liquid::Tags::Lorem < ::Liquid::Tag
 
   Syntax = /(\d+)\s+(\w+)/

@@ -2,4 +2,4 @@
 
 module MmCms::Liquid::Filters end
 
-Dir[File.dirname(__FILE__) + '/filters/*.rb'].each { |f| require_dependency f }
+Dir[File.dirname(__FILE__) + '/filters/*.rb'].each { |f| require f }

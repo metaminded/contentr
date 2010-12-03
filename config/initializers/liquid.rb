@@ -1,1 +1,0 @@
-require 'mm_cms/liquid'

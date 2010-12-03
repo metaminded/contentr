@@ -1,5 +1,7 @@
 # coding: utf-8
 
+require 'liquid'
+
 module MmCms::Liquid
 
   class RenderEngine

@@ -2,4 +2,4 @@
 
 module MmCms::Liquid::Drops end
 
-Dir[File.dirname(__FILE__) + '/drops/*.rb'].each { |f| require_dependency f }
+Dir[File.dirname(__FILE__) + '/drops/*.rb'].each { |f| require f }
