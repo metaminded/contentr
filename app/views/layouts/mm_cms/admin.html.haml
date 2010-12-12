@@ -4,10 +4,38 @@
   %head
     %title CMS Admin
     = stylesheet_link_tag('mm_cms/admin/base.css')
+    = stylesheet_link_tag('mm_cms/admin/admin.css')
     = javascript_include_tag('mm_cms/admin/jquery.min.js')
+    = javascript_include_tag('mm_cms/admin/hoverintent.js')
+    = javascript_include_tag('mm_cms/admin/superfish.js')
     = javascript_include_tag('mm_cms/admin/rails.js')
     = javascript_include_tag('mm_cms/admin/admin.js')
     = csrf_meta_tag
   %body
-    #content= yield
+    #toolbar-wrapper
+      #toolbar.container_12.clearfix
+        TOOLBAR
+
+    #header-wrapper
+      #header.container_12.clearfix
+        %h1.site-title My cool site!
+        #main-navigation.clearfix
+          = render 'mm_cms/admin/shared/main_navigation'
+
+    #main-wrapper
+      #main.container_12.clearfix= yield
+
+-#    #header-wrapper
+-#      #header.container_12
+-#        .clearfix
+-#          %h1.title MmCMS Admin
+-#        .clearfix
+-#          #main-navigation
+-#            = render 'mm_cms/admin/shared/main_navigation'
+-#
+-#    #stage-wrapper
+-#      #stage.container_12
+-#        %h1.title Dashboard
+-#
+
 

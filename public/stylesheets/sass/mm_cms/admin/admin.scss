@@ -1,0 +1,72 @@
+/* Global imports */
+@import 'utils';
+
+/* SF Menu */
+@import 'sfmenu';
+
+/* Basics */
+body {
+  background-image: url('/images/mm_cms/admin/body_bg.jpg');
+}
+
+/* Toolbar */
+#toolbar-wrapper {
+  $bg_color: #f0f0f0;
+  $bg_color2: #e9e9e9;
+  $border_color: #d0d0d0;
+  $color: #666;
+
+  @include gradient($bg_color, $bg_color2, 75%, 100%);
+  @include box_shadow($border_color, 0, 0, 4px);
+  border-bottom: 1px solid $border_color;
+  margin-bottom: 20px;
+
+  #toolbar {
+    color: $color;
+    text-shadow: #fff 1px 1px 0px;
+    font-size: 11px;
+    line-height: 39px;
+  }
+}
+
+
+/* Header */
+#header-wrapper {
+  $color: #222;
+  color: $color;
+
+  #header {
+    h1.site-title {
+      text-shadow: #fff 1px 1px 0px;
+      margin: 0;
+      padding: 0;
+      font-size: 120%;
+      font-weight: normal;
+      margin-bottom: 5px;
+    }
+
+    #main-navigation {
+      $bg_color: #292929;
+
+      @include border_radius(6px);
+      background-color: $bg_color;
+    }
+  }
+}
+
+#main-wrapper {
+  margin-top: 15px;
+
+  #main {
+    @include border_radius(6px);
+    background-color: #fff;
+    min-height: 450px;
+    border: 1px solid #cdcdcd;
+
+    .sidebar {
+      min-height: 450px; // !!!
+      background-color: #d3e3e5;
+    }
+  }
+}
+
