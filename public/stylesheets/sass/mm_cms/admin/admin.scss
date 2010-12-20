@@ -58,14 +58,65 @@ body {
   margin-top: 15px;
 
   #main {
+    $border_color: #c8c8c8;
+
     @include border_radius(6px);
+    overflow: hidden;
     background-color: #fff;
     min-height: 450px;
-    border: 1px solid #cdcdcd;
+    border: 1px solid $border_color;
+
+    .content {
+      padding-top: 15px;
+    }
 
     .sidebar {
+      $background_color: #d3e3e5;
+
       min-height: 450px; // !!!
-      background-color: #d3e3e5;
+      background-color: $background_color;
+      border-right: 1px solid $border_color;
+      text-shadow: lighten($background_color, 10%) 1px 1px 0px;
+      padding-top: 15px;
+
+      h3 {
+        maring: 0;
+        padding: 0 15px;
+        font-weight: bolder;
+        font-size: 100%;
+      }
+
+      ul {
+        $border_color: #cbd8da;
+        maring: 0;
+        padding: 0;
+        list-style: none;
+        border-top: 1px solid $border_color;
+
+        li {
+          padding: 5px 15px;
+          margin: 0;
+          border-bottom: 1px solid $border_color;
+          border-top: 1px solid lighten($border_color, 10%);
+          background-color: lighten($background_color, 2%);
+        }
+
+        li:hover {
+          background-color: lighten($background_color, 5%);
+        }
+
+        li.selected {
+          background-color: #fff;
+          font-weight: bold;
+          width: 201px;
+          border: none;
+        }
+      }
+    }
+
+    .sidebar.grid_3 {
+      margin-left: 0px;
+      width: 230px - 1px; // -1px border-right
     }
   }
 }
