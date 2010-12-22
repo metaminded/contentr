@@ -20,7 +20,8 @@ protected
   end
 
   def setup_locale
-    # if params[:locale] is nil then I18n.default_locale will be used
+    # If params[:locale] is nil then I18n.default_locale will be used
+    # TODO: setting the locale should be persisted for the session
     I18n.locale = params[:locale]
   end
 
@@ -32,7 +33,7 @@ protected
   end
 
   def render_page
-    # override layout by request if available
+    # Override layout by request if available
     layout = @page.layout
     layout = params[:__layout] if params[:__layout].present?
 
@@ -52,6 +53,7 @@ protected
   end
 
   def render_page_not_found
+    # TODO: Implement me!
     render :text => "No such page", :status => 404
   end
 
