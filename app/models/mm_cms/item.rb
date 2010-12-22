@@ -29,7 +29,7 @@ module MmCms
     before_validation :generate_slug
 
     def to_liquid
-      MmCms::ItemLiquidProxy.new(self)
+      MmCms::Liquid::Drops::ItemDrop.new(self)
     end
 
   protected
@@ -38,48 +38,5 @@ module MmCms
       self.slug = name.to_url
     end
 
-  end
-
-  ##
-  # TBD
-  #
-  class ItemLiquidProxy < ::Liquid::Drop
-
-    def initialize(item)
-      @item = item
-    end
-
-    def data
-      MmCms::ItemDataLiquidProxy.new(@item.data)
-    end
-
-    def name
-      @item.name
-    end
-
-    def description
-      @item.description
-    end
-
-    def slug
-      @item.slug
-    end
-
-  end
-
-  ##
-  # TBD
-  #
-  class ItemDataLiquidProxy < ::Liquid::Drop
-
-    def initialize(data)
-      @data = data
-    end
-
-    # method missing
-    def before_method(m)
-      @data.each { |d| return d if d.try(:name) == m }
-      nil
-    end
   end
 end

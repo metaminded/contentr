@@ -26,7 +26,7 @@ module MmCms
     end
 
     def to_liquid
-      PageLiquidProxy.new(self)
+      MmCms::Liquid::Drops::PageDrop.new(self)
     end
 
   protected
@@ -35,30 +35,5 @@ module MmCms
       self.path = self.ancestors_and_self.collect(&:slug).join('/')
     end
 
-  end
-
-  ##
-  # TBD
-  #
-  class PageLiquidProxy < ItemLiquidProxy
-    def layout
-      @item.layout
-    end
-
-    def template
-      @item.template
-    end
-
-    def path
-      @item.path
-    end
-
-    def has_children
-      @item.children.count > 0
-    end
-
-    def children
-      @item.children.asc(:position)
-    end
   end
 end
