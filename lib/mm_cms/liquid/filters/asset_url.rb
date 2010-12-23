@@ -3,8 +3,7 @@
 module MmCms::Liquid::Filters::AssetUrl
 
   def asset_url(source)
-    site = @context['site']
-    theme_name = site.theme_name
+    theme_name = @context['theme_name']
     if source.present? and theme_name.present?
       baseurl  = File.join('mm_cms', 'themes', theme_name)
       basepath = File.join(Rails.root, 'public', baseurl)

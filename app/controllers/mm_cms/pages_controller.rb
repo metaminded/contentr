@@ -3,21 +3,17 @@
 class MmCms::PagesController < MmCms::ApplicationController
 
   # Global filters, setup, etc.
-  before_filter :setup_site, :setup_locale, :setup_liquid
+  before_filter :setup_locale, :setup_liquid
 
   def show
     path = params[:path]
-    return redirect_to cms_url(:path => @site.default_page_path) if path.blank?
+    return redirect_to cms_url(:path => MmCms.default_page) if path.blank?
 
     @page = MmCms::Page.find_by_path(path)
     @page.present? ? render_page : render_page_not_found
   end
 
 protected
-
-  def setup_site
-    @site = MmCms::Site.new # Site is a singleton. FIXME!!
-  end
 
   def setup_locale
     # If params[:locale] is nil then I18n.default_locale will be used
@@ -26,10 +22,10 @@ protected
   end
 
   def setup_liquid
-    theme_name = @site.theme_name
+    theme_name = MmCms.theme_name
     theme_name = params[:_theme] if params[:_theme].present?
 
-    @liquid = MmCms::Liquid::RenderEngine.new(@site.themes_path, theme_name)
+    @liquid = MmCms::Liquid::RenderEngine.new(MmCms.themes_path, theme_name)
   end
 
   def render_page
@@ -41,13 +37,13 @@ protected
       :assigns   => {
         'request_params' => request.params,
         'page'           => @page,
-        'site'           => @site
+        'theme_name'     => MmCms.theme_name
       },
       :registers => {
-        'liquid'  => @liquid,
-        'request' => request,
-        'page'    => @page,
-        'site'    => @site
+        'liquid'     => @liquid,
+        'request'    => request,
+        'page'       => @page,
+        'theme_name' => MmCms.theme_name
       }
     )
   end
