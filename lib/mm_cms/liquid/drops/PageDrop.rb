@@ -7,7 +7,7 @@ module MmCms
       ##
       # TBD
       #
-      class PageDrop < ItemDrop
+      class PageDrop < NodeDrop
 
         def layout
           @item.layout
@@ -15,18 +15,6 @@ module MmCms
 
         def template
           @item.template
-        end
-
-        def path
-          @item.path
-        end
-
-        def has_children
-          @item.children.count > 0
-        end
-
-        def children
-          @item.children.asc(:position)
         end
 
       end
