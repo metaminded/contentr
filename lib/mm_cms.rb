@@ -16,6 +16,10 @@ require 'mm_cms/sass'
 
 module MmCms
 
+  # Site name
+  mattr_accessor :site_name
+  @@site_name
+
   # Themes path
   mattr_accessor :themes_path
   @@themes_path

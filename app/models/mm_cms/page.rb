@@ -11,8 +11,9 @@ module MmCms
     attr_accessible :layout, :template
 
     # Validation
-    validates_presence_of :layout
-    validates_presence_of :template
+    validates_presence_of  :layout
+    validates_presence_of  :template
+    validates_exclusion_of :name, :in => %w( admin )
 
     def to_liquid
       MmCms::Liquid::Drops::PageDrop.new(self)

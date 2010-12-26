@@ -26,6 +26,41 @@ body {
     text-shadow: #fff 1px 1px 0px;
     font-size: 11px;
     line-height: 39px;
+
+    span, img {
+      line-height: 39px;
+      vertical-align: middle;
+    }
+
+    .left {
+      text-align: left;
+      margin: 0;
+      width: 480px;
+      .title {
+        margin: 0;
+        padding: 0;
+      }
+    }
+
+    .right {
+      text-align: right;
+      margin: 0;
+      width: 480px;
+      .avatar {
+
+      }
+
+      .username {
+        margin-right: 15px;
+      }
+
+      .action {
+        margin-right: 8px;
+        a {
+          text-decoration: none;
+        }
+      }
+    }
   }
 }
 
@@ -80,7 +115,7 @@ body {
       padding-top: 15px;
 
       h3 {
-        maring: 0;
+        margin: 0;
         padding: 0 15px;
         font-weight: bolder;
         font-size: 100%;
@@ -88,17 +123,21 @@ body {
 
       ul {
         $border_color: #cbd8da;
-        maring: 0;
+        $border: 1px solid $border_color;
+        $highlighted_border: 1px solid lighten($border_color, 10%);
+
+        margin: 0;
         padding: 0;
         list-style: none;
-        border-top: 1px solid $border_color;
+        border-top: $border;
+        border-bottom: $highlighted_border;
 
         li {
-          padding: 5px 15px;
+          position: relative;
+          padding: 0;
           margin: 0;
-          border-bottom: 1px solid $border_color;
-          border-top: 1px solid lighten($border_color, 10%);
-          background-color: lighten($background_color, 2%);
+          border-bottom: $border;
+          border-top: $highlighted_border;
         }
 
         li:hover {
@@ -106,10 +145,22 @@ body {
         }
 
         li.selected {
-          background-color: #fff;
-          font-weight: bold;
-          width: 201px;
-          border: none;
+          background-color: lighten($background_color, 5%);
+
+          div.marker {
+            width: 14px;
+            height: 20px;
+            position: absolute;
+            right: -1px;
+            top: 7px;
+            background: lighten($background_color, 5%) url('/images/mm_cms/admin/sidebar_nav_selected_bg.png') no-repeat right center;
+          }
+        }
+
+        li a {
+          padding: 6px 15px;
+          text-decoration: none;
+          display: block;
         }
       }
     }

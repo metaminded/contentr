@@ -1,14 +1,4 @@
 %ul.sf-menu
-  %li
-    %a{:href => '#'} Item 1
-  %li.selected
-    %a{:href => '#'} Item 2
-    %ul
-      %li
-        %a{:href => '#'} Subitem 1
-      %li
-        %a{:href => '#'} Subitem 2
-      %li
-        %a{:href => '#'} Subitem 3
-  %li
-    %a{:href => '#'} Item 3
+  = main_menu_item(:title => 'Dashboard', :link => admin_dashboard_path, :selected => @mainmenu_id == 'dashboard')
+  = main_menu_item(:title => 'Pages', :link => admin_pages_path, :selected => @mainmenu_id == 'pages')
+  = main_menu_item(:title => 'Templates', :link => admin_templates_path, :selected => @mainmenu_id == 'templates')

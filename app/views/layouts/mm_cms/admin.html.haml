@@ -14,11 +14,11 @@
   %body
     #toolbar-wrapper
       #toolbar.container_12.clearfix
-        TOOLBAR
+        = render 'mm_cms/admin/shared/toolbar'
 
     #header-wrapper
       #header.container_12.clearfix
-        %h1.site-title My cool site!
+        %h1.site-title= MmCms.site_name
         #main-navigation.clearfix
           = render 'mm_cms/admin/shared/main_navigation'
 
