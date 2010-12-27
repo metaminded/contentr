@@ -11,11 +11,6 @@
     
     // section marker for the sidebar menu
     $('.sidebar ul li.selected').append('<div class="marker"></div>');
-    
-    // page tree menu
-    $('.page-tree').jstree({ 
-    	"plugins" : [ "html_data" ]
-    });
   });
   
 })(jQuery)

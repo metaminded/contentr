@@ -4,7 +4,9 @@ Rails.application.routes.draw do
     # Admin
     namespace :admin do
       match 'dashboard' => 'dashboard#index'
-      match 'pages' => 'pages#index'
+      resources 'pages' do
+        put 'reorder', :on => :member
+      end
       match 'templates' => 'templates#index'
       root :to => redirect { |params, request| "#{request.fullpath}/dashboard" }
     end

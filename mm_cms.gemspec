@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.add_dependency('rails', '~> 3.0.3')
   s.add_dependency('devise', '~> 1.1')
   s.add_dependency('mongoid', '~> 2.0.0.beta.20')
-  s.add_dependency('mongoid-tree', '~> 0.4')
+  s.add_dependency('mongoid-tree', '~> 0.5')
   s.add_dependency('bson_ext', '~> 1.1')
   s.add_dependency('cancan', '~> 1.4')
   s.add_dependency('haml', '~> 3.0')

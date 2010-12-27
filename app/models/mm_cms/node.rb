@@ -6,6 +6,7 @@ module MmCms
     # Includes
     include Mongoid::Tree
     include Mongoid::Tree::Ordering
+    include Mongoid::Tree::Traversal
 
     # Fields
     field :path, :type => String, :index => true
@@ -24,6 +25,10 @@ module MmCms
 
     def to_liquid
       MmCms::Liquid::Drops::NodeDrop.new(self)
+    end
+
+    def has_children?
+      self.children.count > 0
     end
 
   protected

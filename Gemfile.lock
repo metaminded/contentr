@@ -10,7 +10,7 @@ PATH
       liquid (~> 2.2)
       lorem (~> 0.1)
       mongoid (~> 2.0.0.beta.20)
-      mongoid-tree (~> 0.4)
+      mongoid-tree (~> 0.5)
       rails (~> 3.0.3)
       stringex (~> 1.2)
 
@@ -61,7 +61,7 @@ GEM
     json (1.4.6)
     liquid (2.2.2)
     lorem (0.1.2)
-    mail (2.2.12)
+    mail (2.2.13)
       activesupport (>= 2.3.6)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -136,7 +136,7 @@ DEPENDENCIES
   lorem (~> 0.1)
   mm_cms!
   mongoid (~> 2.0.0.beta.20)
-  mongoid-tree (~> 0.4)
+  mongoid-tree (~> 0.5)
   rails (~> 3.0.3)
   rspec
   rspec-rails

@@ -11,4 +11,20 @@ module MmCms::Admin::ApplicationHelper
     "http://gravatar.com/avatar/#{gravatar_id}.png?s=#{options[:size]}"
   end
 
+  def page_tree
+    _page_tree(MmCms::Page.roots.asc(:position))
+  end
+
+  private
+
+  def _page_tree(nodes)
+    if (nodes.present? and nodes.length > 0)
+      content_tag(:ul) do
+        nodes.each do |n|
+          concat(content_tag(:li, 'data-path' => n.path, 'data-id' => n.id) { link_to(n.name, '#') + _page_tree(n.children) })
+        end
+      end
+    end
+  end
+
 end
