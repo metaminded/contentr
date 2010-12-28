@@ -2,6 +2,6 @@
 
 class MmCms::Admin::ApplicationController < MmCms::ApplicationController
 
-  layout 'mm_cms/admin'
+  layout Proc.new { |c| c.request.xhr? ? false : 'mm_cms/admin' }
 
 end
