@@ -1,7 +1,16 @@
 - if @parent_page.present?
+  - if @parent_page.parent.present?
+    = link_to('Back', '#', 'class' => 'page-back', 'data-id' => @parent_page.parent.id)
+  - else
+    = link_to('Back', '#', 'class' => 'page-back', 'data-id' => '')
+
+- if @parent_page.present?
   %h3= @parent_page.name
 
 %ul
   - @pages.each do |p|
     %li
-      = link_to(p.name, '#', 'class' => 'page', 'data-id' => p.id, 'data-path' => p.path, 'data-children' => p.has_children?)
+      - if p.has_children?
+        = link_to(p.name, '#', 'class' => 'page', 'data-id' => p.id, 'data-children' => 'true')
+      - else
+        = link_to(p.name, '#', 'class' => 'page', 'data-id' => p.id)
