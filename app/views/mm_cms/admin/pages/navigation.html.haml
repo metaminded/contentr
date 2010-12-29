@@ -1,0 +1,7 @@
+- if @parent_page.present?
+  %h3= @parent_page.name
+
+%ul
+  - @pages.each do |p|
+    %li
+      = link_to(p.name, '#', 'class' => 'page', 'data-id' => p.id, 'data-path' => p.path, 'data-children' => p.has_children?)

@@ -1,3 +1,7 @@
+if (MMCMS === undefined) {
+  var MMCMS = {};
+}
+
 (function($) {
   
   $(function() {

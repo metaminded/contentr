@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     namespace :admin do
       match 'dashboard' => 'dashboard#index'
       resources 'pages' do
+        get 'navigation', :on => :collection
         put 'reorder', :on => :member
       end
       match 'templates' => 'templates#index'

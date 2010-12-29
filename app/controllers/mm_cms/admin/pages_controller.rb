@@ -2,9 +2,6 @@
 
 class MmCms::Admin::PagesController < MmCms::Admin::ApplicationController
 
-  respond_to :html, :js
-  respond_to :json, :only => [:show, :reorder]
-
   before_filter :setup
 
   def index
@@ -13,7 +10,6 @@ class MmCms::Admin::PagesController < MmCms::Admin::ApplicationController
 
   def show
     @page = MmCms::Page.find(params[:id])
-    respond_with(@page)
   end
 
   def update
@@ -31,7 +27,14 @@ class MmCms::Admin::PagesController < MmCms::Admin::ApplicationController
     @page.update_attributes(:parent => @new_parent)
     @sibling.present? ? @page.move_above(@sibling) : @page.move_to_bottom
 
-    respond_with(@page)
+    render :nothing => true, :status => 200
+  end
+
+  def navigation
+    parent_id = params[:parent_id]
+    @parent_page = parent_id.present? ? MmCms::Page.find(parent_id) : nil
+
+    @pages = @parent_page.present? ? @parent_page.children.asc(:position) : MmCms::Page.roots.asc(:position)
   end
 
   protected
