@@ -7,34 +7,9 @@
       
     }*/
     
-    var that;
-    
-    return {
+    var that = {
       init: function () {
-        that = this;
-        
         that.loadNavigation();
-        
-        // handle navigation
-        $('#page-tree a.page').live('click', function (e) {
-          var page_id = $(this).attr('data-id');
-          var has_children = $(this).attr('data-children');
-          
-          if (page_id) {
-            if (has_children) {
-              that.loadNavigation(page_id);
-              that.loadPage(page_id);
-            } else {
-              that.loadPage(page_id);
-            }
-          }
-        });
-        
-        // handle back navigation
-        $('#page-tree a.page-back').live('click', function (e) {
-          var parent_id = $(this).attr('data-id');
-          that.loadNavigation(parent_id);
-        });
       },
       
       loadNavigation: function (parent_id) {
@@ -67,13 +42,35 @@
         });
       }
     }
+    
+    // handle navigation
+    $('#page-tree a.page').live('click', function (e) {
+      var page_id = $(this).attr('data-id');
+      var has_children = $(this).attr('data-children');
+      
+      if (page_id) {
+        if (has_children) {
+          that.loadNavigation(page_id);
+          that.loadPage(page_id);
+        } else {
+          that.loadPage(page_id);
+        }
+      }
+    });
+    
+    // handle back navigation
+    $('#page-tree a.page-back').live('click', function (e) {
+      var parent_id = $(this).attr('data-id');
+      that.loadNavigation(parent_id);
+    });
+    
+    // finally return
+    return that;
   }());
   
-    
+  // On DOM ready, load the page tree navigation
   $(function() {
-    
     MMCMS.pageTree.init();
- 
   });
   
 })(jQuery)
