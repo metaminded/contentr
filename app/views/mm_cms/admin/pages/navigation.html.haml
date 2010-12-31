@@ -1,16 +1,16 @@
 - if @parent_page.present?
-  - if @parent_page.parent.present?
-    = link_to('Back', '#', 'class' => 'page-back', 'data-id' => @parent_page.parent.id)
-  - else
-    = link_to('Back', '#', 'class' => 'page-back', 'data-id' => '')
+  %div#backlink
+    - if @parent_page.parent.present?
+      = link_to('Back', '#', 'class' => 'backlink', 'data-id' => @parent_page.parent.id)
+    - else
+      = link_to('Back', '#', 'class' => 'backlink')
 
-- if @parent_page.present?
-  %h3= @parent_page.name
-
-%ul
+%ul.nav
+  - if (@parent_page.present?)
+    %li.root= link_to(@parent_page.name, '#', 'class' => 'page', 'data-id' => @parent_page.id)
   - @pages.each do |p|
-    %li
+    %li.child
       - if p.has_children?
-        = link_to(p.name, '#', 'class' => 'page', 'data-id' => p.id, 'data-children' => 'true')
+        = link_to("#{p.name} &raquo;".html_safe, '#', 'class' => 'page', 'data-id' => p.id, 'data-children' => 'true')
       - else
         = link_to(p.name, '#', 'class' => 'page', 'data-id' => p.id)

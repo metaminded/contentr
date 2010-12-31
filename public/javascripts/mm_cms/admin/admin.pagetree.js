@@ -12,7 +12,7 @@
         that.loadNavigation();
       },
       
-      loadNavigation: function (parent_id) {
+      loadNavigation: function (parent_id, is_back_nav) {
         $.ajax({
           async: true,
           type: 'get',
@@ -23,8 +23,8 @@
           success: function (r) {
             $('#page-tree').html(r);
             // Load the first page in the list
-            //var first_page_id = $('#page-tree a.page:first').attr('data-id');
-            //that.loadPage(first_page_id);
+            var first_page_id = $('#page-tree a.page:first').attr('data-id');
+            that.loadPage(first_page_id);
           }
         });
       },
@@ -33,25 +33,40 @@
         $.ajax({
           async: true,
           type: 'get',
-          url: './pages/' + page_id,
+          url: './pages/' + page_id + '/edit',
           data: {
           },
           success: function (r) {
+            // show the current page
             $('#page-content').html(r);
+            // after the page has been loaded remember the
+            // 'current page id' for later reference
+            var current_page_id = $('#page-content #page').attr('data-id');
+            // fire current page changed event
+            $('#page-tree').trigger('page-changed.pagetree', current_page_id);
           }
         });
+      },
+      
+      selectPage: function (page_id) {
+        $('#page-tree li').removeClass('selected');
+        var page = $('#page-tree a.page[data-id='+page_id+']');
+        if (page) {
+          $(page).closest('li').addClass('selected').append('<div class="marker"></div>');
+        }
       }
     }
     
     // handle navigation
     $('#page-tree a.page').live('click', function (e) {
+      e.preventDefault();
+      
       var page_id = $(this).attr('data-id');
       var has_children = $(this).attr('data-children');
       
       if (page_id) {
         if (has_children) {
           that.loadNavigation(page_id);
-          that.loadPage(page_id);
         } else {
           that.loadPage(page_id);
         }
@@ -59,9 +74,16 @@
     });
     
     // handle back navigation
-    $('#page-tree a.page-back').live('click', function (e) {
+    $('#page-tree a.backlink').live('click', function (e) {
+      e.preventDefault();
+      
       var parent_id = $(this).attr('data-id');
-      that.loadNavigation(parent_id);
+      that.loadNavigation(parent_id, true);
+    });
+    
+    // handle 'current page changed' event
+    $('#page-tree').live('page-changed.pagetree', function (e, current_page_id) {
+      that.selectPage(current_page_id);
     });
     
     // finally return

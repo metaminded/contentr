@@ -8,12 +8,14 @@ class MmCms::Admin::PagesController < MmCms::Admin::ApplicationController
 
   end
 
-  def show
+  def edit
     @page = MmCms::Page.find(params[:id])
   end
 
   def update
-
+    @page = MmCms::Page.find(params[:id])
+    @page.update_attributes(params[:page])
+    render :nothing => true
   end
 
   def reorder

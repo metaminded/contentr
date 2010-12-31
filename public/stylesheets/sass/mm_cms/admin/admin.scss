@@ -1,9 +1,6 @@
 /* Global imports */
 @import 'utils';
 
-/* SF Menu */
-@import 'sfmenu';
-
 /* Basics */
 body {
   background-image: url('/images/mm_cms/admin/body_bg.jpg');
@@ -114,6 +111,7 @@ body {
       border-right: 1px solid $border_color;
       text-shadow: lighten($background_color, 10%) 1px 1px 0px;
       padding-top: 15px;
+      //overflow: hidden;
 
       h3 {
         margin: 0;
@@ -122,6 +120,7 @@ body {
         font-size: 100%;
       }
 
+/*
       ul {
         $border_color: #cbd8da;
         $border: 1px solid $border_color;
@@ -164,6 +163,7 @@ body {
           display: block;
         }
       }
+*/
     }
 
     .sidebar.grid_3 {
@@ -173,3 +173,8 @@ body {
   }
 }
 
+/* SF Menu */
+@import 'sfmenu';
+
+/* Page tree */
+@import 'pagetree';

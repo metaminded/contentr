@@ -3,6 +3,7 @@
 require 'rails'
 require 'devise'
 require 'cancan'
+require 'simple_form'
 require 'mongoid'
 require 'mongoid/tree'
 require 'haml'
@@ -41,6 +42,36 @@ module MmCms
   # The path to the configured theme
   def self.theme_path
     File.join(self.themes_path, theme_name)
+  end
+
+  # Returns a list of available template files
+  def self.template_files
+    Dir.glob("#{self.theme_path}/*.template.html")
+  end
+
+  # Returns a list of available templates
+  def self.templates
+    template_or_layout_files_to_logical_names(self.template_files)
+  end
+
+  # Returns a list of available layout files
+  def self.layout_files
+    Dir.glob("#{self.theme_path}/*.layout.html")
+  end
+
+  # Returns a list of available layouts
+  def self.layouts
+    template_or_layout_files_to_logical_names(self.layout_files)
+  end
+
+protected
+
+  def self.template_or_layout_files_to_logical_names(files)
+    files
+      .map{ |f| File.basename(f) if File.file?(f) } # basename
+      .map{ |f| f unless f =~ /.*\..{2}\..*/ }      # strip i18n naming convention
+      .map{ |f| f.slice(/(.[^.]+)/) if f }          # we need only the name part
+      .compact                                      # get rid of nil
   end
 
 end

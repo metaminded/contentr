@@ -1,0 +1,68 @@
+/* Global imports */
+@import 'utils';
+
+#page-tree {
+
+  #backlink {
+    margin-bottom: 5px;
+    padding: 0 15px;
+
+    a {
+      text-decoration: none;
+    }
+  }
+
+  ul.nav {
+    $background_color: #d3e3e5;
+    $border_color: #cbd8da;
+    $border: 1px solid $border_color;
+    $highlighted_border: 1px solid lighten($border_color, 10%);
+
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: $border;
+    border-bottom: $highlighted_border;
+
+    li {
+      position: relative;
+      margin: 0;
+      padding: 0;
+      border-bottom: $border;
+      border-top: $highlighted_border;
+
+      a {
+        padding: 6px 15px;
+        text-decoration: none;
+        display: block;
+      }
+    }
+
+    li:hover {
+      background-color: lighten($background_color, 5%);
+    }
+
+    li.selected {
+      background-color: lighten($background_color, 5%);
+
+      div.marker {
+        width: 14px;
+        height: 20px;
+        position: absolute;
+        right: -1px;
+        top: 7px;
+        background: lighten($background_color, 5%) url('/images/mm_cms/admin/sidebar_nav_selected_bg.png') no-repeat right center;
+      }
+    }
+
+    li.root {
+      font-weight: bold;
+    }
+
+    li.child {
+      a {
+        padding-left: 25px;
+      }
+    }
+  }
+}

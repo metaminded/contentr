@@ -14,6 +14,7 @@ Gem::Specification.new do |s|
   s.add_dependency('stringex', '~> 1.2')
   s.add_dependency('json', '~> 1.4')
   s.add_dependency('lorem', '~> 0.1')
+  s.add_dependency('simple_form', '~> 1.3.0')
 
   s.authors = ["René Sprotte", "Dr. Peter Horn"]
   s.description = %q{MmCms is a Content Management System (CMS) that plugs into any Rails application as an engine.}
