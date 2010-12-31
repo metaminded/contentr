@@ -54,7 +54,7 @@ module MmCms::Liquid
     #
     def load_template(name, type = 'template')
       raise "Illegal template name '#{name}'" unless name =~ /^[a-zA-Z0-9_]+$/
-      raise "Illegal template type '#{type}'" unless %w(template layout).member?(type)
+      raise "Illegal template type '#{type}'" unless %w(template layout include).member?(type)
 
       theme_path = File.join(@themes_path, @theme_name)
 

@@ -22,7 +22,7 @@ module MmCms::Liquid::Tags
       liquid = context.registers['liquid']
 
       if (liquid)
-        partial = liquid.parse_template(@template_name)
+        partial = liquid.parse_template(@template_name, 'include')
         context.stack do
           @attributes.each do |key, value|
             context[key] = context[value]

@@ -28,7 +28,7 @@ module MmCms
     attr_accessible :name, :description, :parent
 
     # Callbacks
-    before_validation :generate_slug
+    before_save :generate_slug
 
     def to_liquid
       MmCms::Liquid::Drops::ItemDrop.new(self)

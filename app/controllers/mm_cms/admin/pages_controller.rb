@@ -2,6 +2,9 @@
 
 class MmCms::Admin::PagesController < MmCms::Admin::ApplicationController
 
+  respond_to :html
+  respond_to :json, :only => :update
+
   before_filter :setup
 
   def index
@@ -14,8 +17,11 @@ class MmCms::Admin::PagesController < MmCms::Admin::ApplicationController
 
   def update
     @page = MmCms::Page.find(params[:id])
-    @page.update_attributes(params[:page])
-    render :nothing => true
+    if @page.update_attributes(params[:page])
+      redirect_to :action => :edit
+    else
+      render :edit
+    end
   end
 
   def reorder

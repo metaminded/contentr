@@ -54,6 +54,10 @@
         if (page) {
           $(page).closest('li').addClass('selected').append('<div class="marker"></div>');
         }
+      },
+      
+      updatePage: function () {
+        
       }
     }
     
@@ -84,6 +88,16 @@
     // handle 'current page changed' event
     $('#page-tree').live('page-changed.pagetree', function (e, current_page_id) {
       that.selectPage(current_page_id);
+    });
+    
+    // handle page editor submit
+    $('#page-content .page-editor').live('submit', function (e) {
+      e.preventDefault();
+      $(this).ajaxSubmit({
+        success: function (r) {
+          $('#page-content').html(r);
+        }
+      }); 
     });
     
     // finally return
