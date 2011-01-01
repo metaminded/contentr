@@ -1,0 +1,5 @@
+main_content:
+  label: Main Content
+  description: The main content
+  type: String
+  required: false

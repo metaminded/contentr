@@ -17,7 +17,28 @@ class MmCms::Admin::PagesController < MmCms::Admin::ApplicationController
 
   def update
     @page = MmCms::Page.find(params[:id])
-    if @page.update_attributes(params[:page])
+
+    # create/update page data
+    model = MmCms.page_model(@page.template)
+    if (model.present?)
+      data  = params[:page][:data]
+
+      @page.data.delete_all
+      data.each do |name, data|
+        dd = model.get_description(name)
+        if dd.present?
+          case dd.type
+          when 'string'
+            @page.data << MmCms::Data::StringData.new(:name => name, :value => data['value'])
+          end
+          @page.save!
+        end
+      end
+    end
+
+    # update page
+    @page.write_attributes(params[:page])
+    if @page.save
       redirect_to :action => :edit
     else
       render :edit

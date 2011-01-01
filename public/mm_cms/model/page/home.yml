@@ -1,0 +1,15 @@
+welcome_headline:
+  label: Headline
+  description: The headline at the top
+  type: String
+  required: true
+message:
+  label: Message
+  description: Our sales slogan
+  type: String
+  required: true
+#moo:
+#  label: Moo
+#  description: The cow makes moo
+#  type: String
+#  required: false

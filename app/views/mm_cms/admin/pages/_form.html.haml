@@ -3,4 +3,8 @@
   = f.input :template, :collection => MmCms.templates, :prompt => false
   = f.input :name
   = f.input :slug
+
+  = f.simple_fields_for :data do |df|
+    = data_form_fields_for(df, @page)
+
   = f.button :submit
