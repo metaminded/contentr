@@ -19,5 +19,14 @@ module MmCms
       MmCms::Liquid::Drops::PageDrop.new(self)
     end
 
+    validate :moo
+
+    protected
+
+    def moo
+      errors[:base] << "This person is invalid because ..."
+      errors.add(:page_data_value, 'dddd')
+    end
+
   end
 end

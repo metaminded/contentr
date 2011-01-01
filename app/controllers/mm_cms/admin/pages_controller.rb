@@ -24,21 +24,23 @@ class MmCms::Admin::PagesController < MmCms::Admin::ApplicationController
       data  = params[:page][:data]
 
       @page.data.delete_all
+      @page.reload
       data.each do |name, data|
         dd = model.get_description(name)
         if dd.present?
           case dd.type
+          when 'text'
+            @page.data << MmCms::Data::TextData.new(:name => name, :value => data['value'])
           when 'string'
             @page.data << MmCms::Data::StringData.new(:name => name, :value => data['value'])
           end
-          @page.save!
+          @page.save
         end
       end
     end
 
     # update page
-    @page.write_attributes(params[:page])
-    if @page.save
+    if @page.update_attributes(params[:page])
       redirect_to :action => :edit
     else
       render :edit

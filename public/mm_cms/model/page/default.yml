@@ -1,5 +1,5 @@
 main_content:
   label: Main Content
   description: The main content
-  type: String
+  type: Text
   required: false

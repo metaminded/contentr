@@ -1,3 +1,8 @@
 - if data_description.type == 'string'
-  = form.simple_fields_for data_description.name.to_sym do |df|
-    = df.input :value, :label => data_description.label, :input_html => {:value => @page.data.get(data_description.name).try(:value)}, :hint => data_description.description
+  = form.error_notification
+  = form.input :value
+  = form.error :data_value
+-#  = form.simple_fields_for data_description.name.to_sym do |df|
+-#    = df.input :value, :label => data_description.label, :input_html => {:value => @page.data.get(data_description.name).try(:value)}, :hint => data_description.description
+
+= @page.errors.inspect

@@ -1,7 +1,9 @@
 #
 # Create some pages
 #
-home_page      = MmCms::Page.create!(:name => 'Home', :description => 'homework', :template => 'home')
+home_page = MmCms::Page.create!(:name => 'Home', :description => 'homework')
+home_page.template = 'home'
+
 services_page  = MmCms::Page.create!(:name => 'Services', :description => 'what we do')
 portfolio_page = MmCms::Page.create!(:name => 'Portfolio', :description => 'our work')
 

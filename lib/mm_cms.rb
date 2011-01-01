@@ -83,6 +83,7 @@ protected
   end
 
   class PageDataDescription
+    SUPPORTED_TYPES = %w{BigDecimal Boolean Date DateTime Float Integer String Text Time}
     attr_accessor :name, :label, :description, :type, :required, :format, :min_value, :max_value
 
     def initialize(name, descr)
@@ -91,7 +92,7 @@ protected
       @label       = descr['label']       || raise("Page model must specify a 'label'")
       @description = descr['description'] || raise("Page model must specify a 'description'")
       @type        = descr['type']        || raise("Page model must specify a 'type'")
-      raise "Wrong type '#{@type}'" unless %w{BigDecimal Boolean Date DateTime Float Integer String Time}.member?(@type)
+      raise "Wrong type '#{@type}'" unless SUPPORTED_TYPES.member?(@type)
       @type.downcase!
       @required    = descr['required']
       @format      = descr['format'] ? Regexp.new(descr['format']) : nil
