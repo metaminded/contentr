@@ -91,6 +91,17 @@ class MmCms::Admin::PagesController < MmCms::Admin::ApplicationController
     end
   end
 
+  def set_template
+    @page = MmCms::Page.find(params[:id])
+    template = params[:template]
+    if template.present?
+      @page.template = template
+      @page.save!
+    end
+
+    redirect_to :action => :edit
+  end
+
   def reorder
     @page = MmCms::Page.find(params[:id])
 

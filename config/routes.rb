@@ -5,8 +5,14 @@ Rails.application.routes.draw do
     namespace :admin do
       match 'dashboard' => 'dashboard#index'
       resources 'pages' do
-        get 'navigation', :on => :collection
-        put 'reorder', :on => :member
+        collection do
+          get 'navigation'
+        end
+
+        member do
+          put 'reorder'
+          put 'set_template'
+        end
       end
       match 'templates' => 'templates#index'
       root :to => redirect { |params, request| "#{request.fullpath}/dashboard" }

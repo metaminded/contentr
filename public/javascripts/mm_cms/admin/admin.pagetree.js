@@ -7,6 +7,8 @@
       
     }*/
     
+    var current_page_id = null;
+    
     var that = {
       init: function () {
         that.loadNavigation();
@@ -41,7 +43,7 @@
             $('#page-content').html(r);
             // after the page has been loaded remember the
             // 'current page id' for later reference
-            var current_page_id = $('#page-content #page').attr('data-id');
+            current_page_id = $('#page-content #page').attr('data-id');
             // fire current page changed event
             $('#page-tree').trigger('page-changed.pagetree', current_page_id);
           }
@@ -98,6 +100,27 @@
           $('#page-content').html(r);
         }
       }); 
+    });
+    
+    // handle template change
+    $('#page-content .page-editor #page_template').live('change', function (e) {
+      e.preventDefault();
+      var template = $(this).val();
+      
+      var r = confirm('Are you sure?');
+      if (r) {
+        $.ajax({
+          async: true,
+          type: 'put',
+          url: './pages/' + current_page_id + '/set_template',
+          data: {
+            'template': template
+          },
+          success: function (r) {
+            that.loadPage(current_page_id);
+          }
+        });
+      }
     });
     
     // finally return
