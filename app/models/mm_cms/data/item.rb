@@ -9,8 +9,8 @@ class MmCms::Data::Item
   embedded_in :item, :class_name => 'MmCms::Item', :inverse_of => :data
 
   # Validations
+  validate :perform_model_validation
   validates_presence_of :name
-  validates_presence_of :value
 
   # Objects string representation
   def to_s
@@ -28,10 +28,16 @@ class MmCms::Data::Item
     raise "Not implemented"
   end
 
-  validate :moo
-  def moo
-    puts "xxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-    errors.add(:xxx, 'moooo') if name == 'message'
+  def model_validation_options=(options = {:required => false, :format => nil})
+    @model_validation_options = options
+  end
+
+  def perform_model_validation
+    if (@model_validation_options.present?)
+      if (@model_validation_options[:required])
+        errors.add(:value, "Can't be blank") if value.blank?
+      end
+    end
   end
 
 end

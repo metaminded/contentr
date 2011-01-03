@@ -13,7 +13,10 @@ class MmCms::Admin::PagesController < MmCms::Admin::ApplicationController
 
   def edit
     @page = MmCms::Page.find(params[:id])
+    populate_data_fields
+  end
 
+  def populate_data_fields(data_params = {})
     # build the data array based on the page model for editing
     if @page.model.present?
       @page.model.data_descriptions.each do |dd|
@@ -31,6 +34,20 @@ class MmCms::Admin::PagesController < MmCms::Admin::ApplicationController
         end
       end
     end
+    # populate with data
+    if data_params.present?
+      @page.data.each do |data|
+        value = data_params[data.name]
+        data.value = value
+      end
+    end
+  end
+
+  def set_model_validation_options
+    @page.data.each do |data|
+      # TODO: Read options from model
+      data.model_validation_options = {:required => true}
+    end
   end
 
   def update
@@ -38,10 +55,11 @@ class MmCms::Admin::PagesController < MmCms::Admin::ApplicationController
 
     data_params = params[:page][:data_attributes]
     if data_params.present? and data_params.values.present?
-      data_params.values.each do |d|
-        puts d.inspect
-      end
+      data_params = data_params.values.inject({}){ |m, v| m[v['name']] = v['value']; m }
+      populate_data_fields(data_params)
     end
+
+    set_model_validation_options
 
     # create/update page data
     #model = MmCms.page_model(@page.template)
