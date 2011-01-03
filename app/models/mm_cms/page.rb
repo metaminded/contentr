@@ -8,7 +8,7 @@ module MmCms
     field :template, :type => String, :default => 'default'
 
     # Protect attributes from mass assignment
-    attr_accessible :layout
+    # attr_accessible :layout, :template
 
     # Validation
     validates_presence_of  :layout
