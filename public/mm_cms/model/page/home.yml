@@ -8,8 +8,3 @@ message:
   description: Our sales slogan
   type: String
   required: true
-#moo:
-#  label: Moo
-#  description: The cow makes moo
-#  type: String
-#  required: false

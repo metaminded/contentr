@@ -58,8 +58,17 @@
         }
       },
       
-      updatePage: function () {
-        
+      newPage: function () {
+        $.ajax({
+          async: true,
+          type: 'get',
+          url: './pages/new',
+          data: {
+          },
+          success: function (r) {
+            $('#page-content').html(r);
+          }
+        });
       }
     }
     
@@ -121,6 +130,12 @@
           }
         });
       }
+    });
+    
+    // handle new page link clicked
+    $('#page-tree .newpagelink').live('click', function (e) {
+      e.preventDefault();
+      that.newPage();
     });
     
     // finally return

@@ -8,46 +8,24 @@ class MmCms::Admin::PagesController < MmCms::Admin::ApplicationController
   before_filter :setup
 
   def index
+  end
 
+  def new
+    @page = MmCms::Page.new
+  end
+
+  def create
+    @page = MmCms::Page.new(params[:page])
+    if @page.save
+      redirect_to :action => :edit, :id => @page.id
+    else
+      render :new
+    end
   end
 
   def edit
     @page = MmCms::Page.find(params[:id])
     populate_data_fields
-  end
-
-  def populate_data_fields(data_params = {})
-    # build the data array based on the page model for editing
-    if @page.model.present?
-      @page.model.data_descriptions.each do |dd|
-        name = dd.name
-
-        existing_data = @page.data.get(name)
-        unless existing_data
-          if dd.type == 'text'
-            @page.data << MmCms::Data::TextData.new(:name => dd.name)
-          end
-
-          if dd.type == 'string'
-            @page.data << MmCms::Data::StringData.new(:name => dd.name)
-          end
-        end
-      end
-    end
-    # populate with data
-    if data_params.present?
-      @page.data.each do |data|
-        value = data_params[data.name]
-        data.value = value
-      end
-    end
-  end
-
-  def set_model_validation_options
-    @page.data.each do |data|
-      # TODO: Read options from model
-      data.model_validation_options = {:required => true}
-    end
   end
 
   def update
@@ -60,28 +38,6 @@ class MmCms::Admin::PagesController < MmCms::Admin::ApplicationController
     end
 
     set_model_validation_options
-
-    # create/update page data
-    #model = MmCms.page_model(@page.template)
-    #if (model.present?)
-    #  data = params[:page][:data]
-    #  if data.present?
-    #    @page.data.delete_all
-    #    @page.reload
-    #    data.each do |name, data|
-    #      dd = model.get_description(name)
-    #      if dd.present?
-    #        case dd.type
-    #        when 'text'
-    #          @page.data << MmCms::Data::TextData.new(:name => name, :value => data['value'])
-    #        when 'string'
-    #          @page.data << MmCms::Data::StringData.new(:name => name, :value => data['value'])
-    #        end
-    #        @page.save
-    #      end
-    #    end
-    #  end
-    #end
 
     # update page
     if @page.update_attributes(params[:page])
@@ -127,6 +83,40 @@ class MmCms::Admin::PagesController < MmCms::Admin::ApplicationController
 
   def setup
     @mainmenu_id = 'pages'
+  end
+
+  def populate_data_fields(data_params = {})
+    # build the data array based on the page model for editing
+    if @page.model.present?
+      @page.model.data_descriptions.each do |dd|
+        name = dd.name
+
+        existing_data = @page.data.get(name)
+        unless existing_data
+          if dd.type == 'text'
+            @page.data << MmCms::Data::TextData.new(:name => dd.name)
+          end
+
+          if dd.type == 'string'
+            @page.data << MmCms::Data::StringData.new(:name => dd.name)
+          end
+        end
+      end
+    end
+    # populate with data
+    if data_params.present?
+      @page.data.each do |data|
+        value = data_params[data.name]
+        data.value = value
+      end
+    end
+  end
+
+  def set_model_validation_options
+    @page.data.each do |data|
+      # TODO: Read options from model
+      data.model_validation_options = {:required => true}
+    end
   end
 
 end

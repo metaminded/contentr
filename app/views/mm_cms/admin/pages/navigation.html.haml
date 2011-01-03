@@ -14,3 +14,6 @@
         = link_to("#{p.name} &raquo;".html_safe, '#', 'class' => 'page', 'data-id' => p.id, 'data-children' => 'true')
       - else
         = link_to(p.name, '#', 'class' => 'page', 'data-id' => p.id)
+
+%div
+  = link_to('+ New Page', '#', 'class' => 'newpagelink')
