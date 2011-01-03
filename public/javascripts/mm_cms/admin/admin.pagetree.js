@@ -69,6 +69,17 @@
             $('#page-content').html(r);
           }
         });
+      },
+      
+      deletePage: function (page_id) {
+        $.ajax({
+          async: true,
+          type: 'delete',
+          url: './pages/' + page_id,
+          success: function (r) {
+            location.reload();
+          }
+        });
       }
     }
     
@@ -136,6 +147,15 @@
     $('#page-tree .newpagelink').live('click', function (e) {
       e.preventDefault();
       that.newPage();
+    });
+    
+    // handle delete page link clicked
+    $('#page-content .deletepagelink').live('click', function (e) {
+      e.preventDefault();
+      var r = confirm('Are you sure?');
+      if (r) {
+        that.deletePage(current_page_id);
+      }
     });
     
     // finally return

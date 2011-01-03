@@ -47,6 +47,12 @@ class MmCms::Admin::PagesController < MmCms::Admin::ApplicationController
     end
   end
 
+  def destroy
+    page = MmCms::Page.find(params[:id])
+    page.destroy
+    render :nothing => true
+  end
+
   def set_template
     @page = MmCms::Page.find(params[:id])
     template = params[:template]
