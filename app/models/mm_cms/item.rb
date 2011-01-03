@@ -23,6 +23,7 @@ module MmCms
     validates_presence_of   :name
     validates_presence_of   :slug
     validates_uniqueness_of :slug
+    validates_associated    :data
 
     # Protect attributes from mass assignment
     attr_accessible :name, :description, :parent
@@ -32,6 +33,14 @@ module MmCms
 
     def to_liquid
       MmCms::Liquid::Drops::ItemDrop.new(self)
+    end
+
+    # Data attributes writer to allow fields_for work
+    # with our embedded data array. We use this as a marker and
+    # do not implement any function.
+    def data_attributes=(attributes)
+      puts "******************************** #{attributes.inspect}"
+      return true
     end
 
   protected

@@ -6,4 +6,5 @@ gem 'rails', '3.0.3'
 
 gem 'devise'
 gem 'mongoid'
+#gem 'simple_form', :path => File.expand_path('../../../simple_form/')
 gem 'mm_cms', :path => File.expand_path('../../')

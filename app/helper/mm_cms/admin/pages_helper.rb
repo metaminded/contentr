@@ -1,14 +1,19 @@
 module MmCms::Admin::PagesHelper
 
-  def data_form_fields_for(form, page)
-    c = ''.html_safe
-    model = MmCms.page_model(page.template)
-    if model.present?
-      model.data_descriptions.each do |d|
-        c << render("form_#{d.type}_data", :page => @page, :data_description => d, :form => form)
+  def form_fields_for_data(form, page)
+    content = ''.html_safe
+
+    model = @page.model
+    data = form.object
+
+    if model.present? and data.present?
+      data_description = model.get_description(data.name)
+      if data_description.present?
+        content << render("form_#{data.type}_data", :page => page, :data => data, :form => form, :data_description => data_description)
       end
     end
-    c
+
+    content
   end
 
 end

@@ -5,6 +5,10 @@
   = f.input :slug
 
   = f.simple_fields_for :data do |df|
-    = data_form_fields_for(df, @page)
+    = form_fields_for_data(df, @page)
 
   = f.button :submit
+
+%div= @page.errors.inspect
+%div= @page.data.inspect
+

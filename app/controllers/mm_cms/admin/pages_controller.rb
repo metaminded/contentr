@@ -13,31 +13,57 @@ class MmCms::Admin::PagesController < MmCms::Admin::ApplicationController
 
   def edit
     @page = MmCms::Page.find(params[:id])
+
+    # build the data array based on the page model for editing
+    if @page.model.present?
+      @page.model.data_descriptions.each do |dd|
+        name = dd.name
+
+        existing_data = @page.data.get(name)
+        unless existing_data
+          if dd.type == 'text'
+            @page.data << MmCms::Data::TextData.new(:name => dd.name)
+          end
+
+          if dd.type == 'string'
+            @page.data << MmCms::Data::StringData.new(:name => dd.name)
+          end
+        end
+      end
+    end
   end
 
   def update
     @page = MmCms::Page.find(params[:id])
 
-    # create/update page data
-    model = MmCms.page_model(@page.template)
-    if (model.present?)
-      data  = params[:page][:data]
-
-      @page.data.delete_all
-      @page.reload
-      data.each do |name, data|
-        dd = model.get_description(name)
-        if dd.present?
-          case dd.type
-          when 'text'
-            @page.data << MmCms::Data::TextData.new(:name => name, :value => data['value'])
-          when 'string'
-            @page.data << MmCms::Data::StringData.new(:name => name, :value => data['value'])
-          end
-          @page.save
-        end
+    data_params = params[:page][:data_attributes]
+    if data_params.present? and data_params.values.present?
+      data_params.values.each do |d|
+        puts d.inspect
       end
     end
+
+    # create/update page data
+    #model = MmCms.page_model(@page.template)
+    #if (model.present?)
+    #  data = params[:page][:data]
+    #  if data.present?
+    #    @page.data.delete_all
+    #    @page.reload
+    #    data.each do |name, data|
+    #      dd = model.get_description(name)
+    #      if dd.present?
+    #        case dd.type
+    #        when 'text'
+    #          @page.data << MmCms::Data::TextData.new(:name => name, :value => data['value'])
+    #        when 'string'
+    #          @page.data << MmCms::Data::StringData.new(:name => name, :value => data['value'])
+    #        end
+    #        @page.save
+    #      end
+    #    end
+    #  end
+    #end
 
     # update page
     if @page.update_attributes(params[:page])
