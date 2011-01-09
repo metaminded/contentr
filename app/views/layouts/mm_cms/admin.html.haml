@@ -20,26 +20,12 @@
       #toolbar.container_12.clearfix
         = render 'mm_cms/admin/shared/toolbar'
 
-    #header-wrapper
-      #header.container_12.clearfix
-        %h1.site-title= MmCms.site_name
-        #main-navigation.clearfix
-          = render 'mm_cms/admin/shared/main_navigation'
+    #main-navigation-wrapper
+      #main-navigation.container_12.clearfix
+        = render 'mm_cms/admin/shared/main_navigation'
 
     #main-wrapper
-      #main.container_12.clearfix= yield
-
--#    #header-wrapper
--#      #header.container_12
--#        .clearfix
--#          %h1.title MmCMS Admin
--#        .clearfix
--#          #main-navigation
--#            = render 'mm_cms/admin/shared/main_navigation'
--#
--#    #stage-wrapper
--#      #stage.container_12
--#        %h1.title Dashboard
--#
+      #main.container_12.clearfix
+        = yield
 
 

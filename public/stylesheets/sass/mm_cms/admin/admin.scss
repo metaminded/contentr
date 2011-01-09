@@ -8,18 +8,16 @@ body {
 
 /* Toolbar */
 #toolbar-wrapper {
-  $bg_color: #f0f0f0;
-  $bg_color2: #e9e9e9;
-  $border_color: #d0d0d0;
   $color: #666;
 
-  @include gradient($bg_color, $bg_color2, 75%, 100%);
-  @include box_shadow($border_color, 0, 0, 4px);
-  border-bottom: 1px solid $border_color;
+  @include box_shadow(0px, 0px, 4px, #999);
+  background-color: rgb(250, 250, 250);
+  background-color: rgba(250, 250, 250, 0.65);
   margin-bottom: 20px;
 
   #toolbar {
     color: $color;
+    opacity: 1;
     text-shadow: #fff 1px 1px 0px;
     font-size: 11px;
     line-height: 39px;
@@ -31,8 +29,6 @@ body {
 
     .left {
       text-align: left;
-      margin: 0;
-      width: 480px;
       .title {
         margin: 0;
         padding: 0;
@@ -41,8 +37,6 @@ body {
 
     .right {
       text-align: right;
-      margin: 0;
-      width: 480px;
 
       .avatar {
 
@@ -63,27 +57,17 @@ body {
 }
 
 
-/* Header */
-#header-wrapper {
+/* Main navigation */
+#main-navigation-wrapper {
   $color: #222;
+
   color: $color;
 
-  #header {
-    h1.site-title {
-      text-shadow: #fff 1px 1px 0px;
-      margin: 0;
-      padding: 0;
-      font-size: 120%;
-      font-weight: normal;
-      margin-bottom: 5px;
-    }
+  #main-navigation {
+    @include border_radius(6px);
+    @include box_shadow(1px, 1px, 4px, #999);
 
-    #main-navigation {
-      $bg_color: #292929;
-
-      @include border_radius(6px);
-      background-color: $bg_color;
-    }
+    background-color: rgb(41, 41, 41);
   }
 }
 
@@ -94,23 +78,22 @@ body {
     $border_color: #c8c8c8;
 
     @include border_radius(6px);
+    @include box_shadow(1px, 1px, 4px, #999);
+    padding: 15px 0;
     overflow: hidden;
     background-color: #fff;
-    min-height: 450px;
-    border: 1px solid $border_color;
 
     .content {
-      padding-top: 15px;
+
     }
 
     .sidebar {
       $background_color: #d3e3e5;
 
-      min-height: 450px; // !!!
-      background-color: $background_color;
-      border-right: 1px solid $border_color;
+      //min-height: 450px; // !!!
+      //background-color: $background_color;
+      //border-right: 1px solid $border_color;
       text-shadow: lighten($background_color, 10%) 1px 1px 0px;
-      padding-top: 15px;
       //overflow: hidden;
 
       h3 {
@@ -166,10 +149,10 @@ body {
 */
     }
 
-    .sidebar.grid_3 {
+    /*.sidebar.grid_3 {
       margin-left: 0px;
       width: 230px - 1px; // -1px border-right
-    }
+    }*/
   }
 }
 

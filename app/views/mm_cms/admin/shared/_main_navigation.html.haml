@@ -1,4 +1,5 @@
-%ul.sf-menu
-  = main_menu_item(:title => 'Dashboard', :link => admin_dashboard_path, :selected => @mainmenu_id == 'dashboard')
-  = main_menu_item(:title => 'Pages', :link => admin_pages_path, :selected => @mainmenu_id == 'pages')
-  = main_menu_item(:title => 'Templates', :link => admin_templates_path, :selected => @mainmenu_id == 'templates')
+.grid_12.clearfix
+  %ul.sf-menu
+    = main_menu_item(:title => 'Dashboard', :link => admin_dashboard_path, :selected => @mainmenu_id == 'dashboard')
+    = main_menu_item(:title => 'Pages', :link => admin_pages_path, :selected => @mainmenu_id == 'pages')
+    = main_menu_item(:title => 'Templates', :link => admin_templates_path, :selected => @mainmenu_id == 'templates')
