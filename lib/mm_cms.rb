@@ -1,16 +1,12 @@
 # coding: utf-8
 
-require 'rails'
-require 'devise'
-require 'cancan'
-require 'simple_form'
+require 'liquid'
 require 'mongoid'
 require 'mongoid/tree'
 require 'haml'
 require 'stringex'
-require 'json'
+require 'lorem'
 
-require 'mm_cms/version'
 require 'mm_cms/engine'
 require 'mm_cms/liquid'
 require 'mm_cms/sass'

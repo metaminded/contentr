@@ -1,3 +1,0 @@
-- if data.type == 'text'
-  = form.input :name, :value => data.name, :as => :hidden
-  = form.input :value, :as => :text, :label => data_description.label, :input_html => {:value => data.try(:value)}, :hint => data_description.description

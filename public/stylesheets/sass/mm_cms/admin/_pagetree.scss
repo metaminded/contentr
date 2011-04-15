@@ -1,18 +1,9 @@
 /* Global imports */
 @import 'utils';
 
-#page-tree {
+#pages {
 
-  #backlink {
-    margin-bottom: 5px;
-    padding: 0 15px;
-
-    a {
-      text-decoration: none;
-    }
-  }
-
-  ul.nav {
+  ul {
     $background_color: #d3e3e5;
     $border_color: #cbd8da;
     $border: 1px solid $border_color;
@@ -21,23 +12,30 @@
     margin: 0;
     padding: 0;
     list-style: none;
-    border-top: $border;
-    border-bottom: $highlighted_border;
+    //border-top: $border;
+    //border-bottom: $highlighted_border;
 
     li {
       position: relative;
       margin: 0;
       padding: 0;
-      border-bottom: $border;
-      border-top: $highlighted_border;
+      //border-top: $highlighted_border;
 
       a {
-        padding: 6px 15px;
+        padding: 6px 0;
         text-decoration: none;
         display: block;
+
+        background-color: $background_color;
+        border-bottom: $border;
       }
     }
 
+    ul li {
+      padding-left: 15px;
+    }
+
+/*
     li:hover {
       background-color: lighten($background_color, 5%);
     }
@@ -64,5 +62,6 @@
         padding-left: 25px;
       }
     }
+*/
   }
 }

@@ -84,7 +84,10 @@ body {
     background-color: #fff;
 
     .content {
-
+      .section {
+        border-bottom: 1px solid #c8c8c8;
+        margin-bottom: 10px;
+      }
     }
 
     .sidebar {
