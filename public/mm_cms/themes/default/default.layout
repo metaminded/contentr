@@ -1,3 +1,9 @@
-<hr/>
-{{content_for_layout}}
-<hr/>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Moo</title>
+</head>
+<body>
+  {{content_for_layout}}
+</body>
+</html>

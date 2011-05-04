@@ -27,6 +27,9 @@ module MmCms::Liquid
         :registers => {}
       }.merge(options)
 
+      # Render paragraphs
+
+
       # Load the template identified by the given template name.
       template_file    = parse_template(options[:template], 'template')
       template_content = template_file.render!(options[:assigns], { :registers => options[:registers] })

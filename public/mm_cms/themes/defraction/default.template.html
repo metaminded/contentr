@@ -13,12 +13,14 @@
 <!-- Start content/sidebar -->
 <div id="sub-content">
   <!-- Start content section left of sidebar -->
-  <div id="content">
+  <div id="content" data-cms-area="moo">
     <!--You are on page: {{page.name}} ({{page.path}})<br/>
     Your template: {{page.template}}<br/>
     Include: {% include myinclude %}<br/>
     Main Content: {{page.data.main_content}}-->
     {{page.data.main_content}}
+    
+    {{page.paragraphs.moo}}
   </div>
   <!-- End Content -->
 
