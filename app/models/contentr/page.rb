@@ -16,14 +16,13 @@ module Contentr
     field :path,        :type => String, :index => true
     field :layout,      :type => String, :default => 'default'
     field :template,    :type => String, :default => 'default'
+    field :linkedTo,    :type => String
 
     # Relations
     embeds_many :paragraphs, :class_name => 'Contentr::Paragraph'
 
     # Protect attributes from mass assignment
-    # attr_accessible :layout, :template
-    # attr_accessible :name, :description, :layout, :template
-    # attr_accessible :path, :parent
+    attr_accessible :name, :description, :slug, :layout, :template, :parent
 
     # Validations
     validates_presence_of   :name
@@ -31,7 +30,6 @@ module Contentr
     validates_uniqueness_of :slug
     validates_presence_of   :layout
     validates_presence_of   :template
-    validates_exclusion_of  :name, :in => %w( admin )
 
     # Callbacks
     before_validation :generate_slug
@@ -50,6 +48,10 @@ module Contentr
 
     def has_children?
       self.children.count > 0
+    end
+
+    def is_link?
+      self.linkedTo.present?
     end
 
   protected

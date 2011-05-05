@@ -1,5 +1,5 @@
 .DS_Store
 .bundle
 test/dummy/log/*.log
-test/dummy/log/**/*
+test/dummy/tmp/**/*
 test/dummy/db/*.sqlite3

@@ -1,5 +1,6 @@
 # coding: utf-8
 
+require 'rails'
 require 'liquid'
 require 'mongoid'
 require 'mongoid/tree'
@@ -7,9 +8,6 @@ require 'nokogiri'
 require 'stringex'
 require 'lorem'
 
-require 'contentr/engine'
-require 'contentr/render_engine'
-require 'contentr/liquid_support'
 
 module Contentr
 
@@ -71,3 +69,7 @@ protected
   end
 
 end
+
+require 'contentr/engine'
+require 'contentr/render_engine'
+require 'contentr/liquid_support'
