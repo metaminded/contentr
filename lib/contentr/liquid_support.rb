@@ -4,7 +4,7 @@ require 'liquid'
 
 module Contentr::LiquidSupport end
 
-require 'contentr/liquid_support/tags'
-require 'contentr/liquid_support/filters'
-require 'contentr/liquid_support/drops'
+require_dependency 'contentr/liquid_support/tags'
+require_dependency 'contentr/liquid_support/filters'
+require_dependency 'contentr/liquid_support/drops'
 

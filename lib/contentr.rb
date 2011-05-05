@@ -70,6 +70,6 @@ protected
 
 end
 
-require 'contentr/engine'
-require 'contentr/render_engine'
-require 'contentr/liquid_support'
+require_dependency 'contentr/engine'
+require_dependency 'contentr/render_engine'
+require_dependency 'contentr/liquid_support'
