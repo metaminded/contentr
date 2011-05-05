@@ -28,7 +28,9 @@ module Contentr::Liquid
 
       # Load the template and extract the areas
       template_content = load_template(options[:template], 'template')
-      template = Nokogiri::HTML.parse(template_content)
+      template = Nokogiri::XML("<root>#{template_content}</root>") do |config|
+        # defaults
+      end
       areas = page.paragraphs.inject(template.xpath('//@data-cms-area').map(&:value).inject({}) do |a, area|
         a[area] = []
         a
@@ -44,7 +46,7 @@ module Contentr::Liquid
       end
 
       # Load the template identified by the given template name.
-      template_file    = Liquid::Template.parse(template.to_s)
+      template_file    = Liquid::Template.parse(template.root.children.to_s)
       template_content = template_file.render!(options[:assigns], { :registers => options[:registers] })
       options[:assigns]['content_for_layout'] = template_content
 
