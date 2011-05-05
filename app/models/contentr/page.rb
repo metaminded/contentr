@@ -1,6 +1,6 @@
 # coding: utf-8
 
-module MmCms
+module Contentr
   class Page
 
     # Includes
@@ -18,7 +18,7 @@ module MmCms
     field :template,    :type => String, :default => 'default'
 
     # Relations
-    embeds_many :paragraphs, :class_name => 'MmCms::Paragraph'
+    embeds_many :paragraphs, :class_name => 'Contentr::Paragraph'
 
     # Protect attributes from mass assignment
     # attr_accessible :layout, :template
@@ -41,11 +41,11 @@ module MmCms
 
 
     def to_liquid
-      MmCms::Liquid::Drops::PageDrop.new(self)
+      Contentr::Liquid::Drops::PageDrop.new(self)
     end
 
     def self.find_by_path(path)
-      MmCms::Page.where(:path => path).first
+      Contentr::Page.where(:path => path).first
     end
 
     def has_children?

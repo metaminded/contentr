@@ -9,11 +9,11 @@ defaults: &defaults
 
 development:
   <<: *defaults
-  database: mm_cms_development
+  database: contentr_development
 
 test:
   <<: *defaults
-  database: mm_cms_test
+  database: contentr_test
 
 # set these environment variables on your prod server
 production:

@@ -1,6 +1,6 @@
 # coding: utf-8
 
-module MmCms
+module Contentr
   class TextParagraph < Paragraph
 
     # Fields

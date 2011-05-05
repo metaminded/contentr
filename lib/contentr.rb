@@ -7,10 +7,10 @@ require 'nokogiri'
 require 'stringex'
 require 'lorem'
 
-require 'mm_cms/engine'
-require 'mm_cms/liquid'
+require 'contentr/engine'
+require 'contentr/liquid'
 
-module MmCms
+module Contentr
 
   # Site name
   mattr_accessor :site_name
@@ -28,7 +28,7 @@ module MmCms
   mattr_accessor :default_page
   @@default_page
 
-  # Default way to setup MmCms. Run rails generate mmcms:install to create
+  # Default way to setup Contentr. Run rails generate mmcms:install to create
   # a fresh initializer with all configuration values.
   def self.setup
     yield self

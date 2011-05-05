@@ -1,4 +1,4 @@
-module MmCms
+module Contentr
 
   class Engine < Rails::Engine
     initializer "static assets" do |app|

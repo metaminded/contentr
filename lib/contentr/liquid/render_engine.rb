@@ -1,6 +1,6 @@
 # coding: utf-8
 
-module MmCms::Liquid
+module Contentr::Liquid
 
   class RenderEngine
 

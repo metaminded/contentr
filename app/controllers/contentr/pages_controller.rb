@@ -1,15 +1,15 @@
 # coding: utf-8
 
-class MmCms::PagesController < MmCms::ApplicationController
+class Contentr::PagesController < Contentr::ApplicationController
 
   # Global filters, setup, etc.
   before_filter :setup_locale, :setup_liquid
 
   def show
     path = params[:path]
-    return redirect_to cms_url(:path => MmCms.default_page) if path.blank?
+    return redirect_to cms_url(:path => Contentr.default_page) if path.blank?
 
-    @page = MmCms::Page.find_by_path(path)
+    @page = Contentr::Page.find_by_path(path)
     @page.present? ? render_page : render_page_not_found
   end
 
@@ -22,10 +22,10 @@ protected
   end
 
   def setup_liquid
-    theme_name = MmCms.theme_name
+    theme_name = Contentr.theme_name
     theme_name = params[:_theme] if params[:_theme].present?
 
-    @liquid = MmCms::Liquid::RenderEngine.new(MmCms.themes_path, theme_name)
+    @liquid = Contentr::Liquid::RenderEngine.new(Contentr.themes_path, theme_name)
   end
 
   def render_page
@@ -37,13 +37,13 @@ protected
       :assigns   => {
         'request_params' => request.params,
         'page'           => @page,
-        'theme_name'     => MmCms.theme_name
+        'theme_name'     => Contentr.theme_name
       },
       :registers => {
         'liquid'     => @liquid,
         'request'    => request,
         'page'       => @page,
-        'theme_name' => MmCms.theme_name
+        'theme_name' => Contentr.theme_name
       }
     )
   end

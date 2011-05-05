@@ -1,13 +1,13 @@
 # coding: utf-8
 
 Gem::Specification.new do |s|
-  s.name = 'mm_cms'
+  s.name = 'contentr'
   s.version = '0.0.2'
   s.summary = %q{CMS engine for Rails}
-  s.description = %q{MmCms is a Content Management System (CMS) that plugs into any Rails application as an engine.}
+  s.description = %q{Contentr is a Content Management System (CMS) that plugs into any Rails application as an engine.}
   s.authors = ["René Sprotte", "Dr. Peter Horn"]
   s.email = ['team@metaminded.com']
-  s.homepage = 'http://github.com/provideal/mm_cms'
+  s.homepage = 'http://github.com/provideal/contentr'
 
   s.files = `git ls-files`.split("\n")
   s.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   #s.rdoc_options = ['--charset=UTF-8']
   #s.require_paths = ['lib']
   #s.required_rubygems_version = Gem::Requirement.new('>= 1.3.6') if s.respond_to? :required_rubygems_version=
-  #s.rubyforge_project = 'mm_cms'
+  #s.rubyforge_project = 'contentr'
 
   s.add_runtime_dependency('rails', '~> 3.0')
 

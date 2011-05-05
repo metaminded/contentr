@@ -1,6 +1,6 @@
 require 'lorem'
 
-class MmCms::Liquid::Tags::Lorem < ::Liquid::Tag
+class Contentr::Liquid::Tags::Lorem < ::Liquid::Tag
 
   Syntax = /(\d+)\s+(\w+)/
 
@@ -21,4 +21,4 @@ class MmCms::Liquid::Tags::Lorem < ::Liquid::Tag
 
 end
 
-::Liquid::Template.register_tag('lorem', MmCms::Liquid::Tags::Lorem)
+::Liquid::Template.register_tag('lorem', Contentr::Liquid::Tags::Lorem)

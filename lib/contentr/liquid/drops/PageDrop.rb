@@ -1,6 +1,6 @@
 # coding: utf-8
 
-module MmCms
+module Contentr
   module Liquid
     module Drops
 

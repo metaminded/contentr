@@ -1,4 +1,4 @@
-module MmCms::Liquid::Tags
+module Contentr::Liquid::Tags
   class Include < ::Liquid::Tag
 
     Syntax = /(#{::Liquid::QuotedFragment}+)/

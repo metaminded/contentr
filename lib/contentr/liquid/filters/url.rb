@@ -1,6 +1,6 @@
 # coding: utf-8
 
-module MmCms::Liquid::Filters::Url
+module Contentr::Liquid::Filters::Url
 
   def url(source)
     return "/cms/#{source}" # FIXME: Do not hardcode the /cms prefix
@@ -8,4 +8,4 @@ module MmCms::Liquid::Filters::Url
 
 end
 
-Liquid::Template.register_filter(MmCms::Liquid::Filters::Url)
+Liquid::Template.register_filter(Contentr::Liquid::Filters::Url)

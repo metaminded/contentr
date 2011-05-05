@@ -7,7 +7,7 @@ require "action_view/railtie"
 require "action_mailer/railtie"
 
 Bundler.require
-require "mm_cms"
+require "contentr"
 
 module Dummy
   class Application < Rails::Application

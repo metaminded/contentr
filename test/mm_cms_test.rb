@@ -1,7 +1,7 @@
 require 'test_helper'
 
-class MmCmsTest < ActiveSupport::TestCase
+class ContentrTest < ActiveSupport::TestCase
   test "truth" do
-    assert_kind_of Module, MmCms
+    assert_kind_of Module, Contentr
   end
 end

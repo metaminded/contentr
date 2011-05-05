@@ -1,4 +1,4 @@
-class MmCms::Liquid::Tags::Nav < ::Liquid::Block
+class Contentr::Liquid::Tags::Breadcrumb < ::Liquid::Block
 
   Syntax = /for\s+(#{::Liquid::QuotedFragment}+)/
 
@@ -13,12 +13,10 @@ class MmCms::Liquid::Tags::Nav < ::Liquid::Block
   end
 
   def render(context)
-    current_page = context[@page_name]
+    current_page = context.registers["page"]
     pages = []
     if (current_page.present?)
-      pages = current_page.children.asc(:position)
-    else
-      pages = MmCms::Page.roots.asc(:position)
+      pages = current_page.ancestors_and_self.to_a
     end
 
     result = []
@@ -34,4 +32,4 @@ class MmCms::Liquid::Tags::Nav < ::Liquid::Block
 
 end
 
-::Liquid::Template.register_tag('nav', MmCms::Liquid::Tags::Nav)
+::Liquid::Template.register_tag('breadcrumb', Contentr::Liquid::Tags::Breadcrumb)
