@@ -954,3 +954,22 @@ MONGODB mm_cms_development['$cmd'].find({"count"=>"mm_cms_pages", "query"=>{"par
 MONGODB mm_cms_development['$cmd'].find({"count"=>"mm_cms_pages", "query"=>{"parent_id"=>BSON::ObjectId('4dc183eae6b9bc1965000003')}, "fields"=>nil})
 Rendered text template (0.0ms)
 Completed 200 OK in 123ms (Views: 8.9ms | ActiveRecord: 0.0ms)
+MongoDB logging. Please note that logging negatively impacts performance and should be disabled for high-performance production apps.
+MONGODB admin['$cmd'].find({:ismaster=>1})
+MONGODB admin['$cmd'].find({:ismaster=>1})
+
+
+Started GET "/cms/home" for 127.0.0.1 at 2011-05-05 11:24:17 +0200
+  Processing by MmCms::PagesController#show as HTML
+  Parameters: {"path"=>"home"}
+MONGODB mm_cms_development['mm_cms_pages'].find({:path=>"home"}).sort([[:position, :asc]])
+MONGODB mm_cms_development['mm_cms_pages'].find({:parent_id=>nil}).sort([[:position, :asc], [:position, :asc]])
+MONGODB mm_cms_development['$cmd'].find({"count"=>"mm_cms_pages", "query"=>{"parent_id"=>BSON::ObjectId('4dc183e9e6b9bc1965000001')}, "fields"=>nil})
+MONGODB mm_cms_development['$cmd'].find({"count"=>"mm_cms_pages", "query"=>{"parent_id"=>BSON::ObjectId('4dc183eae6b9bc1965000002')}, "fields"=>nil})
+MONGODB mm_cms_development['mm_cms_pages'].find({"parent_id"=>BSON::ObjectId('4dc183eae6b9bc1965000002')}).sort([[:position, :asc], [:position, :asc], [:position, :asc]])
+MONGODB mm_cms_development['$cmd'].find({"count"=>"mm_cms_pages", "query"=>{"parent_id"=>BSON::ObjectId('4dc183eae6b9bc1965000004')}, "fields"=>nil})
+MONGODB mm_cms_development['mm_cms_pages'].find({"parent_id"=>BSON::ObjectId('4dc183eae6b9bc1965000004')}).sort([[:position, :asc], [:position, :asc], [:position, :asc]])
+MONGODB mm_cms_development['$cmd'].find({"count"=>"mm_cms_pages", "query"=>{"parent_id"=>BSON::ObjectId('4dc183eae6b9bc1965000005')}, "fields"=>nil})
+MONGODB mm_cms_development['$cmd'].find({"count"=>"mm_cms_pages", "query"=>{"parent_id"=>BSON::ObjectId('4dc183eae6b9bc1965000003')}, "fields"=>nil})
+Rendered text template (0.0ms)
+Completed 200 OK in 116ms (Views: 8.5ms | ActiveRecord: 0.0ms)
