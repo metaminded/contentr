@@ -3,14 +3,12 @@
 require 'liquid'
 require 'mongoid'
 require 'mongoid/tree'
-require 'sass'
 require 'nokogiri'
 require 'stringex'
 require 'lorem'
 
 require 'mm_cms/engine'
 require 'mm_cms/liquid'
-require 'mm_cms/sass'
 
 module MmCms
 
