@@ -1,6 +1,6 @@
-class Contentr::Liquid::Tags::Nav < ::Liquid::Block
+class Contentr::LiquidSupport::Tags::Breadcrumb < Liquid::Block
 
-  Syntax = /for\s+(#{::Liquid::QuotedFragment}+)/
+  Syntax = /for\s+(#{Liquid::QuotedFragment}+)/
 
   def initialize(tag_name, markup, tokens)
     if markup =~ Syntax
@@ -13,12 +13,10 @@ class Contentr::Liquid::Tags::Nav < ::Liquid::Block
   end
 
   def render(context)
-    current_page = context[@page_name]
+    current_page = context.registers["page"]
     pages = []
     if (current_page.present?)
-      pages = current_page.children.asc(:position)
-    else
-      pages = Contentr::Page.roots.asc(:position)
+      pages = current_page.ancestors_and_self.to_a
     end
 
     result = []
@@ -34,4 +32,4 @@ class Contentr::Liquid::Tags::Nav < ::Liquid::Block
 
 end
 
-::Liquid::Template.register_tag('nav', Contentr::Liquid::Tags::Nav)
+Liquid::Template.register_tag('breadcrumb', Contentr::LiquidSupport::Tags::Breadcrumb)

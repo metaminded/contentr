@@ -41,7 +41,7 @@ module Contentr
 
 
     def to_liquid
-      Contentr::Liquid::Drops::PageDrop.new(self)
+      Contentr::LiquidSupport::Drops::PageDrop.new(self)
     end
 
     def self.find_by_path(path)

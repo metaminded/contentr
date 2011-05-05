@@ -1,10 +1,10 @@
 # coding: utf-8
 
 module Contentr
-  module Liquid
+  module LiquidSupport
     module Drops
 
-      class PageDrop < ::Liquid::Drop
+      class PageDrop < Liquid::Drop
 
         def initialize(page)
           @page = page

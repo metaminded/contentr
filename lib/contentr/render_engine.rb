@@ -1,6 +1,6 @@
 # coding: utf-8
 
-module Contentr::Liquid
+module Contentr
 
   class RenderEngine
 

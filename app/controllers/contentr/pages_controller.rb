@@ -25,7 +25,7 @@ protected
     theme_name = Contentr.theme_name
     theme_name = params[:_theme] if params[:_theme].present?
 
-    @liquid = Contentr::Liquid::RenderEngine.new(Contentr.themes_path, theme_name)
+    @liquid = Contentr::RenderEngine.new(Contentr.themes_path, theme_name)
   end
 
   def render_page

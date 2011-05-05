@@ -1,6 +1,6 @@
 # coding: utf-8
 
-module Contentr::Liquid::Filters::AssetUrl
+module Contentr::LiquidSupport::Filters::AssetUrl
 
   def asset_url(source)
     theme_name = @context['theme_name']
@@ -26,4 +26,4 @@ module Contentr::Liquid::Filters::AssetUrl
 
 end
 
-Liquid::Template.register_filter(Contentr::Liquid::Filters::AssetUrl)
+Liquid::Template.register_filter(Contentr::LiquidSupport::Filters::AssetUrl)

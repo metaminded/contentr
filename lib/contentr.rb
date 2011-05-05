@@ -8,7 +8,8 @@ require 'stringex'
 require 'lorem'
 
 require 'contentr/engine'
-require 'contentr/liquid'
+require 'contentr/render_engine'
+require 'contentr/liquid_support'
 
 module Contentr
 

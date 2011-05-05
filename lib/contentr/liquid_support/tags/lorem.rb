@@ -1,6 +1,6 @@
 require 'lorem'
 
-class Contentr::Liquid::Tags::Lorem < ::Liquid::Tag
+class Contentr::LiquidSupport::Tags::Lorem < Liquid::Tag
 
   Syntax = /(\d+)\s+(\w+)/
 
@@ -16,9 +16,9 @@ class Contentr::Liquid::Tags::Lorem < ::Liquid::Tag
   end
 
   def render(context)
-    ::Lorem::Base.new(@type, @count).output
+    Lorem::Base.new(@type, @count).output
   end
 
 end
 
-::Liquid::Template.register_tag('lorem', Contentr::Liquid::Tags::Lorem)
+Liquid::Template.register_tag('lorem', Contentr::LiquidSupport::Tags::Lorem)
