@@ -3,7 +3,8 @@
 require 'liquid'
 require 'mongoid'
 require 'mongoid/tree'
-require 'haml'
+require 'sass'
+require 'nokogiri'
 require 'stringex'
 require 'lorem'
 

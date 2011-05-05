@@ -33,7 +33,7 @@ protected
     layout = @page.layout
     layout = params[:_layout] if params[:_layout].present?
 
-    render :text => @liquid.render_template(layout, @page.template,
+    render :text => @liquid.render_page(@page,
       :assigns   => {
         'request_params' => request.params,
         'page'           => @page,

@@ -15,23 +15,36 @@ module MmCms::Liquid
     end
 
     ##
-    # Renders a Liquid template (for the current action) together
-    # with a Liquid layout.
+    # Renders the given page
     #
-    def render_template(layout, template, options = {})
+    def render_page(page, options = {})
       # Merge the options hash with some useful defaults
       options = {
-        :layout    => layout,
-        :template  => template,
+        :layout    => page.layout,
+        :template  => page.template,
         :assigns   => {},
         :registers => {}
       }.merge(options)
 
-      # Render paragraphs
+      # Load the template and extract the areas
+      template_content = load_template(options[:template], 'template')
+      template = Nokogiri::HTML.parse(template_content)
+      areas = page.paragraphs.inject(template.xpath('//@data-cms-area').map(&:value).inject({}) do |a, area|
+        a[area] = []
+        a
+      end) do |a, paragraph|
+        a[paragraph.area_name] << paragraph if a[paragraph.area_name]
+        a
+      end
 
+      # Render paragraphs
+      areas.each do |area_name, paragraphs|
+        nodes = template.xpath('//div[@data-cms-area="'+area_name+'"]')
+        nodes[0].content = render_paragraphs(paragraphs) if nodes[0]
+      end
 
       # Load the template identified by the given template name.
-      template_file    = parse_template(options[:template], 'template')
+      template_file    = Liquid::Template.parse(template.to_s)
       template_content = template_file.render!(options[:assigns], { :registers => options[:registers] })
       options[:assigns]['content_for_layout'] = template_content
 
@@ -41,6 +54,15 @@ module MmCms::Liquid
 
       # Finally return the final result
       return layout_content
+    end
+
+    ##
+    # Renders the paragraphs
+    #
+    def render_paragraphs(paragraphs)
+      paragraphs.map do |p|
+        p.title + " " + p.body
+      end.join("\n")
     end
 
     ##

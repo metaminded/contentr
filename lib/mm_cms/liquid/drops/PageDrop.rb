@@ -4,17 +4,42 @@ module MmCms
   module Liquid
     module Drops
 
-      ##
-      # TBD
-      #
-      class PageDrop < NodeDrop
+      class PageDrop < ::Liquid::Drop
+
+        def initialize(page)
+          @page = page
+        end
+
+        def path
+          @page.path
+        end
+
+        def has_children
+          @page.children.count > 0
+        end
+
+        def children
+          @page.children.asc(:position)
+        end
 
         def layout
-          @item.layout
+          @page.layout
         end
 
         def template
-          @item.template
+          @page.template
+        end
+
+        def name
+          @page.name
+        end
+
+        def description
+          @page.description
+        end
+
+        def slug
+          @page.slug
         end
 
       end

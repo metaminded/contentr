@@ -1,5 +1,0 @@
-main_content:
-  label: Main Content
-  description: The main content
-  type: Text
-  required: false
