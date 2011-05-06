@@ -39,7 +39,7 @@ module Contentr
       template = Nokogiri::XML("<root>#{template}</root>") do |config|
         # defaults
       end
-      areas = page.paragraphs.inject(template.xpath('//@data-cms-area').map(&:value).inject({}) do |a, area|
+      areas = page.paragraphs.inject(template.xpath('//@data-contentr-area').map(&:value).inject({}) do |a, area|
         a[area] = []
         a
       end) do |a, paragraph|
@@ -49,8 +49,21 @@ module Contentr
 
       # Render paragraphs inside the page template
       areas.each do |area_name, paragraphs|
-        nodes = template.xpath('//div[@data-cms-area="'+area_name+'"]')
-        nodes[0].content = render_paragraphs(paragraphs) if nodes[0]
+        nodes = template.xpath('//div[@data-contentr-area="'+area_name+'"]')
+        next unless nodes[0]
+
+        nodes[0].content = nil      # remove all content (e.g. dummy data) from the area node
+        nodes[0] << nodes[0].parse( # parse the returned xml into a node, as content will otherwise beeing escaped
+          paragraphs.map do |p|
+            filename = p.class.name.underscore.split('/').last
+            if (filename)
+              paragraph_template = load_file(filename, :type => 'paragraph')
+              paragraph_template = Liquid::Template.parse(paragraph_template)
+              content = paragraph_template.render!(options[:assigns].merge({'paragraph' => p}), { :registers => options[:registers] })
+              content.html_safe
+            end
+          end.join("")
+        )
       end
 
       # Render the page template
@@ -68,21 +81,12 @@ module Contentr
     end
 
     ##
-    # Renders the paragraphs
-    #
-    def render_paragraphs(paragraphs)
-      paragraphs.map do |p|
-        p.title + " " + p.body
-      end.join("\n")
-    end
-
-    ##
     # Loads a Liquid template for the current account from
     # the file system.
     #
     def load_file(name, options = {:type => 'template'})
       raise "Illegal template name '#{name}'" unless name =~ /^[a-zA-Z0-9_]+$/
-      raise "Illegal template type '#{options[:type]}'" unless %w(template layout include).member?(options[:type])
+      raise "Illegal template type '#{options[:type]}'" unless %w(template layout include paragraph).member?(options[:type])
 
       type = options[:type]
       theme_path = File.join(@themes_path, @theme_name)
