@@ -3,6 +3,9 @@
 module Contentr
   class Paragraph
 
+    # Paragraph is abstract
+    @abstract_class = true
+
     # Includes
     include Mongoid::Document
 
