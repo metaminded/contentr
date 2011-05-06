@@ -22,9 +22,7 @@ protected
   end
 
   def setup_render_engine
-    theme_name = Contentr.theme_name
-    theme_name = params[:_theme] if params[:_theme].present?
-    @render_engine = Contentr::RenderEngine.new(Contentr.themes_path, theme_name)
+    @render_engine = Contentr::RenderEngine.new
   end
 
   def render_page
@@ -32,7 +30,7 @@ protected
     layout = @page.layout
     layout = params[:_layout] if params[:_layout].present?
 
-    render :text => @render_engine.render_page(@page, request)
+    render :text => @render_engine.render_page(@page, request, self)
   end
 
   def render_page_not_found

@@ -35,6 +35,15 @@ Article.create!(:title => 'Article No. 2', :body => 'Lorem ipsum dolor sit amet,
 Article.create!(:title => 'Article No. 3', :body => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.')
 
 #
+# Mount/Link a "real" page (controler/action) to a Contentr Page
+#
+linked_page = Contentr::Page.create!(:name => 'Articles', :linked_to => '/articles')
+linked_page.paragraphs << Contentr::TextParagraph.new(:area_name => 'body', :title => 'Hello from Contentr', :body => 'This is contnt from Contentr on a ERB Page!')
+
+linked_page = Contentr::Page.create!(:name => 'Article', :linked_to => '/articles/*')
+linked_page.paragraphs << Contentr::TextParagraph.new(:area_name => 'body', :title => 'Hello from Contentr Wildcard', :body => 'This is contnt from Contentr on a ERB Page!')
+
+#
 # Finished we are!
 #
 puts "Dummy data created!"

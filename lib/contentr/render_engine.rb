@@ -7,9 +7,9 @@ module Contentr
     ##
     # Setup the Liquid template engine.
     #
-    def initialize(themes_path, theme_name)
-      @themes_path = themes_path
-      @theme_name  = theme_name
+    def initialize
+      @themes_path = Contentr.themes_path
+      @theme_name  = Contentr.theme_name
 
       Liquid::Template.file_system = Liquid::LocalFileSystem.new(@themes_path)
     end
@@ -17,22 +17,9 @@ module Contentr
     ##
     # Renders the given page
     #
-    def render_page(page, request, options = {})
-      # Merge the options hash with some useful defaults
-      options = {
-        :layout    => page.layout,
-        :template  => page.template,
-        :assigns   => {
-          'page'       => page,
-          'theme_name' => @theme_name
-        },
-        :registers => {
-          'page'          => page,
-          'render_engine' => self,
-          'theme_name'    => @theme_name,
-          'request'       => request
-        }
-      }.deep_merge(options)
+    def render_page(page, request, controller, options = {})
+      # Setup options
+      options = setup_options(page, request, controller, options)
 
       # Load the template and extract the areas
       template = load_file(options[:template], :type => 'template')
@@ -55,15 +42,7 @@ module Contentr
         # Render paragraph into the area
         nodes[0].content = nil      # remove all content (e.g. dummy data) from the area node
         nodes[0] << nodes[0].parse( # parse the returned xml into a node, as content will otherwise beeing escaped
-          paragraphs.map do |p|
-            filename = p.class.name.underscore.split('/').last
-            if (filename)
-              paragraph_template = load_file(filename, :type => 'paragraph')
-              paragraph_template = Liquid::Template.parse(paragraph_template)
-              content = paragraph_template.render!(options[:assigns].merge({'paragraph' => p}), { :registers => options[:registers] })
-              content.html_safe
-            end
-          end.join("")
+          paragraphs.map {|p| render_paragraph(p, options)}.join("")
         )
       end
 
@@ -79,6 +58,27 @@ module Contentr
 
       # Finally return the content
       return content
+    end
+
+    ##
+    # Render paragraphs
+    #
+    def render_paragraphs(page, area_name, request, controller, options = {})
+      options = setup_options(page, request, controller, options)
+      paragraphs = page.paragraphs.select {|p| p.area_name == area_name.to_s}
+      paragraphs.map {|p| render_paragraph(p, options)}.join("").html_safe
+    end
+
+    ##
+    # Render a single paragraph
+    #
+    def render_paragraph(paragraph, options)
+      filename = paragraph.class.name.underscore.split('/').last
+      if (filename)
+        paragraph_template = load_file(filename, :type => 'paragraph')
+        paragraph_template = Liquid::Template.parse(paragraph_template)
+        paragraph_template.render!(options[:assigns].merge({'paragraph' => paragraph}), { :registers => options[:registers] })
+      end
     end
 
     ##
@@ -103,6 +103,30 @@ module Contentr
       liquid_template = File.join(theme_path, "#{name}.#{type}.html")
       raise "No such template file #{liquid_template}" unless File.exists?(liquid_template)
       File.read(liquid_template)
+    end
+
+  protected
+
+    ##
+    # Setup options
+    #
+    def setup_options(page, request, controller, options = {})
+      # Merge the options hash with some useful defaults
+      {
+        :layout    => page.layout,
+        :template  => page.template,
+        :assigns   => {
+          'page'       => page,
+          'theme_name' => @theme_name
+        },
+        :registers => {
+          'page'          => page,
+          'render_engine' => self,
+          'theme_name'    => @theme_name,
+          'request'       => request,
+          'controller'    => controller
+        }
+      }.deep_merge(options)
     end
   end
 end

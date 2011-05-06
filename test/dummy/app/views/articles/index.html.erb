@@ -1,9 +1,11 @@
 <h1>Articles</h1>
 
+<%= contentr_area('body') %>
+
 <ul>
 <% @articles.each do |a| %>
   <li>
-    <strong><%= a.title %></strong><br/>
+    <strong><%= link_to a.title, article_url(a) %></strong><br/>
     <div><%= a.body %></div>
   </li>
 <% end %>

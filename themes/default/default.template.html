@@ -23,17 +23,17 @@
   <ul>
     {% nav %}
       <li>
-        <a href="{{page.path | url}}">{{page.name}}</a>
+        <a href="{{page.url}}">{{page.name}}</a>
         {% if page.has_children %}
           <ul>
             {% nav for page %}
               <li>
-                <a href="{{page.path | url}}">{{page.name}}</a>
+                <a href="{{page.url}}">{{page.name}}</a>
                 {% if page.has_children %}
                   <ul>
                     {% nav for page %}
                       <li>
-                        <a href="{{page.path | url}}">{{page.name}}</a>
+                        <a href="{{page.url}}">{{page.name}}</a>
                       </li>
                     {% endnav %}
                   </ul>

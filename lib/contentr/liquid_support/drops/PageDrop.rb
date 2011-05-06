@@ -46,6 +46,14 @@ module Contentr
           @page.expected_areas
         end
 
+        def url
+          if @page.is_link?
+            @page.linked_to
+          else
+            "#{Contentr.frontend_route_prefix}/#{@page.path}"
+          end
+        end
+
       end
     end
   end
