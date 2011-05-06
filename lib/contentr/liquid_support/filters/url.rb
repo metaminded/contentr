@@ -3,7 +3,7 @@
 module Contentr::LiquidSupport::Filters::Url
 
   def url(source)
-    return "/cms/#{source}" # FIXME: Do not hardcode the /cms prefix
+    return "#{Contentr.frontend_route_prefix}/#{source}"
   end
 
 end

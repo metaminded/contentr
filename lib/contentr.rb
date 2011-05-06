@@ -27,6 +27,10 @@ module Contentr
   mattr_accessor :default_page
   @@default_page
 
+  # Frontend route prefix (defaults to /cms)
+  mattr_accessor :frontend_route_prefix
+  @@frontend_route_prefix = '/cms'
+
   # Default way to setup Contentr. Run rails generate mmcms:install to create
   # a fresh initializer with all configuration values.
   def self.setup
