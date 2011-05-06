@@ -1,14 +1,14 @@
 
 class Contentr::LiquidSupport::Tags::Include < Liquid::Tag
 
-  Syntax = /(#{::Liquid::QuotedFragment}+)/
+  Syntax = /(#{Liquid::QuotedFragment}+)/
 
   def initialize(tag_name, markup, tokens)
     if markup =~ Syntax
       @template_name = $1
       @attributes    = {}
 
-      markup.scan(::Liquid::TagAttributes) do |key, value|
+      markup.scan(Liquid::TagAttributes) do |key, value|
         @attributes[key] = value
       end
     else
@@ -19,10 +19,11 @@ class Contentr::LiquidSupport::Tags::Include < Liquid::Tag
   end
 
   def render(context)
-    liquid = context.registers['liquid']
+    render_engine = context.registers['render_engine']
 
-    if (liquid)
-      partial = liquid.parse_template(@template_name, 'include')
+    if (render_engine)
+      partial = render_engine.load_file(@template_name, :type => 'include')
+      partial = Liquid::Template.parse(partial)
       context.stack do
         @attributes.each do |key, value|
           context[key] = context[value]

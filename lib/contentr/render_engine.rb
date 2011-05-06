@@ -17,18 +17,26 @@ module Contentr
     ##
     # Renders the given page
     #
-    def render_page(page, options = {})
+    def render_page(page, request, options = {})
       # Merge the options hash with some useful defaults
       options = {
         :layout    => page.layout,
         :template  => page.template,
-        :assigns   => {},
-        :registers => {}
-      }.merge(options)
+        :assigns   => {
+          'page'       => page,
+          'theme_name' => @theme_name
+        },
+        :registers => {
+          'page'          => page,
+          'render_engine' => self,
+          'theme_name'    => @theme_name,
+          'request'       => request
+        }
+      }.deep_merge(options)
 
       # Load the template and extract the areas
-      template_content = load_template(options[:template], 'template')
-      template = Nokogiri::XML("<root>#{template_content}</root>") do |config|
+      template = load_file(options[:template], :type => 'template')
+      template = Nokogiri::XML("<root>#{template}</root>") do |config|
         # defaults
       end
       areas = page.paragraphs.inject(template.xpath('//@data-cms-area').map(&:value).inject({}) do |a, area|
@@ -39,23 +47,24 @@ module Contentr
         a
       end
 
-      # Render paragraphs
+      # Render paragraphs inside the page template
       areas.each do |area_name, paragraphs|
         nodes = template.xpath('//div[@data-cms-area="'+area_name+'"]')
         nodes[0].content = render_paragraphs(paragraphs) if nodes[0]
       end
 
-      # Load the template identified by the given template name.
-      template_file    = Liquid::Template.parse(template.root.children.to_s)
-      template_content = template_file.render!(options[:assigns], { :registers => options[:registers] })
-      options[:assigns]['content_for_layout'] = template_content
+      # Render the page template
+      template = Liquid::Template.parse(template.root.children.to_s)
+      content  = template.render!(options[:assigns], { :registers => options[:registers] })
+      options[:assigns]['content_for_layout'] = content
 
-      # Load the Liquid layout file.
-      layout_file    = parse_template(options[:layout], 'layout')
-      layout_content = layout_file.render!(options[:assigns], { :registers => options[:registers] })
+      # Render the layout (a layout wraps the template)
+      layout = load_file(options[:layout], :type => 'layout')
+      layout = Liquid::Template.parse(layout)
+      content = layout.render!(options[:assigns], { :registers => options[:registers] })
 
-      # Finally return the final result
-      return layout_content
+      # Finally return the content
+      return content
     end
 
     ##
@@ -68,21 +77,14 @@ module Contentr
     end
 
     ##
-    # Loads and parses the a Liquid template
-    #
-    def parse_template(name, type = 'template')
-      t = load_template(name, type)
-      return Liquid::Template.parse(t)
-    end
-
-    ##
     # Loads a Liquid template for the current account from
     # the file system.
     #
-    def load_template(name, type = 'template')
+    def load_file(name, options = {:type => 'template'})
       raise "Illegal template name '#{name}'" unless name =~ /^[a-zA-Z0-9_]+$/
-      raise "Illegal template type '#{type}'" unless %w(template layout include).member?(type)
+      raise "Illegal template type '#{options[:type]}'" unless %w(template layout include).member?(options[:type])
 
+      type = options[:type]
       theme_path = File.join(@themes_path, @theme_name)
 
       # is there localized version of the template?

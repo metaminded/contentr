@@ -3,7 +3,7 @@
 class Contentr::PagesController < Contentr::ApplicationController
 
   # Global filters, setup, etc.
-  before_filter :setup_locale, :setup_liquid
+  before_filter :setup_locale, :setup_render_engine
 
   def show
     path = params[:path]
@@ -21,11 +21,10 @@ protected
     I18n.locale = params[:locale]
   end
 
-  def setup_liquid
+  def setup_render_engine
     theme_name = Contentr.theme_name
     theme_name = params[:_theme] if params[:_theme].present?
-
-    @liquid = Contentr::RenderEngine.new(Contentr.themes_path, theme_name)
+    @render_engine = Contentr::RenderEngine.new(Contentr.themes_path, theme_name)
   end
 
   def render_page
@@ -33,19 +32,7 @@ protected
     layout = @page.layout
     layout = params[:_layout] if params[:_layout].present?
 
-    render :text => @liquid.render_page(@page,
-      :assigns   => {
-        'request_params' => request.params,
-        'page'           => @page,
-        'theme_name'     => Contentr.theme_name
-      },
-      :registers => {
-        'liquid'     => @liquid,
-        'request'    => request,
-        'page'       => @page,
-        'theme_name' => Contentr.theme_name
-      }
-    )
+    render :text => @render_engine.render_page(@page, request)
   end
 
   def render_page_not_found
