@@ -54,6 +54,10 @@ module Contentr
       self.linkedTo.present?
     end
 
+    def expected_areas
+      self.paragraphs.map(&:area_name).uniq
+    end
+
   protected
 
     def generate_slug

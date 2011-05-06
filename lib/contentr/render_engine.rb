@@ -52,6 +52,7 @@ module Contentr
         nodes = template.xpath('//div[@data-contentr-area="'+area_name+'"]')
         next unless nodes[0]
 
+        # Render paragraph into the area
         nodes[0].content = nil      # remove all content (e.g. dummy data) from the area node
         nodes[0] << nodes[0].parse( # parse the returned xml into a node, as content will otherwise beeing escaped
           paragraphs.map do |p|

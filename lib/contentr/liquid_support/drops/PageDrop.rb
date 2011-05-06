@@ -42,6 +42,10 @@ module Contentr
           @page.slug
         end
 
+        def expected_areas
+          @page.expected_areas
+        end
+
       end
     end
   end
