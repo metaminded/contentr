@@ -2,10 +2,8 @@ require 'lorem'
 
 class Contentr::LiquidSupport::Tags::Lorem < Liquid::Tag
 
-  Syntax = /(\d+)\s+(\w+)/
-
   def initialize(tag_name, markup, tokens)
-    if markup =~ Syntax
+    if markup =~ /(\d+)\s+(\w+)/
       @count = $1.to_i
       @type  = $2
     else

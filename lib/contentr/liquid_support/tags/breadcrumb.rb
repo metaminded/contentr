@@ -1,9 +1,7 @@
 class Contentr::LiquidSupport::Tags::Breadcrumb < Liquid::Block
 
-  Syntax = /for\s+(#{Liquid::QuotedFragment}+)/
-
   def initialize(tag_name, markup, tokens)
-    if markup =~ Syntax
+    if markup =~ /for\s+(#{Liquid::QuotedFragment}+)/
       @page_name = $1
     else
       @page_name = nil

@@ -1,10 +1,8 @@
 
 class Contentr::LiquidSupport::Tags::Include < Liquid::Tag
 
-  Syntax = /(#{Liquid::QuotedFragment}+)/
-
   def initialize(tag_name, markup, tokens)
-    if markup =~ Syntax
+    if markup =~ /(#{Liquid::QuotedFragment}+)/
       @template_name = $1
       @attributes    = {}
 
