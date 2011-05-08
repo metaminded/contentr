@@ -23,7 +23,7 @@ module Contentr
 
       # Load the template and extract the areas
       template = load_file(options[:template], :type => 'template')
-      template = Nokogiri::XML("<root>#{template}</root>") do |config|
+      template = Nokogiri::HTML("#{template}") do |config|
         # defaults
       end
       areas = page.paragraphs.inject(template.xpath('//@data-contentr-area').map(&:value).inject({}) do |a, area|
@@ -47,7 +47,7 @@ module Contentr
       end
 
       # Render the page template
-      template = Liquid::Template.parse(template.root.children.to_s)
+      template = Liquid::Template.parse(template.xpath('//body')[0].children.to_html.gsub('%7B', '{').gsub('%7D', '}'))
       content  = template.render!(options[:assigns], { :registers => options[:registers] })
       options[:assigns]['content_for_layout'] = content
 

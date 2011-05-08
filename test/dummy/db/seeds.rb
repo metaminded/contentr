@@ -21,9 +21,9 @@ sub_subpage_1 = Contentr::Page.create!(:name => 'Sub Sub Page 1', :parent => sub
 #
 # Create some content on the pages
 #
-p = Contentr::TextParagraph.new(:area_name => 'body', :title => 'Some title', :body => 'Contentr is cool!')
+p = Contentr::TextParagraph.new(:area_name => 'body', :title => 'Some title', :body => 'Contentr <b>is</b> cool!')
 home_page.paragraphs << p
-p = Contentr::TextParagraph.new(:area_name => 'body', :title => 'Some other title', :body => 'Contentr is even cooler :-)')
+p = Contentr::TextParagraph.new(:area_name => 'body', :title => 'Some other title', :body => 'Contentr <b>is even</b> cooler :-)')
 home_page.paragraphs << p
 
 #
