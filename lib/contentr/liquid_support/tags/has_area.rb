@@ -4,7 +4,7 @@ class Contentr::LiquidSupport::Tags::HasArea < Liquid::Block
     if markup =~ /(#{Liquid::QuotedFragment}+)/
       @area_name = $1
     else
-      raise SyntaxError.new("Error in tag 'include' - Valid syntax: has_area '[area name]'")
+      raise SyntaxError.new("Error in tag 'has_area' - Valid syntax: has_area [area name]")
     end
 
     super

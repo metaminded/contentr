@@ -10,7 +10,7 @@ class Contentr::LiquidSupport::Tags::Include < Liquid::Tag
         @attributes[key] = value
       end
     else
-      raise SyntaxError.new("Error in tag 'include' - Valid syntax: include '[template]'")
+      raise SyntaxError.new("Error in tag 'include' - Valid syntax: include [template]")
     end
 
     super

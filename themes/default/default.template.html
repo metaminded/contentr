@@ -18,33 +18,3 @@
 </div>
 
 
-<h2>Subpages</h2>
-<div id="navigation">
-  <ul>
-    {% nav %}
-      <li>
-        <a href="{{page.url}}">{{page.name}}</a>
-        {% if page.has_children %}
-          <ul>
-            {% nav for page %}
-              <li>
-                <a href="{{page.url}}">{{page.name}}</a>
-                {% if page.has_children %}
-                  <ul>
-                    {% nav for page %}
-                      <li>
-                        <a href="{{page.url}}">{{page.name}}</a>
-                      </li>
-                    {% endnav %}
-                  </ul>
-                {% endif %}
-              </li>
-            {% endnav %}
-          </ul>
-        {% endif %}
-      </li>
-    {% endnav %}
-  </ul>
-</div>
-
-
