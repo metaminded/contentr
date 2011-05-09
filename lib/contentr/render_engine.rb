@@ -23,9 +23,10 @@ module Contentr
 
       # Load the template and extract the areas
       template = load_file(options[:template], :type => 'template')
-      template = Nokogiri::HTML("#{template}") do |config|
+      template = Nokogiri::HTML.parse(template, 'UTF-8') do |config|
         # defaults
       end
+
       areas = page.paragraphs.inject(template.xpath('//@data-contentr-area').map(&:value).inject({}) do |a, area|
         a[area] = []
         a
@@ -40,9 +41,9 @@ module Contentr
         next unless nodes[0]
 
         # Render paragraph into the area
-        nodes[0].content = nil      # remove all content (e.g. dummy data) from the area node
-        nodes[0] << nodes[0].parse( # parse the returned xml into a node, as content will otherwise beeing escaped
-          paragraphs.map {|p| render_paragraph(p, options)}.join("")
+        nodes[0].inner_html = Nokogiri::HTML::DocumentFragment.parse(
+          paragraphs.map {|p| render_paragraph(p, options)}.join(""),
+          'UTF-8'
         )
       end
 
