@@ -22,8 +22,10 @@ class Contentr::LiquidSupport::Tags::Nav < Liquid::Block
     result = []
     context.stack do
       pages.each do |p|
-        context['page'] = p
-        result << render_all(@nodelist, context)
+        unless p.hide_in_navigation
+          context['page'] = p
+          result << render_all(@nodelist, context)
+        end
       end
     end
 

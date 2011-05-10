@@ -42,7 +42,7 @@ Article.create!(:title => 'Article No. 3', :body => 'Lorem ipsum dolor sit amet,
 linked_page = Contentr::Page.create!(:name => 'Articles', :linked_to => '/articles')
 linked_page.paragraphs << Contentr::TextParagraph.new(:area_name => 'body', :title => 'Hello from Contentr', :body => 'This is contnt from Contentr on a ERB Page!')
 
-linked_page = Contentr::Page.create!(:name => 'Article', :linked_to => '/articles/*')
+linked_page = Contentr::Page.create!(:name => 'Article', :linked_to => '/articles/*', :hide_in_navigation => true)
 linked_page.paragraphs << Contentr::TextParagraph.new(:area_name => 'body', :title => 'Hello from Contentr Wildcard', :body => 'This is contnt from Contentr on a ERB Page!')
 
 #

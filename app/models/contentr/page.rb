@@ -10,19 +10,20 @@ module Contentr
     include Mongoid::Tree::Traversal
 
     # Fields
-    field :name,        :type => String
-    field :description, :type => String
-    field :slug,        :type => String, :index => true
-    field :path,        :type => String, :index => true
-    field :layout,      :type => String, :default => 'default'
-    field :template,    :type => String, :default => 'default'
-    field :linked_to,   :type => String, :index => true
+    field :name,               :type => String
+    field :description,        :type => String
+    field :slug,               :type => String,  :index => true
+    field :path,               :type => String,  :index => true
+    field :layout,             :type => String,  :default => 'default'
+    field :template,           :type => String,  :default => 'default'
+    field :linked_to,          :type => String,  :index => true
+    field :hide_in_navigation, :type => Boolean, :default => false
 
     # Relations
     embeds_many :paragraphs, :class_name => 'Contentr::Paragraph'
 
     # Protect attributes from mass assignment
-    attr_accessible :name, :description, :slug, :layout, :template, :parent, :linked_to
+    attr_accessible :name, :description, :slug, :layout, :template, :parent, :linked_to, :hide_in_navigation
 
     # Validations
     validates_presence_of   :name
