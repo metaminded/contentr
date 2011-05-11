@@ -7,7 +7,7 @@ class Contentr::PagesController < Contentr::ApplicationController
 
   def show
     path = params[:path]
-    return redirect_to cms_url(:path => Contentr.default_page) if path.blank?
+    return redirect_to contentr_url(:path => Contentr.default_page) if path.blank?
 
     @page = Contentr::Page.find_by_path(path)
     @page.present? ? render_page : render_page_not_found
