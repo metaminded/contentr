@@ -45,7 +45,8 @@ module Contentr
     end
 
     def self.find_by_path(path)
-      Contentr::Page.where(:path => path).first
+      page = Contentr::Page.where(:path => path).first
+      page.is_link? ? nil : page
     end
 
     def self.find_by_link(link_name)
