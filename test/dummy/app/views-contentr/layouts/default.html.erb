@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Contentr Demo :: New rendering</title>
+  <style>
+    .active { font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>CONTENTR LAYOUT - Page: <%= current_page.name %></h1>
+  <hr/>
+    <%= render '/main_navigation' %>
+  <hr/>
+  <%= yield %>
+  <hr/>
+  <div>
+    Some footer here...
+  </div>
+</body>
+</html>

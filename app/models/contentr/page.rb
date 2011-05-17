@@ -32,6 +32,7 @@ module Contentr
     validates_presence_of   :layout
     validates_presence_of   :template
     validates_uniqueness_of :linked_to, :allow_nil => true, :allow_blank => true
+    validates_uniqueness_of :path
 
     # Callbacks
     before_validation :generate_slug
@@ -45,12 +46,27 @@ module Contentr
     end
 
     def self.find_by_path(path)
-      page = Contentr::Page.where(:path => path).first
-      page.is_link? ? nil : page
+      if path.present? and path.start_with?(Contentr.frontend_route_prefix)
+        path = path.slice(Contentr.frontend_route_prefix.length..path.length)
+      end
+      Contentr::Page.where(:path => path).try(:first)
     end
 
-    def self.find_by_link(link_name)
-      Contentr::Page.where(:linked_to => link_name).first
+    def self.find_by_link(path)
+      # Try to find by full path
+      page = Contentr::Page.where(:linked_to => path).try(:first)
+
+      # Try wildcard match on the last component if any /articles/42 => /articles/*
+      # and page is nil
+      if page.blank?
+        pc = path.split('/')
+        pc[pc.length-1] = '*'
+        path = pc.join('/')
+        page = Contentr::Page.where(:linked_to => path).try(:first)
+      end
+
+      # return page
+      page
     end
 
     def has_children?
@@ -72,7 +88,7 @@ module Contentr
     end
 
     def rebuild_path
-      self.path = self.ancestors_and_self.collect(&:slug).join('/')
+      self.path = "/#{self.ancestors_and_self.collect(&:slug).join('/')}"
     end
 
   end

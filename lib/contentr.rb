@@ -74,6 +74,8 @@ protected
 
 end
 
+# Require contentr files
+require_dependency 'contentr/rendering'
+require_dependency 'contentr/view_helpers'
+require_dependency 'contentr/template_resolver'
 require_dependency 'contentr/engine'
-require_dependency 'contentr/render_engine'
-require_dependency 'contentr/liquid_support'

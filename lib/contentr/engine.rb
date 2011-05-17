@@ -5,8 +5,12 @@ module Contentr
       app.middleware.use(::ActionDispatch::Static, "#{root}/public")
     end
 
-    initializer 'view helper' do |app|
-      ActionView::Base.send :include, Contentr::RenderSupport
+    initializer 'contentr rendering' do |app|
+      ActionController::Base.send :extend, Contentr::Rendering
+    end
+
+    initializer 'contentr view helpers' do |app|
+      ActionView::Base.send :include, Contentr::Rendering::ViewHelpers
     end
   end
 
