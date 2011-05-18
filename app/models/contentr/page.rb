@@ -52,17 +52,12 @@ module Contentr
       Contentr::Page.where(:path => path).try(:first)
     end
 
-    def self.find_by_link(path)
-      # Try to find by full path
-      page = Contentr::Page.where(:linked_to => path).try(:first)
+    def self.find_by_controller_action(controller, action)
+      page = Contentr::Page.where(:linked_to => "#{controller}/#{action}").try(:first)
 
-      # Try wildcard match on the last component if any /articles/42 => /articles/*
-      # and page is nil
+      # Try wildcard match on the action if a previous match failed
       if page.blank?
-        pc = path.split('/')
-        pc[pc.length-1] = '*'
-        path = pc.join('/')
-        page = Contentr::Page.where(:linked_to => path).try(:first)
+        page = Contentr::Page.where(:linked_to => "#{controller}/*").try(:first)
       end
 
       # return page
@@ -75,6 +70,18 @@ module Contentr
 
     def is_link?
       self.linked_to.present?
+    end
+
+    def controller_action_url_options
+      if self.is_link?
+        p          = self.linked_to.split('/')
+        action     = p.last
+        action     = 'index' if action.blank? or action.strip == '*'
+        controller = p.slice(0..p.size-2).join('/')
+        controller = "/#{controller}" unless controller.include?('/')
+
+        {:controller => controller, :action => action}
+      end
     end
 
     def expected_areas

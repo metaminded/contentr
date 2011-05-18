@@ -1,5 +1,5 @@
 <ul class="mainnavigation">
   <% Contentr::Page.roots.asc(:position).each do |page| next if page.hide_in_navigation %>
-    <li<%= (request.env['PATH_INFO']=="/cms/#{page.path}") ? " class='active'" : ''%>><a href="<%= page.linked_to.present? ? page.linked_to : "/cms/#{page.slug}" %>"><%= page.name %></a></li>
+    <li<%= (request.env['PATH_INFO']=="/cms/#{page.path}") ? " class='active'" : ''%>><a href="<%= page.linked_to.present? ? url_for(page.controller_action_url_options) : "/cms/#{page.slug}" %>"><%= page.name %></a></li>
   <% end %>
 </ul>

@@ -39,11 +39,13 @@ Article.create!(:title => 'Article No. 3', :body => 'Lorem ipsum dolor sit amet,
 #
 # Mount/Link a "real" page (controler/action) to a Contentr Page
 #
-linked_page = Contentr::Page.create!(:name => 'Articles', :linked_to => '/articles')
+linked_page = Contentr::Page.create!(:name => 'Articles', :linked_to => 'articles/index')
 linked_page.paragraphs << Contentr::TextParagraph.new(:area_name => 'body', :title => 'Hello from Contentr', :body => 'This is contnt from Contentr on a ERB Page!')
 
-linked_page = Contentr::Page.create!(:name => 'Article', :linked_to => '/articles/*', :hide_in_navigation => true)
-linked_page.paragraphs << Contentr::TextParagraph.new(:area_name => 'body', :title => 'Hello from Contentr Wildcard', :body => 'This is contnt from Contentr on a ERB Page!')
+linked_page = Contentr::Page.create!(:name => 'Article', :linked_to => 'articles/*', :hide_in_navigation => true)
+#linked_page.paragraphs << Contentr::TextParagraph.new(:area_name => 'body', :title => 'Hello from Contentr Wildcard', :body => 'This is contnt from Contentr on a ERB Page!')
+
+linked_page = Contentr::Page.create!(:name => 'New Article', :linked_to => 'articles/new', :hide_in_navigation => true)
 
 #
 # Finished we are!
