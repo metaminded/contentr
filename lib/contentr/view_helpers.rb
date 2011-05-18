@@ -6,18 +6,17 @@ module Contentr
         @_contentr_current_page
       end
 
-      #def contentr_area(area_name)
-      #  link_name = request.env['PATH_INFO']
-      #  page = Page.find_by_link(link_name)
-      #  page ||= Page.find_by_link(link_name.gsub(params[:id], '*')) if params[:id]
-      #  contentr_render_engine.render_paragraphs(page, area_name, controller, request) if page
-      #end
-
-      private
-
-      #def contentr_render_engine
-      #  @contentr_render_engine ||= Contentr::RenderEngine.new
-      #end
+      def area(area_name)
+        if @_contentr_current_page
+          paragraphs = @_contentr_current_page.paragraphs_for_area(area_name)
+          content_tag(:div, 'data-contentr-area' => area_name) do
+            paragraphs.collect do |p|
+              template_name = p.class.to_s.split('::').last.tableize.singularize
+              render(:partial => "paragraphs/#{template_name}", :locals => {:paragraph => p})
+            end.join("").html_safe
+          end
+        end
+      end
 
     end
   end

@@ -41,10 +41,6 @@ module Contentr
     after_rearrange   :rebuild_path
 
 
-    def to_liquid
-      Contentr::LiquidSupport::Drops::PageDrop.new(self)
-    end
-
     def self.find_by_path(path)
       if path.present? and path.start_with?(Contentr.frontend_route_prefix)
         path = path.slice(Contentr.frontend_route_prefix.length..path.length)
@@ -86,6 +82,10 @@ module Contentr
 
     def expected_areas
       self.paragraphs.map(&:area_name).uniq
+    end
+
+    def paragraphs_for_area(area_name)
+      self.paragraphs.where(area_name: area_name)
     end
 
   protected

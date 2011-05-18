@@ -8,15 +8,10 @@ class Contentr::TemplateResolver < ActionView::FileSystemResolver
 
 private
 
+  # If we need to be more intelligent on resolving
+  # templates, override find_templates
   #def find_templates(name, prefix, partial, details)
-  #  puts "Name   : #{name}"
-  #  puts "Prefix : #{prefix}"
-  #  puts "Partial: #{partial}"
-  #  puts "Details: #{details}"
   #
-  #  path = ::ActionView::Resolver::Path.build(name, prefix, partial)
-  #  puts "PATH   : #{path}"
-  #  query(path, details, details[:formats])
   #end
 
 end
