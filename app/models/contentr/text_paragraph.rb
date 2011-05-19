@@ -11,8 +11,5 @@ module Contentr
     validates_presence_of :title
     validates_presence_of :body
 
-    # Liquid support
-    liquid_methods :title, :body
-
   end
 end

@@ -3,11 +3,8 @@ PATH
   specs:
     contentr (0.0.2)
       bson_ext (~> 1.3)
-      liquid (~> 2.2)
-      lorem (~> 0.1)
       mongoid (~> 2.0)
       mongoid-tree (~> 0.6)
-      nokogiri (~> 1.4)
       rails (~> 3.0)
       stringex (~> 1.2)
 
@@ -64,8 +61,6 @@ GEM
       rake (>= 0.8.7)
     i18n (0.5.0)
     json_pure (1.5.1)
-    liquid (2.2.2)
-    lorem (0.1.2)
     mail (2.2.19)
       activesupport (>= 2.3.6)
       i18n (>= 0.4.0)

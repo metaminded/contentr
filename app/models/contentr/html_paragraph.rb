@@ -9,8 +9,5 @@ module Contentr
     # Validations
     validates_presence_of :body
 
-    # Liquid support
-    liquid_methods :body
-
   end
 end
