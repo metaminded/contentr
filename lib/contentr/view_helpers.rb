@@ -7,7 +7,7 @@ module Contentr
       end
 
       def area(area_name)
-        if @_contentr_current_page
+        if @_contentr_current_page.present? and area_name.present?
           paragraphs = @_contentr_current_page.paragraphs_for_area(area_name)
           content_tag(:div, 'data-contentr-area' => area_name) do
             paragraphs.collect do |p|
