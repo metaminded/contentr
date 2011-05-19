@@ -35,7 +35,7 @@ module Contentr
             redirect_to page.controller_action_url_options
           else
             @_contentr_current_page = page
-            options = options.merge(:prefix => '', :template => page.template, :layout => "layouts/#{page.layout}")
+            options = options.merge(:prefix => 'contentr', :template => page.template, :layout => "layouts/contentr/#{page.layout}")
             self.response_body = render_to_body(options)
           end
         else
@@ -47,7 +47,7 @@ module Contentr
         page = Contentr::Page.find_by_controller_action(controller_name, action_name)
         if page.present?
           @_contentr_current_page = page
-          options = options.merge(:layout => "layouts/#{page.layout}")
+          options = options.merge(:layout => "layouts/contentr/#{page.layout}")
         end
         self.response_body = render_to_body(options)
       end

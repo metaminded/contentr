@@ -12,7 +12,7 @@ module Contentr
           content_tag(:div, 'data-contentr-area' => area_name) do
             paragraphs.collect do |p|
               template_name = p.class.to_s.tableize.singularize
-              render(:partial => "paragraphs/#{template_name}", :locals => {:paragraph => p})
+              render(:partial => "contentr/paragraphs/#{template_name}", :locals => {:paragraph => p})
             end.join("").html_safe
           end
         end
