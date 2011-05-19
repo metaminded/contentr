@@ -11,7 +11,7 @@ module Contentr
           paragraphs = @_contentr_current_page.paragraphs_for_area(area_name)
           content_tag(:div, 'data-contentr-area' => area_name) do
             paragraphs.collect do |p|
-              template_name = p.class.to_s.split('::').last.tableize.singularize
+              template_name = p.class.to_s.tableize.singularize
               render(:partial => "paragraphs/#{template_name}", :locals => {:paragraph => p})
             end.join("").html_safe
           end
