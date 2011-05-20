@@ -32,8 +32,8 @@ module Contentr
         # generate the menu starting with the root pages
         if (options.has_key?(:path))
           path = options[:path]
-          page_or_pages = (path.blank? or path.strip == '/') ? Contentr::Page.roots.asc(:position).to_a
-                                                             : Contentr::Page.find_by_path(path)
+          page_or_pages = (path.blank? or path == :root or path.strip == '/') ? Contentr::Page.roots.asc(:position).to_a
+                                                                              : Contentr::Page.find_by_path(path)
           return nil if page_or_pages.blank?
         end
 
