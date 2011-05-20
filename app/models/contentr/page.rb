@@ -48,7 +48,7 @@ module Contentr
         controller = p.slice(0..p.size-2).join('/')
         controller = "/#{controller}" unless controller.include?('/')
 
-        {:controller => controller, :action => action, :only_path => false}
+        {:controller => controller, :action => action}
       end
     end
 

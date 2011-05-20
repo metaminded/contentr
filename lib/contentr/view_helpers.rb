@@ -82,7 +82,7 @@ module Contentr
                 # set link title
                 link_title = p.menu_title || p.name
                 # the link
-                s << link_to(link_title, link_url, link_options)
+                s << link_to(link_title, link_url, link_options.merge(:only_path => false))
 
                 # the children
                 s << _page_tree(p.children, current_page, options, depth).to_s
