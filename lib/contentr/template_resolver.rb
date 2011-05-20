@@ -12,7 +12,7 @@ private
   # templates, override find_templates
   def find_templates(name, prefix, partial, details)
     # Modify the prefix in case we try to resolve partials within
-    # the contentr scope£
+    # the contentr scope
     prefix = 'contentr' if partial
     super(name, prefix, partial, details)
   end
