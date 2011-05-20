@@ -6,15 +6,18 @@
   <%= javascript_include_tag :defaults %>
   <%= csrf_meta_tag %>
   <style>
-    .active { font-weight: bold; }
+    .contentr.menu .active { font-weight: bold; }
+    .contentr.menu .open { font-style: italic; }
   </style>
 </head>
 <body>
   <h1>CONTENTR LAYOUT - Page: <%= current_page.name %></h1>
   <hr/>
-  <%= menu(:path => '/', :depth => 1) %>
+  <%= menu(:path => '/', :depth => 2) %>
   <hr/>
-  <%= menu(:path => '/services/services-subpage-1', :depth => 0) %>
+  <%= menu(:path => '/services', :depth => 0) %>
+  <hr/>
+  <%= menu(:depth => 1) %>
   <hr/>
   <div><%= flash[:message] %></div>
   <%= yield %>
