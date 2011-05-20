@@ -68,7 +68,7 @@ module Contentr
                 s = ''
 
                 # the link url
-                link_url = p.is_link? ? url_for(p.controller_action_url_options.merge(:only_path => false))
+                link_url = p.is_link? ? url_for(p.controller_action_url_options)
                                       : File.join(Contentr.frontend_route_prefix, p.path)
                 link_options = {}
                 # set the link css class
