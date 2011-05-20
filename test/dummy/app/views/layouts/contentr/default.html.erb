@@ -12,7 +12,9 @@
 <body>
   <h1>CONTENTR LAYOUT - Page: <%= current_page.name %></h1>
   <hr/>
-    <%= menu :main %>
+  <%= menu(:path => '/', :depth => 1) %>
+  <hr/>
+  <%= menu(:path => '/services/services-subpage-1', :depth => 0) %>
   <hr/>
   <div><%= flash[:message] %></div>
   <%= yield %>

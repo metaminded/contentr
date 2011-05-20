@@ -13,9 +13,9 @@ module Contentr
     include Mongoid::Tree::Traversal
 
     # Fields
-    field :name,        :type => String
-    field :slug,        :type => String, :index => true
-    field :path,        :type => String, :index => true
+    field :name, :type => String
+    field :slug, :type => String, :index => true
+    field :path, :type => String, :index => true
 
     # Protect attributes from mass assignment
     attr_accessible :name, :slug, :parent
@@ -51,7 +51,8 @@ module Contentr
     end
 
     def rebuild_path
-      self.path = "/#{self.ancestors_and_self.collect(&:slug).join('/')}"
+      ancestors = self.ancestors.reverse # BUG in mongoid or mongoid tree
+      self.path = "/#{(ancestors + [self]).collect(&:slug).join('/')}"
     end
 
   end

@@ -8,12 +8,15 @@ module Contentr
     field :layout,      :type => String, :default => 'default'
     field :template,    :type => String, :default => 'default'
     field :linked_to,   :type => String, :index => true
+    field :menu_title,  :type => String
+    field :hidden,      :type => Boolean, :default => false, :index => true
+    field :published,   :type => Boolean, :default => false, :index => true
 
     # Relations
     embeds_many :paragraphs, :class_name => 'Contentr::Paragraph'
 
     # Protect attributes from mass assignment
-    attr_accessible :description, :layout, :template, :linked_to
+    attr_accessible :description, :layout, :template, :linked_to, :hidden
 
     # Validations
     validates_presence_of   :layout
@@ -55,6 +58,10 @@ module Contentr
 
     def paragraphs_for_area(area_name)
       self.paragraphs.where(area_name: area_name)
+    end
+
+    def publish!
+      self.update_attribute(:published, true)
     end
 
   end

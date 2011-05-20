@@ -11,14 +11,22 @@ end.each(&:drop)
 # Create some pages
 #
 home_page = Contentr::Page.create!(:name => 'Home', :description => 'homework')
+home_page.publish!
+
+portfolio_page = Contentr::Page.create!(:name => 'Portfolio', :description => 'our work')
+portfolio_page.publish!
 
 services_page  = Contentr::Page.create!(:name => 'Services', :description => 'what we do')
-portfolio_page = Contentr::Page.create!(:name => 'Portfolio', :description => 'our work')
+services_page.publish!
 
 subpage_1 = Contentr::Page.create!(:name => 'Services Subpage 1', :parent => services_page)
-subpage_2 = Contentr::Page.create!(:name => 'Services Subpage 2', :parent => services_page)
+subpage_1.publish!
 
 sub_subpage_1 = Contentr::Page.create!(:name => 'Sub Sub Page 1', :parent => subpage_1)
+sub_subpage_1.publish!
+
+subpage_2 = Contentr::Page.create!(:name => 'Services Subpage 2', :parent => services_page)
+subpage_2.publish!
 
 #
 # Create some content on the pages
@@ -41,11 +49,14 @@ Article.create!(:title => 'Article No. 3', :body => 'Lorem ipsum dolor sit amet,
 #
 linked_page = Contentr::Page.create!(:name => 'Articles', :linked_to => 'articles/index')
 linked_page.paragraphs << TextParagraph.new(:area_name => 'body', :title => 'Hello from Contentr', :body => 'This is content from Contentr on a ERB Page!')
+linked_page.publish!
 
-linked_page = Contentr::Page.create!(:name => 'Article', :linked_to => 'articles/*')
+linked_page = Contentr::Page.create!(:name => 'Article', :linked_to => 'articles/*', :hidden => true)
 linked_page.paragraphs << TextParagraph.new(:area_name => 'body', :title => 'Hello from Contentr Wildcard', :body => 'This is contnt from Contentr on a ERB Page!')
+linked_page.publish!
 
-linked_page = Contentr::Page.create!(:name => 'New Article', :linked_to => 'articles/new')
+linked_page = Contentr::Page.create!(:name => 'New Article', :linked_to => 'articles/new', :hidden => true)
+linked_page.publish!
 
 #
 # Finished we are!
