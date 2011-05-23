@@ -3,6 +3,8 @@ source 'http://rubygems.org'
 gemspec
 
 group :development, :test do
+  gem 'rake', '0.8.7'
+  #gem 'rails', '3.1.0.rc1'
   gem "capybara", ">= 0.4.0"
   gem "sqlite3"
 

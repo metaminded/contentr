@@ -1,5 +1,4 @@
 module Contentr
-
   module Rendering
 
     def contentr
@@ -35,7 +34,7 @@ module Contentr
             redirect_to page.controller_action_url_options
           else
             @_contentr_current_page = page
-            options = options.merge(:prefix => 'contentr', :template => page.template, :layout => "layouts/contentr/#{page.layout}")
+            options = options.merge(:template => page.template, :layout => "layouts/contentr/#{page.layout}")
             self.response_body = render_to_body(options)
           end
         else
