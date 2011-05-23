@@ -29,7 +29,7 @@ module Contentr
 end
 
 # Require contentr files
-require_dependency 'contentr/rendering'
-require_dependency 'contentr/view_helpers'
-require_dependency 'contentr/template_resolver'
-require_dependency 'contentr/engine'
+require 'contentr/rendering'
+require 'contentr/view_helpers'
+require 'contentr/template_resolver'
+require 'contentr/engine'
