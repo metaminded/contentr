@@ -28,7 +28,7 @@ module Contentr
         page_or_pages = options[:page] || @_contentr_current_page
         return nil if page_or_pages.blank?
         # by default we start from the current page, but this can be
-        # overridden by the :path optiop. If path is blank or '/' we
+        # overridden by the :path option. If path is blank or '/' we
         # generate the menu starting with the root pages
         if (options.has_key?(:path))
           path = options[:path]
