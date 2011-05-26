@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Contentr Demo Layout :: <%= current_page.name %></title>
+
+  <style>
+    .contentr.menu .active { font-weight: bold; }
+    .contentr.menu .open { font-style: italic; }
+  </style>
+</head>
+<body>
+  <h1>Hello from Contentr</h1>
+
+  <hr/>
+  <%= menu(:path => :root, :depth => 2) %>
+  <hr/>
+
+  <%= yield %>
+
+  <hr/>
+  <div>
+    Some footer here...
+  </div>
+</body>
+</html>

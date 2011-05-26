@@ -6,7 +6,7 @@ module Contentr
       source_root File.expand_path('../templates', __FILE__)
 
       def copy_default_theme
-        directory 'themes', 'contentr/themes'
+        directory 'views', 'app'
       end
 
       def copy_initializer
