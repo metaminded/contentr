@@ -13,6 +13,8 @@
   </style>
 </head>
 <body>
+  <%= contentr_toolbar %>
+
   <h1>CONTENTR LAYOUT - Page: <%= current_page.name %></h1>
   <hr/>
 
@@ -30,6 +32,7 @@
   <!-- breadcrump -->
   You are here:
   <%= breadcrumb %>
+  <hr/>
 
   <!-- flash -->
   <div><%= flash[:message] %></div>

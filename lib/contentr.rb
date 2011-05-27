@@ -1,6 +1,7 @@
 # coding: utf-8
 
 require 'rails'
+require 'jquery-rails'
 require 'mongoid'
 require 'mongoid/tree'
 require 'stringex'

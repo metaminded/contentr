@@ -14,10 +14,12 @@ module Contentr
       if current_page.present? and area_name.present?
         area_name = area_name.to_s
         paragraphs = current_page.paragraphs_for_area(area_name)
-        content_tag(:div, 'data-contentr-area' => area_name) do
+        content_tag(:div, :class => 'contentr area', 'data-contentr-area' => area_name) do
           paragraphs.collect do |p|
             template_name = p.class.to_s.tableize.singularize
-            render(:partial => "contentr/paragraphs/#{template_name}", :locals => {:paragraph => p})
+            content_tag(:div, :class => 'contentr paragraph') do
+              render(:partial => "contentr/paragraphs/#{template_name}", :locals => {:paragraph => p})
+            end
           end.join("").html_safe
         end
       end
