@@ -28,7 +28,5 @@ module Contentr
 
 end
 
-# Require contentr files
-require 'contentr/rendering'
-require 'contentr/view_helpers'
+# Require contentr engine
 require 'contentr/engine'
