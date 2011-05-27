@@ -2,9 +2,6 @@ module Contentr
   module Rendering
 
     def contentr
-      # Append view path
-      append_view_path Contentr::TemplateResolver.new
-
       # instance methods
       send :include, InstanceMethods
     end

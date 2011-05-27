@@ -31,5 +31,4 @@ end
 # Require contentr files
 require 'contentr/rendering'
 require 'contentr/view_helpers'
-require 'contentr/template_resolver'
 require 'contentr/engine'
