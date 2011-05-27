@@ -6,21 +6,34 @@
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
   <style>
-    .contentr.menu .active { font-weight: bold; }
-    .contentr.menu .open { font-style: italic; }
+    .contentr.menu li.item { font-weight: normal; }
+    .contentr.menu li.item { font-style: normal; }
+    .contentr.menu li.item.active { font-weight: bold; }
+    .contentr.menu li.item.open { font-style: italic; }
   </style>
 </head>
 <body>
   <h1>CONTENTR LAYOUT - Page: <%= current_page.name %></h1>
   <hr/>
-  <%= menu(:path => :root, :depth => 2) %>
+
+  <!-- main menu -->
+  <%= menu(:start => 0, :depth => 2) %>
   <hr/>
-  <%= menu(:path => '/services', :depth => 0) %>
-  <hr/>
-  <%= menu(:depth => 1) %>
-  <hr/>
+
+  <!-- submenu -->
+  <% submenu = menu(:start => 1) %>
+  <% if submenu.present? %>
+    <%= submenu %>
+    <hr/>
+  <% end %>
+
+  <!-- flash -->
   <div><%= flash[:message] %></div>
+
+  <!-- main content -->
   <%= yield %>
+
+  <!-- footer -->
   <hr/>
   <div>
     Some footer here...

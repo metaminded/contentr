@@ -51,8 +51,12 @@ module Contentr
     end
 
     def rebuild_path
-      ancestors = self.ancestors.reverse # BUG in mongoid or mongoid tree
-      self.path = "/#{(ancestors + [self]).collect(&:slug).join('/')}"
+      self.path = "/#{ancestors_and_self.collect(&:slug).join('/')}"
+    end
+
+    # BUGFIX: It looks like mongoid/tree or mongoid returns the wrong order
+    def ancestors
+      base_class.where(:_id.in => parent_ids).reverse
     end
 
   end
