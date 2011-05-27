@@ -33,7 +33,7 @@ module Contentr
       end
 
       # return page
-      page if page and page.visible?
+      page
     end
 
     def is_link?
@@ -62,14 +62,6 @@ module Contentr
 
     def publish!
       self.update_attribute(:published, true)
-    end
-
-    def visible?
-      self.published? and not self.hidden?
-    end
-
-    def visible_children
-      self.children.collect{|p| p if p.visible?}.compact
     end
 
   end

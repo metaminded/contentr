@@ -29,7 +29,7 @@ module Contentr
 
       def contentr_render_cms_page(path, options)
         page = Contentr::Page.find_by_path(path)
-        if page.present? and page.visible?
+        if page.present? and page.published?
           if page.is_link?
             redirect_to page.controller_action_url_options
           else
@@ -44,7 +44,7 @@ module Contentr
 
       def contentr_render_default_page(path, options)
         page = Contentr::Page.find_by_controller_action(controller_path, action_name)
-        if page.present? and page.visible?
+        if page.present? and page.published?
           @_contentr_current_page = page
           options = options.merge(:layout => "layouts/contentr/#{page.layout}")
         end
