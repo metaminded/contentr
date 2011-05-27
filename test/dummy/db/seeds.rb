@@ -31,9 +31,9 @@ subpage_2.publish!
 #
 # Create some content on the pages
 #
-p = TextParagraph.new(:area_name => 'body', :title => 'Some title', :body => 'Contentr <b>is</b> cool! Some non ASCII chars: üöß')
+p = Contentr::HtmlParagraph.new(:area_name => 'body', :body => 'Contentr <b>is</b> cool! Some non ASCII chars: üöß')
 home_page.paragraphs << p
-p = TextParagraph.new(:area_name => 'body', :title => 'Some other title', :body => 'Contentr <b>is even</b> cooler :-)')
+p = Contentr::HtmlParagraph.new(:area_name => 'body', :body => 'Contentr <b>is even</b> cooler :-)')
 home_page.paragraphs << p
 
 #
@@ -48,11 +48,11 @@ Article.create!(:title => 'Article No. 3', :body => 'Lorem ipsum dolor sit amet,
 # Mount/Link a "real" page (controler/action) to a Contentr Page
 #
 linked_page = Contentr::Page.create!(:name => 'Articles', :linked_to => 'articles/index')
-linked_page.paragraphs << TextParagraph.new(:area_name => 'body', :title => 'Hello from Contentr', :body => 'This is content from Contentr on a ERB Page!')
+linked_page.paragraphs << Contentr::HtmlParagraph.new(:area_name => 'body', :body => 'This is content from Contentr on a ERB Page!')
 linked_page.publish!
 
 linked_page = Contentr::Page.create!(:name => 'Article', :linked_to => 'articles/*', :hidden => true)
-linked_page.paragraphs << TextParagraph.new(:area_name => 'body', :title => 'Hello from Contentr Wildcard', :body => 'This is contnt from Contentr on a ERB Page!')
+linked_page.paragraphs << Contentr::HtmlParagraph.new(:area_name => 'body', :body => 'This is contnt from Contentr on a ERB Page!')
 linked_page.publish!
 
 linked_page = Contentr::Page.create!(:name => 'New Article', :linked_to => 'articles/new', :hidden => true)

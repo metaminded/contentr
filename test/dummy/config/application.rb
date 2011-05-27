@@ -2,12 +2,8 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 
-# If you have a Gemfile, require the gems listed there, including any gems
-# you've limited to :test, :development, or :production.
-Bundler.require(:default, Rails.env) if defined?(Bundler)
-
-# Require Contentr
-require "Contentr"
+Bundler.require
+require "contentr"
 
 module Dummy
   class Application < Rails::Application
@@ -50,3 +46,4 @@ module Dummy
     config.assets.enabled = true
   end
 end
+
