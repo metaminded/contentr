@@ -1,6 +1,7 @@
 module Contentr
   module MenuHelper
 
+    # Renders a dynamic menu
     def menu(options = {})
       # set the current page
       current_page = options[:page] || @_contentr_current_page
@@ -39,7 +40,7 @@ module Contentr
             li_options = {}
             # css classes
             css_classes = []
-            # each li is a menu item
+            # each li is an item
             css_classes << "item"
             # mark active (current) page
             css_classes << (options[:active_class] || 'active')  if page == current_page
@@ -57,21 +58,11 @@ module Contentr
             # render li tag
             content_tag(:li, li_options) do
               # default
-              s = ''
-
-              # the link url
-              link_url = page.is_link? ? url_for(page.controller_action_url_options)
-                                       : File.join(Contentr.frontend_route_prefix, page.path)
-              # set link title
-              link_title = page.menu_title || page.name
+              s = ''.html_safe
               # the link
-              s << link_to(link_title, link_url)
-
+              s << contentr_page_link(page)
               # the children
               s << fn.call(page.children, current_depth + 1)
-
-              # safe we are
-              s.html_safe
             end
           end.join("").html_safe
         end
@@ -86,6 +77,41 @@ module Contentr
           end
         end
       end
+    end
+
+    # Renders a breadcrumb
+    def breadcrumb(options = {})
+      if current_page.present?
+        content_tag(:ul, :class => "contentr #{options[:class] || 'breadcrumb'}") do
+          current_page.ancestors_and_self.collect do |page|
+            # li tag options
+            li_options = {}
+            # css classes
+            css_classes = []
+            # each li is an item
+            css_classes << "item"
+            # mark active (current) page
+            css_classes << (options[:active_class] || 'active')  if page == current_page
+            # set the link css classes
+            li_options[:class] = css_classes.join(' ')
+            # render li tag
+            content_tag(:li, li_options) { contentr_page_link(page) }
+          end.join("").html_safe
+        end
+      end
+    end
+
+    private
+
+    def contentr_page_link(page)
+      # set url
+      link_url = page.is_link? ? url_for(page.controller_action_url_options)
+                               : File.join(Contentr.frontend_route_prefix, page.path)
+      # set link title
+      link_title = page.menu_title || page.name
+
+      # the link
+      link_to(link_title, link_url)
     end
 
   end
