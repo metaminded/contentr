@@ -1,6 +1,6 @@
-.contentr-fe {}
+.contentr {}
 
-.contentr-fe.toolbar { background-color: #ccc; padding: 8px; }
+.contentr.toolbar { background-color: #ccc; padding: 8px; }
 
-.contentr-fe.area { border: 1px solid black; padding: 4px; }
-.contentr-fe.area .contentr-fe.paragraph { border: 1px solid red; margin: 4px 0; }
+.contentr.area.editable { border: 1px solid black; padding: 4px; }
+.contentr.area.editable .contentr.paragraph.editable { border: 1px solid red; margin: 4px 0; }

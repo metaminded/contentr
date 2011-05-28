@@ -14,13 +14,39 @@ module Contentr
       if current_page.present? and area_name.present?
         area_name = area_name.to_s
         paragraphs = current_page.paragraphs_for_area(area_name)
-        content_tag(:div, :class => 'contentr area', 'data-contentr-area' => area_name) do
+
+        area_options = {}
+        area_classes = []
+        area_classes << 'contentr'
+        area_classes << 'area'
+        area_classes << 'editable' if controller.contentr_editable?
+        area_options[:class] = area_classes.join(' ')
+        area_options['data-contentr-area'] = area_name
+
+        content_tag(:div, area_options) do
           paragraphs.collect do |p|
             template_name = p.class.to_s.tableize.singularize
-            content_tag(:div, :class => 'contentr paragraph') do
+
+            paragraph_options = {}
+            paragraph_classes = []
+            paragraph_classes << 'contentr'
+            paragraph_classes << 'paragraph'
+            paragraph_classes << 'editable' if controller.contentr_editable?
+            paragraph_options[:class] = paragraph_classes.join(' ')
+
+            content_tag(:div, paragraph_options) do
               render(:partial => "contentr/paragraphs/#{template_name}", :locals => {:paragraph => p})
             end
           end.join("").html_safe
+        end
+      end
+    end
+
+    # Renders the contentr toolbar in the page
+    def contentr_toolbar(options = {})
+      if controller.contentr_editable?
+        content_tag(:div, :class => 'contentr toolbar') do
+          link_to('#', 'mooo')
         end
       end
     end

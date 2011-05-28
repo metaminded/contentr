@@ -1,6 +1,6 @@
 # coding: utf-8
 
-class Contentr::PagesController < ActionController::Base
+class Contentr::PagesController < ApplicationController
 
   # Include contentr rendering support
   contentr

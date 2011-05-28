@@ -31,3 +31,12 @@ end
 
 # Require contentr engine
 require 'contentr/engine'
+
+# Monkey patch ActionController::Base
+class ActionController::Base
+
+  def contentr_editable?
+    false
+  end
+
+end
