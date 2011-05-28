@@ -3,4 +3,7 @@
 .contentr.toolbar { background-color: #ccc; padding: 8px; }
 
 .contentr.area.editable { border: 1px solid black; padding: 4px; }
+.contentr.area.editable .contentr.toolbar { padding: 3px; margin-bottom: 6px; text-align: right; }
+
 .contentr.area.editable .contentr.paragraph.editable { border: 1px solid red; margin: 4px 0; }
+.contentr.area.editable .contentr.paragraph.editable .contentr.toolbar { padding: 3px; margin-bottom: 6px; text-align: right; }
