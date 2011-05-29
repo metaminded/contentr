@@ -2,6 +2,8 @@ source :rubygems
 
 gemspec
 
+gem "sprockets", :git => "git://github.com/sstephenson/sprockets.git"
+
 group :development, :test do
   gem 'turn', :require => false # Pretty printed test output
   gem 'rake', '0.8.7'

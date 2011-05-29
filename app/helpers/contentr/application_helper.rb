@@ -63,7 +63,8 @@ module Contentr
     def contentr_toolbar(options = {})
       if controller.contentr_editable?
         content_tag(:div, :class => 'contentr toolbar') do
-          'CONTENTR TOOLBAR'
+          s = ''.html_safe
+          s << link_to('Pages', contentr_admin_pages_url, :rel => 'facebox')
         end
       end
     end

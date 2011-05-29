@@ -5,4 +5,10 @@ Rails.application.routes.draw do
     get '/(*path)' => 'pages#show', :as => 'contentr'
   end
 
+  namespace :contentr do
+    namespace :admin do
+      resources :pages
+    end
+  end
+
 end

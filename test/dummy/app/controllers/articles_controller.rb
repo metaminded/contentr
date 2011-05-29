@@ -1,7 +1,5 @@
 class ArticlesController < ApplicationController
 
-  contentr
-
   def index
     @articles = Article.all
   end
