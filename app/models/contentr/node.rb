@@ -47,7 +47,9 @@ module Contentr
   protected
 
     def generate_slug
-      self.slug = name.to_url
+      if name.present?
+        self.slug = name.to_url
+      end
     end
 
     def rebuild_path
