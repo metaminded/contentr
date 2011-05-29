@@ -5,7 +5,7 @@
   
   $(function() {
     // setup overlay for contentr admin
-    $('a[rel*=facebox]').fancybox({
+    $('a[rel*=facebox]').contentr_fancybox({
       'width': '90%',
 			'height': '90%',
 			'autoScale': false,

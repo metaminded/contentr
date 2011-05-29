@@ -56,7 +56,7 @@
 			selectedOpts.width = 'auto';
 			selectedOpts.height = 'auto';
 
-			tmp.html( '<p id="fancybox-error">The requested content cannot be loaded.<br />Please try again later.</p>' );
+			tmp.html( '<p id="contentr-fancybox-error">The requested content cannot be loaded.<br />Please try again later.</p>' );
 
 			_process_inline();
 		},
@@ -72,7 +72,7 @@
 
 			_abort();
 
-			selectedOpts = $.extend({}, $.fn.fancybox.defaults, (typeof $(obj).data('fancybox') == 'undefined' ? selectedOpts : $(obj).data('fancybox')));
+			selectedOpts = $.extend({}, $.fn.contentr_fancybox.defaults, (typeof $(obj).data('fancybox') == 'undefined' ? selectedOpts : $(obj).data('fancybox')));
 
 			ret = selectedOpts.onStart(selectedArray, selectedIndex, selectedOpts);
 
@@ -163,7 +163,7 @@
 
 			tmp.css('padding', (selectedOpts.padding + selectedOpts.margin));
 
-			$('.fancybox-inline-tmp').unbind('fancybox-cancel').bind('fancybox-change', function() {
+			$('.contentr_contentr-fancybox-inline-tmp').unbind('contentr-fancybox-cancel').bind('contentr-fancybox-change', function() {
 				$(this).replaceWith(content.children());				
 			});
 
@@ -174,17 +174,17 @@
 				break;
 
 				case 'inline' :
-					if ( $(obj).parent().is('#fancybox-content') === true) {
+					if ( $(obj).parent().is('#contentr-fancybox-content') === true) {
 						busy = false;
 						return;
 					}
 
-					$('<div class="fancybox-inline-tmp" />')
+					$('<div class="contentr-fancybox-inline-tmp" />')
 						.hide()
 						.insertBefore( $(obj) )
-						.bind('fancybox-cleanup', function() {
+						.bind('contentr-fancybox-cleanup', function() {
 							$(this).replaceWith(content.children());
-						}).bind('fancybox-cancel', function() {
+						}).bind('contentr-fancybox-cancel', function() {
 							$(this).replaceWith(tmp.children());
 						});
 
@@ -196,7 +196,7 @@
 				case 'image':
 					busy = false;
 
-					$.fancybox.showActivity();
+					$.contentr_fancybox.showActivity();
 
 					imgPreloader = new Image();
 
@@ -236,7 +236,7 @@
 				case 'ajax':
 					busy = false;
 
-					$.fancybox.showActivity();
+					$.contentr_fancybox.showActivity();
 
 					selectedOpts.ajax.win = selectedOpts.ajax.success;
 
@@ -308,7 +308,7 @@
 			selectedOpts.height = imgPreloader.height;
 
 			$("<img />").attr({
-				'id' : 'fancybox-img',
+				'id' : 'contentr-fancybox-img',
 				'src' : imgPreloader.src,
 				'alt' : selectedOpts.title
 			}).appendTo( tmp );
@@ -322,7 +322,7 @@
 			loading.hide();
 
 			if (wrap.is(":visible") && false === currentOpts.onCleanup(currentArray, currentIndex, currentOpts)) {
-				$.event.trigger('fancybox-cancel');
+				$.event.trigger('contentr-fancybox-cancel');
 
 				busy = false;
 				return;
@@ -353,9 +353,9 @@
 
 				if (!overlay.is(':visible')) {
 					if (isIE6) {
-						$('select:not(#fancybox-tmp select)').filter(function() {
+						$('select:not(#contentr-fancybox-tmp select)').filter(function() {
 							return this.style.visibility !== 'hidden';
-						}).css({'visibility' : 'hidden'}).one('fancybox-cleanup', function() {
+						}).css({'visibility' : 'hidden'}).one('contentr-fancybox-cleanup', function() {
 							this.style.visibility = 'inherit';
 						});
 					}
@@ -389,7 +389,7 @@
 						content.html( tmp.contents() ).fadeTo(currentOpts.changeFade, 1, _finish);
 					};
 
-					$.event.trigger('fancybox-change');
+					$.event.trigger('contentr-fancybox-change');
 
 					content
 						.empty()
@@ -464,10 +464,10 @@
 		_format_title = function(title) {
 			if (title && title.length) {
 				if (currentOpts.titlePosition == 'float') {
-					return '<table id="fancybox-title-float-wrap" cellpadding="0" cellspacing="0"><tr><td id="fancybox-title-float-left"></td><td id="fancybox-title-float-main">' + title + '</td><td id="fancybox-title-float-right"></td></tr></table>';
+					return '<table id="contentr-fancybox-title-float-wrap" cellpadding="0" cellspacing="0"><tr><td id="contentr-fancybox-title-float-left"></td><td id="contentr-fancybox-title-float-main">' + title + '</td><td id="contentr-fancybox-title-float-right"></td></tr></table>';
 				}
 
-				return '<div id="fancybox-title-' + currentOpts.titlePosition + '">' + title + '</div>';
+				return '<div id="contentr-fancybox-title-' + currentOpts.titlePosition + '">' + title + '</div>';
 			}
 
 			return false;
@@ -495,7 +495,7 @@
 			}
 
 			title
-				.addClass('fancybox-title-' + currentOpts.titlePosition)
+				.addClass('contentr-fancybox-title-' + currentOpts.titlePosition)
 				.html( titleStr )
 				.appendTo( 'body' )
 				.show();
@@ -551,11 +551,11 @@
 				$(document).bind('keydown.fb', function(e) {
 					if (e.keyCode == 27 && currentOpts.enableEscapeButton) {
 						e.preventDefault();
-						$.fancybox.close();
+						$.contentr_fancybox.close();
 
 					} else if ((e.keyCode == 37 || e.keyCode == 39) && currentOpts.enableKeyboardNav && e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA' && e.target.tagName !== 'SELECT') {
 						e.preventDefault();
-						$.fancybox[ e.keyCode == 37 ? 'prev' : 'next']();
+						$.contentr_fancybox[ e.keyCode == 37 ? 'prev' : 'next']();
 					}
 				});
 			}
@@ -598,28 +598,28 @@
 			_set_navigation();
 	
 			if (currentOpts.hideOnContentClick)	{
-				content.bind('click', $.fancybox.close);
+				content.bind('click', $.contentr_fancybox.close);
 			}
 
 			if (currentOpts.hideOnOverlayClick)	{
-				overlay.bind('click', $.fancybox.close);
+				overlay.bind('click', $.contentr_fancybox.close);
 			}
 
-			$(window).bind("resize.fb", $.fancybox.resize);
+			$(window).bind("resize.fb", $.contentr_fancybox.resize);
 
 			if (currentOpts.centerOnScroll) {
-				$(window).bind("scroll.fb", $.fancybox.center);
+				$(window).bind("scroll.fb", $.contentr_fancybox.center);
 			}
 
 			if (currentOpts.type == 'iframe') {
-				$('<iframe id="fancybox-frame" name="fancybox-frame' + new Date().getTime() + '" frameborder="0" hspace="0" ' + ($.browser.msie ? 'allowtransparency="true""' : '') + ' scrolling="' + selectedOpts.scrolling + '" src="' + currentOpts.href + '"></iframe>').appendTo(content);
+				$('<iframe id="contentr-fancybox-frame" name="contentr-fancybox-frame' + new Date().getTime() + '" frameborder="0" hspace="0" ' + ($.browser.msie ? 'allowtransparency="true""' : '') + ' scrolling="' + selectedOpts.scrolling + '" src="' + currentOpts.href + '"></iframe>').appendTo(content);
 			}
 
 			wrap.show();
 
 			busy = false;
 
-			$.fancybox.center();
+			$.contentr_fancybox.center();
 
 			currentOpts.onComplete(currentArray, currentIndex, currentOpts);
 
@@ -784,7 +784,7 @@
 	 * Public methods 
 	 */
 
-	$.fn.fancybox = function(options) {
+	$.fn.contentr_fancybox = function(options) {
 		if (!$(this).length) {
 			return this;
 		}
@@ -824,7 +824,7 @@
 		return this;
 	};
 
-	$.fancybox = function(obj) {
+	$.contentr_fancybox = function(obj) {
 		var opts;
 
 		if (busy) {
@@ -865,26 +865,26 @@
 		_start();
 	};
 
-	$.fancybox.showActivity = function() {
+	$.contentr_fancybox.showActivity = function() {
 		clearInterval(loadingTimer);
 
 		loading.show();
 		loadingTimer = setInterval(_animate_loading, 66);
 	};
 
-	$.fancybox.hideActivity = function() {
+	$.contentr_fancybox.hideActivity = function() {
 		loading.hide();
 	};
 
-	$.fancybox.next = function() {
-		return $.fancybox.pos( currentIndex + 1);
+	$.contentr_fancybox.next = function() {
+		return $.contentr_fancybox.pos( currentIndex + 1);
 	};
 
-	$.fancybox.prev = function() {
-		return $.fancybox.pos( currentIndex - 1);
+	$.contentr_fancybox.prev = function() {
+		return $.contentr_fancybox.pos( currentIndex - 1);
 	};
 
-	$.fancybox.pos = function(pos) {
+	$.contentr_fancybox.pos = function(pos) {
 		if (busy) {
 			return;
 		}
@@ -905,14 +905,14 @@
 		return;
 	};
 
-	$.fancybox.cancel = function() {
+	$.contentr_fancybox.cancel = function() {
 		if (busy) {
 			return;
 		}
 
 		busy = true;
 
-		$.event.trigger('fancybox-cancel');
+		$.event.trigger('contentr-fancybox-cancel');
 
 		_abort();
 
@@ -921,8 +921,8 @@
 		busy = false;
 	};
 
-	// Note: within an iframe use - parent.$.fancybox.close();
-	$.fancybox.close = function() {
+	// Note: within an iframe use - parent.$.contentr_fancybox.close();
+	$.contentr_fancybox.close = function() {
 		if (busy || wrap.is(':hidden')) {
 			return;
 		}
@@ -957,7 +957,7 @@
 			title.empty().hide();
 			wrap.hide();
 
-			$.event.trigger('fancybox-cleanup');
+			$.event.trigger('contentr-fancybox-cleanup');
 
 			content.empty();
 
@@ -1002,15 +1002,15 @@
 		}
 	};
 
-	$.fancybox.resize = function() {
+	$.contentr_fancybox.resize = function() {
 		if (overlay.is(':visible')) {
 			overlay.css('height', $(document).height());
 		}
 
-		$.fancybox.center(true);
+		$.contentr_fancybox.center(true);
 	};
 
-	$.fancybox.center = function() {
+	$.contentr_fancybox.center = function() {
 		var view, align;
 
 		if (busy) {
@@ -1032,42 +1032,42 @@
 			}, typeof arguments[0] == 'number' ? arguments[0] : 200);
 	};
 
-	$.fancybox.init = function() {
-		if ($("#fancybox-wrap").length) {
+	$.contentr_fancybox.init = function() {
+		if ($("#contentr-fancybox-wrap").length) {
 			return;
 		}
 
 		$('body').append(
-			tmp	= $('<div id="fancybox-tmp"></div>'),
-			loading	= $('<div id="fancybox-loading"><div></div></div>'),
-			overlay	= $('<div id="fancybox-overlay"></div>'),
-			wrap = $('<div id="fancybox-wrap"></div>')
+			tmp	= $('<div id="contentr-fancybox-tmp"></div>'),
+			loading	= $('<div id="contentr-fancybox-loading"><div></div></div>'),
+			overlay	= $('<div id="contentr-fancybox-overlay"></div>'),
+			wrap = $('<div id="contentr-fancybox-wrap"></div>')
 		);
 
-		outer = $('<div id="fancybox-outer"></div>')
-			.append('<div class="fancybox-bg" id="fancybox-bg-n"></div><div class="fancybox-bg" id="fancybox-bg-ne"></div><div class="fancybox-bg" id="fancybox-bg-e"></div><div class="fancybox-bg" id="fancybox-bg-se"></div><div class="fancybox-bg" id="fancybox-bg-s"></div><div class="fancybox-bg" id="fancybox-bg-sw"></div><div class="fancybox-bg" id="fancybox-bg-w"></div><div class="fancybox-bg" id="fancybox-bg-nw"></div>')
+		outer = $('<div id="contentr-fancybox-outer"></div>')
+			.append('<div class="contentr-fancybox-bg" id="contentr-fancybox-bg-n"></div><div class="contentr-fancybox-bg" id="contentr-fancybox-bg-ne"></div><div class="contentr-fancybox-bg" id="contentr-fancybox-bg-e"></div><div class="contentr-fancybox-bg" id="contentr-fancybox-bg-se"></div><div class="contentr-fancybox-bg" id="contentr-fancybox-bg-s"></div><div class="contentr-fancybox-bg" id="contentr-fancybox-bg-sw"></div><div class="contentr-fancybox-bg" id="contentr-fancybox-bg-w"></div><div class="contentr-fancybox-bg" id="contentr-fancybox-bg-nw"></div>')
 			.appendTo( wrap );
 
 		outer.append(
-			content = $('<div id="fancybox-content"></div>'),
-			close = $('<a id="fancybox-close"></a>'),
-			title = $('<div id="fancybox-title"></div>'),
+			content = $('<div id="contentr-fancybox-content"></div>'),
+			close = $('<a id="contentr-fancybox-close"></a>'),
+			title = $('<div id="contentr-fancybox-title"></div>'),
 
-			nav_left = $('<a href="javascript:;" id="fancybox-left"><span class="fancy-ico" id="fancybox-left-ico"></span></a>'),
-			nav_right = $('<a href="javascript:;" id="fancybox-right"><span class="fancy-ico" id="fancybox-right-ico"></span></a>')
+			nav_left = $('<a href="javascript:;" id="contentr-fancybox-left"><span class="fancy-ico" id="contentr-fancybox-left-ico"></span></a>'),
+			nav_right = $('<a href="javascript:;" id="contentr-fancybox-right"><span class="fancy-ico" id="contentr-fancybox-right-ico"></span></a>')
 		);
 
-		close.click($.fancybox.close);
-		loading.click($.fancybox.cancel);
+		close.click($.contentr_fancybox.close);
+		loading.click($.contentr_fancybox.cancel);
 
 		nav_left.click(function(e) {
 			e.preventDefault();
-			$.fancybox.prev();
+			$.contentr_fancybox.prev();
 		});
 
 		nav_right.click(function(e) {
 			e.preventDefault();
-			$.fancybox.next();
+			$.contentr_fancybox.next();
 		});
 
 		if ($.fn.mousewheel) {
@@ -1077,24 +1077,24 @@
 
 				} else if ($(e.target).get(0).clientHeight == 0 || $(e.target).get(0).scrollHeight === $(e.target).get(0).clientHeight) {
 					e.preventDefault();
-					$.fancybox[ delta > 0 ? 'prev' : 'next']();
+					$.contentr_fancybox[ delta > 0 ? 'prev' : 'next']();
 				}
 			});
 		}
 
 		if (!$.support.opacity) {
-			wrap.addClass('fancybox-ie');
+			wrap.addClass('contentr-fancybox-ie');
 		}
 
 		if (isIE6) {
-			loading.addClass('fancybox-ie6');
-			wrap.addClass('fancybox-ie6');
+			loading.addClass('contentr-fancybox-ie6');
+			wrap.addClass('contentr-fancybox-ie6');
 
-			$('<iframe id="fancybox-hide-sel-frame" src="' + (/^https/i.test(window.location.href || '') ? 'javascript:void(false)' : 'about:blank' ) + '" scrolling="no" border="0" frameborder="0" tabindex="-1"></iframe>').prependTo(outer);
+			$('<iframe id="contentr-fancybox-hide-sel-frame" src="' + (/^https/i.test(window.location.href || '') ? 'javascript:void(false)' : 'about:blank' ) + '" scrolling="no" border="0" frameborder="0" tabindex="-1"></iframe>').prependTo(outer);
 		}
 	};
 
-	$.fn.fancybox.defaults = {
+	$.fn.contentr_fancybox.defaults = {
 		padding : 10,
 		margin : 40,
 		opacity : false,
@@ -1150,7 +1150,7 @@
 	};
 
 	$(document).ready(function() {
-		$.fancybox.init();
+		$.contentr_fancybox.init();
 	});
 
 })(jQuery);
