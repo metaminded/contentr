@@ -31,6 +31,10 @@ module Contentr
                 # tools
                 s << '   '
                 s << link_to('[x]', contentr_admin_page_url(page), :method => :delete, :confirm => 'Really delete this page?')
+                if page.is_link?
+                  s << '   '
+                  s << "(Linked to: #{page.linked_to})"
+                end
                 # the children
                 s << fn.call(page.children)
               end

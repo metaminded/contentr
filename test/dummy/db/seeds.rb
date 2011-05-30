@@ -47,15 +47,22 @@ Article.create!(:title => 'Article No. 3', :body => 'Lorem ipsum dolor sit amet,
 #
 # Mount/Link a "real" page (controler/action) to a Contentr Page
 #
-linked_page = Contentr::Page.create!(:name => 'Articles', :linked_to => 'articles/index')
-linked_page.paragraphs << Contentr::HtmlParagraph.new(:area_name => 'body', :body => 'This is content from Contentr on a ERB Page!')
-linked_page.publish!
+#linked_page = Contentr::Page.create!(:name => 'Articles', :linked_to => 'articles/index')
+#linked_page.paragraphs << Contentr::HtmlParagraph.new(:area_name => 'body', :body => 'This is content from Contentr on a ERB Page!')
+#linked_page.publish!
 
 linked_page = Contentr::Page.create!(:name => 'Article', :linked_to => 'articles/*', :hidden => true)
 linked_page.paragraphs << Contentr::HtmlParagraph.new(:area_name => 'body', :body => 'This is contnt from Contentr on a ERB Page!')
 linked_page.publish!
 
 linked_page = Contentr::Page.create!(:name => 'New Article', :linked_to => 'articles/new', :hidden => true)
+linked_page.publish!
+
+linked_page = Contentr::Page.create!(
+  name:       'More Articles',
+  parent:     portfolio_page,
+  hidden:     false,
+  linked_to:  'articles/index')
 linked_page.publish!
 
 #

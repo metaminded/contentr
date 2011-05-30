@@ -3,6 +3,9 @@
 module Contentr
   class Page < Node
 
+    # Includes
+    include Rails.application.routes.url_helpers
+
     # Fields
     field :description, :type => String
     field :layout,      :type => String, :default => 'default'
@@ -48,7 +51,8 @@ module Contentr
         controller = p.slice(0..p.size-2).join('/')
         controller = "/#{controller}" unless controller.include?('/')
 
-        {:controller => controller, :action => action}
+        #{:controller => controller, :action => action}
+        url_for(:controller => controller, :action => action, :only_path => true)
       end
     end
 
