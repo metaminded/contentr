@@ -52,6 +52,8 @@ module Contentr
         controller = "/#{controller}" unless controller.include?('/')
 
         #{:controller => controller, :action => action}
+        puts "++++ CONTROLLER: #{controller}"
+        puts "++++ ACTION: #{action}"
         url_for(:controller => controller, :action => action, :only_path => true)
       end
     end
