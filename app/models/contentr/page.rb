@@ -43,7 +43,7 @@ module Contentr
       self.linked_to.present?
     end
 
-    def controller_action_url_options
+    def url_for_linked_page(options = {})
       if self.is_link?
         p          = self.linked_to.split('/')
         action     = p.last
@@ -51,10 +51,7 @@ module Contentr
         controller = p.slice(0..p.size-2).join('/')
         controller = "/#{controller}" unless controller.include?('/')
 
-        #{:controller => controller, :action => action}
-        puts "++++ CONTROLLER: #{controller}"
-        puts "++++ ACTION: #{action}"
-        url_for(:controller => controller, :action => action, :only_path => true)
+        url_for(options.merge(:controller => controller, :action => action, :only_path => true))
       end
     end
 

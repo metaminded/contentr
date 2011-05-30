@@ -21,7 +21,7 @@ module Contentr
       page = Contentr::Page.find_by_path(path)
       if page.present? and page.published?
         if page.is_link?
-          redirect_to page.controller_action_url_options
+          redirect_to page.url_for_linked_page
         else
           @_contentr_current_page = page
           options = options.merge(:template => page.template, :layout => "layouts/contentr/#{page.layout}")

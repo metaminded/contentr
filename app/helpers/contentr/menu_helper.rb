@@ -105,7 +105,7 @@ module Contentr
 
     def contentr_page_link(page)
       # set url
-      link_url = page.is_link? ? page.controller_action_url_options
+      link_url = page.is_link? ? page.url_for_linked_page
                                : File.join(Contentr.frontend_route_prefix, page.path)
       # set link title
       link_title = page.menu_title || page.name
