@@ -29,7 +29,7 @@ module Contentr
 
           if editable
             s << content_tag(:div, :class => 'contentr toolbar') do
-              'AREA TOOLBAR'
+              "Area: #{area_name}"
             end
           end
 

@@ -1,10 +1,15 @@
-body { font: 12px/18px "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, Verdana, sans-serif; background-color: transparent; color: #333; -webkit-font-smoothing: antialiased; }
+@import 'reset';
 
-h1,h2,h3,h4,h5,h6,strong { color:#000; }
-h1,h2,h3,h4 { font-weight: bold; }
-h2,h3,h4 { line-height: 18px; }
-h1,h2 { margin-bottom: 18px; }
-h1 { font-size: 24px; line-height: 36px; }
-h2 { font-size: 16px; }
-h3 { font-size: 1em; }
-h4 { font-size: 10px; }
+$margin: 15px;
+
+
+body { font: 13px/18px "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, Verdana, sans-serif; background-color: transparent; color: #333; -webkit-font-smoothing: antialiased; }
+body { color: #666; margin: 0; padding: 0; }
+
+h1 { font-size: 22px; background-color: #0065a0; padding: 8px; margin-bottom: $margin; color: #fefefe; }
+
+.sitemap {
+  background-color: #ccc;
+
+  ul { margin-left: $margin; }
+}

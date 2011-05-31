@@ -44,7 +44,9 @@ module Contentr
 
         # render yo
         roots = Contentr::Page.roots.asc(:position)
-        fn.call(roots)
+        content_tag(:div, :class => 'sitemap') do
+          fn.call(roots)
+        end
       end
 
     end
