@@ -33,7 +33,7 @@ module Contentr
     end
 
     def contentr_render_default_page(path, options)
-      page = Contentr::Page.find_by_controller_action(controller_path, action_name)
+      page = Contentr::Page.find_linked_page_by_request_params(params)
       if page.present? and page.published?
         @_contentr_current_page = page
         options = options.merge(:layout => "layouts/contentr/#{page.layout}")

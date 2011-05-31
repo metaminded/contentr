@@ -27,16 +27,27 @@ module Contentr
     validates_uniqueness_of :linked_to, :allow_nil => true, :allow_blank => true
 
 
-    def self.find_by_controller_action(controller, action)
-      page = Contentr::Page.where(:linked_to => "#{controller}/#{action}").try(:first)
+    def self.find_linked_page_by_request_params(params)
+      controller = params[:controller]
+      action = params[:action]
+      id = params[:id]
+      return if controller.blank?
+      return if action.blank?
 
-      # Try wildcard match on the action if a previous match failed
-      if page.blank?
-        page = Contentr::Page.where(:linked_to => "#{controller}/*").try(:first)
+      wildcard_pattern = "#{controller}#*"
+      default_pattern = "#{controller}##{action}"
+      full_pattern = "#{default_pattern}:#{id}" if id.present?
+
+      if full_pattern.present?
+        page = Contentr::Page.where(linked_to: full_pattern).try(:first)
+        return page if page.present?
       end
 
-      # return page
-      page
+      page = Contentr::Page.where(linked_to: default_pattern).try(:first)
+      return page if page.present?
+
+      page = Contentr::Page.where(linked_to: wildcard_pattern).try(:first)
+      return page if page.present?
     end
 
     def is_link?
@@ -45,13 +56,25 @@ module Contentr
 
     def url_for_linked_page(options = {})
       if self.is_link?
-        p          = self.linked_to.split('/')
-        action     = p.last
-        action     = 'index' if action.blank? or action.strip == '*'
-        controller = p[0..-2].join('/')
-        controller = "/#{controller}" unless controller.include?('/')
+        begin
+          p = self.linked_to.split('#')
 
-        url_for(options.merge(:controller => controller, :action => action, :only_path => true))
+          controller = p.first
+          controller = "/#{controller}" unless controller.include?('/')
+
+          action, id = p.last.split(':')
+          action = 'index' if action.blank? or action.strip == '*'
+
+          options = options.merge(controller: controller, action: action, only_path: true)
+          options = options.merge(id: id) if id.present?
+
+          url_for(options)
+        rescue Exception => e
+          Rails.logger.error(e)
+          # in case we could not create a proper backlink url we will silent
+          # fail with the root url of the app.
+          root_url(only_path: true)
+        end
       end
     end
 
