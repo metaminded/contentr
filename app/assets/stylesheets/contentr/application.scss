@@ -1,0 +1,11 @@
+/*= require contentr/fancybox */
+
+.contentr {}
+
+.contentr.toolbar { background-color: #ccc; padding: 8px; text-align: right; }
+
+.contentr.area.editable { outline: 2px solid #ccc; margin-bottom: 8px; }
+.contentr.area.editable .contentr.toolbar { background-color: #aaa; padding: 3px; margin-bottom: 4px; }
+
+.contentr.area.editable .contentr.paragraph.editable {  }
+.contentr.area.editable .contentr.paragraph.editable .contentr.toolbar { background-color: #ccc; padding: 3px; margin: 0 0 6px 0; }
