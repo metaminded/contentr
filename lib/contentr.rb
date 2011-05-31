@@ -2,6 +2,7 @@
 
 require 'rails'
 require 'jquery-rails'
+require 'sass'
 require 'mongoid'
 require 'mongoid/tree'
 require 'stringex'
