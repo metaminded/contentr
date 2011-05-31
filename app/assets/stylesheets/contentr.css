@@ -5,8 +5,8 @@
 
 .contentr.toolbar { background-color: #ccc; padding: 8px; text-align: right; }
 
-.contentr.area.editable { border: 1px solid black; padding: 4px; }
-.contentr.area.editable .contentr.toolbar { padding: 3px; margin: -4px -4px 6px -4px; text-align: right; }
+.contentr.area.editable { outline: 2px solid #ccc; margin-bottom: 8px; }
+.contentr.area.editable .contentr.toolbar { background-color: #aaa; padding: 3px; margin-bottom: 4px; }
 
-.contentr.area.editable .contentr.paragraph.editable { border: 1px solid red; margin: 4px 0; }
-.contentr.area.editable .contentr.paragraph.editable .contentr.toolbar { padding: 3px; margin: 0 0 6px 0; text-align: right; }
+.contentr.area.editable .contentr.paragraph.editable {  }
+.contentr.area.editable .contentr.paragraph.editable .contentr.toolbar { background-color: #ccc; padding: 3px; margin: 0 0 6px 0; }
