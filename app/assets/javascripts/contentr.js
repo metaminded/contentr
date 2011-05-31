@@ -1,11 +1,11 @@
 //= require jquery
-//= require contentr_fancybox
+//= require contentr/fancybox
 
 (function($) {
   
   $(function() {
     // setup overlay for contentr admin
-    $('a[rel*=facebox]').contentr_fancybox({
+    $('a[rel*=contentr-fancybox]').contentr_fancybox({
       'width': '90%',
 			'height': '90%',
 			'autoScale': false,
