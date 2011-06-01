@@ -11,7 +11,7 @@ module Contentr
           return '' unless pages.present?
 
           # render the ul tag
-          content_tag(:ul) do
+          content_tag(:ol, :class => 'sortable') do
             pages.each_with_index.collect do |page, index|
               # options for the li tag
               li_options = {}
@@ -26,14 +26,18 @@ module Contentr
               content_tag(:li, li_options) do
                 # default
                 s = ''.html_safe
-                # the link
-                s << link_to(page.name, '#')
-                # tools
-                s << '   '
-                s << link_to('[x]', contentr_admin_page_url(page), :method => :delete, :confirm => 'Really delete this page?')
-                if page.is_link?
-                  s << '   '
-                  s << "(Linked to: #{page.linked_to})"
+                s << content_tag(:div) do
+                  c = ''.html_safe
+                  # the page name
+                  c << page.name
+                  # tools
+                  c << '   '
+                  c << link_to('[x]', contentr_admin_page_url(page), :method => :delete, :confirm => 'Really delete this page?')
+                  if page.is_link?
+                    c << '   '
+                    c << "(Linked to: #{page.linked_to})"
+                  end
+                  c
                 end
                 # the children
                 s << fn.call(page.children)
@@ -44,7 +48,9 @@ module Contentr
 
         # render yo
         roots = Contentr::Page.roots.asc(:position)
-        fn.call(roots)
+        content_tag(:div, :class => 'contentr sitemap') do
+          fn.call(roots)
+        end
       end
 
     end
