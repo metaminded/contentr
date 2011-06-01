@@ -8,20 +8,16 @@ body { color: #666; margin: 0; padding: 0; }
 
 h1 { font-size: 22px; background-color: #0065a0; padding: 8px; margin-bottom: $margin; color: #fefefe; }
 
-//.contentr.sitemap {
-//  ol li { margin-left: 0; }
-//  ol li div { padding: 6px; border: 1px solid #ccc; margin-bottom: 4px; }
-//  ol li ol li { margin-left: 25px; }
-//}
+.contentr.pagegrid {
+  width: 100%;
+  border-collapse: collapse;
 
-.contentr.sitemap {
-  .placeholder { background-color: #cfcfcf; }
+  th { font-weight: bold; }
+  td, th { padding: 8px; }
+  td { border: 1px solid #ccc; }
+  td.icon, th.icon { width: 25px; text-align: center; }
 
-  .ui-nestedSortable-error { background:#fbe3e4; color:#8a1f11; }
-
-  ol.sortable, ol.sortable ol { margin: 0 0 0 25px; }
-  ol.sortable { margin: 0; }
-
-  ol.sortable li { margin: 7px 0 0 0; padding: 0; }
-  ol.sortable li div { border-bottom: 1px solid #ccc; padding: 3px; margin: 0; cursor: move; }
+  tbody tr.highlight { background-color: #f3f3f3; }
 }
+
+

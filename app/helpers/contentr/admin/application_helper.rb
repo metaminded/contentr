@@ -26,17 +26,19 @@ module Contentr
               content_tag(:li, li_options) do
                 # default
                 s = ''.html_safe
-                s << content_tag(:div) do
+                s << content_tag(:div, :class => 'row') do
                   c = ''.html_safe
                   # the page name
-                  c << page.name
+                  c << content_tag(:div, page.name, :class => 'pagename')
                   # tools
-                  c << '   '
-                  c << link_to('[x]', contentr_admin_page_url(page), :method => :delete, :confirm => 'Really delete this page?')
-                  if page.is_link?
-                    c << '   '
-                    c << "(Linked to: #{page.linked_to})"
+                  c << content_tag(:div, :class => 'tools') do
+                    concat link_to('[x]', contentr_admin_page_url(page), :method => :delete, :confirm => 'Really delete this page?')
                   end
+
+                  #if page.is_link?
+                  #  c << '   '
+                  #  c << "(Linked to: #{page.linked_to})"
+                  #end
                   c
                 end
                 # the children

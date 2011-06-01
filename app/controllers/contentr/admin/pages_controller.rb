@@ -1,6 +1,9 @@
 class Contentr::Admin::PagesController < Contentr::Admin::ApplicationController
 
   def index
+    @root_page = Contentr::Page.find(params[:root]) if params[:root].present?
+    @pages = @root_page.present? ? @root_page.children.asc(:position)
+                                 : Contentr::Page.roots.asc(:position)
   end
 
   def new
