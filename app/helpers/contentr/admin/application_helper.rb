@@ -50,7 +50,11 @@ module Contentr
 
         # render yo
         roots = Contentr::Page.roots.asc(:position)
+<<<<<<< HEAD
         content_tag(:div, :class => 'contentr sitemap') do
+=======
+        content_tag(:div, :class => 'sitemap') do
+>>>>>>> 2020fc5d38db8179296f7495377cc6213fbeb63a
           fn.call(roots)
         end
       end

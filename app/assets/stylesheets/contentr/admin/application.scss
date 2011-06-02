@@ -2,12 +2,17 @@
 
 $margin: 15px;
 
+<<<<<<< HEAD
 html { overflow-x: hidden; }
+=======
+
+>>>>>>> 2020fc5d38db8179296f7495377cc6213fbeb63a
 body { font: 13px/18px "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, Verdana, sans-serif; background-color: transparent; color: #333; -webkit-font-smoothing: antialiased; }
 body { color: #666; margin: 0; padding: 0; }
 
 h1 { font-size: 22px; background-color: #0065a0; padding: 8px; margin-bottom: $margin; color: #fefefe; }
 
+<<<<<<< HEAD
 .contentr.pagegrid {
   width: 100%;
   border-collapse: collapse;
@@ -21,3 +26,10 @@ h1 { font-size: 22px; background-color: #0065a0; padding: 8px; margin-bottom: $m
 }
 
 
+=======
+.sitemap {
+  background-color: #ccc;
+
+  ul { margin-left: $margin; }
+}
+>>>>>>> 2020fc5d38db8179296f7495377cc6213fbeb63a
