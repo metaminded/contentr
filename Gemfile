@@ -3,6 +3,7 @@ source :rubygems
 gemspec
 
 gem "sprockets", :git => "git://github.com/sstephenson/sprockets.git"
+gem "simple_form"
 
 group :development, :test do
   gem 'turn', :require => false # Pretty printed test output
