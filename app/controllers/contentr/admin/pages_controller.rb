@@ -27,4 +27,11 @@ class Contentr::Admin::PagesController < Contentr::Admin::ApplicationController
     redirect_to :action => :index
   end
 
+  def reorder
+    page = Contentr::Page.find(params[:id])
+    buddyPage = Contentr::Page.find(params[:buddy_id])
+    page.move_below(buddyPage)
+    render :nothing => true
+  end
+
 end
