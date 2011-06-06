@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/sstephenson/sprockets.git
-  revision: 890be4ef4baeed8dcc5b39c73a8b18d25b998854
+  revision: 2f0335517c0345417b60398788745b28cc7ce469
   specs:
     sprockets (2.0.0.beta.9)
       hike (~> 1.0)

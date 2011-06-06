@@ -1,0 +1,9 @@
+<%= simple_form_for 'paragraph',
+  :url => contentr_admin_page_paragraph_path(@page, @paragraph),
+  :method => :put,
+  :enctype => "multipart/form-data" do |f| %>
+
+  <%= f.input :body, :as => :text %>
+  <%= f.submit %>
+
+<% end %>

@@ -16,7 +16,7 @@ module Contentr
     validates_presence_of :area_name
 
     # Relations
-    embedded_in :paragraph
+    embedded_in :page
 
   end
 end
