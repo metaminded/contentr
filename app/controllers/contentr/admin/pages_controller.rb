@@ -27,10 +27,24 @@ class Contentr::Admin::PagesController < Contentr::Admin::ApplicationController
     redirect_to :action => :index
   end
 
-  def reorder
+  def move_below
     page = Contentr::Page.find(params[:id])
-    buddyPage = Contentr::Page.find(params[:buddy_id])
-    page.move_below(buddyPage)
+    buddy_page = Contentr::Page.find(params[:buddy_id])
+    page.move_below(buddy_page)
+    render :nothing => true
+  end
+
+  def insert_into
+    page = Contentr::Page.find(params[:id])
+    if (params[:root_page_id])
+      page.parent = Contentr::Page.find(params[:root_page_id])
+    else
+      puts "+++++++++++++++++++++++++++++++"
+      page.parent = nil
+    end
+    puts "--------------------------------"
+    page.reload
+    page.move_to_top
     render :nothing => true
   end
 

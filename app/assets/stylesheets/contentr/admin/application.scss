@@ -11,6 +11,26 @@ h1 { font-size: 22px; background-color: #0065a0; padding: 8px; margin-bottom: $m
 
 #page-manager {
 
+  .toolbar {
+    padding: 10px;
+    background-color: #f3f3f3;
+
+    .button {
+      padding: 4px;
+      border-radius: 4px;
+      background-color: #333;
+      text-decoration: none;
+      color: #fff;
+    }
+  }
+
+  .notice {
+    background-color: #e3e684;
+    padding: 20px;
+    text-align: center;
+    color: #000;
+  }
+
   .pagegrid {
     $padding: 8px;
 
@@ -43,6 +63,7 @@ h1 { font-size: 22px; background-color: #0065a0; padding: 8px; margin-bottom: $m
             float: left;
             margin-right: 6px;
             a { color: #fff; text-decoration: none; }
+            a:hover { text-decoration: underline; }
           }
           li:last-child { margin-right: 0; }
           li:after { content: ' | '; }
@@ -54,6 +75,10 @@ h1 { font-size: 22px; background-color: #0065a0; padding: 8px; margin-bottom: $m
 
     tbody tr.highlight {
       background-color: #f3f3f3;
+    }
+
+    tbody tr.dummy-page-row {
+      display: none;
     }
 
     #ghost {

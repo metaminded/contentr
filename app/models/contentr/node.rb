@@ -58,7 +58,7 @@ module Contentr
 
     # BUGFIX: It looks like mongoid/tree or mongoid returns the wrong order
     def ancestors
-      base_class.where(:_id.in => parent_ids).reverse
+      base_class.where(:_id.in => parent_ids).reverse if parent_ids
     end
 
   end

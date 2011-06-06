@@ -9,7 +9,7 @@
     var loadPages = function(url) {
       history.pushState(null, document.title, url);
       $.get(url, function(data) {
-        $("#page-manager").html(data);
+        $("#page-manager").replaceWith(data);
         beginPageMove(currentPage, false);
       });
     };
@@ -30,26 +30,42 @@
         ghost.show();
       }
       
-      updateGhostPosition();      
+      updateGhostPosition();
+      
+      $('#page-manager .pagegrid tbody tr.dummy-page-row').show();      
     };
     
-    var endPageMove = function(buddyPage) {
-      $.ajax({
-        type: "PUT",
-        url: "/contentr/admin/pages/"+currentPage.id+"/reorder/"+buddyPage.id,
-        success: function(msg) {
-          resetPageMove();
-        },
-        error: function(msg) {
-          alert("Error: Page move failed. Please try again.");
-          resetPageMove();
-        }
-      });
+    var endPageMove = function(options) {
+      if (options.mode === 'move_below') {
+        $.ajax({
+          type: "PUT",
+          url: "/contentr/admin/pages/"+currentPage.id+"/move_below/" + options.buddyPage.id,
+          success: function(msg) {
+            resetPageMove();
+          },
+          error: function(msg) {
+            alert("Error: Page move failed. Please try again.");
+            resetPageMove();
+          }
+        });
+      } else if (options.mode ===  'insert_into') {
+        $.ajax({
+          type: "PUT",
+          url: "/contentr/admin/pages/"+currentPage.id+"/insert_into/" + options.rootPageId,
+          success: function(msg) {
+            resetPageMove();
+          },
+          error: function(msg) {
+            alert("Error: Page move failed. Please try again.");
+            resetPageMove();
+          }
+        });
+      }
     };
     
     var resetPageMove = function() {
       currentPage = null;
-      loadPages(window.location);
+      loadPages(location.href);
     };
     
     var updateGhostPosition = function() {
@@ -68,19 +84,24 @@
         $('#page-manager .pagegrid .tool.move-begin, #page-manager .pagegrid .tool.move-end').live('click', function(e) {
           e.preventDefault();
           
-          var pageName = $(this).closest('tr').find('td.name a').text();
+          var pageName = $(this).closest('tr').attr('data-page-name');
           var pageId = $(this).closest('tr').attr('data-page-id');
-          if (!pageName || !pageId) return;
-          var page = {id: pageId, name: pageName}
+          var page = {id: pageId, name: pageName}          
                     
           if (currentPage) {
-            endPageMove(page);
+            endPageMove({mode: 'move_below', buddyPage: page});
           } else {
             beginPageMove(page, true);
           }
         });
         
-        $('#page-manager .pagegrid tbody tr').live('hover', function() {
+        $('#page-manager .pagegrid .tool.move-end2').live('click', function(e) {
+          e.preventDefault();          
+          var rootPageId = $(this).closest('table').attr('data-root-page-id');
+          endPageMove({mode: 'insert_into', rootPageId: rootPageId});
+        });
+        
+        $('#page-manager .pagegrid tbody tr').live('hover', function(e) {
           // show/hide the move tool
           var moveBegin = $(this).find('.tool.move-begin');
           var moveEnd = $(this).find('.tool.move-end');
