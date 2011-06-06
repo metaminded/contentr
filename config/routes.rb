@@ -7,8 +7,9 @@ Rails.application.routes.draw do
 
   namespace :contentr do
     namespace :admin do
-      resources :pages do
+      resources :contentr_pages do
         put 'reorder/:buddy_id', :on => :member, :action => :reorder
+        resources :contentr_paragraphs
       end
     end
   end

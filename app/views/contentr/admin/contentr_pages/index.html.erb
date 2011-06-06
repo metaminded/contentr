@@ -1,12 +1,12 @@
 <div id="page-manager">
   <h3>Manage Pages</h3>
 
-  <p><%= link_to 'Create a new page', new_contentr_admin_page_url %>
+  <p><%= link_to 'Create a new page', new_contentr_admin_contentr_page_url %>
 
   <% if @root_page.present? %>
     <div>
       <%= link_to('Eine Ebene höher',
-                  contentr_admin_pages_path(:root => @root_page.parent),
+                  contentr_admin_contentr_pages_path(:root => @root_page.parent),
                   :rel => 'pm-navigate')
       %>
     </div>
@@ -34,7 +34,7 @@
             <td class="name">
               <div class="container">
                 <%= link_to(page.name,
-                            contentr_admin_pages_path(:root => page),
+                            contentr_admin_contentr_pages_path(:root => page),
                             'data-page-id' => page.id,
                             :rel => 'pm-navigate')
                 %>
@@ -42,8 +42,8 @@
                   <ul>
                     <li class="tool move-begin"><a href="#">Move</a></li>
                     <li class="tool move-end"><a href="#">Insert below</a></li>
-                    <li class="tool edit"><%= link_to('Edit', edit_contentr_admin_page_path(page)) %></li>
-                    <li class="tool delete"><%= link_to('Delete', contentr_admin_page_path(page), :method => :delete, :confirm => "Really delete page '#{page.name}'? All subpages will be deleted too.") %></li>
+                    <li class="tool edit"><%= link_to('Edit', edit_contentr_admin_contentr_page_path(page)) %></li>
+                    <li class="tool delete"><%= link_to('Delete', contentr_admin_contentr_page_path(page), :method => :delete, :confirm => "Really delete page '#{page.name}'? All subpages will be deleted too.") %></li>
                   </ul>
                 </div>
               </div>

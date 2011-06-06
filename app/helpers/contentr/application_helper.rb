@@ -48,7 +48,9 @@ module Contentr
 
               if editable
                 s << content_tag(:div, :class => 'contentr toolbar') do
-                  'PARAGRAPH TOOLBAR'
+                  content_tag(:a,
+                    :href => edit_contentr_admin_contentr_page_contentr_paragraph_path(current_page, p),
+                    :rel => 'contentr-fancybox') do "[bearbeiten]" end + 'PARAGRAPH TOOLBAR'
                 end
               end
 
@@ -64,7 +66,7 @@ module Contentr
       if controller.contentr_editable?
         content_tag(:div, :class => 'contentr toolbar') do
           s = ''.html_safe
-          s << link_to('Pages', contentr_admin_pages_url, :rel => 'contentr-fancybox')
+          s << link_to('Pages', contentr_admin_contentr_pages_url, :rel => 'contentr-fancybox')
         end
       end
     end

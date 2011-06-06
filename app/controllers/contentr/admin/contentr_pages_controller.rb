@@ -1,4 +1,4 @@
-class Contentr::Admin::PagesController < Contentr::Admin::ApplicationController
+class Contentr::Admin::ContentrPagesController < Contentr::Admin::ApplicationController
 
   def index
     @root_page = Contentr::Page.find(params[:root]) if params[:root].present?

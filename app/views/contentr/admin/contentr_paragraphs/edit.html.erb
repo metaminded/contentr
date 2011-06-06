@@ -1,0 +1,11 @@
+Mooo!
+<%= @paragraph.area_name %>
+
+<br><br>
+
+<%# form_for [:contentr, :admin, @page, @paragraph.becomes(Contentr::Paragraph)],
+  :action => contentr_admin_contentr_page_paragraph_path(@page, @paragraph),
+  :method => "post",
+  :enctype => "multipart/form-data" do |form| %>
+<%= render :partial => ('/contentr/admin/contentr_paragraphs/' + @paragraph.class.model_name.underscore.split("/").last), :locals => {:form => 'form'} %>
+<%# end %>

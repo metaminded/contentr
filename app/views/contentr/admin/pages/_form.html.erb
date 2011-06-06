@@ -1,5 +1,0 @@
-<%= form_for @page, :url => @page.new_record? ? contentr_admin_pages_path : contentr_admin_page_path do |f| %>
-  Page Name: <%= f.text_field :name %><br/>
-  <%= f.submit %>
-  <%= link_to 'Cancel', contentr_admin_pages_path %>
-<% end %>
