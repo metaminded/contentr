@@ -18,5 +18,11 @@ module Contentr
     # Relations
     embedded_in :page
 
+    def self.dynamic_accessor(name, postfix='')
+      define_method "#{name}#{postfix}".to_sym do |i|
+        self.send "#{name}#{i}#{postfix}".to_sym
+      end
+    end
+
   end
 end
