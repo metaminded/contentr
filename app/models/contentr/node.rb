@@ -48,7 +48,21 @@ module Contentr
 
     def generate_slug
       if name.present?
-        self.slug = name.to_url
+        s = name
+
+        s.downcase!
+        s.gsub!('ß', 'ss')
+        s.gsub!('ä', 'ae')
+        s.gsub!('ö', 'oe')
+        s.gsub!('ü', 'ue')
+        s.gsub!('_', '-')
+        s.gsub!(/[^a-z0-9\s-]/, '') # Remove non-word characters
+        s.gsub!(/\s+/, '-')         # Convert whitespaces to dashes
+        s.gsub!(/-\z/, '')          # Remove trailing dashes
+        s.gsub!(/-+/, '-')          # get rid of double-dashes
+        s.strip!
+
+        self.slug = s
       end
     end
 
