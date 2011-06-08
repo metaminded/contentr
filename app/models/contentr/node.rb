@@ -48,7 +48,7 @@ module Contentr
 
     def generate_slug
       if name.present?
-        self.slug = name.to_url
+        self.slug = name.to_slug
       end
     end
 

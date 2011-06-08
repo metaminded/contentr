@@ -5,7 +5,6 @@ require 'jquery-rails'
 require 'sass'
 require 'mongoid'
 require 'mongoid/tree'
-require 'stringex'
 
 
 module Contentr
@@ -31,4 +30,5 @@ module Contentr
 end
 
 # Require contentr engine
+require 'contentr/string_extensions'
 require 'contentr/engine'

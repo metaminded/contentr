@@ -1,1 +1,26 @@
+<% begin %>
 <%= render @paragraph.class.model_name.underscore.split("/").last %>
+<% rescue ActionView::MissingTemplate %>
+  <%= simple_form_for 'paragraph',
+    :url => contentr_admin_page_paragraph_path(@page, @paragraph),
+    :method => :put,
+    :enctype => "multipart/form-data" do |f| %>
+    <% @paragraph.fields_for_simple_form.each do |name, opts| %>
+    <%= f.input(name, opts) %>
+    <% end %>
+    <%= f.submit %>
+  <% end %>
+<% end %>
+
+<%# 
+ruby-1.9.2-p136 :005 > s.uploaders
+ => {:img1=>RawImageUploader, :img2=>RawImageUploader, :img3=>RawImageUploader} 
+ruby-1.9.2-p136 :006 > s.uploader_options
+ => {:img1=>{:mount_on=>"img1_filename"}, :img2=>{:mount_on=>"img2_filename"}, :img3=>{:mount_on=>"img3_filename"}} 
+ruby-1.9.2-p136 :007 > 
+
+
+ruby-1.9.2-p136 :008 > s.fields.map &:last
+ => [#<Mongoid::Field:0x00000105b17910 @type=String, @label=nil, @default=nil, @name="_type", @copyable=false, @options={:type=>String}>, #<Mongoid::Field:0x00000105b16e70 @type=BSON::ObjectId, @label=nil, @default=nil, @name="_id", @copyable=false, @options={:type=>BSON::ObjectId}>, #<Mongoid::Field:0x00000105ab9b30 @type=String, @label=nil, @default=nil, @name="area_name", @copyable=false, @options={:type=>String}>, #<Mongoid::Field:0x00000105a8dcb0 @type=String, @label=nil, @default=nil, @name="link1", @copyable=false, @options={:type=>String}>, #<Mongoid::Field:0x00000105a8d260 @type=String, @label=nil, @default=nil, @name="title1", @copyable=false, @options={:type=>String}>, #<Mongoid::Field:0x00000105a8c860 @type=String, @label=nil, @default=nil, @name="img1", @copyable=false, @options={:type=>String}>, #<Mongoid::Field:0x00000105a8be38 @type=String, @label=nil, @default=nil, @name="link2", @copyable=false, @options={:type=>String}>, #<Mongoid::Field:0x00000105a8b438 @type=String, @label=nil, @default=nil, @name="title2", @copyable=false, @options={:type=>String}>, #<Mongoid::Field:0x00000105a8aa38 @type=String, @label=nil, @default=nil, @name="img2", @copyable=false, @options={:type=>String}>, #<Mongoid::Field:0x00000105a8a038 @type=String, @label=nil, @default=nil, @name="link3", @copyable=false, @options={:type=>String}>, #<Mongoid::Field:0x00000105a89638 @type=String, @label=nil, @default=nil, @name="title3", @copyable=false, @options={:type=>String}>, #<Mongoid::Field:0x00000105a8c6d0 @type=String, @label=nil, @default=nil, @name="img3", @copyable=false, @options={:type=>String}>, #<Mongoid::Field:0x00000105ab91d0 @type=Object, @label=nil, @default=nil, @name="img1_filename", @copyable=false, @options={}>, #<Mongoid::Field:0x00000105c60498 @type=Object, @label=nil, @default=nil, @name="img2_filename", @copyable=false, @options={}>, #<Mongoid::Field:0x00000105c46610 @type=Object, @label=nil, @default=nil, @name="img3_filename", @copyable=false, @options={}>] 
+
+%>
