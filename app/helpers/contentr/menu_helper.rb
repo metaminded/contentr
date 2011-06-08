@@ -5,7 +5,8 @@ module Contentr
     def menu(options = {})
       # set the current page
       current_page = options[:page] || @_contentr_current_page
-      return if current_page.blank? or not current_page.is_a?(Contentr::Page)
+      # Patched menu behaviour -- it's reasonable to render the menu even though the current view-thing is not a page.
+      # return if current_page.blank? or not current_page.is_a?(Contentr::Page)
 
       # create a dummy root page
       root_page = Contentr::Page.new
@@ -13,7 +14,7 @@ module Contentr
 
       # get ancestors of the current page and set the dummy root
       # page as a single root node
-      ancestors = current_page.ancestors_and_self
+      ancestors = current_page ? current_page.ancestors_and_self : []
       ancestors = [root_page] + ancestors
 
       # set start level
@@ -45,7 +46,7 @@ module Contentr
             # mark active (current) page
             css_classes << (options[:active_class] || 'active')  if page == current_page
             # mark descendant pages of current page
-            css_classes << (options[:open_class] || 'open') if current_page.descendant_of?(page)
+            css_classes << (options[:open_class] || 'open') if current_page && current_page.descendant_of?(page)
             # mark the current depth
             css_classes << "depth-#{page.depth}"
             # mark the first one
