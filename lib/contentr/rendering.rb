@@ -36,7 +36,8 @@ module Contentr
       page = Contentr::Page.find_linked_page_by_request_params(params)
       if page.present? and page.published?
         @_contentr_current_page = page
-        options = options.merge(:layout => "layouts/contentr/#{page.layout}")
+        layot = contentr_layout || "layouts/contentr/#{page.layout}"
+        options = options.merge(:layout => layot)
       end
       self.response_body = render_to_body(options)
     end
@@ -46,6 +47,10 @@ module Contentr
       options = _normalize_args(*args, &block)
       _normalize_options(options)
       options
+    end
+
+    def contentr_layout
+      false
     end
 
   end
