@@ -30,4 +30,5 @@ module Contentr
 end
 
 # Require contentr engine
+require 'contentr/string_extensions'
 require 'contentr/engine'
