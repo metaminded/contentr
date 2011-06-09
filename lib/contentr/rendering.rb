@@ -36,8 +36,8 @@ module Contentr
       page = Contentr::Page.find_linked_page_by_request_params(params)
       if page.present? and page.published?
         @_contentr_current_page = page
-        layot = contentr_layout || "layouts/contentr/#{page.layout}"
-        options = options.merge(:layout => layot)
+        layout = contentr_layout || "layouts/contentr/#{page.layout}"
+        options = options.merge(:layout => layout)
       end
       self.response_body = render_to_body(options)
     end
