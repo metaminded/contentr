@@ -24,6 +24,7 @@ module Contentr
     validates_presence_of   :name
     validates_presence_of   :slug
     validates_uniqueness_of :slug, :scope => :parent_id, :allow_nil => false, :allow_blank => false
+    validates_format_of     :slug, :with => /^[a-z0-9\s-]+$/
     validates_presence_of   :path
     validates_uniqueness_of :path
 
@@ -45,6 +46,14 @@ module Contentr
       children.count > 0
     end
 
+    def path=(value)
+      raise "path is generated an can't be set"
+    end
+
+    def slug=(value)
+      self.write_attribute(:slug, value.to_slug) if value.present?
+    end
+
   protected
 
     def generate_slug
@@ -54,13 +63,13 @@ module Contentr
     end
 
     def rebuild_path
-      self.path = "/#{ancestors_and_self.collect(&:slug).join('/')}"
+      self.write_attribute(:path, "/#{ancestors_and_self.collect(&:slug).join('/')}")
     end
 
     # BUGFIX: It looks like mongoid/tree or mongoid returns the wrong order
-    def ancestors
-      base_class.where(:_id.in => parent_ids).reverse if parent_ids
-    end
+    #def ancestors
+    #  base_class.where(:_id.in => parent_ids).reverse if parent_ids
+    #end
 
   end
 end
