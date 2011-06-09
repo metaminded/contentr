@@ -23,7 +23,7 @@ module Contentr
     # Validations
     validates_presence_of   :name
     validates_presence_of   :slug
-    validates_uniqueness_of :slug
+    validates_uniqueness_of :slug, :scope => :parent_id, :allow_nil => false, :allow_blank => false
     validates_presence_of   :path
     validates_uniqueness_of :path
 
