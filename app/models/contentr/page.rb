@@ -87,7 +87,7 @@ module Contentr
     end
 
     def publish!
-      update_attribute(:published, true)
+      self.update_attribute(:published, true)
     end
 
   end

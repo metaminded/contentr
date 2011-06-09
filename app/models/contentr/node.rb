@@ -24,6 +24,7 @@ module Contentr
     validates_presence_of   :name
     validates_presence_of   :slug
     validates_uniqueness_of :slug
+    validates_presence_of   :path
     validates_uniqueness_of :path
 
     # Callbacks
@@ -48,12 +49,12 @@ module Contentr
 
     def generate_slug
       if name.present? && slug.blank?
-        slug = name.to_slug
+        self.slug = name.to_slug
       end
     end
 
     def rebuild_path
-      path = "/#{ancestors_and_self.collect(&:slug).join('/')}"
+      self.path = "/#{ancestors_and_self.collect(&:slug).join('/')}"
     end
 
     # BUGFIX: It looks like mongoid/tree or mongoid returns the wrong order

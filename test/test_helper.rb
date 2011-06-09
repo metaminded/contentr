@@ -22,6 +22,11 @@ ActiveRecord::Migrator.migrate File.expand_path("../dummy/db/migrate/", __FILE__
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
 # Clear mongo db
-Mongoid.master.collections.select do |collection|
-  collection.name !~ /system/
-end.each(&:drop)
+def clear_mongodb
+  Mongoid.master.collections.select do |collection|
+    collection.name !~ /system/
+  end.each(&:drop)
+end
+
+clear_mongodb
+
