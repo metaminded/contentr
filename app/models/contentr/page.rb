@@ -51,13 +51,13 @@ module Contentr
     end
 
     def is_link?
-      self.linked_to.present?
+      linked_to.present?
     end
 
     def url_for_linked_page(options = {})
-      if self.is_link?
+      if is_link?
         begin
-          p = self.linked_to.split('#')
+          p = linked_to.split('#')
 
           controller = p.first
           controller = "/#{controller}" unless controller.include?('/')
@@ -71,23 +71,23 @@ module Contentr
           url_for(options)
         rescue Exception => e
           Rails.logger.error(e)
-          # in case we could not create a proper backlink url we will silent
-          # fail with the root url of the app.
+          # in case we could not create a proper backlink url we will silently
+          # fail with the app's root url.
           root_url(only_path: true)
         end
       end
     end
 
     def expected_areas
-      self.paragraphs.map(&:area_name).uniq
+      paragraphs.map(&:area_name).uniq
     end
 
     def paragraphs_for_area(area_name)
-      self.paragraphs.where(area_name: area_name)
+      paragraphs.where(area_name: area_name)
     end
 
     def publish!
-      self.update_attribute(:published, true)
+      update_attribute(:published, true)
     end
 
   end

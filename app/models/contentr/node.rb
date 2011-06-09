@@ -17,7 +17,7 @@ module Contentr
     field :slug, :type => String, :index => true
     field :path, :type => String, :index => true
 
-    # Protect attributes from mass assignment
+    # Protect (other) attributes from mass assignment
     attr_accessible :name, :slug, :parent
 
     # Validations
@@ -41,19 +41,19 @@ module Contentr
     end
 
     def has_children?
-      self.children.count > 0
+      children.count > 0
     end
 
   protected
 
     def generate_slug
-      if name.present?
-        self.slug = name.to_slug
+      if name.present? && slug.blank?
+        slug = name.to_slug
       end
     end
 
     def rebuild_path
-      self.path = "/#{ancestors_and_self.collect(&:slug).join('/')}"
+      path = "/#{ancestors_and_self.collect(&:slug).join('/')}"
     end
 
     # BUGFIX: It looks like mongoid/tree or mongoid returns the wrong order

@@ -19,11 +19,11 @@ module Contentr
     embedded_in :page
 
     def self.dynamic_accessor(name, postfix='')
-      define_method "#{name}#{postfix}".to_sym do |i|
-        self.send "#{name}#{i}#{postfix}".to_sym
+      define_method("#{name}#{postfix}".to_sym) do |i|
+        self.send("#{name}#{i}#{postfix}".to_sym)
       end
     end
-    
+
     def fields_for_simple_form
       textpatt = /text|descr|content|body/
       ul = {}
@@ -32,9 +32,9 @@ module Contentr
         ul = self.class.uploaders
         skipped += self.class.uploader_options.map(&:last).map{|h| h[:mount_on]}
       end
-      self.fields.map do |f| 
+      self.fields.map do |f|
         name = f.first
-        if skipped.member?(name) then nil else 
+        if skipped.member?(name) then nil else
           name = name.to_sym
           options = {}
           options[:as] = :file if ul[name]
