@@ -5,6 +5,7 @@ require 'jquery-rails'
 require 'sass'
 require 'mongoid'
 require 'mongoid/tree'
+require 'simple_form'
 
 
 module Contentr

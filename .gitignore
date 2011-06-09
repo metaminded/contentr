@@ -1,6 +1,7 @@
 .DS_Store
 .bundle
 .sass-cache
+Gemfile.lock
 test/dummy/log/*.log
 test/dummy/tmp/**/*
 test/dummy/db/*.sqlite3
