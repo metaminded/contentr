@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.files = `git ls-files`.split("\n")
   s.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
 
-  s.add_dependency('rails', '>= 3.1.0.rc3')
+  s.add_dependency('rails', '>= 3.1.0.rc4')
   s.add_dependency('jquery-rails', '~> 1.0')
   s.add_dependency('sass', '~> 3.1')
   s.add_dependency('mongoid', '~> 2.0')
