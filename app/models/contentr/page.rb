@@ -19,7 +19,7 @@ module Contentr
     embeds_many :paragraphs, :class_name => 'Contentr::Paragraph'
 
     # Protect attributes from mass assignment
-    attr_accessible :description, :layout, :template, :linked_to, :hidden
+    attr_accessible :description, :layout, :template, :linked_to, :hidden, :published
 
     # Validations
     validates_presence_of   :layout

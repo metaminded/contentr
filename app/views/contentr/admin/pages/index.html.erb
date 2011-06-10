@@ -8,7 +8,7 @@
       %>
     <% end %>
 
-    <%= link_to 'Create a new page', new_contentr_admin_page_url, :class => 'button' %>
+    <%= link_to 'Create a new page', new_contentr_admin_page_path(:root => @root_page), :class => 'button' %>
   </div>
 
   <table class="contentr pagegrid" data-root-page-id="<%= @root_page ? @root_page.id : '' %>">
@@ -17,6 +17,8 @@
         <th class="icon">Icon</th>
         <th class="name">Name</th>
         <th class="slug">Slug</th>
+        <th class="published">Published?</th>
+        <th class="hidden">Hidden?</th>
         <th class="template">Template</th>
         <th class="layout">Layout</th>
       </tr>
@@ -45,13 +47,15 @@
                 <ul>
                   <li class="tool move-begin"><a href="#">Move</a></li>
                   <li class="tool move-end"><a href="#">Insert below</a></li>
-                  <li class="tool edit"><%= link_to('Edit', edit_contentr_admin_page_path(page)) %></li>
-                  <li class="tool delete"><%= link_to('Delete', contentr_admin_page_path(page), :method => :delete, :confirm => "Really delete page '#{page.name}'? All subpages will be deleted too.") %></li>
+                  <li class="tool edit"><%= link_to('Edit', edit_contentr_admin_page_path(page, :root => @root_page)) %></li>
+                  <li class="tool delete"><%= link_to('Delete', contentr_admin_page_path(page, :root => @root_page), :method => :delete, :confirm => "Really delete page '#{page.name}'? All subpages will be deleted too.") %></li>
                 </ul>
               </div>
             </div>
           </td>
           <td class="slug"><%= page.slug %></td>
+          <td class="published"><%= page.published? %></td>
+          <td class="hidden"><%= page.hidden? %></td>
           <td class="template"><%= page.template %></td>
           <td class="layout"><%= page.layout %></td>
         </tr>

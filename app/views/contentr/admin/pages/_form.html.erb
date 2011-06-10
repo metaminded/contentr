@@ -1,5 +1,17 @@
-<%= form_for @page, :url => @page.new_record? ? contentr_admin_contentr_pages_path : contentr_admin_contentr_page_path do |f| %>
-  Page Name: <%= f.text_field :name %><br/>
-  <%= f.submit %>
-  <%= link_to 'Cancel', contentr_admin_contentr_pages_path %>
+<%= simple_form_for 'page',
+    :url    => (@page.new_record? ? contentr_admin_pages_path(:root => @root_page) : contentr_admin_page_path(:root => @root_page)),
+    :method => (@page.new_record? ? 'post' : 'put') do |f| %>
+
+    <%= f.input :hidden, :as => :boolean %>
+    <%= f.input :published, :as => :boolean %>
+
+    <%= f.input :name %>
+    <%= f.input :slug, :required => false %>
+    <%= f.input :description, :required => false, :as => :text, :input_html => { :rows => 3 } %>
+
+    <%= f.input :template %>
+    <%= f.input :layout %>
+
+    <%= f.submit %>
+    <%= link_to 'Cancel', contentr_admin_pages_path %>
 <% end %>
