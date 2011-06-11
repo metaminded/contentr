@@ -54,10 +54,8 @@ class Contentr::Admin::PagesController < Contentr::Admin::ApplicationController
     if (params[:root_page_id])
       page.parent = Contentr::Page.find(params[:root_page_id])
     else
-      puts "+++++++++++++++++++++++++++++++"
       page.parent = nil
     end
-    puts "--------------------------------"
     page.reload
     page.move_to_top
     render :nothing => true
