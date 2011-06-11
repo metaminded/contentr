@@ -12,6 +12,8 @@
     <%= f.input :template %>
     <%= f.input :layout %>
 
+    <%= f.input :linked_to, :required => false %>
+
     <%= f.submit %>
     <%= link_to 'Cancel', contentr_admin_pages_path %>
 <% end %>
