@@ -8,11 +8,11 @@ class Contentr::Admin::ParagraphsController < Contentr::Admin::ApplicationContro
 
   def create
     @page = Contentr::Page.find(params[:page_id])
-    @paragraph = paragraph_type_class.new(params[:paragraph])
+    @paragraph = paragraph_type_class.new(params[:paragraph].merge(:area_name => params[:area_name]))
     @page.paragraphs << @paragraph
     if @page.save
       flash[:notice] = 'Paragraph created'
-      redirect_to contentr_admin_new_paragraph_path(:page_id => @page, :area_name => params[:paragraph][:area_name], :type => 'Contentr::HtmlParagraph')
+      redirect_to contentr_admin_new_paragraph_path(:page_id => @page, :area_name => params[:area_name], :type => 'Contentr::HtmlParagraph')
     else
       render :action => :new
     end

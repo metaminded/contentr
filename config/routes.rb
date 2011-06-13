@@ -14,8 +14,8 @@ Rails.application.routes.draw do
 
       put    'pages/:page_id/area/:area_name/paragraphs/reorder'   => 'paragraphs#reorder', :as => 'reorder_paragraphs'
       get    'pages/:page_id/area/:area_name/paragraphs/:type/new' => 'paragraphs#new',     :as => 'new_paragraph'
+      post   'pages/:page_id/area/:area_name/paragraphs/:type'     => 'paragraphs#create',  :as => 'paragraphs'
 
-      post   'pages/:page_id/paragraphs/:type'     => 'paragraphs#create',  :as => 'paragraphs'
       get    'pages/:page_id/paragraphs/:id/edit'  => 'paragraphs#edit',    :as => 'edit_paragraph'
       put    'pages/:page_id/paragraphs/:id'       => 'paragraphs#update',  :as => 'paragraph'
       delete 'pages/:page_id/paragraphs/:id'       => 'paragraphs#destroy', :as => 'paragraph'
