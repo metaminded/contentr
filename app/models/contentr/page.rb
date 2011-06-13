@@ -83,7 +83,7 @@ module Contentr
     end
 
     def paragraphs_for_area(area_name)
-      paragraphs.where(area_name: area_name)
+      paragraphs.where(area_name: area_name).order_by([[:position, :asc]])
     end
 
     def publish!

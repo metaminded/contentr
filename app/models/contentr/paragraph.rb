@@ -10,7 +10,8 @@ module Contentr
     include Mongoid::Document
 
     # Fields
-    field :area_name, :type => String
+    field :area_name, :type => String,  :index => true
+    field :position,  :type => Integer, :index => true
 
     # Validations
     validates_presence_of :area_name
@@ -27,7 +28,7 @@ module Contentr
     def fields_for_simple_form
       textpatt = /text|descr|content|body/
       ul = {}
-      skipped = ["_id", "_type"]
+      skipped = ["_id", "_type", "position"]
       if self.class.respond_to?(:uploaders)
         ul = self.class.uploaders
         skipped += self.class.uploader_options.map(&:last).map{|h| h[:mount_on]}
@@ -38,6 +39,7 @@ module Contentr
           name = name.to_sym
           options = {}
           options[:as] = :file if ul[name]
+          options[:as] = :hidden if name == :area_name
           [name, options]
         end
       end.compact

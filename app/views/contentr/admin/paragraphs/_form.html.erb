@@ -1,0 +1,12 @@
+<% begin %>
+  <%#
+    Lets look for e.g. contentr/html_paragraph_form partial ...
+  %>
+  <%= render "#{@paragraph.class.to_s.tableize.singularize}_form" %>
+<% rescue ActionView::MissingTemplate %>
+  <%#
+    In case such a  particular template doesn't exist, fall back to an
+    generic, auto-generated form.
+  %>
+  <%= render 'generic_form' %>
+<% end %>

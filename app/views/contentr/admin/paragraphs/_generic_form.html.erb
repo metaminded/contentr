@@ -1,0 +1,11 @@
+<%= simple_form_for 'paragraph',
+  :url     => (@paragraph.new_record? ? contentr_admin_paragraphs_path(:page_id => @page.id, :type => @paragraph.class) : contentr_admin_paragraph_path(:page_id => @page, :id => @paragraph)),
+  :method  => (@paragraph.new_record? ? :post : :put),
+  :enctype => "multipart/form-data" do |f| %>
+
+  <% @paragraph.fields_for_simple_form.each do |name, opts| %>
+    <%= f.input(name, opts) %>
+  <% end %>
+
+  <%= f.submit %>
+<% end %>
