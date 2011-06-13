@@ -53,7 +53,6 @@ class Contentr::Admin::ParagraphsController < Contentr::Admin::ApplicationContro
     paragraphs_ids = params[:paragraph]
     paragraphs = page.paragraphs_for_area(params[:area_name]).sort { |x,y| paragraphs_ids.index(x.id.to_s) <=> paragraphs_ids.index(y.id.to_s) }
     paragraphs.each_with_index { |p, i| p.update_attribute(:position, i) }
-
     render :nothing => true
   end
 
@@ -64,12 +63,5 @@ class Contentr::Admin::ParagraphsController < Contentr::Admin::ApplicationContro
     paragraph_type_class = paragraph_type_string.classify.constantize # just to be sure
     paragraph_type_class if paragraph_type_class < Contentr::Paragraph
   end
-
-  #def reorder
-  #  paragraph = Contentr::Paragraph.find(params[:id])
-  #  buddyParagraph = Contentr::Paragraph.find(params[:buddy_id])
-  #  paragraph.move_below(buddyParagraph)
-  #  render :nothing => true
-  #end
 
 end

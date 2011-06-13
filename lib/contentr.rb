@@ -22,9 +22,29 @@ module Contentr
   mattr_accessor :frontend_route_prefix
   @@frontend_route_prefix = '/cms'
 
+  # Registered paragraphs
+  mattr_reader :paragraphs
+  @@paragraphs = []
+
   # Default way to setup Contentr
   def self.setup
     yield self
+  end
+
+  # Register a new paragraph
+  def self.register_paragraph(class_name, title, options = {})
+    paragraphs << ParagraphConfig.new(class_name, title, options)
+  end
+
+  # Paragraph config
+  class ParagraphConfig
+    attr_reader :paragraph_class, :title, :options
+
+    def initialize(paragraph_class, title, options = {})
+      @paragraph_class = paragraph_class.to_s.classify.constantize
+      @title = title
+      @options = options
+    end
   end
 
 end
