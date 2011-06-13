@@ -33,7 +33,7 @@ module Contentr
               t = ''.html_safe
               t << area_name
               t << ' | '
-              t << link_to('new', contentr_admin_new_paragraph_path(:page_id => current_page, :area_name => area_name, :type => 'Contentr::HtmlParagraph'), :rel => 'contentr-fancybox')
+              t << link_to('new', contentr_admin_new_paragraph_path(:page_id => current_page, :area_name => area_name), :rel => 'contentr-fancybox')
               t
             end
           end

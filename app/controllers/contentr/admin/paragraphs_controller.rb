@@ -3,7 +3,14 @@ class Contentr::Admin::ParagraphsController < Contentr::Admin::ApplicationContro
 
   def new
     @page = Contentr::Page.find(params[:page_id])
-    @paragraph = paragraph_type_class.new(:area_name => params[:area_name])
+    @area_name = params[:area_name]
+
+    if params[:type].present?
+      @paragraph = paragraph_type_class.new(:area_name => @area_name)
+      render 'new'
+    else
+      render 'new_select'
+    end
   end
 
   def create
@@ -12,7 +19,7 @@ class Contentr::Admin::ParagraphsController < Contentr::Admin::ApplicationContro
     @page.paragraphs << @paragraph
     if @page.save
       flash[:notice] = 'Paragraph created'
-      redirect_to contentr_admin_new_paragraph_path(:page_id => @page, :area_name => params[:area_name], :type => 'Contentr::HtmlParagraph')
+      redirect_to contentr_admin_new_paragraph_path(:page_id => @page, :area_name => params[:area_name])
     else
       render :action => :new
     end
