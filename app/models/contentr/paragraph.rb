@@ -38,6 +38,7 @@ module Contentr
         if skipped.member?(name) then nil else
           name = name.to_sym
           options = {}
+          options[:required] = false
           options[:as] = :file if ul[name]
           options[:as] = :hidden if name == :area_name
           [name, options]
