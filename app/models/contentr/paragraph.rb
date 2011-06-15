@@ -19,12 +19,11 @@ module Contentr
     # Relations
     embedded_in :page
 
-    # FIXME: Is this used?
-    #def self.dynamic_accessor(name, postfix='')
-    #  define_method("#{name}#{postfix}".to_sym) do |i|
-    #    self.send("#{name}#{i}#{postfix}".to_sym)
-    #  end
-    #end
+    def self.dynamic_accessor(name, postfix='')
+      define_method("#{name}#{postfix}".to_sym) do |i|
+        self.send("#{name}#{i}#{postfix}".to_sym)
+      end
+    end
 
     def fields_for_simple_form
       textpatt = /text|descr|content|body/
