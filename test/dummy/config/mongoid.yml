@@ -7,7 +7,7 @@ defaults: &defaults
   #     port: 27019
   persist_in_safe_mode: true
 
-development:
+development: &development
   <<: *defaults
   database: contentr_development
 
@@ -16,4 +16,4 @@ test:
   database: contentr_test
 
 production:
-  development
+  <<: *development

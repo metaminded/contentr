@@ -5,3 +5,4 @@ Gemfile.lock
 test/dummy/log/*.log
 test/dummy/tmp/**/*
 test/dummy/db/*.sqlite3
+test/dummy/public/assets
