@@ -3,8 +3,7 @@
 module Contentr
   class Node
 
-    # Node is abstract
-    @abstract_class = true
+    # Node is not abstract any more :)
 
     # Includes
     include Mongoid::Document
@@ -13,9 +12,10 @@ module Contentr
     include Mongoid::Tree::Traversal
 
     # Fields
-    field :name, :type => String
-    field :slug, :type => String, :index => true
-    field :path, :type => String, :index => true
+    field :name,   :type => String
+    field :slug,   :type => String, :index => true
+    field :path,   :type => String, :index => true
+    field :hidden, :type => Boolean, :default => false, :index => true
 
     # Protect (other) attributes from mass assignment
     attr_accessible :name, :slug, :parent
@@ -52,6 +52,10 @@ module Contentr
 
     def slug=(value)
       self.write_attribute(:slug, value.to_slug) if value.present?
+    end
+
+    def published?
+      true
     end
 
   protected
