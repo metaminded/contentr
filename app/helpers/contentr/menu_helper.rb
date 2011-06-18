@@ -106,8 +106,11 @@ module Contentr
 
     def contentr_page_link(page)
       # we have a menu_only "page"
-      return page.name if !page.is_a?(Contentr::Page)
-      
+      if !page.is_a?(Contentr::Page)
+        return content_tag(:span, :class => "contentr-menu-entry") do 
+          page.name 
+        end
+      end
       # set url
       link_url = page.is_link? ? page.url_for_linked_page
                                : File.join(Contentr.frontend_route_prefix, page.path)
