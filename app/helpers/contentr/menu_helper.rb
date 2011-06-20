@@ -10,7 +10,7 @@ module Contentr
 
       # create a dummy root page
       root_page = Contentr::Page.new
-      root_page.children = Contentr::Page.roots.asc(:position)
+      root_page.children = Contentr::Node.roots.asc(:position)
 
       # get ancestors of the current page and set the dummy root
       # page as a single root node
@@ -105,6 +105,12 @@ module Contentr
     private
 
     def contentr_page_link(page)
+      # we have a menu_only "page"
+      if !page.is_a?(Contentr::Page)
+        return content_tag(:span, :class => "contentr-menu-entry") do 
+          page.name 
+        end
+      end
       # set url
       link_url = page.is_link? ? page.url_for_linked_page
                                : File.join(Contentr.frontend_route_prefix, page.path)

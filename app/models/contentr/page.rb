@@ -12,7 +12,6 @@ module Contentr
     field :template,    :type => String, :default => 'default'
     field :linked_to,   :type => String, :index => true
     field :menu_title,  :type => String
-    field :hidden,      :type => Boolean, :default => false, :index => true
     field :published,   :type => Boolean, :default => false, :index => true
 
     # Relations
