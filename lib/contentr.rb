@@ -22,6 +22,10 @@ module Contentr
   mattr_accessor :frontend_route_prefix
   @@frontend_route_prefix = '/cms'
 
+  # Google analytics account
+  mattr_accessor :google_analytics_account
+  @@google_analytics_account
+
   # Registered paragraphs
   mattr_reader :paragraphs
   @@paragraphs = []
