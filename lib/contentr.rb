@@ -1,8 +1,6 @@
 # coding: utf-8
 
 require 'rails'
-require 'jquery-rails'
-require 'sass'
 require 'mongoid'
 require 'mongoid/tree'
 require 'simple_form'

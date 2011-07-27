@@ -2,7 +2,12 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 
-Bundler.require
+# If you have a Gemfile, require the default gems, the ones in the
+# current environment and also include :assets gems if in development
+# or test environments.
+Bundler.require *Rails.groups(:assets) if defined?(Bundler)
+
+# Require Contentr
 require "contentr"
 
 module Dummy

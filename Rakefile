@@ -7,9 +7,8 @@ rescue LoadError
 end
 
 require 'rake'
-require 'rake/rdoctask'
-
 require 'rake/testtask'
+require 'rdoc/task'
 
 Rake::TestTask.new(:test) do |t|
   t.libs << 'lib'
@@ -20,7 +19,7 @@ end
 
 task :default => :test
 
-Rake::RDocTask.new(:rdoc) do |rdoc|
+RDoc::Task.new(:rdoc) do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title    = 'Contentr'
   rdoc.options << '--line-numbers' << '--inline-source'
