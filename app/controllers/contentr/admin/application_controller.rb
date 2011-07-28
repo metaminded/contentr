@@ -1,11 +1,11 @@
 class Contentr::Admin::ApplicationController < ApplicationController
 
-  before_filter :check_editable
+  before_filter :check_authorization
 
   layout :get_layout
 
-  def check_editable
-    raise "Access Denied" unless contentr_editable?
+  def check_authorization
+    raise "Access Denied" unless contentr_authorized?
   end
 
   def get_layout
