@@ -2,9 +2,9 @@ module Contentr
   module MenuHelper
 
     # Renders a dynamic menu
-    def menu(options = {})
+    def contentr_menu(options = {})
       # set the current page
-      current_page = options[:page] || @_contentr_current_page
+      current_page = options[:page] || contentr_current_page
       # Patched menu behaviour -- it's reasonable to render the menu even though the current view-thing is not a page.
       # return if current_page.blank? or not current_page.is_a?(Contentr::Page)
 
@@ -26,7 +26,7 @@ module Contentr
 
       # render function
       fn = lambda do |pages, current_depth|
-        # pagees present?
+        # pages present?
         return '' unless pages.present?
         # max depth?
         return '' if current_depth > depth
@@ -81,7 +81,8 @@ module Contentr
     end
 
     # Renders a breadcrumb
-    def breadcrumb(options = {})
+    def contentr_breadcrumb(options = {})
+      current_page = contentr_current_page
       if current_page.present?
         content_tag(:ul, :class => "contentr #{options[:class] || 'breadcrumb'}") do
           current_page.ancestors_and_self.collect do |page|
@@ -107,8 +108,8 @@ module Contentr
     def contentr_page_link(page)
       # we have a menu_only "page"
       if !page.is_a?(Contentr::Page)
-        return content_tag(:span, :class => "contentr-menu-entry") do 
-          page.name 
+        return content_tag(:span, :class => "contentr-menu-entry") do
+          page.name
         end
       end
       # set url

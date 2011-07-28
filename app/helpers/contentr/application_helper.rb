@@ -2,7 +2,7 @@ module Contentr
   module ApplicationHelper
 
     # Returns the current cms page
-    def current_page
+    def contentr_current_page
       @_contentr_current_page
     end
 
@@ -10,17 +10,19 @@ module Contentr
     #
     # @param [String] The name of the area that should be rendered.
     #
-    def area(area_name)
+    def contentr_area(area_name)
+      current_page = contentr_current_page
+
       if current_page.present? and area_name.present?
         area_name = area_name.to_s
         paragraphs = current_page.paragraphs_for_area(area_name)
-        editable = controller.contentr_authorized?
+        authorized = controller.contentr_authorized?
 
         area_options = {}
         area_classes = []
         area_classes << 'contentr'
         area_classes << 'area'
-        area_classes << 'editable' if editable
+        area_classes << 'editable' if authorized
         area_options[:class] = area_classes.join(' ')
         area_options['data-contentr-area'] = area_name
         area_options['data-contentr-page'] = current_page.id
@@ -28,7 +30,7 @@ module Contentr
         content_tag(:div, area_options) do
           s = ''.html_safe
 
-          if editable
+          if authorized
             s << content_tag(:div, :class => 'contentr toolbar') do
               t = ''.html_safe
               t << area_name
@@ -46,14 +48,14 @@ module Contentr
             paragraph_classes = []
             paragraph_classes << 'contentr'
             paragraph_classes << 'paragraph'
-            paragraph_classes << 'editable' if editable
+            paragraph_classes << 'editable' if authorized
             paragraph_options[:class] = paragraph_classes.join(' ')
             paragraph_options[:id] = "paragraph_#{p.id}"
 
             content_tag(:div, paragraph_options) do
               s = ''.html_safe
 
-              if editable
+              if authorized
                 s << content_tag(:div, :class => 'contentr toolbar') do
                   t = ''.html_safe
                   t << link_to(contentr_admin_edit_paragraph_path(:page_id => current_page, :id => p), :rel => 'contentr-overlay') do

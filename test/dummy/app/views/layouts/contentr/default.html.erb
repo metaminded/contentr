@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Contentr Demo :: <%= current_page.name %></title>
+  <title>Contentr Demo :: <%= contentr_current_page.name %></title>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
@@ -16,15 +16,15 @@
 <body>
   <%= contentr_toolbar %>
 
-  <h1>CONTENTR LAYOUT - Page: <%= current_page.name %></h1>
+  <h1>CONTENTR LAYOUT - Page: <%= contentr_current_page.name %></h1>
   <hr/>
 
   <!-- main menu -->
-  <%= menu(:start => 0, :depth => 2) %>
+  <%= contentr_menu(:start => 0, :depth => 2) %>
   <hr/>
 
   <!-- submenu -->
-  <% submenu = menu(:start => 1) %>
+  <% submenu = contentr_menu(:start => 1) %>
   <% if submenu.present? %>
     <%= submenu %>
     <hr/>
@@ -32,7 +32,7 @@
 
   <!-- breadcrump -->
   You are here:
-  <%= breadcrumb %>
+  <%= contentr_breadcrumb %>
   <hr/>
 
   <!-- flash -->
