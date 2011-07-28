@@ -14,13 +14,13 @@ module Contentr
       if current_page.present? and area_name.present?
         area_name = area_name.to_s
         paragraphs = current_page.paragraphs_for_area(area_name)
-        editable = controller.contentr_editable?
+        editable = controller.contentr_authorized?
 
         area_options = {}
         area_classes = []
         area_classes << 'contentr'
         area_classes << 'area'
-        area_classes << 'editable' if controller.contentr_editable?
+        area_classes << 'editable' if editable
         area_options[:class] = area_classes.join(' ')
         area_options['data-contentr-area'] = area_name
         area_options['data-contentr-page'] = current_page.id
@@ -76,7 +76,7 @@ module Contentr
 
     # Renders the contentr toolbar in the page
     def contentr_toolbar(options = {})
-      if controller.contentr_editable?
+      if controller.contentr_authorized?
         content_tag(:div, :class => 'contentr toolbar') do
           s = ''.html_safe
           s << link_to('Pages', contentr_admin_pages_url, :rel => 'contentr-overlay')
