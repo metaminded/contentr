@@ -1,19 +1,18 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
-//= require contentr/fancybox
+//= require contentr/overlay
 
 (function($) {
   
   $(function() {
     // setup overlay for contentr admin
-    $('a[rel=contentr-fancybox]').contentr_fancybox({
-      'width': '90%',
-			'height': '90%',
-			'autoScale': false,
-			'transitionIn': 'none',
-			'transitionOut': 'none',
-			'type': 'iframe'
+    $('a[rel=contentr-overlay]').contentr_overlay({
+      width: '90%',
+			height: '90%',
+			close: function() {
+			  location.reload();
+			}
     });
     
     // make paragraphs sortable

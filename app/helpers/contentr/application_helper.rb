@@ -33,7 +33,7 @@ module Contentr
               t = ''.html_safe
               t << area_name
               t << ' | '
-              t << link_to('new', contentr_admin_new_paragraph_path(:page_id => current_page, :area_name => area_name), :rel => 'contentr-fancybox')
+              t << link_to('new', contentr_admin_new_paragraph_path(:page_id => current_page, :area_name => area_name), :rel => 'contentr-overlay')
               t
             end
           end
@@ -56,7 +56,7 @@ module Contentr
               if editable
                 s << content_tag(:div, :class => 'contentr toolbar') do
                   t = ''.html_safe
-                  t << link_to(contentr_admin_edit_paragraph_path(:page_id => current_page, :id => p), :rel => 'contentr-fancybox') do
+                  t << link_to(contentr_admin_edit_paragraph_path(:page_id => current_page, :id => p), :rel => 'contentr-overlay') do
                     "edit"
                   end
                   t << ' | '
@@ -79,7 +79,7 @@ module Contentr
       if controller.contentr_editable?
         content_tag(:div, :class => 'contentr toolbar') do
           s = ''.html_safe
-          s << link_to('Pages', contentr_admin_pages_url, :rel => 'contentr-fancybox')
+          s << link_to('Pages', contentr_admin_pages_url, :rel => 'contentr-overlay')
         end
       end
     end
