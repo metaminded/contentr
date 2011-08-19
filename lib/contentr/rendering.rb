@@ -36,7 +36,7 @@ module Contentr
       page = Contentr::Page.find_linked_page_by_request_params(params)
       if page.present? and page.published?
         @_contentr_current_page = page
-        layout = contentr_layout || "layouts/contentr/#{page.layout}"
+        layout = options.has_key?(:layout) ? options[:layout] : (contentr_layout || "layouts/contentr/#{page.layout}")
         options = options.merge(:layout => layout)
       end
       self.response_body = render_to_body(options)
@@ -45,7 +45,11 @@ module Contentr
     def contentr_normalize_options(*args, &block)
       # TODO: Not nice to use 'private' API I think
       options = _normalize_args(*args, &block)
+      layout = options.has_key?(:layout) ? (options[:layout] || false) : nil
       _normalize_options(options)
+      # TODO: HACK by Peter, necessary?
+      options.merge!(layout: layout) if layout != nil
+      options.merge!(layout: false) if options[:text]
       options
     end
 

@@ -1,4 +1,4 @@
-require File.expand_path('../boot', __FILE__)
+ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 
@@ -49,6 +49,12 @@ module Dummy
 
     # Enable the asset pipeline
     config.assets.enabled = true
+
+    # In order to properly set up single collection inheritance, Mongoid needs to preload all
+    # models before every request in development mode. This can get slow, so if you are not using
+    # any inheritance it is recommended you turn this feature off.
+    config.mongoid.preload_models = true
+
   end
 end
 

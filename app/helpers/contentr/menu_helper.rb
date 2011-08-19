@@ -1,3 +1,5 @@
+require 'ostruct'
+
 module Contentr
   module MenuHelper
 
@@ -9,8 +11,8 @@ module Contentr
       # return if current_page.blank? or not current_page.is_a?(Contentr::Page)
 
       # create a dummy root page
-      root_page = Contentr::Page.new
-      root_page.children = Contentr::Node.roots.asc(:position)
+      # Argh!
+      root_page = OpenStruct.new(children: Contentr::Node.roots.asc(:position))
 
       # get ancestors of the current page and set the dummy root
       # page as a single root node
@@ -68,6 +70,7 @@ module Contentr
           end.join("").html_safe
         end
       end
+
 
       # render yo
       if ancestors.present?
