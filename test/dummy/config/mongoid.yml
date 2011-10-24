@@ -5,7 +5,7 @@ defaults: &defaults
   #     port: 27018
   #   - host: slave2.local
   #     port: 27019
-  persist_in_safe_mode: true
+  persist_in_safe_mode: false # need to be false unless a bug with mongoid-tree will be fixed in mongoid.
 
 development: &development
   <<: *defaults

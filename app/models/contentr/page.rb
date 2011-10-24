@@ -13,6 +13,7 @@ module Contentr
     field :linked_to,   :type => String, :index => true
     field :menu_title,  :type => String
     field :published,   :type => Boolean, :default => false, :index => true
+    field :hidden,      :type => Boolean, :default => false, :index => true
 
     # Relations
     embeds_many :paragraphs, :class_name => 'Contentr::Paragraph'
@@ -24,6 +25,9 @@ module Contentr
     validates_presence_of   :layout
     validates_presence_of   :template
     validates_uniqueness_of :linked_to, :allow_nil => true, :allow_blank => true
+
+    # Constraints
+    self.accepted_child_nodes = ["Contentr::Page"]
 
 
     def self.find_linked_page_by_request_params(params)
