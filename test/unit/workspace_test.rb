@@ -15,7 +15,7 @@ class WorkspaceTest < ActiveSupport::TestCase
 
   test 'workspace must always be a root node' do
     node = Contentr::Node.create!(name: 'Node1')
-    assert_raise Contentr::MustBeARootNodeError do
+    assert_raise Contentr::UnsupportedParentNodeError do
       Contentr::Workspace.create!(name: 'workspace1', parent: node)
     end
   end

@@ -19,6 +19,7 @@ class NodeTreeTest < ActiveSupport::TestCase
   #
   def setup
     clean_mongodb
+
     node1 = Contentr::Node.create!(name: 'Node1')
     node2 = Contentr::Node.create!(name: 'Node2')
     node3 = Contentr::Node.create!(name: 'Node3')

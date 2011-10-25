@@ -4,8 +4,8 @@ module Contentr
   class Workspace < Node
 
     # Contraints
-    self.should_enforce_root_node = true
-    self.accepted_child_nodes = ["Contentr::Page"]
+    self.accepted_parent_nodes = [:root]
+    self.accepted_child_nodes  = ["Contentr::Page"]
 
   end
 end

@@ -27,7 +27,8 @@ module Contentr
     validates_uniqueness_of :linked_to, :allow_nil => true, :allow_blank => true
 
     # Constraints
-    self.accepted_child_nodes = ["Contentr::Page"]
+    self.accepted_parent_nodes = ["Contentr::Workspace", "Contentr::Page"]
+    self.accepted_child_nodes  = ["Contentr::Page"]
 
 
     def self.find_linked_page_by_request_params(params)
