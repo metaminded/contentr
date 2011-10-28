@@ -28,6 +28,10 @@ module Contentr
   mattr_reader :paragraphs
   @@paragraphs = []
 
+  # Node checks
+  mattr_accessor :run_node_checks
+  @@run_node_checks = true
+
   # Default way to setup Contentr
   def self.setup
     yield self

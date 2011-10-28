@@ -62,7 +62,7 @@ module Contentr
     protected
 
     def check_nodes
-      return unless self.run_node_checks
+      return unless Contentr.run_node_checks
       raise UnsupportedParentNodeError unless self.accepts_parent?(self)
       raise UnsupportedChildNodeError  if parent.present? and not parent.accepts_child?(self)
     end
