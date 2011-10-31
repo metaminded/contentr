@@ -12,7 +12,7 @@ module Contentr
 
       # create a dummy root page
       # Argh!
-      root_page = OpenStruct.new(children: Contentr::Node.roots.asc(:position))
+      root_page = OpenStruct.new(children: Contentr::Page.roots.asc(:position))
 
       # get ancestors of the current page and set the dummy root
       # page as a single root node
@@ -32,9 +32,6 @@ module Contentr
         return '' unless pages.present?
         # max depth?
         return '' if current_depth > depth
-        # remove every hidden or unpublished pages
-        # FIXME: implement this as part of the node api
-        pages = pages.map{|p| p if p.published? and not p.hidden?}.compact
 
         # render the ul tag
         content_tag(:ul) do
@@ -71,10 +68,9 @@ module Contentr
         end
       end
 
-
       # render yo
       if ancestors.present?
-        pages = ancestors.first.children
+        pages = ancestors.first.children.where(published: true, hidden: false)
         if pages.present?
           content_tag(:div, :class => "contentr #{options[:class] || 'menu'}") do
             fn.call(pages, 1)

@@ -53,7 +53,10 @@ class Contentr::Admin::ParagraphsController < Contentr::Admin::ApplicationContro
     paragraphs_ids = params[:paragraph]
     paragraphs = page.paragraphs_for_area(params[:area_name]).sort { |x,y| paragraphs_ids.index(x.id.to_s) <=> paragraphs_ids.index(y.id.to_s) }
     paragraphs.each_with_index { |p, i| p.update_attribute(:position, i) }
-    render :nothing => true
+    puts "mooo"
+    #render nothing: true, layout: nil
+    head :ok
+    puts "foo"
   end
 
   protected

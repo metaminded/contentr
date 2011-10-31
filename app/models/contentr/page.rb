@@ -31,6 +31,13 @@ module Contentr
     self.accepted_child_nodes  = ["Contentr::Page"]
 
 
+    def self.find_by_path(path)
+      if path.present? and path.start_with?(Contentr.frontend_route_prefix)
+        path = path.slice(Contentr.frontend_route_prefix.length..path.length)
+      end
+      Contentr::Page.where(:path => path).try(:first)
+    end
+
     def self.find_linked_page_by_request_params(params)
       controller = params[:controller]
       action = params[:action]
@@ -92,6 +99,14 @@ module Contentr
 
     def publish!
       self.update_attribute(:published, true)
+    end
+
+    def visible?
+      self.published? and not self.hidden?
+    end
+
+    def visible_children
+      self.children.where(published: true, hidden: false)
     end
 
   end
