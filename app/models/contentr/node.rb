@@ -34,7 +34,7 @@ module Contentr
     self.accepted_child_nodes  = [:any]
 
     # Callbacks
-    before_validation :check_nodes
+    # before_validation :check_nodes # TODO: Implement Workspace concept first
     before_validation :generate_slug
     before_validation :rebuild_path
     before_destroy    :destroy_children

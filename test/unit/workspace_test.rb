@@ -14,17 +14,19 @@ class WorkspaceTest < ActiveSupport::TestCase
   end
 
   test 'workspace must always be a root node' do
-    node = Contentr::Node.create!(name: 'Node1')
-    assert_raise Contentr::UnsupportedParentNodeError do
-      Contentr::Workspace.create!(name: 'workspace1', parent: node)
-    end
+    flunk("Implement me")
+    #node = Contentr::Node.create!(name: 'Node1')
+    #assert_raise Contentr::UnsupportedParentNodeError do
+    #  Contentr::Workspace.create!(name: 'workspace1', parent: node)
+    #end
   end
 
   test 'workspaces can only have page childs' do
-    workspace = Contentr::Workspace.create!(name: 'workspace1')
-    assert_raise Contentr::UnsupportedChildNodeError do
-      Contentr::Node.create!(name: 'node', parent: workspace)
-    end
+    flunk("Implement me")
+    #workspace = Contentr::Workspace.create!(name: 'workspace1')
+    #assert_raise Contentr::UnsupportedChildNodeError do
+    #  Contentr::Node.create!(name: 'node', parent: workspace)
+    #end
   end
 
 end
