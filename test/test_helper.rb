@@ -29,4 +29,3 @@ def clean_mongodb
 end
 
 clean_mongodb
-

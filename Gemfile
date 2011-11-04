@@ -4,6 +4,7 @@ gemspec
 
 gem 'rails', '~> 3.1'
 gem 'jquery-rails'
+gem 'mongoid-tree', git: 'https://github.com/benedikt/mongoid-tree.git', branch: 'master' # FIXME: do not use master here
 
 group :assets do
   gem 'sass-rails', '~> 3.1'
@@ -12,7 +13,7 @@ group :assets do
 end
 
 group :test do
-  gem 'turn', '< 0.8.3', :require => false # http://stackoverflow.com/questions/7719114/rails-3-1-1-and-cucumber-error
+  gem 'turn', '~> 0.8', :require => false
   gem 'capybara'
   gem 'sqlite3'
   gem 'ruby-debug19'

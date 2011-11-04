@@ -25,7 +25,7 @@ module Contentr
     validates_presence_of   :path
     validates_uniqueness_of :path, allow_nil: false, allow_blank: false
 
-    # Enforcements
+    # Node checks
     class_attribute :run_node_checks
     class_attribute :accepted_child_nodes
     class_attribute :accepted_parent_nodes
@@ -34,9 +34,9 @@ module Contentr
     self.accepted_child_nodes  = [:any]
 
     # Callbacks
+    before_validation :check_nodes
     before_validation :generate_slug
     before_validation :rebuild_path
-    before_save       :check_nodes
     before_destroy    :destroy_children
 
     # Scopes
