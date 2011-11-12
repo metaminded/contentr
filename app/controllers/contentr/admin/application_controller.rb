@@ -1,4 +1,4 @@
-class Contentr::Admin::ApplicationController < ApplicationController
+class Contentr::Admin::ApplicationController < Contentr::ApplicationController
 
   before_filter :check_authorization
 
