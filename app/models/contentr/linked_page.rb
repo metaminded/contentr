@@ -1,0 +1,66 @@
+module Contentr
+  class LinkedPage < Page
+
+    # Includes
+    include Rails.application.routes.url_helpers
+
+    # Fields
+    field :linked_to, :type => String, :index => true
+
+    # Protect attributes from mass assignment
+    attr_accessible :linked_to
+
+    # Validations
+    validates_presence_of   :linked_to
+    validates_uniqueness_of :linked_to
+
+
+    def self.find_by_request_params(params)
+      controller = params[:controller]
+      action     = params[:action]
+      id         = params[:id]
+
+      return if controller.blank?
+      return if action.blank?
+
+      wildcard_pattern = "#{controller}#*"
+      default_pattern = "#{controller}##{action}"
+      full_pattern = "#{default_pattern}:#{id}" if id.present?
+
+      if full_pattern.present?
+        page = LinkedPage.where(linked_to: full_pattern).try(:first)
+        return page if page.present?
+      end
+
+      page = LinkedPage.where(linked_to: default_pattern).try(:first)
+      return page if page.present?
+
+      page = LinkedPage.where(linked_to: wildcard_pattern).try(:first)
+      return page if page.present?
+    end
+
+    def url
+      begin
+        p = linked_to.split('#')
+
+        controller = p.first
+        controller = "/#{controller}" unless controller.include?('/')
+
+        action, id = p.last.split(':')
+        action = 'index' if action.blank? or action.strip == '*'
+
+        options = {}
+        options = options.merge(controller: controller, action: action, only_path: true)
+        options = options.merge(id: id) if id.present?
+
+        url_for(options)
+      rescue => e
+        logger.error e.message
+        logger.error e.backtrace.join("\n")
+        # in case we could not create a proper backlink url we will silently
+        # fail with the app's root url.
+        root_url(only_path: true)
+      end
+    end
+  end
+end

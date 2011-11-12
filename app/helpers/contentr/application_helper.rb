@@ -1,17 +1,12 @@
 module Contentr
   module ApplicationHelper
 
-    # Returns the current cms page
-    def contentr_current_page
-      @_contentr_current_page
-    end
-
     # Renders an area of paragraphs
     #
     # @param [String] The name of the area that should be rendered.
     #
     def contentr_area(area_name)
-      current_page = contentr_current_page
+      current_page = @contentr_page
 
       if current_page.present? and area_name.present?
         area_name = area_name.to_s
@@ -81,6 +76,8 @@ module Contentr
       if controller.contentr_authorized?
         content_tag(:div, :class => 'contentr toolbar') do
           s = ''.html_safe
+          s << 'NOT PUBLISHED ' if @contentr_page and not @contentr_page.published
+          s << 'HIDDEN ' if @contentr_page and @contentr_page.hidden
           s << link_to('Pages', contentr_admin_pages_url, :rel => 'contentr-overlay')
         end
       end

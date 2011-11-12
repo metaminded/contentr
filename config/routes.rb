@@ -1,10 +1,6 @@
 Rails.application.routes.draw do
 
-  scope Contentr.frontend_route_prefix, :module => 'contentr' do
-    # Render frontend pages
-    get '/(*path)' => 'pages#show', :as => 'contentr'
-  end
-
+  # admin
   namespace :contentr do
     namespace :admin do
       resources :pages do
@@ -21,4 +17,7 @@ Rails.application.routes.draw do
       delete 'pages/:page_id/paragraphs/:id'       => 'paragraphs#destroy', :as => 'paragraph'
     end
   end
+
+  # frontend
+  get '*contentr_path' => 'contentr/pages#show', :as => 'contentr'
 end

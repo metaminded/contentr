@@ -1,61 +1,33 @@
 module Contentr
   module Rendering
 
-    def render(*args, &block)
-      # Check the request path
-      path = request.env['PATH_INFO']
-      return redirect_to contentr_url(:path => Contentr.default_page) if path.blank?
+    def render_to_body(options)
+      #puts options.inspect
 
-      # Do we try to render a /cms page or a normal controller action
-      cms_rendering = path.starts_with?(Contentr.frontend_route_prefix)
+      @contentr_path      = params[:contentr_path]
+      @contentr_rendering = @contentr_path.present?
 
-      # Ok, lets render
-      options = contentr_normalize_options(*args, &block)
-      cms_rendering ? contentr_render_cms_page(path, options)
-                    : contentr_render_default_page(path, options)
-    end
-
-    protected
-
-    def contentr_render_cms_page(path, options)
-      page = Contentr::Page.find_by_path(path)
-      if page.present? and page.published?
-        if page.is_link?
-          redirect_to page.url_for_linked_page
+      if @contentr_rendering
+        # Contentr rendering
+        path = File.join(Contentr.default_site, @contentr_path)
+        @contentr_page = Contentr::Page.find_by_path(path)
+        if @contentr_page.present? and (@contentr_page.published || contentr_authorized?)
+          if @contentr_page.is_a?(Contentr::LinkedPage)
+            return redirect_to @contentr_page.url
+          else
+            options[:template] = @contentr_page.template
+            options[:layout]   = "layouts/#{@contentr_page.layout}"
+          end
         else
-          @_contentr_current_page = page
-          options = options.merge(:template => page.template, :layout => "layouts/contentr/#{page.layout}")
-          self.response_body = render_to_body(options)
+          raise ActionController::RoutingError.new(@contentr_path)
         end
       else
-        raise ActionController::RoutingError.new(path)
+        # Default rendering - we need to check for linked pages
+        # TODO: enable only for contentr aware controllers
+        @contentr_page = Contentr::LinkedPage.find_by_request_params(params)
       end
-    end
 
-    def contentr_render_default_page(path, options)
-      page = Contentr::Page.find_linked_page_by_request_params(params)
-      if page.present? and page.published?
-        @_contentr_current_page = page
-        layout = options.has_key?(:layout) ? options[:layout] : (contentr_layout || "layouts/contentr/#{page.layout}")
-        options = options.merge(:layout => layout)
-      end
-      self.response_body = render_to_body(options)
+      super options
     end
-
-    def contentr_normalize_options(*args, &block)
-      # TODO: Not nice to use 'private' API I think
-      options = _normalize_args(*args, &block)
-      layout = options.has_key?(:layout) ? (options[:layout] || false) : nil
-      _normalize_options(options)
-      # TODO: HACK by Peter, necessary?
-      options.merge!(layout: layout) if layout != nil
-      options.merge!(layout: false) if options[:text]
-      options
-    end
-
-    def contentr_layout
-      false
-    end
-
   end
 end

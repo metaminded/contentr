@@ -6,18 +6,10 @@ module Contentr
     # Renders a dynamic menu
     def contentr_menu(options = {})
       # set the current page
-      current_page = options[:page] || contentr_current_page
-      # Patched menu behaviour -- it's reasonable to render the menu even though the current view-thing is not a page.
-      # return if current_page.blank? or not current_page.is_a?(Contentr::Page)
+      current_page = options[:page] || @contentr_page || Contentr::Site.find_by_name(Contentr.default_site).try(:default_page)
 
-      # create a dummy root page
-      # Argh!
-      root_page = OpenStruct.new(children: Contentr::Page.roots.asc(:position))
-
-      # get ancestors of the current page and set the dummy root
-      # page as a single root node
+      # get ancestors of the current page
       ancestors = current_page ? current_page.ancestors_and_self : []
-      ancestors = [root_page] + ancestors
 
       # set start level
       start_level = (options[:start] || 0).to_i
@@ -36,6 +28,9 @@ module Contentr
         # render the ul tag
         content_tag(:ul) do
           pages.each_with_index.collect do |page, index|
+            next if page.hidden and not controller.contentr_authorized?
+            next unless page.published or controller.contentr_authorized?
+
             # options for the li tag
             li_options = {}
             # css classes
@@ -70,7 +65,7 @@ module Contentr
 
       # render yo
       if ancestors.present?
-        pages = ancestors.first.children.where(published: true, hidden: false)
+        pages = ancestors.first.children #.where(published: true, hidden: false)
         if pages.present?
           content_tag(:div, :class => "contentr #{options[:class] || 'menu'}") do
             fn.call(pages, 1)
@@ -81,10 +76,11 @@ module Contentr
 
     # Renders a breadcrumb
     def contentr_breadcrumb(options = {})
-      current_page = contentr_current_page
+      current_page = @contentr_page
       if current_page.present?
         content_tag(:ul, :class => "contentr #{options[:class] || 'breadcrumb'}") do
           current_page.ancestors_and_self.collect do |page|
+            next unless page.is_a?(Contentr::Page)
             # li tag options
             li_options = {}
             # css classes
@@ -97,7 +93,7 @@ module Contentr
             li_options[:class] = css_classes.join(' ')
             # render li tag
             content_tag(:li, li_options) { contentr_page_link(page) }
-          end.join("").html_safe
+          end.join('').html_safe
         end
       end
     end
@@ -112,8 +108,10 @@ module Contentr
         end
       end
       # set url
-      link_url = page.is_link? ? page.url_for_linked_page
-                               : File.join(Contentr.frontend_route_prefix, page.path)
+      #link_url = page.is_link? ? page.url_for_linked_page
+      #                         : File.join('/', Contentr.default_site, page.path)
+      link_url = File.join('/', page.site_path)
+
       # set link title
       link_title = page.menu_title || page.name
 

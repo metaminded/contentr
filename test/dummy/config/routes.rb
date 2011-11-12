@@ -3,5 +3,5 @@ Dummy::Application.routes.draw do
   namespace :store do
     resources :products
   end
-  root :to => redirect("/cms/home")
+  root :to => redirect("/home")
 end

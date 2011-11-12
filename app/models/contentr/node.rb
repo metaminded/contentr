@@ -34,21 +34,25 @@ module Contentr
     self.accepted_child_nodes  = [:any]
 
     # Callbacks
-    # before_validation :check_nodes # TODO: Implement Workspace concept first
+    #before_validation :check_nodes # TODO: Implement Workspace concept first
     before_validation :generate_slug
     before_validation :rebuild_path
     before_destroy    :destroy_children
 
     # Scopes
-    default_scope :order => 'position ASC'
+    #default_scope :order => 'position ASC'
 
 
     def self.find_by_path(path)
-      self.where(path: path).try(:first)
+      self.where(path: File.join('/', path)).try(:first)
+    end
+
+    def site
+      self.root
     end
 
     def has_children?
-      children.count > 0
+      self.children.count > 0
     end
 
     def path=(value)

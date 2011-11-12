@@ -16,9 +16,9 @@ module Contentr
   mattr_accessor :default_page
   @@default_page
 
-  # Frontend route prefix (defaults to /cms)
-  mattr_accessor :frontend_route_prefix
-  @@frontend_route_prefix = '/cms'
+  # Default site (defaults to cms)
+  mattr_accessor :default_site
+  @@default_site = 'cms'
 
   # Google analytics account
   mattr_accessor :google_analytics_account

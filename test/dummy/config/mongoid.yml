@@ -6,6 +6,7 @@ defaults: &defaults
   #   - host: slave2.local
   #     port: 27019
   persist_in_safe_mode: false # need to be false unless a bug with mongoid-tree will be fixed in mongoid.
+  preload_models: true
 
 development: &development
   <<: *defaults
