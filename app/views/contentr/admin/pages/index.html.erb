@@ -30,6 +30,7 @@
         </td>
       </tr>
       <% @pages.each do |page| %>
+        <% next unless page.is_a?(Contentr::Page) %>
         <tr data-page-id="<%= page.id %>" data-page-name="<%= page.name %>">
           <td class="icon">
             <div class="container">
