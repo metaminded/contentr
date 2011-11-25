@@ -10,7 +10,7 @@ module Contentr
     field :hidden,      :type => Boolean, :default => false, :index => true
 
     # Relations
-    embeds_many :paragraphs, :class_name => 'Contentr::Paragraph'
+    embeds_many :paragraphs, :class_name => 'Contentr::Paragraph' #, :cascade_callbacks => true
 
     # Protect attributes from mass assignment
     attr_accessible :description, :menu_title, :published, :hidden

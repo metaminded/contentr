@@ -2,7 +2,7 @@
 class Contentr::Admin::ParagraphsController < Contentr::Admin::ApplicationController
 
   def new
-    @page = Contentr::ContentPage.find(params[:page_id])
+    @page = Contentr::Page.find(params[:page_id])
     @area_name = params[:area_name]
 
     if params[:type].present?
