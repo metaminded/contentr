@@ -9,11 +9,11 @@ module Contentr
     field :published,   :type => Boolean, :default => false, :index => true
     field :hidden,      :type => Boolean, :default => false, :index => true
 
-    # Relations
-    embeds_many :paragraphs, :class_name => 'Contentr::Paragraph' #, :cascade_callbacks => true
-
     # Protect attributes from mass assignment
     attr_accessible :description, :menu_title, :published, :hidden
+
+    # Paragraphs
+    include Contentr::ParagraphsSupport
 
     # Constraints
     self.accepted_parent_nodes = ["Contentr::Site", "Contentr::Page"]
@@ -34,14 +34,6 @@ module Contentr
 
     def visible_children
       self.children.where(published: true, hidden: false)
-    end
-
-    def expected_areas
-      paragraphs.map(&:area_name).uniq
-    end
-
-    def paragraphs_for_area(area_name)
-      paragraphs.where(area_name: area_name).order_by([[:position, :asc]])
     end
 
   end

@@ -3,13 +3,16 @@
 module Contentr
   class Site < Node
 
+    # Paragraphs
+    include Contentr::ParagraphsSupport
+
     # Contraints
     self.accepted_parent_nodes = [:root]
     self.accepted_child_nodes  = ["Contentr::Page"]
 
 
-    def self.find_by_name(name)
-      self.where(slug: name).first
+    def self.default
+      self.where(name: Contentr.default_site).first
     end
 
     def default_page
