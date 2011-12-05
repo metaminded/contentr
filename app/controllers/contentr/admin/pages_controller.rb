@@ -4,7 +4,7 @@ class Contentr::Admin::PagesController < Contentr::Admin::ApplicationController
 
   def index
     @pages = @root_page.present? ? @root_page.children
-                                 : Contentr::Site.find_by_name(Contentr.default_site).children
+                                 : Contentr::Site.default.children
   end
 
   def new
@@ -16,7 +16,7 @@ class Contentr::Admin::PagesController < Contentr::Admin::ApplicationController
     if @root_page.present?
       @page.parent = @root_page
     else
-      @page.parent = Contentr::Site.find_by_name(Contentr.default_site)
+      @page.parent = Contentr::Site.default
     end
 
     if @page.save
