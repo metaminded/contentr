@@ -1,0 +1,74 @@
+$contentr-toolbar-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$contentr-toolbar-font-size: 11px !default;
+$contentr-toolbar-line-height: 15px !default;
+$contentr-toolbar-background-color: #0065A0 !default;
+$contentr-toolbar-color: #fff !default;
+
+@mixin contentr-toolbar() {
+  @include clearfix();
+
+  font-family: $contentr-toolbar-font-family;
+  font-size: $contentr-toolbar-font-size;
+  line-height: $contentr-toolbar-line-height;
+  background-color: $contentr-toolbar-background-color;
+  padding: 8px;
+  color: $contentr-toolbar-color;
+  border: 1px solid lighten($contentr-toolbar-background-color, 10%);
+  border-bottom-color: darken($contentr-toolbar-background-color, 10%);
+  border-right-color: darken($contentr-toolbar-background-color, 10%);
+
+  .area-name {
+    @include float-left();
+    font-weight: bold;
+    font-size: 110%;
+    line-height: $contentr-toolbar-line-height + 3px;
+    color: darken($contentr-toolbar-background-color, 15%);
+    @include text-shadow(lighten($contentr-toolbar-background-color, 12%) 0 1px 1px);
+  }
+
+  .handle {
+    @include float-left();
+    font-weight: bold;
+    font-size: 140%;
+    color: darken($contentr-toolbar-background-color, 15%);
+    @include text-shadow(lighten($contentr-toolbar-background-color, 12%) 0 1px 1px);
+    cursor: move;
+  }
+
+  .controls {
+    @include float-right();
+    a {
+      @include contentr-button(
+        $text-color: $contentr-toolbar-color,
+        $start-color: lighten($contentr-toolbar-background-color, 5%),
+        $end-color: darken($contentr-toolbar-background-color, 5%)
+      );
+      @include border-radius(2px);
+      font-family: $contentr-toolbar-font-family;
+      font-size: $contentr-toolbar-font-size;
+      padding: 2px 4px;
+      margin-right: 4px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+.contentr-toolbar {
+  @include contentr-toolbar();
+}
+
+.contentr-area {
+  .toolbar {
+    @include contentr-toolbar();
+    padding: 2px 8px;
+  }
+
+  .paragraph {
+    .toolbar {
+      background-color: lighten($contentr-toolbar-background-color, 5%);;
+    }
+  }
+}

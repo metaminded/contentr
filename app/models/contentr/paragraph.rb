@@ -19,6 +19,10 @@ module Contentr
     # Relations
     embedded_in :page
 
+    # Scopes
+    default_scope :order => 'position ASC'
+
+
     def self.dynamic_accessor(name, postfix='')
       define_method("#{name}#{postfix}".to_sym) do |i|
         self.send("#{name}#{i}#{postfix}".to_sym)

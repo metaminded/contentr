@@ -16,12 +16,12 @@
     });
     
     // make paragraphs sortable
-    $('div.contentr.area.editable').sortable({ 
-      items: 'div.contentr.paragraph.editable',
-      handle: '.contentr.toolbar',
+    $('.contentr-area').sortable({ 
+      items: '.paragraph',
+      handle: '.toolbar .handle',
       update: function(event, ui) {
-        var ids = $('div.contentr.area.editable').sortable('serialize');
-        var current_page = $(this).closest('div.contentr.area').attr('data-contentr-page');
+        var ids = $('.contentr-area').sortable('serialize');
+        var current_page = $(this).closest('.contentr-area').attr('data-contentr-page');
         var area_name = 'body';
         $.ajax({
           type: "PUT",

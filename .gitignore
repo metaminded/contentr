@@ -2,6 +2,7 @@
 .bundle
 .sass-cache
 Gemfile.lock
+tmp
 test/dummy/log/*.log
 test/dummy/tmp/**/*
 test/dummy/db/*.sqlite3

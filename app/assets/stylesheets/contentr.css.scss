@@ -1,0 +1,55 @@
+@import "compass/css3";
+
+@mixin contentr-button(
+  $text-color,
+  $start-color,
+  $end-color
+) {
+  // ---------------------------------------------------------------------------
+  // basics
+  // ---------------------------------------------------------------------------
+  @include nested-reset();
+  @include inline-block();
+  @include border-radius(4px);
+  @include single-transition(all, 0.1s, linear);
+  @include stylr-util-gradient-bar(
+    $text-color: $text-color,
+    $start-color: $start-color,
+    $end-color: $end-color
+  );
+  cursor: pointer;
+  vertical-align: baseline;
+  font-size: 11px;
+  line-height: normal; // we need to use padding alone, because FF limit line-height by default
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  padding: 5px 14px;
+  &::-moz-focus-inner { border: 0; padding: 0; } // Help Firefox not be a jerk about adding extra padding to buttons
+  margin: 0;
+  background-repeat: no-repeat;
+  text-decoration: none;
+  color: $text-color;
+
+  // ---------------------------------------------------------------------------
+  // states
+  // ---------------------------------------------------------------------------
+  &:focus {
+    outline: 1px dotted #666;
+  }
+
+  &:hover {
+    text-decoration: none;
+    background-position: 0 -15px;
+  };
+
+  &:active {
+    @include box-shadow(
+      rgba(#000, .25) 0 2px 4px inset,
+      rgba(#000, .05) 0 1px 2px
+    );
+  }
+}
+
+@import 'contentr/frontend-editing';
+@import 'contentr/overlay';
+
+

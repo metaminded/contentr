@@ -1,14 +1,11 @@
 # coding: utf-8
 
 module Contentr
-  class Site < Node
+  class Site < Page
 
-    # Paragraphs
-    include Contentr::ParagraphsSupport
-
-    # Contraints
+    # Node checks
     self.accepted_parent_nodes = [:root]
-    self.accepted_child_nodes  = ["Contentr::Page"]
+    self.accepted_child_nodes  = [Contentr::Page]
 
 
     def self.default

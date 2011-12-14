@@ -5,8 +5,8 @@ class Contentr::ApplicationController < ApplicationController
   # does not work right in dev mode.
   Contentr::ContentPage
   Contentr::LinkedPage
-  Contentr::Site
   Contentr::Page
+  Contentr::Site
   Contentr::Node
   # end hack
 end

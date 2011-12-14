@@ -56,8 +56,8 @@
           <td class="slug"><%= page.slug %></td>
           <td class="published"><%= page.published? %></td>
           <td class="hidden"><%= page.hidden? %></td>
-          <td class="template"><%= page.template %></td>
-          <td class="layout"><%= page.layout %></td>
+          <td class="template"><%= page.template if page.is_a?(Contentr::ContentPage) %></td>
+          <td class="layout"><%= page.layout if page.is_a?(Contentr::ContentPage) %></td>
         </tr>
       <% end %>
     </tbody>

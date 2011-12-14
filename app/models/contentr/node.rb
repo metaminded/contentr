@@ -24,6 +24,7 @@ module Contentr
     validates_format_of     :slug, with: /^[a-z0-9\s-]+$/
     validates_presence_of   :path
     validates_uniqueness_of :path, allow_nil: false, allow_blank: false
+    validate                :check_nodes
 
     # Node checks
     class_attribute :run_node_checks
@@ -34,13 +35,12 @@ module Contentr
     self.accepted_child_nodes  = [:any]
 
     # Callbacks
-    #before_validation :check_nodes # TODO: Implement Workspace concept first
     before_validation :generate_slug
     before_validation :rebuild_path
     before_destroy    :destroy_children
 
     # Scopes
-    #default_scope :order => 'position ASC'
+    default_scope :order => 'position ASC'
 
 
     def self.find_by_path(path)
@@ -65,24 +65,6 @@ module Contentr
 
     protected
 
-    def check_nodes
-      return unless Contentr.run_node_checks
-      raise UnsupportedParentNodeError unless self.accepts_parent?(self)
-      raise UnsupportedChildNodeError  if parent.present? and not parent.accepts_child?(self)
-    end
-
-    def accepts_child?(node)
-      return true if self.accepted_child_nodes.include?(:any)
-      self.accepted_child_nodes.include?(node.class.name)
-    end
-
-    def accepts_parent?(node)
-      return true  if self.accepted_parent_nodes.include?(:any)
-      return true  if node.root? and self.accepted_parent_nodes.include?(:root)
-      return false if node.root? and not self.accepted_parent_nodes.include?(:root)
-      self.accepted_parent_nodes.include?(node.class.name)
-    end
-
     def generate_slug
       if name.present? && slug.blank?
         self.slug = name.to_slug
@@ -93,10 +75,22 @@ module Contentr
       self.write_attribute(:path, "/#{ancestors_and_self.collect(&:slug).join('/')}")
     end
 
+    def check_nodes
+      errors.add(:base, "Unsupported parent node.") unless accepts_parent?(parent)
+      errors.add(:base, "Unsupported child node.")  if parent.present? and not parent.accepts_child?(self)
+    end
+
+    def accepts_child?(child)
+      return true if accepted_child_nodes.include?(:any)
+      return accepted_child_nodes.any?{ |node_class| node_class.kind_of?(Class) and child.is_a?(node_class) }
+    end
+
+    def accepts_parent?(parent)
+      return true  if self.accepted_parent_nodes.include?(:any)
+      return true  if self.root? and self.accepted_parent_nodes.include?(:root)
+      return false if self.root? and not self.accepted_parent_nodes.include?(:root)
+      return self.accepted_parent_nodes.any?{ |node_class| node_class.kind_of?(Class) and parent.is_a?(node_class) }
+    end
+
   end
-
-  class UnsupportedChildNodeError < RuntimeError; end
-
-  class UnsupportedParentNodeError < RuntimeError; end
-
 end
