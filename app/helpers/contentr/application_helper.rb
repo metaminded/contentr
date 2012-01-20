@@ -6,9 +6,8 @@ module Contentr
     # @param [String] The name of the area that should be rendered.
     #
     def contentr_area(area_name)
-      if area_name.present? and @contentr_page.present?
-        contentr_render_area(area_name, @contentr_page, nil)
-      end
+      raise "No area name given" if area_name.blank?
+      contentr_render_area(area_name, @contentr_page) if @contentr_page.present?
     end
 
     # Renders an area of paragraphs for site paragraphs
@@ -16,9 +15,8 @@ module Contentr
     # @param [String] The name of the area that should be rendered.
     #
     def contentr_site_area(area_name)
-      if area_name.present? and @contentr_page.present?
-        contentr_render_area(area_name, @contentr_page, Contentr::Site.default)
-      end
+      raise "No area name given" if area_name.blank?
+      contentr_render_area(area_name, Contentr::Site.default)
     end
 
     # Renders the contentr toolbar in the page
@@ -47,16 +45,15 @@ module Contentr
 
     private
 
-    def contentr_render_area(area_name, current_page, site)
+    def contentr_render_area(area_name, page)
       area_name  = area_name.to_s
       authorized = controller.contentr_authorized?
-      paragraphs = site.present? ? site.paragraphs_for_area(area_name) : current_page.paragraphs_for_area(area_name)
+      paragraphs = page.paragraphs_for_area(area_name)
 
       render(
         partial: 'contentr/area',
         locals: {
-          page: current_page,
-          site: site,
+          page: page,
           area_name: area_name,
           authorized: authorized,
           paragraphs: paragraphs
