@@ -20,7 +20,7 @@ module Contentr
     embedded_in :page
 
     # Scopes
-    default_scope :order => 'position ASC'
+    default_scope asc(:position)
 
 
     def self.dynamic_accessor(name, postfix='')
