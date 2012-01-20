@@ -40,7 +40,7 @@ module Contentr
     before_destroy    :destroy_children
 
     # Scopes
-    default_scope :order => 'position ASC'
+    default_scope asc(:position)
 
 
     def self.find_by_path(path)
