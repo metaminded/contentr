@@ -41,19 +41,23 @@ module Contentr
 
     def url
       begin
-        p = linked_to.split('#')
+        if (linked_to.match(/:\/\/|^\//))
+          url_for(linked_to)
+        else
+          p = linked_to.split('#')
 
-        controller = p.first
-        controller = "/#{controller}" unless controller.include?('/')
+          controller = p.first
+          controller = "/#{controller}" unless controller.include?('/')
 
-        action, id = p.last.split(':')
-        action = 'index' if action.blank? or action.strip == '*'
+          action, id = p.last.split(':')
+          action = 'index' if action.blank? or action.strip == '*'
 
-        options = {}
-        options = options.merge(controller: controller, action: action, only_path: true)
-        options = options.merge(id: id) if id.present?
+          options = {}
+          options = options.merge(controller: controller, action: action, only_path: true)
+          options = options.merge(id: id) if id.present?
 
-        url_for(options)
+          url_for(options)
+        end
       rescue => e
         logger.error e.message
         logger.error e.backtrace.join("\n")
