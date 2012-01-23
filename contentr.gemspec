@@ -12,9 +12,9 @@ Gem::Specification.new do |s|
   s.files = `git ls-files`.split("\n")
   s.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
 
-  s.add_dependency('rails', '~> 3.1')
+  s.add_dependency('rails', '~> 3.2.0')
   s.add_dependency('simple_form', '~> 1.5')
-  s.add_dependency('mongoid', '~> 2.3')
+  s.add_dependency('mongoid', '~> 2.4')
   s.add_dependency('mongoid-tree', '~> 0.6')
   s.add_dependency('bson_ext', '~> 1.5')
 end
