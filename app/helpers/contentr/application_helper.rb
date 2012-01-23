@@ -21,7 +21,7 @@ module Contentr
 
     # Renders the contentr toolbar in the page
     def contentr_toolbar(options = {})
-      if @contentr_page.present? and controller.contentr_authorized?
+      if @contentr_page.present? and contentr_authorized?
         return render(
           partial: 'contentr/toolbar',
           locals: {
@@ -47,7 +47,7 @@ module Contentr
 
     def contentr_render_area(area_name, page)
       area_name  = area_name.to_s
-      authorized = controller.contentr_authorized?
+      authorized = contentr_authorized?
       paragraphs = page.paragraphs_for_area(area_name)
 
       render(

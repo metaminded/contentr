@@ -28,8 +28,8 @@ module Contentr
         # render the ul tag
         content_tag(:ul) do
           pages.each_with_index.collect do |page, index|
-            next if page.hidden and not controller.contentr_authorized?
-            next unless page.published or controller.contentr_authorized?
+            next if page.hidden and not contentr_authorized?
+            next unless page.published or contentr_authorized?
 
             # options for the li tag
             li_options = {}
