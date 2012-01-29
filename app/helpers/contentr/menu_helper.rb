@@ -6,10 +6,12 @@ module Contentr
     # Renders a dynamic menu
     def contentr_menu(options = {})
       # set the current page
-      current_page = options[:page] || @contentr_page || Contentr::Site.default.default_page
+      current_page = options[:page] || @contentr_page
 
-      # get ancestors of the current page
-      ancestors = current_page ? current_page.ancestors_and_self : []
+      # get ancestors of the current page or take the default page if no current page set
+      ancestors = current_page ?
+        current_page.ancestors_and_self :
+        Contentr::Site.default.default_page.ancestors_and_self
 
       # set start level
       start_level = (options[:start] || 0).to_i
