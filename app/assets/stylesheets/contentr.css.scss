@@ -12,11 +12,29 @@
   @include inline-block();
   @include border-radius(4px);
   @include single-transition(all, 0.1s, linear);
+
   @include stylr-util-gradient-bar(
     $text-color: $text-color,
     $start-color: $start-color,
     $end-color: $end-color
   );
+
+  @include background-image(
+    linear-gradient($start-color, $start-color 25%, $end-color)
+  );
+  background-color: $end-color;
+  @if lightness($text-color) < 50% {
+    @include text-shadow(rgba(#fff, .75) 0 1px 1px);
+  } @else {
+    @include text-shadow(rgba(#000, .25) 0 -1px 0);
+  }
+  @include box-shadow(
+    rgba(#fff, .2) 0 1px 0 inset,
+    rgba(#000, .05) 0 1px 2px
+  );
+  border: 1px solid darken($end-color, 5%);
+  border-bottom-color: darken($end-color, 15%);
+
   cursor: pointer;
   vertical-align: baseline;
   font-size: 11px;
