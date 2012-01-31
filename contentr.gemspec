@@ -17,4 +17,5 @@ Gem::Specification.new do |s|
   s.add_dependency('mongoid', '~> 2.4')
   s.add_dependency('mongoid-tree', '~> 0.6')
   s.add_dependency('bson_ext', '~> 1.5')
+  s.add_dependency('compass', '> 0.12.alpha.0')
 end
