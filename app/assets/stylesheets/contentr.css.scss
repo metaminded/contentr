@@ -14,12 +14,6 @@
   @include border-radius(4px);
   @include single-transition(all, 0.1s, linear);
 
-  @include stylr-util-gradient-bar(
-    $text-color: $text-color,
-    $start-color: $start-color,
-    $end-color: $end-color
-  );
-
   @include background-image(
     linear-gradient($start-color, $start-color 25%, $end-color)
   );
