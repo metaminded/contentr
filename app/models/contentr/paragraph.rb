@@ -22,7 +22,6 @@ module Contentr
     # Scopes
     default_scope asc(:position)
 
-
     def self.dynamic_accessor(name, postfix='')
       define_method("#{name}#{postfix}".to_sym) do |i|
         self.send("#{name}#{i}#{postfix}".to_sym)
@@ -41,8 +40,11 @@ module Contentr
         name = f.first
         if skipped.member?(name) then nil else
           name = name.to_sym
+          value = self[name]
+          long = value.is_a?(String) && (value.length > 80 || value.include?("\n"))
           options = {}
           options[:required] = false
+          options[:as] = :text if textpatt.matches(name) || long
           options[:as] = :file if ul[name]
           options[:as] = :hidden if name == :area_name
           [name, options]
