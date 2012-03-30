@@ -1,0 +1,33 @@
+<div id="page-manager">
+  <div class="toolbar">
+    <%= link_to 'Create a new File', new_contentr_admin_file_path(), :class => 'button' %>
+  </div>
+
+  <table class="contentr pagegrid">
+    <thead>
+      <tr>
+        <th class="icon">Icon</th>
+        <th class="name">Slug</th>
+        <th class="slug">Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @files.each do |file| %>
+        <tr data-file-id="<%= file.id %>">
+          <td class="icon">
+            <div class="containr">
+              <%= image_tag('contentr/admin/page-icon.png') %>
+            </div>
+          </td>
+          <td class="name">
+            <div class="containr">
+              <%= file.slug %>
+            </div>
+          </td>
+          <td class="slug"><%= file.description %></td>
+          <td class="edit"><%= link_to 'Edit', edit_contentr_admin_file_path(file.id) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

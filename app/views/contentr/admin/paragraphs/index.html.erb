@@ -1,0 +1,35 @@
+<h1>Paragraphs on page <%= @page.title %></h1>
+
+<div id="page-manager">
+  <div class="toolbar">
+    <%= link_to 'Create a new paragraph', '#', :class => 'button' %>
+  </div>
+
+  <table class="contentr pagegrid">
+    <thead>
+      <tr>
+        <th class="icon">Icon</th>
+        <th class="name">Name</th>
+        <th class="slug">Area</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @paragraphs.each do |paragraph| %>
+        <tr data-paragraph-id="<%= paragraph.id %>">
+          <td class="icon">
+            <div class="containr">
+              <%= image_tag('contentr/admin/page-icon.png') %>
+            </div>
+          </td>
+          <td class="name">
+            <div class="containr">
+              <%= paragraph.id %>
+            </div>
+          </td>
+          <td class="slug"><%= paragraph.area_name %></td>
+          <td class="edit"><%= link_to 'Edit', contentr_admin_edit_paragraph_path(@page.id, paragraph.id) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,9 +1,17 @@
-@import "bootstrap";
+@charset "UTF-8";
 
+@import 'reset';
+
+$margin: 15px;
+
+html { overflow-x: hidden; }
+
+body { font: 13px/18px "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, Verdana, sans-serif; background-color: transparent; color: #333; -webkit-font-smoothing: antialiased; }
+body { color: #666; margin: 0; padding: 0; }
+
+h1 { font-size: 22px; background-color: #0065a0; padding: 8px; margin-bottom: $margin; color: #fefefe; }
 
 #page-manager {
-
-  .container {}
 
   .toolbar {
     padding: 10px;
@@ -53,7 +61,7 @@
       &.highlight { background-color: #f3f3f3; }
       &.dummy-page-row { display: none; }
 
-      .containr {
+      .container {
         position: relative;
 
         .tools {
@@ -63,11 +71,8 @@
           top: -$padding + 2px;
           background-color: rgba(0, 0, 0, 0.8);
           color: #fff;
-          padding: 3px 3px;
+          padding: 6px 3px;
           border-radius: 6px 0 0 6px;
-          font-size: 80%;
-          
-          ul { list-style-type: none; margin-left: 0px; }
 
           li {
             float: left;
@@ -101,3 +106,50 @@
   }
 }
 
+/* simple form */
+
+.simple_form {
+
+  $left-margin: 120px;
+
+  label {
+    float: left;
+    width: 100px;
+    text-align: right;
+    margin: 2px 10px;
+  }
+
+  div.input {
+    margin-bottom: 10px;
+  }
+
+  div.boolean,
+  input[type='submit'] {
+    margin-left: $left-margin;
+  }
+
+  div.boolean label, label.collection_radio {
+    float: none;
+    margin: 0;
+  }
+
+  label.collection_radio {
+    margin-right: 10px;
+    margin-left: 2px;
+  }
+
+  .error {
+    clear: left;
+    margin-left: $left-margin;
+    color: #D00;
+    display: block;
+  }
+
+  .hint {
+    clear: left;
+    margin-left: $left-margin;
+    color: #555;
+    display: block;
+    font-style: italic;
+  }
+}

@@ -32,12 +32,12 @@
       <% @pages.each do |page| %>
         <tr data-page-id="<%= page.id %>" data-page-name="<%= page.name %>">
           <td class="icon">
-            <div class="container">
+            <div class="containr">
               <%= image_tag('contentr/admin/page-icon.png') %>
             </div>
           </td>
           <td class="name">
-            <div class="container">
+            <div class="containr">
               <%=
                 link_to(contentr_admin_pages_path(:root => page), :rel => 'pm-navigate') do
                   page.has_children? ? page.name + " >>" : page.name

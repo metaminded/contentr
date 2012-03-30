@@ -3,6 +3,10 @@ class Contentr::Admin::ParagraphsController < Contentr::Admin::ApplicationContro
 
   before_filter :find_page_or_site
 
+  def index
+    @paragraphs = @page.paragraphs.order_by(:area_name, :asc).order_by(:position, :asc)
+  end
+
   def new
     @area_name = params[:area_name]
 

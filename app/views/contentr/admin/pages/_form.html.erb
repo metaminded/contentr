@@ -1,6 +1,7 @@
 <%= simple_form_for 'page',
     :url    => (@page.new_record? ? contentr_admin_pages_path(:root => @root_page) : contentr_admin_page_path(:root => @root_page)),
-    :method => (@page.new_record? ? :post : :put) do |f| %>
+    :method => (@page.new_record? ? :post : :put),
+    :html   => {:class => 'form-horizontal'} do |f| %>
 
     <%= f.input :hidden, :as => :boolean %>
     <%= f.input :published, :as => :boolean %>

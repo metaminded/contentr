@@ -1,18 +1,55 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>Contentr Admin</title>
-  <%= stylesheet_link_tag    "contentr_admin" %>
-  <%= javascript_include_tag "contentr_admin" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Contentr Admin</title>
+    <%= stylesheet_link_tag    "contentr_admin" %>
+    <% Contentr.additional_admin_stylesheets.each do |aas| %>
+      <%= stylesheet_link_tag aas %>
+    <% end %>
+    <%= javascript_include_tag "contentr_admin" %>
+    <% Contentr.additional_admin_javascripts.each do |aaj| %>
+      <%= javascript_include_tag aas %>
+    <% end %>
+    <%= csrf_meta_tags %>
+    <style type="text/css" media="screen">
+      body { padding-top: 50px; }
+    </style>
+  </head>
 
-<h1>Contentr Admin</h1>
+  <body>
 
-<div id="content">
-  <%= yield %>
-</div>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#">Contentr Admin</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li><%= link_to 'Pages', contentr_admin_pages_path() %></li>
+              <li><%= link_to 'Files', contentr_admin_files_path() %></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
 
-</body>
+    <div class="container">
+
+      <div id="content">
+        <%= yield %>
+      </div>
+
+      <hr>
+
+      <footer>
+        <p>&copy; <a href="http://www.metaminded.com" target="_blank">metaminded UG</a> 2011-<%= Date.today.year %></p>
+      </footer>
+
+    </div>
+  </body>
 </html>

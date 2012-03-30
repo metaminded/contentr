@@ -44,7 +44,7 @@ module Contentr
           long = value.is_a?(String) && (value.length > 80 || value.include?("\n"))
           options = {}
           options[:required] = false
-          options[:as] = :text if textpatt.matches(name) || long
+          options[:as] = :text if textpatt.match(name) || long
           options[:as] = :file if ul[name]
           options[:as] = :hidden if name == :area_name
           [name, options]

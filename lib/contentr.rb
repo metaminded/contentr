@@ -28,6 +28,13 @@ module Contentr
   mattr_reader :paragraphs
   @@paragraphs = []
 
+  # Additional StyleSheets for Contentr Admin
+  mattr_reader :additional_admin_stylesheets
+  @@additional_admin_stylesheets = []
+
+  # Additional JavaScripts for Contentr Admin
+  mattr_reader :additional_admin_javascripts
+  @@additional_admin_javascripts = []
 
   # Default way to setup Contentr
   def self.setup
