@@ -12,7 +12,7 @@ module Contentr
     mount_uploader :file, Contentr::FileUploader
     
     def actual_file()
-      ::File.join('public', file_url())
+      ::File.join(Rails.root, 'public', file_url())
     end
 
   end
