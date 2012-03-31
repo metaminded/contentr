@@ -112,7 +112,7 @@ module Contentr
       # set url
       #link_url = page.is_link? ? page.url_for_linked_page
       #                         : File.join('/', Contentr.default_site, page.path)
-      link_url = File.join('/', page.site_path)
+      link_url = ::File.join('/', page.site_path)
 
       # set link title
       link_title = page.menu_title || page.name

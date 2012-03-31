@@ -8,7 +8,7 @@ module Contentr
         #
         # Contentr rendering
         #
-        path = File.join(Contentr.default_site, @contentr_path)
+        path = ::File.join(Contentr.default_site, @contentr_path)
         @contentr_page = Contentr::Page.find_by_path(path)
         if @contentr_page.present? and (@contentr_page.published || contentr_authorized?)
           if @contentr_page.is_a?(Contentr::LinkedPage)

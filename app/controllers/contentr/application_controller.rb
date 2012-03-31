@@ -5,6 +5,7 @@ class Contentr::ApplicationController < ApplicationController
   # does not work right in dev mode.
   Contentr::ContentPage
   Contentr::LinkedPage
+  Contentr::File
   Contentr::Page
   Contentr::Site
   Contentr::Node

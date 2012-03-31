@@ -3,7 +3,7 @@ module Contentr
     class InstallGenerator < Rails::Generators::Base
       desc "Installs Contentr default files"
 
-      source_root File.expand_path('../templates', __FILE__)
+      source_root ::File.expand_path('../templates', __FILE__)
 
       def copy_default_theme
         directory 'views', 'app/views'

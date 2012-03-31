@@ -44,7 +44,7 @@ module Contentr
 
 
     def self.find_by_path(path)
-      self.where(path: File.join('/', path)).try(:first)
+      self.where(path: ::File.join('/', path)).try(:first)
     end
 
     def site
