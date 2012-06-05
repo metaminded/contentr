@@ -25,7 +25,7 @@ module Contentr
         # Default rendering - we need to check for linked pages
         # TODO: enable only for contentr aware controllers
         #
-        @contentr_page = Contentr::LinkedPage.find_by_request_params(params)
+        @contentr_page ||= Contentr::LinkedPage.find_by_request_params(params)
       end
 
       super options
