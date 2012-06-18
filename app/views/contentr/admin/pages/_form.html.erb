@@ -8,12 +8,11 @@
 
     <%= f.input :name %>
     <%= f.input :slug, :required => false %>
-    <%= f.input :linked_to, :required => true if @page.is_a?(Contentr::LinkedPage) %>
-
     <%= f.input :description, :required => false, :as => :text, :input_html => { :rows => 3 } %>
 
-    <%= f.input :template %>
-    <%= f.input :layout %>
+    <%= f.input :linked_to, :required => true if @page.is_a?(Contentr::LinkedPage) %>
+    <%= f.input :template if @page.is_a?(Contentr::ContentPage) %>
+    <%= f.input :layout if @page.is_a?(Contentr::ContentPage) %>
 
     <%#= f.input :linked_to, :required => false %>
 
