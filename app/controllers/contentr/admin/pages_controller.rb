@@ -28,11 +28,11 @@ class Contentr::Admin::PagesController < Contentr::Admin::ApplicationController
   end
 
   def edit
-    @page = Contentr::ContentPage.find(params[:id])
+    @page = Contentr::Page.find(params[:id])
   end
 
   def update
-    @page = Contentr::ContentPage.find(params[:id])
+    @page = Contentr::Page.find(params[:id])
     if @page.update_attributes(params[:page])
       flash[:success] = 'Page updated.'
       redirect_to contentr_admin_pages_path(:root => @root_page)
@@ -48,16 +48,16 @@ class Contentr::Admin::PagesController < Contentr::Admin::ApplicationController
   end
 
   def move_below
-    page = Contentr::ContentPage.find(params[:id])
-    buddy_page = Contentr::ContentPage.find(params[:buddy_id])
+    page = Contentr::Page.find(params[:id])
+    buddy_page = Contentr::Page.find(params[:buddy_id])
     page.move_below(buddy_page)
     render :nothing => true
   end
 
   def insert_into
-    page = Contentr::ContentPage.find(params[:id])
+    page = Contentr::Page.find(params[:id])
     if (params[:root_page_id])
-      page.parent = Contentr::ContentPage.find(params[:root_page_id])
+      page.parent = Contentr::Page.find(params[:root_page_id])
     else
       page.parent = nil
     end
@@ -69,7 +69,7 @@ class Contentr::Admin::PagesController < Contentr::Admin::ApplicationController
   private
 
   def load_root_page
-    @root_page = Contentr::ContentPage.find(params[:root]) if params[:root].present?
+    @root_page = Contentr::Page.find(params[:root]) if params[:root].present?
   end
 
 end

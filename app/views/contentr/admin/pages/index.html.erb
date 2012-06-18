@@ -48,7 +48,9 @@
                   <li class="tool move-begin"><a href="#">Move</a></li>
                   <li class="tool move-end"><a href="#">Insert below</a></li>
                   <li class="tool edit"><%= link_to('Edit', edit_contentr_admin_page_path(page, :root => @root_page)) %></li>
-                  <li class="tool delete"><%= link_to('Delete', contentr_admin_page_path(page, :root => @root_page), :method => :delete, :confirm => "Really delete page '#{page.name}'? All subpages will be deleted too.") %></li>
+                  <% if !page.is_a?(Contentr::LinkedPage) %>
+                    <li class="tool delete"><%= link_to('Delete', contentr_admin_page_path(page, :root => @root_page), :method => :delete, :confirm => "Really delete page '#{page.name}'? All subpages will be deleted too.") %></li>
+                  <% end %>
                 </ul>
               </div>
             </div>
