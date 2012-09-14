@@ -5,7 +5,7 @@ module Contentr
     include Rails.application.routes.url_helpers
 
     # Fields
-    field :linked_to, :type => String, :index => true
+    #field :linked_to, :type => String, :index => true
 
     # Protect attributes from mass assignment
     attr_accessible :linked_to

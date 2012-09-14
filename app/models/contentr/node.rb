@@ -1,26 +1,24 @@
 # coding: utf-8
 
 module Contentr
-  class Node
+  require "ancestry"
+  class Node < ActiveRecord::Base
 
     # Includes
-    include Mongoid::Document
-    include Mongoid::Tree
-    include Mongoid::Tree::Ordering
-    include Mongoid::Tree::Traversal
+    # include Mongoid::Document
+    # include Mongoid::Tree
+    # include Mongoid::Tree::Ordering
+    # include Mongoid::Tree::Traversal
 
-    # Fields
-    field :name,   :type => String
-    field :slug,   :type => String, :index => true
-    field :path,   :type => String, :index => true
+    has_ancestry
 
     # Protect (other) attributes from mass assignment
-    attr_accessible :name, :slug, :parent
+    attr_accessible :name, :slug, :parent, :path,  :position
 
     # Validations
     validates_presence_of   :name
     validates_presence_of   :slug
-    validates_uniqueness_of :slug, scope: :parent_id, allow_nil: false, allow_blank: false
+    #validates_uniqueness_of :slug, scope: :parent_id, allow_nil: false, allow_blank: false
     validates_format_of     :slug, with: /^[a-z0-9\s-]+$/
     validates_presence_of   :path
     validates_uniqueness_of :path, allow_nil: false, allow_blank: false
@@ -40,7 +38,7 @@ module Contentr
     before_destroy    :destroy_children
 
     # Scopes
-    default_scope asc(:position)
+    default_scope order("name asc")
 
 
     def self.find_by_path(path)
@@ -55,12 +53,12 @@ module Contentr
       self.children.count > 0
     end
 
-    def path=(value)
-      raise "path is generated and can't be set manually."
-    end
+    #def path=(value)
+      #raise "path is generated and can't be set manually."
+    #end
 
     def slug=(value)
-      self.write_attribute(:slug, value.to_slug) if value.present?
+      slug = value.to_slug if value.present?
     end
 
     protected
@@ -72,7 +70,7 @@ module Contentr
     end
 
     def rebuild_path
-      self.write_attribute(:path, "/#{ancestors_and_self.collect(&:slug).join('/')}")
+      self.path = "/#{ancestors.collect(&:slug).join('/')}"
     end
 
     def check_nodes
@@ -87,8 +85,8 @@ module Contentr
 
     def accepts_parent?(parent)
       return true  if self.accepted_parent_nodes.include?(:any)
-      return true  if self.root? and self.accepted_parent_nodes.include?(:root)
-      return false if self.root? and not self.accepted_parent_nodes.include?(:root)
+      return true  if self.is_root? and self.accepted_parent_nodes.include?(:root)
+      return false if self.is_root? and not self.accepted_parent_nodes.include?(:root)
       return self.accepted_parent_nodes.any?{ |node_class| node_class.kind_of?(Class) and parent.is_a?(node_class) }
     end
 

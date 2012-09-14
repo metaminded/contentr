@@ -4,13 +4,13 @@ module Contentr
   class Page < Node
 
     # Fields
-    field :description, :type => String
-    field :menu_title,  :type => String
-    field :published,   :type => Boolean, :default => false, :index => true
-    field :hidden,      :type => Boolean, :default => false, :index => true
+    # field :description, :type => String
+    # field :menu_title,  :type => String
+    # field :published,   :type => Boolean, :default => false, :index => true
+    # field :hidden,      :type => Boolean, :default => false, :index => true
 
     # Relations
-    embeds_many :paragraphs, :class_name => 'Contentr::Paragraph'#, :cascade_callbacks => true
+    has_many :paragraphs, class_name: 'Contentr::Paragraph'#, :cascade_callbacks => true
 
     # Protect attributes from mass assignment
     attr_accessible :description, :menu_title, :published, :hidden

@@ -10,7 +10,6 @@ if defined?(Bundler)
 end
 
 # Require Contentr
-require "contentr"
 
 module Dummy
   class Application < Rails::Application

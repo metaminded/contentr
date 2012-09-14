@@ -4,7 +4,7 @@ module Contentr
   class HtmlParagraph < Paragraph
 
     # Fields
-    field :body, :type => String
+    #field :body, :type => String
 
     # Validations
     validates_presence_of :body

@@ -1,13 +1,12 @@
 # coding: utf-8
 
 module Contentr
-  class File
-    include Mongoid::Document
+  class File < ActiveRecord::Base
 
     # Fields
-    field :description, :type => String
-    field :slug,        :type => String, unique: true
-    field :file,        :type => String
+    attr_accessible :description, :slug, :file
+
+    validates_uniqueness_of :slug
     
     mount_uploader :file, Contentr::FileUploader
     

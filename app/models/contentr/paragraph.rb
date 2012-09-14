@@ -1,26 +1,24 @@
 # coding: utf-8
 
 module Contentr
-  class Paragraph
+  class Paragraph < ActiveRecord::Base
 
     # Paragraph is abstract
     @abstract_class = true
 
-    # Includes
-    include Mongoid::Document
-
+    belongs_to :page, class_name: 'Contentr::Page'
     # Fields
-    field :area_name, :type => String,  :index => true
-    field :position,  :type => Integer, :index => true
+    # field :area_name, :type => String,  :index => true
+    # field :position,  :type => Integer, :index => true
 
     # Validations
     validates_presence_of :area_name
 
     # Relations
-    embedded_in :page
+    #embedded_in :page
 
     # Scopes
-    default_scope asc(:position)
+    default_scope order("position asc")
 
     def self.dynamic_accessor(name, postfix='')
       define_method("#{name}#{postfix}".to_sym) do |i|
