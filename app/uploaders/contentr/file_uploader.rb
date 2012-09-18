@@ -1,5 +1,4 @@
 # encoding: utf-8
-require 'carrierwave'
 class Contentr::FileUploader < CarrierWave::Uploader::Base
 
   # Choose what kind of storage to use for this uploader:

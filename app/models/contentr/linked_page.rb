@@ -4,9 +4,6 @@ module Contentr
     # Includes
     include Rails.application.routes.url_helpers
 
-    # Fields
-    #field :linked_to, :type => String, :index => true
-
     # Protect attributes from mass assignment
     attr_accessible :linked_to
 
@@ -15,6 +12,14 @@ module Contentr
     validates_uniqueness_of :linked_to
 
 
+    # Public: find a LinkedPage by specific parameters
+    #
+    # params - A hash containing the following keys:
+    #   controller
+    #   action
+    #   id (optional)
+    #
+    # Returns the found LinkedPage
     def self.find_by_request_params(params)
       controller = params[:controller]
       action     = params[:action]
@@ -39,6 +44,9 @@ module Contentr
       return page if page.present?
     end
 
+    # Public: generate a url by the string given in the linked_to attribute
+    # 
+    # Returns the url of the linkedPage or the rootUrl if non could be found
     def url
       begin
         if (linked_to.match(/:\/\/|^\//))
