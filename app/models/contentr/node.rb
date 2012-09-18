@@ -13,15 +13,16 @@ module Contentr
     has_ancestry
 
     # Protect (other) attributes from mass assignment
-    attr_accessible :name, :slug, :parent, :path,  :position
+    attr_accessible :name, :slug, :path, :position, :parent
+    attr_accessor :parent
 
     # Validations
     validates_presence_of   :name
     validates_presence_of   :slug
     #validates_uniqueness_of :slug, scope: :parent_id, allow_nil: false, allow_blank: false
     validates_format_of     :slug, with: /^[a-z0-9\s-]+$/
-    validates_presence_of   :path
-    validates_uniqueness_of :path, allow_nil: false, allow_blank: false
+    # validates_presence_of   :path
+    # validates_uniqueness_of :path, allow_nil: false, allow_blank: false
     validate                :check_nodes
 
     # Node checks
@@ -34,7 +35,7 @@ module Contentr
 
     # Callbacks
     before_validation :generate_slug
-    before_validation :rebuild_path
+    #before_validation :rebuild_path
     before_destroy    :destroy_children
 
     # Scopes
@@ -57,9 +58,9 @@ module Contentr
       #raise "path is generated and can't be set manually."
     #end
 
-    def slug=(value)
-      slug = value.to_slug if value.present?
-    end
+    # def slug=(value)
+    #   slug = value.to_slug if value.present?
+    # end
 
     protected
 
@@ -86,8 +87,9 @@ module Contentr
     def accepts_parent?(parent)
       return true  if self.accepted_parent_nodes.include?(:any)
       return true  if self.is_root? and self.accepted_parent_nodes.include?(:root)
-      return false if self.is_root? and not self.accepted_parent_nodes.include?(:root)
       return self.accepted_parent_nodes.any?{ |node_class| node_class.kind_of?(Class) and parent.is_a?(node_class) }
+      return false if self.is_root? and not self.accepted_parent_nodes.include?(:root)
+      
     end
 
   end

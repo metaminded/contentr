@@ -10,8 +10,8 @@ module Contentr
 
       # get ancestors of the current page or take the default page if no current page set
       ancestors = current_page ?
-        current_page.ancestors_and_self :
-        Contentr::Site.default.default_page.ancestors_and_self
+        current_page.ancestors :
+        Contentr::Site.default.default_page.ancestors
 
       # set start level
       start_level = (options[:start] || 0).to_i
@@ -81,7 +81,7 @@ module Contentr
       current_page = @contentr_page
       if current_page.present?
         content_tag(:ul, :class => "contentr #{options[:class] || 'breadcrumb'}") do
-          current_page.ancestors_and_self.collect do |page|
+          current_page.ancestors.collect do |page|
             next unless page.is_a?(Contentr::Page)
             # li tag options
             li_options = {}

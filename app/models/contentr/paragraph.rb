@@ -3,19 +3,17 @@
 module Contentr
   class Paragraph < ActiveRecord::Base
 
-    # Paragraph is abstract
-    @abstract_class = true
+    store :data
+
+
+    attr_accessible :area_name, :position, :data
+    
+    class_attribute :form_fields
 
     belongs_to :page, class_name: 'Contentr::Page'
-    # Fields
-    # field :area_name, :type => String,  :index => true
-    # field :position,  :type => Integer, :index => true
 
     # Validations
     validates_presence_of :area_name
-
-    # Relations
-    #embedded_in :page
 
     # Scopes
     default_scope order("position asc")
@@ -50,5 +48,44 @@ module Contentr
       end.compact
     end
 
+    def write_store_attribute(name, value, typ)
+      v = case typ
+        when "Text", "String", String then value.to_s
+        when "Integer", "Fixnum", Fixnum then value.to_i
+        when "Float", Float then value.to_f
+        when "Boolean" then !!value
+        when "file" then value
+        else raise "Unknown type #{typ}"
+      end
+      #debugger
+      self.send("#{name}_without_typecast=", v)
+    end
+
+    def self.field(name, opts={})
+      store_accessor :data, name
+      if opts[:uploader]
+        uploader = opts[:uploader]
+        typ = "file"
+        self.send(:define_method, "#{name}_will_change!") do
+          self.data_will_change!
+        end
+        self.send(:define_method, "#{name}_changed?") do
+          true # self.data_was && data_was[name] != data[name]
+        end
+        mount_store_uploader :data, name, uploader
+      elsif false 
+          alias_method "#{name}_without_typecast=".to_sym, "#{name}=".to_sym
+          typ ||= opts[:type] || "String"
+          self.send(:define_method, "#{name}=") do |val|
+            self.write_store_attribute(name, val, typ)
+          end
+      end
+      self.form_fields ||= []
+      typ ||= "String"
+      self.form_fields << {name: name, typ: typ.to_sym}
+      attr_accessible name
+    end
+
   end
 end
+

@@ -5,7 +5,7 @@ class CreateParagraphs < ActiveRecord::Migration
       t.integer 'position'
       t.string 'type'
       t.text 'data'
-      t.references 'page_id'
+      t.references 'page'
       t.timestamps 
     end
   end

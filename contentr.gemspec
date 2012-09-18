@@ -19,4 +19,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'sass-rails',     '~> 3.1'
   s.add_dependency 'bootstrap-sass', '~> 2.1.0.0'
   s.add_dependency 'ancestry'
+  s.add_dependency 'carrierwave'
 end

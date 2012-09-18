@@ -41,7 +41,7 @@ module Contentr
     end
 
     def paragraphs_for_area(area_name)
-      self.paragraphs.where(area_name: area_name).order_by([[:position, :asc]])
+      self.paragraphs.where(area_name: area_name).order(position: :asc)
     end
 
   end

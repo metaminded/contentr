@@ -9,5 +9,7 @@ class Contentr::ApplicationController < ApplicationController
   Contentr::Page
   Contentr::Site
   Contentr::Node
+
+  require 'carrierwave'
   # end hack
 end

@@ -9,7 +9,6 @@ module Contentr
 
 
     def self.default
-      debugger
       self.where(name: Contentr.default_site).first
     end
 
