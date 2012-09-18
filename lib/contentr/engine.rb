@@ -1,3 +1,7 @@
+require 'bootstrap-sass'
+require 'jquery-rails'
+require 'compass-rails'
+
 module Contentr
 
   class Engine < Rails::Engine
