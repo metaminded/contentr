@@ -24,6 +24,9 @@ module Contentr
       end
     end
 
+    # Public: Generates the fields for a simple form of a paragraph
+    #
+    # Returns the generated form
     def fields_for_simple_form
       textpatt = /text|descr|content|body/
       ul = {}
@@ -48,6 +51,13 @@ module Contentr
       end.compact
     end
 
+    # Public: Updates a specific ActiveRecord::Store  attribute with a typecasted value
+    #
+    # name - the name of the attribute
+    # value - the new value of this attribute
+    # typ - the datatype in which the value should be casted
+    #
+    # calls the generated #{name}_without_typecast method which acts as a setter
     def write_store_attribute(name, value, typ)
       v = case typ
         when "Text", "String", String then value.to_s
@@ -57,10 +67,14 @@ module Contentr
         when "file" then value
         else raise "Unknown type #{typ}"
       end
-      #debugger
       self.send("#{name}_without_typecast=", v)
     end
 
+    # Public: Define setter and getter for a ActiveRecord::Store attribute
+    #
+    # name - the name of the store attribute
+    # opts - an optional hash with specific settings
+    #
     def self.field(name, opts={})
       store_accessor :data, name
       if opts[:uploader]

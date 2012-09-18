@@ -9,6 +9,9 @@ module Contentr
 
     mount_uploader :file, Contentr::FileUploader
     
+    # Public: Generates the actual file path
+    # 
+    # Return the generated path
     def actual_file()
       ::File.join(Rails.root, 'public', file_url())
     end
