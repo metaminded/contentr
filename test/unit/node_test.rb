@@ -1,12 +1,11 @@
 # coding: utf-8
 
 require 'test_helper'
+require "rails"
+require "contentr"
 
 class NodeTest < ActiveSupport::TestCase
 
-  def setup
-    clean_mongodb
-  end
 
   test 'create a single node' do
     node = Contentr::Node.create!(name: 'Node1')
@@ -39,7 +38,7 @@ class NodeTest < ActiveSupport::TestCase
   test 'a slug is unique within the parent scope' do
     page1 = Contentr::Node.create!(:name => 'Some Page', :slug => 'test-page')
     page2 = Contentr::Node.new(:name => 'Some other Page', :slug => 'test-page')
-    assert_equal page2.valid?, false
+    assert_equal false, page2.valid?
     assert_equal page2.errors.first[0], :slug
     assert_equal page2.errors.first[1], 'is already taken'
     # .. but we can use the same slug in another parent scope
@@ -51,21 +50,20 @@ class NodeTest < ActiveSupport::TestCase
     page1 = Contentr::Node.create!(:name => 'Page 1', :slug => 'page1')
     page2 = Contentr::Node.create!(:name => 'Page 2', :slug => 'page2', :parent => page1)
     page3 = Contentr::Node.create!(:name => 'Page 3', :slug => 'page3', :parent => page2)
-    assert_equal '/page1', page1.path
-    assert_equal '/page1/page2', page2.path
-    assert_equal '/page1/page2/page3', page3.path
+    assert_equal '/page1', page1.url_path
+    assert_equal '/page1/page2', page2.url_path
+    assert_equal '/page1/page2/page3', page3.url_path
   end
 
   test 'a path can\'t be set manually' do
-    page = Contentr::Node.create!(:name => 'Page 1', :slug => 'page1', :path => 'mooo')
-    assert_equal page.path, '/page1'
+    page = Contentr::Node.create!(:name => 'Page 1', :slug => 'page1')
+    assert_equal page.url_path, '/page1'
     assert_raise RuntimeError do
-      page.path = 'this_is_not_allowed'
+      page.url_path = 'this_is_not_allowed'
     end
   end
 
   test 'one can find a node by path' do
-    clean_mongodb
     page1 = Contentr::Node.create!(:name => 'Page 1', :slug => 'page1')
     page2 = Contentr::Node.create!(:name => 'Page 2', :slug => 'page2', :parent => page1)
     page3 = Contentr::Node.create!(:name => 'Page 3', :slug => 'page3', :parent => page2)

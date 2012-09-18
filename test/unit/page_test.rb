@@ -4,13 +4,10 @@ require 'test_helper'
 
 class PageTest < ActiveSupport::TestCase
 
-  def setup
-    clean_mongodb
-  end
-
   test 'a site must be a root' do
     site1 = Contentr::Site.new(name: 'site1')
     assert site1.valid?
+    site1.save!
     site2 = Contentr::Site.new(name: 'site1', parent: site1)
     assert site2.invalid?
   end
@@ -21,20 +18,20 @@ class PageTest < ActiveSupport::TestCase
   end
 
   test 'the parent of a page must be of type Contentr::Page' do
-    site = Contentr::Site.new(name: 'site')
+    site = Contentr::Site.create!(name: 'site')
     page = Contentr::Page.new(name: 'page', parent: site)
     assert  site.valid?
     assert  page.valid?
 
-    node = Contentr::Node.new(name: 'node')
+    node = Contentr::Node.create!(name: 'node')
     page = Contentr::Page.new(name: 'page', parent: node)
     assert  node.valid?
     assert  page.invalid?
   end
 
   test 'the children of a page must be of type Contentr::Page' do
-    site = Contentr::Site.new(name: 'site')
-    page = Contentr::Page.new(name: 'page', parent: site)
+    site = Contentr::Site.create!(name: 'site')
+    page = Contentr::Page.create!(name: 'page', parent: site)
     assert  site.valid?
     assert  page.valid?
 

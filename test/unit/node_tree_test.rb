@@ -18,7 +18,6 @@ class NodeTreeTest < ActiveSupport::TestCase
   #   Node31
   #
   def setup
-    clean_mongodb
 
     node1 = Contentr::Node.create!(name: 'Node1')
     node2 = Contentr::Node.create!(name: 'Node2')
@@ -33,12 +32,6 @@ class NodeTreeTest < ActiveSupport::TestCase
     node211 = Contentr::Node.create!(name: 'Node211', parent: node21)
     node212 = Contentr::Node.create!(name: 'Node212', parent: node21)
     node221 = Contentr::Node.create!(name: 'Node221', parent: node22)
-  end
-
-  test 'root node' do
-    root_node = Contentr::Node.root()
-    assert root_node
-    assert_equal "Node1", root_node.name
   end
 
   test 'root nodes' do
@@ -68,7 +61,7 @@ class NodeTreeTest < ActiveSupport::TestCase
   test "parent ids" do
     node = Contentr::Node.where(name: "Node212").first
     assert node
-    assert_equal [node.parent.parent.id, node.parent.id], node.parent_ids
+    assert_equal [node.parent.parent.id, node.parent.id], node.ancestor_ids
   end
 
   test "change parent" do
@@ -79,16 +72,16 @@ class NodeTreeTest < ActiveSupport::TestCase
 
     assert_equal node21, node211.parent
     assert_equal node2, node21.parent
-    assert_equal [node2.id, node21.id], node211.parent_ids
-    assert_equal '/node2/node21/node211', node211.path
+    assert_equal [node2.id, node21.id], node211.ancestor_ids
+    assert_equal '/node2/node21/node211', node211.url_path
 
     # move node21 to it's new parent node3
     node21.parent = node3
     node21.save!
     node211.reload
 
-    assert_equal [node3.id, node21.id], node211.parent_ids
-    assert_equal '/node3/node21/node211', node211.path
+    assert_equal [node3.id, node21.id], node211.ancestor_ids
+    assert_equal '/node3/node21/node211', node211.url_path
   end
 
 end
