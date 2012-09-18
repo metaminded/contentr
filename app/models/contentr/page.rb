@@ -3,14 +3,8 @@
 module Contentr
   class Page < Node
 
-    # Fields
-    # field :description, :type => String
-    # field :menu_title,  :type => String
-    # field :published,   :type => Boolean, :default => false, :index => true
-    # field :hidden,      :type => Boolean, :default => false, :index => true
-
     # Relations
-    has_many :paragraphs, class_name: 'Contentr::Paragraph'#, :cascade_callbacks => true
+    has_many :paragraphs, class_name: 'Contentr::Paragraph'
 
     # Protect attributes from mass assignment
     attr_accessible :description, :menu_title, :published, :hidden
@@ -21,7 +15,7 @@ module Contentr
 
 
     def site_path
-      "/#{self.path.split('/').slice(2..-1).join('/')}"
+      "/#{self.url_path.split('/').slice(2..-1).join('/')}"
     end
 
     def publish!

@@ -4,17 +4,10 @@ module Contentr
   require "ancestry"
   class Node < ActiveRecord::Base
 
-    # Includes
-    # include Mongoid::Document
-    # include Mongoid::Tree
-    # include Mongoid::Tree::Ordering
-    # include Mongoid::Tree::Traversal
-
     has_ancestry
 
     # Protect (other) attributes from mass assignment
-    attr_accessible :name, :slug, :path, :position, :parent
-    attr_accessor :parent
+    attr_accessible :name, :slug, :position, :parent
 
     # Validations
     validates_presence_of   :name
@@ -35,15 +28,12 @@ module Contentr
 
     # Callbacks
     before_validation :generate_slug
-    #before_validation :rebuild_path
+    after_save :rebuild_path
     before_destroy    :destroy_children
-
-    # Scopes
-    default_scope order("name asc")
 
 
     def self.find_by_path(path)
-      self.where(path: ::File.join('/', path)).try(:first)
+      self.where(url_path: ::File.join('/', path)).try(:first)
     end
 
     def site
@@ -54,9 +44,13 @@ module Contentr
       self.children.count > 0
     end
 
-    #def path=(value)
-      #raise "path is generated and can't be set manually."
-    #end
+    def descendant_of?(node)
+      self.class.descendants_of(node).include?(self)
+    end
+
+    # def url_path=(value)
+    #   raise "url_path is generated and can't be set manually."
+    # end
 
     # def slug=(value)
     #   slug = value.to_slug if value.present?
@@ -71,7 +65,7 @@ module Contentr
     end
 
     def rebuild_path
-      self.path = "/#{ancestors.collect(&:slug).join('/')}"
+      self.update_column(:url_path, "/#{path.collect(&:slug).join('/')}")
     end
 
     def check_nodes
