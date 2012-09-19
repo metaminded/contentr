@@ -77,7 +77,7 @@ module Contentr
       if self.parent
         data = self.parent.children.reject{|s| s == self}
       else
-        data = Contentr::Node.roots
+        data = Contentr::Node.roots.reject{|s| s == self}
       end
       errors.add(:slug, "is already taken") if data.map(&:slug).include?(self.slug)
     end

@@ -11,7 +11,7 @@
     <%= link_to 'Create a new page', new_contentr_admin_page_path(:root => @root_page), :class => 'button' %>
   </div>
 
-  <table class="contentr pagegrid" data-root-page-id="<%= @root_page ? @root_page.id : '' %>">
+  <table id="pages_table" class="contentr pagegrid" data-root-page-id="<%= @root_page ? @root_page.id : '' %>">
     <thead>
       <tr>
         <th class="icon">Icon</th>
@@ -24,11 +24,6 @@
       </tr>
     </thead>
     <tbody>
-      <tr class="dummy-page-row">
-        <td colspan="5">
-          <a href="#" class="tool move-end2">Insert here</a>
-        </td>
-      </tr>
       <% @pages.each do |page| %>
         <tr data-page-id="<%= page.id %>" data-page-name="<%= page.name %>">
           <td class="icon">

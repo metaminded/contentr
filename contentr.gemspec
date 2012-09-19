@@ -12,12 +12,16 @@ Gem::Specification.new do |s|
   s.files = `git ls-files`.split("\n")
   s.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
 
-  s.add_dependency 'rails',          '> 3.1'
+  s.add_dependency 'rake',           '~> 0.9.2.2'
+  s.add_dependency 'rails',          '> 3.2'
   s.add_dependency 'simple_form',    '~> 2.0.0'
   s.add_dependency 'bson_ext',       '~> 1.5'
   s.add_dependency 'compass-rails',  '~> 1.0.0.rc.3'
-  s.add_dependency 'sass-rails',     '~> 3.1'
+  s.add_dependency 'sass-rails'
   s.add_dependency 'bootstrap-sass', '~> 2.1.0.0'
   s.add_dependency 'ancestry'
   s.add_dependency 'carrierwave'
+  s.add_development_dependency 'rspec-rails'
+  s.add_development_dependency 'capybara'
+  s.add_development_dependency 'launchy'
 end
