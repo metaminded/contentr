@@ -131,9 +131,9 @@ module Contentr
     # Returns true if this parent is accepted, false otherwise
     def accepts_parent?(parent)
       return true  if self.accepted_parent_nodes.include?(:any)
-      return true  if self.is_root? and self.accepted_parent_nodes.include?(:root)
-      return self.accepted_parent_nodes.any?{ |node_class| node_class.kind_of?(Class) and parent.is_a?(node_class) }
-      return false if self.is_root? and not self.accepted_parent_nodes.include?(:root)
+      return true  if self.is_root? && self.accepted_parent_nodes.include?(:root)
+      return false if self.is_root? && !self.accepted_parent_nodes.include?(:root)
+      return self.accepted_parent_nodes.any?{ |node_class| node_class.kind_of?(Class) && parent.is_a?(node_class) }
       
     end
 
