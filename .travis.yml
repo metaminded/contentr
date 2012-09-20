@@ -2,5 +2,4 @@ language: ruby
 rvm:
   - "1.9.2"
   - "1.9.3"
-  - rbx-19mode
 script: "rake db:migrate db:test:load db:test:prepare; bundle exec rspec spec"
