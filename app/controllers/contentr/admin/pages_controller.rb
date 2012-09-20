@@ -29,6 +29,7 @@ class Contentr::Admin::PagesController < Contentr::Admin::ApplicationController
 
   def edit
     @page = Contentr::Page.find(params[:id])
+    @contentr_page = Contentr::Page.find(params[:id])
   end
 
   def update

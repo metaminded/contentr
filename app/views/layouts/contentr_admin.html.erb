@@ -33,6 +33,12 @@
     </div>
 
     <div class="container">
+      <!-- flash -->
+      <% if flash.present? %>
+        <% flash.each do |name, msg| %>
+          <%= content_tag :div, msg, :class => "alert #{name}" %>
+        <% end %>
+      <% end %>
 
       <div id="content">
         <%= yield %>

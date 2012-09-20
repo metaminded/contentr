@@ -46,6 +46,7 @@ class Contentr::Admin::ParagraphsController < Contentr::Admin::ApplicationContro
   def destroy
     paragraph = @page_or_site.paragraphs.find(params[:id])
     paragraph.destroy
+    flash[:error] = "Paragraph was destroyed"
     redirect_to :back
   end
 

@@ -63,4 +63,25 @@ describe "pages" do
     end
   end
 
+  describe "#edit" do
+    before { visit edit_contentr_admin_page_path(@p, root: nil)}
+
+    it "shows the values of the current page" do
+      page.find_field("page_name").value.should == @p.name
+    end
+
+    it "shows the paragraphs of the page" do
+      page.all(:css, '.paragraph').count.should be(2)
+    end
+
+    it "deletes a paragraph when i click on delete" do
+      within("#paragraph_1") do
+        page.find_link("Delete").click
+      end
+      @p.should  have(2).paragraphs
+    end
+
+  end
+
+
 end
