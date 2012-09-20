@@ -10,6 +10,8 @@ require 'rake'
 require 'rake/testtask'
 require 'rdoc/task'
 
+import 'spec/dummy/Rakefile'
+
 Rake::TestTask.new(:test) do |t|
   t.libs << 'lib'
   t.libs << 'test'
