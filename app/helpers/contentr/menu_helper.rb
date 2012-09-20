@@ -16,7 +16,6 @@ module Contentr
       # set start level
       start_level = (options[:start] || 0).to_i
       ancestors = ancestors[start_level..-1] || []
-
       # set the depth
       depth = (options[:depth] || 1).to_i
 

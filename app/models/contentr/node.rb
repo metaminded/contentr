@@ -30,7 +30,7 @@ module Contentr
     before_validation :generate_slug
     before_validation :clean_slug
     after_save        :rebuild_path
-    before_destroy    :destroy_children
+    
 
 
     # Public: Find a Node by path

@@ -61,6 +61,10 @@ describe "pages" do
       page.find_link("Edit").click
       current_path.should eql edit_contentr_admin_page_path(@p, root: nil)
     end
+
+    it "has a link to delete the page" do
+      page.find_link("Delete").visible?
+    end
   end
 
   describe "#edit" do
@@ -82,6 +86,5 @@ describe "pages" do
     end
 
   end
-
 
 end

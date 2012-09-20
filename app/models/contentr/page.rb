@@ -55,6 +55,13 @@ module Contentr
     end
 
 
+    # Public: sets the parent of self to parent_page]
+    #
+    # Returns self
+    def move_below(parent_page)
+        self.update_attribute(:parent, parent_page)
+    end
+
     # Public: Searches for all paragraphs with an exact area_name
     # 
     # area_name - the area_name to search for

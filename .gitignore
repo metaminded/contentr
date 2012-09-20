@@ -7,5 +7,5 @@ spec/dummy/log/*.log
 spec/dummy/tmp/**/*
 spec/dummy/db/*.sqlite3
 spec/dummy/public/assets
-spec/dummy/public/contentr_file_uploads/contentr/html_paragraph/image/*s
+spec/dummy/public/contentr_file_uploads/contentr/html_paragraph/image/*
 .rake_tasks~

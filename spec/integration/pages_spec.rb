@@ -55,4 +55,5 @@ describe "pages" do
     current_path.should eql "/"
   end
 
+
 end
