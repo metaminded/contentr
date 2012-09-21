@@ -5,6 +5,7 @@ class CreateParagraphs < ActiveRecord::Migration
       t.integer 'position'
       t.string 'type'
       t.text 'data'
+      t.text 'unpublished_data'
       t.references 'page'
       t.timestamps 
     end

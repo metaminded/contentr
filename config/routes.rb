@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
       get    'pages/:page_id/paragraphs'           => 'paragraphs#index',   :as => 'page_paragraphs'
       get    'pages/:page_id/paragraphs/:id/edit'  => 'paragraphs#edit',    :as => 'edit_paragraph'
+      get    'pages/:page_id/paragraphs/:id/publish' => 'paragraphs#publish', :as => 'publish_paragraph'
       put    'pages/:page_id/paragraphs/:id'       => 'paragraphs#update',  :as => 'paragraph'
       delete 'pages/:page_id/paragraphs/:id'       => 'paragraphs#destroy', :as => 'paragraph'
     end

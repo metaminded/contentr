@@ -31,6 +31,7 @@ class Contentr::Admin::ParagraphsController < Contentr::Admin::ApplicationContro
 
   def edit
     @paragraph = @page_or_site.paragraphs.find(params[:id])
+    @paragraph.for_edit
   end
 
   def update
@@ -41,6 +42,13 @@ class Contentr::Admin::ParagraphsController < Contentr::Admin::ApplicationContro
     else
       render :action => :edit
     end
+  end
+
+  def publish
+    @paragraph = @page_or_site.paragraphs.find(params[:id])
+    @paragraph.publish!
+    flash[:notice] = "Published this paragraph"
+    redirect_to contentr_admin_edit_paragraph_path(page_id: @page, id: @paragraph, site: params[:site])
   end
 
   def destroy

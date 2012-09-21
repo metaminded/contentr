@@ -1,3 +1,7 @@
 <h1>Edit Paragraph</h1>
-
+<% if Contentr::Paragraph.find(@paragraph.id).unpublished_data.empty? || Contentr::Paragraph.find(@paragraph.id).data == Contentr::Paragraph.find(@paragraph.id).unpublished_data %>
+<a href="#" class="btn btn-success disabled" disable="disabled">No unpublished changes</a>
+<% else %>
+<%= link_to "Publish!", contentr_admin_publish_paragraph_path(:page_id => @page, :area_name => @area_name, :site => @page.is_a?(Contentr::Site)), class: "btn btn-success" %>
+<% end %>
 <%= render 'form' %>

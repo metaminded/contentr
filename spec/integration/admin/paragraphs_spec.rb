@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "pages" do
+describe Contentr::Admin::ParagraphsController do
   
   before do
     @site = Contentr::Site.create!(position: 0, name: "cms", slug: "cms")
@@ -38,60 +38,39 @@ describe "pages" do
     @p.save!
   end
 
-  describe "#index" do
-    before { visit "/contentr/admin/pages" }
-
-    it "has an index path" do
-      current_path.should eql contentr_admin_pages_path
-    end
-
-    it "has a list of all root pages" do
-      page.find(:css, 'table#pages_table').should_not be_nil
-    end
-
-    it "has one page in this list" do
-      page.all(:css, 'table#pages_table tbody tr').count.should be(1)
-    end
-
-    it "has a create new page button" do
-      page.should have_content "Create a new page"
-    end
-
-    it "has a link to edit the page" do
-      page.find_link("Edit").click
-      current_path.should eql edit_contentr_admin_page_path(@p, root: nil)
-    end
-
-    it "has a link to delete the page" do
-      page.find_link("Delete").visible?
-    end
-  end
-
   describe "#edit" do
-    before { visit edit_contentr_admin_page_path(@p, root: nil)}
+    before { visit("/contentr/admin/pages/2/paragraphs/1/edit")}
 
-    it "shows the values of the current page" do
-      page.find_field("page_name").value.should == @p.name
-    end
+    context "up-to-date" do
 
-    it "shows the paragraphs of the page" do
-      page.all(:css, '.paragraph').count.should be(2)
-    end
-
-    it "deletes a paragraph when i click on delete" do
-      within("#paragraph_1") do
-        page.find_link("Delete").click
+      it "has an up-to-date button" do
+        page.has_content?("No unpublished changes")
       end
-      @p.should  have(2).paragraphs
+
+      it "updates its body" do
+        fill_in("paragraph_body", with: "Foobar")
+        click_button("Save Paragraph")
+        page.find(:css, "input#paragraph_body").value.should eql "Foobar"
+      end
     end
 
-    it "shows the unpublished version of a paragraph if there is one" do
-      para = Contentr::Paragraph.find(@p.paragraphs.first.id)
-      para.body = "hell yeah!"
-      para.save!
-      visit("/contentr/admin/pages/#{para.page_id}/edit")
-      page.should have_content("hell yeah!")
+    context "unpublished changes" do
+      
+      it "has a publish button" do
+        page.has_content?("Publish!")
+      end      
     end
   end
 
+  describe "#publish" do
+
+    it "resets the publish button if i click on it" do
+      para = Contentr::Paragraph.find(1)
+      para.body = "hell yeah"
+      para.save!
+      visit("/contentr/admin/pages/#{para.page_id}/paragraphs/#{para.id}/edit")
+      click_link("Publish!")
+      page.has_content?("No unpublished changes")
+    end
+  end
 end
