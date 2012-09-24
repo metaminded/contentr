@@ -4,6 +4,7 @@ require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 
 require 'rspec/rails'
 require 'capybara/rspec'
+require 'factory_girl'
 
 include ActionDispatch::TestProcess
 
