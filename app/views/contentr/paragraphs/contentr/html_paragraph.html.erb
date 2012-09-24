@@ -1,2 +1,1 @@
-<%= paragraph.unpublished_data[:body].html_safe if paragraph.unpublished_data.has_key?(:body) %>
-<%= image_tag(paragraph.image_unpublished_url) if paragraph.unpublished_data.has_key?(:image) %>
+<%= display_paragraph(paragraph)  %>

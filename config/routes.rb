@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   # admin
   namespace :contentr do
     namespace :admin do
+      root to: 'pages#index'
       resources :pages do
         put 'move_below/:buddy_id',        :on => :member, :action => :move_below
         put 'insert_into/(:root_page_id)', :on => :member, :action => :insert_into

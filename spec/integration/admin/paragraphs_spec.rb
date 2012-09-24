@@ -37,8 +37,6 @@ describe Contentr::Admin::ParagraphsController do
 
   describe "#publish" do
 
-    
-
     it "resets the publish button if i click on it" do
       @para = contentpage.paragraphs.first
       @para.body = "hell yeah"
