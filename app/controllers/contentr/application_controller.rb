@@ -8,6 +8,5 @@ class Contentr::ApplicationController < ApplicationController
   Contentr::File
   Contentr::Page
   Contentr::Site
-  Contentr::Node
   # end hack
 end

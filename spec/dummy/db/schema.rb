@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120920134127) do
+ActiveRecord::Schema.define(:version => 20120924095538) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -28,27 +28,28 @@ ActiveRecord::Schema.define(:version => 20120920134127) do
     t.datetime "updated_at",  :null => false
   end
 
-  create_table "nodes", :force => true do |t|
+  create_table "pages", :force => true do |t|
     t.string   "name"
     t.string   "slug"
     t.string   "url_path"
     t.integer  "position"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+    t.boolean  "menu_only"
     t.string   "type"
     t.string   "ancestry"
     t.string   "description"
     t.string   "menu_title"
     t.boolean  "published",   :default => false
     t.boolean  "hidden",      :default => false
-    t.string   "linked_to"
     t.string   "layout",      :default => "application"
     t.string   "template",    :default => "default"
+    t.string   "linked_to"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
   end
 
-  add_index "nodes", ["ancestry"], :name => "index_nodes_on_ancestry"
-  add_index "nodes", ["hidden"], :name => "index_nodes_on_hidden"
-  add_index "nodes", ["published"], :name => "index_nodes_on_published"
+  add_index "pages", ["ancestry"], :name => "index_pages_on_ancestry"
+  add_index "pages", ["hidden"], :name => "index_pages_on_hidden"
+  add_index "pages", ["published"], :name => "index_pages_on_published"
 
   create_table "paragraphs", :force => true do |t|
     t.string   "area_name"

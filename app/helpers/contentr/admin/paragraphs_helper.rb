@@ -15,6 +15,7 @@ module Contentr
             s += image_tag(p.image_url) if p.data.has_key?("image")
           end
         end
+        s
       end
     end
   end

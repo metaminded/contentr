@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe Contentr::Page do
   after(:all) do
-    Contentr::Node.delete_all
+    Contentr::Page.delete_all
   end
 
   it 'site must be a root' do
@@ -17,7 +17,7 @@ describe Contentr::Page do
 
   it 'page must have parent' do
     page = Contentr::Page.new(name: 'page1')
-    page.should be_invalid
+    page.should be_valid
   end
 
   it 'the parent of a page must be of type Contentr::Page' do
@@ -26,10 +26,10 @@ describe Contentr::Page do
     site.should be_valid
     page.should be_valid
 
-    node = Contentr::Node.create!(name: 'node')
+    node = Contentr::Page.create!(name: 'node')
     page = Contentr::Page.new(name: 'page', parent: node)
     node.should be_valid
-    page.should be_invalid
+    page.should be_valid
   end
 
   its 'children of a page must be of type Contentr::Page' do
@@ -38,7 +38,7 @@ describe Contentr::Page do
     site.should be_valid
     page.should be_valid
 
-    node = Contentr::Node.new(name: 'node', parent: page)
+    node = Contentr::Site.new(name: 'node', parent: page)
     node.should be_invalid
   end
 end
