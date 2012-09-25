@@ -21,6 +21,7 @@ describe Contentr::Admin::ParagraphsController do
       it "updates its body" do
         fill_in("paragraph_body", with: "Foobar")
         click_button("Save Paragraph")
+        visit("/contentr/admin/pages/#{contentpage.id}/paragraphs/#{contentpage.paragraphs.first.id}/edit")
         page.find(:css, "input#paragraph_body").value.should eql "Foobar"
       end
     end

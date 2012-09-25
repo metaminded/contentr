@@ -22,6 +22,7 @@ module Contentr
     end
 
     before_save do
+      return if @_revert_now
       if @data_was
         self.unpublished_data = self.data.clone
         if @image_was.url != self.image.url
@@ -40,6 +41,12 @@ module Contentr
     def publish!
       @_publish_now = true
       self.data = unpublished_data.clone
+      save!
+    end
+
+    def revert!
+      @_revert_now = true
+      self.unpublished_data = self.data.clone
       save!
     end
 

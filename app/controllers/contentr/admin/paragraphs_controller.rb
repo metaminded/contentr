@@ -37,7 +37,7 @@ class Contentr::Admin::ParagraphsController < Contentr::Admin::ApplicationContro
     @paragraph = @page_or_site.paragraphs.select { |p| p.id.to_s == params[:id] }.first
     if @paragraph.update_attributes(params[:paragraph])
       flash[:notice] = 'Paragraph saved'
-      redirect_to contentr_admin_edit_paragraph_path(page_id: @page, id: @paragraph, site: params[:site])
+      redirect_to contentr_admin_pages_path(root: @page.id)
     else
       render :action => :edit
     end
@@ -50,18 +50,17 @@ class Contentr::Admin::ParagraphsController < Contentr::Admin::ApplicationContro
     redirect_to contentr_admin_pages_path(root: @page.id)
   end
 
+  def revert
+    @paragraph = @page_or_site.paragraphs.find(params[:id])
+    @paragraph.revert!
+    flash[:notice] = "Reverted this paragraph"
+    redirect_to contentr_admin_pages_path(root: @page.id)
+  end
+
   def show_version
     @paragraph = @page_or_site.paragraphs.find(params[:id])
-    if params[:current] == "1" && contentr_publisher?
-      s = ""
-      s += @paragraph.unpublished_data[:body].html_safe
-      s += view_context.image_tag(@paragraph.image_unpublished_url) if @paragraph.unpublished_data.has_key?("image_unpublished")
-    else
-      s = ""
-      s += @paragraph.data[:body].html_safe
-      s += view_context.image_tag(@paragraph.image_url) if @paragraph.data.has_key?("image")
-    end
-    render text: s
+    current = params[:current] == "1" ? true : false
+    render text: view_context.display_paragraph(@paragraph, current)
   end
 
   def destroy

@@ -11,6 +11,6 @@ FactoryGirl.define do
       after(:create) do |contentpage, evaluator|
         FactoryGirl.create_list(:paragraph, 2, page: contentpage)
       end
-  end
+    end
   end
 end
