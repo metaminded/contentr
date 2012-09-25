@@ -1,0 +1,14 @@
+<%= simple_form_for 'site',
+    :url    => (@site.new_record? ? contentr_admin_sites_path() : contentr_admin_site_path()),
+    :method => (@site.new_record? ? :post : :put),
+    :html   => {:class => 'form-horizontal'} do |f| %>
+
+    <%= f.input :hidden, :as => :boolean %>
+    <%= f.input :published, :as => :boolean %>
+
+    <%= f.input :name %>
+    <%= f.input :slug, :required => false %>
+
+    <%= f.submit %>
+    <%= link_to 'Cancel', contentr_admin_pages_path %>
+<% end %>

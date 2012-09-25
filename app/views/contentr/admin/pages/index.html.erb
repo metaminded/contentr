@@ -2,13 +2,17 @@
   <div class="toolbar">
     <% if @root_page.present? %>
       <%=
-        link_to(contentr_admin_pages_path(:root => @root_page.parent), :rel => 'pm-navigate', :class => 'button') do
-          'Eine Ebene höher'
+        link_to(contentr_admin_pages_path(:root => @root_page.parent), :rel => 'pm-navigate') do
+          '<i class="icon-circle-arrow-up"></i>'.html_safe
         end
       %>
+      <%= link_to 'Create a new page', new_contentr_admin_page_path(:root => @root_page), :class => 'button' %>
+    <% else %>
+    <%= link_to 'Create a new site', new_contentr_admin_site_path(), :class => 'button' %>
     <% end %>
-
-    <%= link_to 'Create a new page', new_contentr_admin_page_path(:root => @root_page), :class => 'button' %>
+    <div class="cur_path">
+      Current Path: <%= @page.present? ? @page.url_path : "/" %>
+    </div>  
   </div>
 
   <table id="pages_table" class="contentr pagegrid" data-root-page-id="<%= @root_page ? @root_page.id : '' %>">
@@ -40,7 +44,9 @@
               %>
               <div class="tools">
                 <ul>
-                  <li class="tool move-begin"><a href="#">Move</a></li>
+                  <% unless page.is_a?(Contentr::Site) %>
+                    <li class="tool move-begin"><a href="#">Move</a></li>
+                  <% end %>
                   <li class="tool move-end"><a href="#">Insert below</a></li>
                   <li class="tool edit"><%= link_to('Edit', edit_contentr_admin_page_path(page, :root => @root_page)) %></li>
                   <% if !page.is_a?(Contentr::LinkedPage) %>
@@ -59,4 +65,5 @@
       <% end %>
     </tbody>
   </table>
+  <%= contentr_area :body %>
 </div>

@@ -4,26 +4,19 @@ require 'spec_helper'
 
 describe Contentr::Page do
   
-  before(:all) do
-    node1 = Contentr::Page.create!(name: 'Node1')
-    node2 = Contentr::Page.create!(name: 'Node2')
-    node3 = Contentr::Page.create!(name: 'Node3')
+  node1 = Contentr::Page.create!(name: 'Node1')
+  node2 = Contentr::Page.create!(name: 'Node2')
+  node3 = Contentr::Page.create!(name: 'Node3')
 
-    node11 = Contentr::Page.create!(name: 'Node11', parent: node1)
-    node12 = Contentr::Page.create!(name: 'Node12', parent: node1)
-    node21 = Contentr::Page.create!(name: 'Node21', parent: node2)
-    node22 = Contentr::Page.create!(name: 'Node22', parent: node2)
-    node31 = Contentr::Page.create!(name: 'Node31', parent: node3)
+  node11 = Contentr::Page.create!(name: 'Node11', parent: node1)
+  node12 = Contentr::Page.create!(name: 'Node12', parent: node1)
+  node21 = Contentr::Page.create!(name: 'Node21', parent: node2)
+  node22 = Contentr::Page.create!(name: 'Node22', parent: node2)
+  node31 = Contentr::Page.create!(name: 'Node31', parent: node3)
 
-    node211 = Contentr::Page.create!(name: 'Node211', parent: node21)
-    node212 = Contentr::Page.create!(name: 'Node212', parent: node21)
-    node221 = Contentr::Page.create!(name: 'Node221', parent: node22)
-  end
-
-  after(:all) do
-    Contentr::Page.delete_all
-  end
-
+  node211 = Contentr::Page.create!(name: 'Node211', parent: node21)
+  node212 = Contentr::Page.create!(name: 'Node212', parent: node21)
+  node221 = Contentr::Page.create!(name: 'Node221', parent: node22)
 
   its 'root nodes' do
     root_nodes = Contentr::Page.roots()

@@ -37,8 +37,8 @@ module Contentr
 
 
     # Node checks
-    #self.accepted_parent_nodes = [Contentr::Page]
-    #self.accepted_child_nodes  = [Contentr::Page]
+    # self.accepted_parent_nodes = [Contentr::Page]
+    # self.accepted_child_nodes  = [Contentr::Page]
 
     # Public: Find a Node by path
     #
@@ -120,7 +120,7 @@ module Contentr
     #
     # Returns self
     def move_below(parent_page)
-        self.update_attribute(:parent, parent_page)
+        self.update_attributes(parent: parent_page)
     end
 
     # Public: Searches for all paragraphs with an exact area_name

@@ -11,7 +11,7 @@ module Contentr
     #
     # Returns the default site from the db
     def self.default
-      self.where(name: Contentr.default_site).first
+      self.find_or_create_by_slug_and_name!(Contentr.default_site, Contentr.default_site)
     end
 
     # Public: Gets the default_page

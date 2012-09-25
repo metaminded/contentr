@@ -14,13 +14,16 @@
       <% if authorized %>
         <div class="toolbar">
           <div class="handle">&#9776;</div>
+          <%= render partial: "/contentr/admin/application/publish", locals: {p: p, area_name: area_name, page: page} %>
           <div class="controls">
             <%= link_to('Edit', contentr_admin_edit_paragraph_path(:page_id => page, :id => p, :site => page.is_a?(Contentr::Site)), :rel => 'contentr-overlay') %>
             <%= link_to('Delete', contentr_admin_paragraph_path(:page_id => page, :id => p, :site => page.is_a?(Contentr::Site)), :method => :delete, :confirm => 'Really delete?') %>
           </div>
         </div>
       <% end %>
-      <%= render(template: "contentr/paragraphs/#{template_name}", locals: {paragraph: p}) %>
+      <div>
+        <%= render(template: "contentr/paragraphs/#{template_name}", locals: {paragraph: p}) %>
+      </div>
     </div>
   <% end %>
 </div>

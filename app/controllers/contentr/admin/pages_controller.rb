@@ -4,7 +4,9 @@ class Contentr::Admin::PagesController < Contentr::Admin::ApplicationController
 
   def index
     @pages = @root_page.present? ? @root_page.children
-                                 : Contentr::Site.default.children
+                                 : Contentr::Site.roots
+    @page = @root_page.present? ? @root_page : nil
+    @contentr_page = @root_page.present? ? @root_page : Contentr::Site.default
   end
 
   def new
@@ -20,7 +22,7 @@ class Contentr::Admin::PagesController < Contentr::Admin::ApplicationController
     end
 
     if @page.save
-      flash[:success] = 'Page created.'
+      flash.now[:success] = 'Page created.'
       redirect_to contentr_admin_pages_path(:root => @root_page)
     else
       render :action => :new
@@ -35,7 +37,7 @@ class Contentr::Admin::PagesController < Contentr::Admin::ApplicationController
   def update
     @page = Contentr::Page.find(params[:id])
     if @page.update_attributes(params[:page])
-      flash[:success] = 'Page updated.'
+      flash.now[:success] = 'Page updated.'
       redirect_to contentr_admin_pages_path(:root => @root_page)
     else
       render :action => :edit

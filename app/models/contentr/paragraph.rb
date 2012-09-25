@@ -47,6 +47,10 @@ module Contentr
       @data_was != data
     end
 
+    def unpublished_changes?
+      data != unpublished_data
+    end
+
     def for_edit
       self.data = self.unpublished_data.clone unless self.unpublished_data.empty?
     end

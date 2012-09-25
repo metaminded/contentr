@@ -7,7 +7,7 @@ module Contentr
     #
     def contentr_area(area_name)
       raise "No area name given" if area_name.blank?
-      contentr_render_area(area_name, @contentr_page) if @contentr_page.present?
+      contentr_render_area(area_name, @contentr_page) if @contentr_page.present? && @contentr_page.class != Contentr::Site
     end
 
     # Renders an area of paragraphs for site paragraphs

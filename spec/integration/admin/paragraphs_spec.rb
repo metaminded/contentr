@@ -1,11 +1,9 @@
 require 'spec_helper'
-FactoryGirl.find_definitions
 
 describe Contentr::Admin::ParagraphsController do
-  
 
-  let(:site) { FactoryGirl.create(:site) }
-  let(:contentpage) { FactoryGirl.create(:contentpage_with_paragraphs) }
+  let!(:site) { FactoryGirl.create(:site, slug: "foobar") }
+  let!(:contentpage) { FactoryGirl.create(:contentpage_with_paragraphs) }
 
   describe "#edit" do
     before { visit("/contentr/admin/pages/#{contentpage.id}/paragraphs/#{contentpage.paragraphs.first.id}/edit")}

@@ -3,12 +3,9 @@
 require 'spec_helper'
 
 describe Contentr::Page do
-  after(:all) do
-    Contentr::Page.delete_all
-  end
 
   it "create a single node" do
-    node = Contentr::Page.create!(name: "Node1")
+    node = Contentr::Page.create!(name: "Node33")
   end
 
   it "always has a name" do
@@ -17,8 +14,8 @@ describe Contentr::Page do
   end
 
   it "has an auto generated slug" do
-    page = Contentr::Page.create!(name: "Node1")
-    page.slug.should eql "node1"
+    page = Contentr::Page.create!(name: "Node44")
+    page.slug.should eql "node44"
   end
 
   it "slug can be set to a custom value" do

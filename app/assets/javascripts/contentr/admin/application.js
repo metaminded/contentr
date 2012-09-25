@@ -2,12 +2,11 @@
 //= require jquery-ui
 //= require jquery_ujs
 //= require_self
-//= require_tree .
+//= require ./page_manager
+//= require ./area
 
 var Contentr = {};
 
-(function($) {  
-  $(function() {
-    
-  });
-})(jQuery);
+jQuery(function($) {  
+  // ...
+});

@@ -1,5 +1,6 @@
 (function($) {
-  
+  return true;
+    
   Contentr.PM = function() {
     
     var mouseX, mouseY = 0;
