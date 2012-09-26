@@ -5,10 +5,14 @@ class Contentr::FileUploader < CarrierWave::Uploader::Base
   storage :file
   # storage :fog
 
+  def filename 
+    "#{Time.now.to_i}-#{original_filename}" if original_filename 
+  end 
+
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
-    "contentr_file_uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+    "contentr_file_uploads/#{model.class.to_s.underscore}/#{model.id}"
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:

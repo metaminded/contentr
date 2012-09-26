@@ -2,6 +2,9 @@
 
   <% @paragraph.class.form_fields.each do |ff| %>
     <%= f.input ff[:name], as: ff[:typ] %>
+    <% if ff[:typ] == :file && @paragraph.image? %>
+    Remove current image: <input type="checkbox" name="paragraph[remove_image_unpublished]" value="true">
+    <% end %>
   <% end %>
   <%= f.submit %>
 <% end %>

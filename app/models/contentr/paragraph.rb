@@ -16,31 +16,32 @@ module Contentr
     validates_presence_of :area_name
 
     after_find do
-      @data_was = self.data.clone
-      @image_was = self.image.clone
-      @unpublished_data_was = self.unpublished_data.clone
+      puts "called #{self.unpublished_data.inspect}"
+      @data_was = self.unpublished_data.clone
+      @serialized_data_was = serialized_store_value("store")
+    end
+
+    def after_save_copy_unpublished()
+      self.update_column(:unpublished_data, serialized_store_value("store"))
+      
+      if !@_publish_now
+        self.update_column(:data, @data_was)
+        #puts "#{self.data.inspect}"
+      end
+      reload
+      @_revert_now = false
+      @_publish_now = false
     end
 
     before_save do
-      return if @_revert_now
-      if @data_was
-        self.unpublished_data = self.data.clone
-        if @image_was.url != self.image.url
-          self.image_unpublished = self.image.clone 
-        else
-          self.image_unpublished = @unpublished_data_was["image_unpublished"]
-          self.unpublished_data["image_unpublished"] = @unpublished_data_was["image_unpublished"]
-        end
-        self.image = @image_was unless @_publish_now
-        self.data = @data_was unless @_publish_now
-      else
-        self.unpublished_data = self.data
+      if @_revert_now
+        self.unpublished_data = data.clone
       end
     end
 
     def publish!
+      self.data = self.unpublished_data.clone
       @_publish_now = true
-      self.data = unpublished_data.clone
       save!
     end
 
@@ -55,7 +56,7 @@ module Contentr
     end
 
     def unpublished_changes?
-      data != unpublished_data
+      data != unpublished_data && unpublished_data.present?
     end
 
     def for_edit
@@ -128,38 +129,32 @@ module Contentr
     # opts - an optional hash with specific settings
     #
     def self.field(name, opts={})
-      store_accessor :data, name
+      define_method("#{name}=") do |value|
+        self.data[name.to_s] = value
+        self.data_will_change!
+      end
+      define_method(name) do
+        self.data[name.to_s]
+      end
       if opts[:uploader]
-        store_accessor :unpublished_data, "#{name}_unpublished"
         uploader = opts[:uploader]
         typ = "file"
         self.send(:define_method, "#{name}_will_change!") do
           self.data_will_change!
         end
-        self.send(:define_method, "#{name}_unpublished_will_change!") do
-          self.data_will_change!
-        end
         self.send(:define_method, "#{name}_changed?") do
           true # self.data_was && data_was[name] != data[name]
         end
-        self.send(:define_method, "#{name}_unpublished_changed?") do
-          true # self.data_was && data_was[name] != data[name]
-        end
+        #mount_store_uploader :data, name, uploader
         mount_store_uploader :data, name, uploader
-        mount_store_uploader :unpublished_data, "#{name}_unpublished", uploader
-      elsif false 
-          alias_method "#{name}_without_typecast=".to_sym, "#{name}=".to_sym
-          typ ||= opts[:type] || "String"
-          self.send(:define_method, "#{name}=") do |val|
-            self.write_store_attribute(name, val, typ)
-          end
+        attr_accessible "remove_#{name}"
+        after_save :after_save_copy_unpublished
       end
       self.form_fields ||= []
       typ ||= "String"
       self.form_fields << {name: name, typ: typ.to_sym}
       attr_accessible name
     end
-
   end
 end
 
