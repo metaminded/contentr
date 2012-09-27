@@ -3,7 +3,7 @@ source :rubygems
 gemspec
 
 gem 'jquery-rails'
-
+gem 'debugger'
 group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier',     '~> 1.2.1'

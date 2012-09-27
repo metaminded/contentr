@@ -15,38 +15,44 @@ module Contentr
     # Validations
     validates_presence_of :area_name
 
-    after_find do
-      puts "called #{self.unpublished_data.inspect}"
-      @data_was = self.unpublished_data.clone
-      @serialized_data_was = serialized_store_value("store")
+    after_find :save_old_data
+
+    def save_old_data
+      @_data_was = self.data.to_yaml
+      logger.info("in after find <<<<<<<#{self.data.keys}")
+      logger.info("inf after find <<<<<<<#{self.data.to_yaml}")
+    end
+
+    after_validation do
+      logger.info("in after validate<<<<<<<#{self.data.keys}")
+      @_new_data = self.data.to_yaml
+      logger.info("in after validate #{self.data.to_yaml}")
     end
 
     def after_save_copy_unpublished()
-      self.update_column(:unpublished_data, serialized_store_value("store"))
-      
-      if !@_publish_now
-        self.update_column(:data, @data_was)
-        #puts "#{self.data.inspect}"
-      end
+      logger.info("in after save")
+      self.update_column(:unpublished_data, self.data.to_yaml)
+      self.update_column(:data, @_data_was) if !@_publish_now
       reload
-      @_revert_now = false
       @_publish_now = false
     end
 
-    before_save do
-      if @_revert_now
-        self.unpublished_data = data.clone
-      end
+    # we need to do this since the after_find callbacks are called for the 'fresh'
+    # version from the database whose attributes are then copied to self.
+    def reload
+      super
+      save_old_data
+      self
     end
 
     def publish!
       self.data = self.unpublished_data.clone
       @_publish_now = true
       save!
+      #@_publish_now = false
     end
 
     def revert!
-      @_revert_now = true
       self.unpublished_data = self.data.clone
       save!
     end
@@ -120,7 +126,8 @@ module Contentr
 
     # TODO
     def serialized_store_value(store)
-      @attributes['data'].serialized_value
+      #debugger
+      @attributes[store.to_s].try :serialized_value
     end
 
     # Public: Define setter and getter for a ActiveRecord::Store attribute
@@ -129,13 +136,7 @@ module Contentr
     # opts - an optional hash with specific settings
     #
     def self.field(name, opts={})
-      define_method("#{name}=") do |value|
-        self.data[name.to_s] = value
-        self.data_will_change!
-      end
-      define_method(name) do
-        self.data[name.to_s]
-      end
+      store_accessor :data, name.to_s
       if opts[:uploader]
         uploader = opts[:uploader]
         typ = "file"
@@ -145,11 +146,10 @@ module Contentr
         self.send(:define_method, "#{name}_changed?") do
           true # self.data_was && data_was[name] != data[name]
         end
-        #mount_store_uploader :data, name, uploader
         mount_store_uploader :data, name, uploader
         attr_accessible "remove_#{name}"
-        after_save :after_save_copy_unpublished
       end
+      after_save :after_save_copy_unpublished
       self.form_fields ||= []
       typ ||= "String"
       self.form_fields << {name: name, typ: typ.to_sym}
