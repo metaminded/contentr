@@ -11,8 +11,8 @@ module CarrierWave
     def mount_store_uploader(store, column, uploader=nil, options={}, &block)
       mount_uploader(column, uploader, options, &block)
       
-       self.send :define_method, :read_uploader do |nam| self.send(store)[nam.to_s] end
-       self.send :define_method, :write_uploader do |nam, val| self.send(store)[nam.to_s]=val end
+      self.send :define_method, :read_uploader do |nam| self.send(store)[nam.to_s] end
+      self.send :define_method, :write_uploader do |nam, val| self.send(store)[nam.to_s]=val end
       public :read_uploader
       public :write_uploader
 

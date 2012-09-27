@@ -1,6 +1,5 @@
 # coding: utf-8
 
-
 module Contentr
   class HtmlParagraph < Paragraph
     include ActionView::Helpers

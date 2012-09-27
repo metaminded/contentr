@@ -19,14 +19,11 @@ module Contentr
 
     def save_old_data
       @_data_was = self.data.to_yaml
-      logger.info("in after find <<<<<<<#{self.data.keys}")
-      logger.info("inf after find <<<<<<<#{self.data.to_yaml}")
     end
 
     after_validation do
-      logger.info("in after validate<<<<<<<#{self.data.keys}")
-      @_new_data = self.data.to_yaml
-      logger.info("in after validate #{self.data.to_yaml}")
+      @_for_edit = false
+      #@_new_data = self.data.to_yaml
     end
 
     def after_save_copy_unpublished()
@@ -46,15 +43,30 @@ module Contentr
     end
 
     def publish!
-      self.data = self.unpublished_data.clone
-      @_publish_now = true
-      save!
-      #@_publish_now = false
+      transaction do
+        self.data = self.unpublished_data.clone
+        self.class._uploader_wrappers.try :each do |name|
+          w = image_asset_wrapper_for name
+          next unless w
+          w.file = w.file_unpublished
+          w.save!
+        end
+        @_publish_now = true
+        save!
+      end
     end
 
     def revert!
-      self.unpublished_data = self.data.clone
-      save!
+      transaction do
+        self.unpublished_data = self.data.clone
+        self.class._uploader_wrappers.try :each do |name|
+          w = image_asset_wrapper_for name
+          next unless w
+          w.file_unpublished = w.file
+          w.save!
+        end
+        save!
+      end
     end
 
     def data_dirty?
@@ -66,7 +78,9 @@ module Contentr
     end
 
     def for_edit
+      @_for_edit = true
       self.data = self.unpublished_data.clone unless self.unpublished_data.empty?
+      self
     end
 
     # Scopes
@@ -126,7 +140,6 @@ module Contentr
 
     # TODO
     def serialized_store_value(store)
-      #debugger
       @attributes[store.to_s].try :serialized_value
     end
 
@@ -136,18 +149,11 @@ module Contentr
     # opts - an optional hash with specific settings
     #
     def self.field(name, opts={})
-      store_accessor :data, name.to_s
       if opts[:uploader]
-        uploader = opts[:uploader]
+        uploader_field(name, opts[:uploader])
         typ = "file"
-        self.send(:define_method, "#{name}_will_change!") do
-          self.data_will_change!
-        end
-        self.send(:define_method, "#{name}_changed?") do
-          true # self.data_was && data_was[name] != data[name]
-        end
-        mount_store_uploader :data, name, uploader
-        attr_accessible "remove_#{name}"
+      else
+        store_accessor :data, name.to_s
       end
       after_save :after_save_copy_unpublished
       self.form_fields ||= []
@@ -155,6 +161,50 @@ module Contentr
       self.form_fields << {name: name, typ: typ.to_sym}
       attr_accessible name
     end
+
+    def self.uploader_field(name, uploader)
+      _uploader_wrappers << name
+      store_accessor :data, "#{name}_id"
+      self.send(:define_method, "#{name}_will_change!") do
+        self.data_will_change!
+      end
+      self.send(:define_method, "#{name}_changed?") do
+        true # self.data_was && data_was[name] != data[name]
+      end
+      
+      # make a nice subclass to hold the actual asset
+      asset_class_name = "ImageAsset#{self}#{name.capitalize}".gsub("::","")
+      Object.const_set asset_class_name, Class.new(Contentr::ImageAsset)
+      asset_class = asset_class_name.constantize
+      asset_class.mount_uploader :file, uploader
+      asset_class.mount_uploader :file_unpublished, uploader
+      # retrieve the wrapping element
+      # retrieve the actual IMAGE from the wrapping class
+      define_method name do
+        ia = image_asset_wrapper_for(name, asset_class)
+        @_for_edit ? ia.file_unpublished : ia.file
+      end
+      # put new image into (existing) wrapper
+      define_method "#{name}=" do |file|
+        ia = image_asset_wrapper_for(name, asset_class)
+        ia.file_unpublished = file
+        ia.save!
+        self.send "#{name}_id=", ia.id
+      end
+      attr_accessible "remove_#{name}", name
+    end
+
+    def self._uploader_wrappers
+      @_uploader_wrappers ||= []
+    end
+
+    def image_asset_wrapper_for(name, klaz=nil)
+      if data["#{name}_id"].present?
+        Contentr::ImageAsset.find(data["#{name}_id"])
+      else
+        klaz.try :new
+      end
+    end    
   end
 end
 

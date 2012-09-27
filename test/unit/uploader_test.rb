@@ -16,10 +16,7 @@ class UploaderTest < ActiveSupport::TestCase
   end
 
   test "A attribute publishing test" do
-    site = Contentr::Site.create!(name: 'Site')
-    page = Contentr::ContentPage.create!(name: 'Page', parent: site)
     tp = TestParagraph.new(name: "huhu!", area_name: 'foo')
-    #page.paragraphs << tp
     assert tp.save
     assert_equal "huhu!", tp.unpublished_data["name"]
     tp.reload
@@ -41,40 +38,35 @@ class UploaderTest < ActiveSupport::TestCase
     tp.revert!
     assert_equal 'hallo!', tp.name
     assert_equal 'hallo!', tp.unpublished_data['name']
-  end #if false
-
+  end
+  
   test "attachments" do
-    site = Contentr::Site.create!(name: 'Site')
-    page = Contentr::ContentPage.create!(name: 'Page', parent: site)
     tp = TestParagraph.new(name: "huhu!", area_name: 'foo')
-    #page.paragraphs << tp
     assert tp.save
     tp.name = "hallo!"
     tp.photo = asset('tenderlove.png')
     assert tp.save
     assert_equal nil, tp.name
-    assert_equal nil, tp.photo
+    assert !tp.photo.present?
     tp.reload
     puts tp.photo
     assert_equal 'hallo!', tp.unpublished_data['name']
     assert_equal nil, tp.name
-    assert_equal 'hallo!', tp.unpublished_data['name']
     tp.publish!
-    tp.reload
     assert_equal 'hallo!', tp.name
-    assert_equal 'hallo!', tp.unpublished_data['name']
-    
-    tp.name = "Horst"
-    assert_equal "hallo!", tp.name
-    assert_equal 'Horst', tp.unpublished_data['name']
-    assert tp.save
-    tp.reload
-    assert_equal 'hallo!', tp.name
-    assert_equal 'Horst', tp.unpublished_data['name']
+    assert tp.photo.present?
+    assert_match /file\/tenderlove.png/, tp.photo.url
+    tp.photo = asset('yehuda.png')
+    tp.save
+    assert_match /tenderlove/, tp.photo.url
+    assert_match /yehuda/, tp.for_edit.photo.url
+    tp.publish!
+    assert_match /file\/yehuda.png/, tp.photo.url
+    tp.photo = asset('tenderlove.png')
+    tp.save
     tp.revert!
-    tp.reload
-    assert_equal 'hallo!', tp.name
-    assert_equal 'hallo!', tp.unpublished_data['name']
+    assert_match /yehuda/, tp.photo.url
+    assert_match /yehuda/, tp.for_edit.photo.url
   end
 
 
