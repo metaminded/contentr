@@ -25,6 +25,7 @@
         <th class="hidden">Hidden?</th>
         <th class="template">Template</th>
         <th class="layout">Layout</th>
+        <th></th><th></th>
       </tr>
     </thead>
     <tbody>
@@ -42,18 +43,6 @@
                   page.has_children? ? page.name + " >>" : page.name
                 end
               %>
-              <div class="tools">
-                <ul>
-                  <% unless page.is_a?(Contentr::Site) %>
-                    <li class="tool move-begin"><a href="#">Move</a></li>
-                  <% end %>
-                  <li class="tool move-end"><a href="#">Insert below</a></li>
-                  <li class="tool edit"><%= link_to('Edit', edit_contentr_admin_page_path(page, :root => @root_page)) %></li>
-                  <% if !page.is_a?(Contentr::LinkedPage) %>
-                    <li class="tool delete"><%= link_to('Delete', contentr_admin_page_path(page, :root => @root_page), :method => :delete, :confirm => "Really delete page '#{page.name}'? All subpages will be deleted too.") %></li>
-                  <% end %>
-                </ul>
-              </div>
             </div>
           </td>
           <td class="slug"><%= page.slug %></td>
@@ -61,6 +50,15 @@
           <td class="hidden"><%= page.hidden? %></td>
           <td class="template"><%= page.template if page.is_a?(Contentr::ContentPage) %></td>
           <td class="layout"><%= page.layout if page.is_a?(Contentr::ContentPage) %></td>
+          </td>
+          <td>
+            <li class=""><%= link_to(raw('<icon class="icon-edit"></icon>'), edit_contentr_admin_page_path(page, :root => @root_page)) %>
+            </li>
+          </td><td>
+            <% unless page.is_a?(Contentr::LinkedPage) %>
+              <li class=""><%= link_to(raw('<icon class="icon-remove"></icon>'), contentr_admin_page_path(page, :root => @root_page), :method => :delete, :confirm => "Really delete page '#{page.name}'? All subpages will be deleted too.") %></li>
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </tbody>

@@ -40,13 +40,15 @@
       position: relative;
       vertical-align: middle;
       overflow: visible;
+      text-align: center;
 
-      &.icon { width: 25px; }
-      &.name { width: 300px; }
       &.published { width: 80px; }
       &.hidden { width: 80px; }
       &.template { width: 120px; }
       &.layout { width: 120px; }
+    }
+    li{
+      list-style-type: none;
     }
 
     tbody tr {
