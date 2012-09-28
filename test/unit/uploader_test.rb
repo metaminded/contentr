@@ -67,6 +67,21 @@ class UploaderTest < ActiveSupport::TestCase
     tp.revert!
     assert_match /yehuda/, tp.photo.url
     assert_match /yehuda/, tp.for_edit.photo.url
+    tp2 = TestParagraph.new(name: "aloha!", area_name: 'body')
+    assert tp2.save
+    assert !tp2.photo.present?
+    tp2.photo = asset('dhh.jpg')
+    tp2.save
+    assert_match /dhh.jpg/, tp2.for_edit.photo.url
+    tp2.publish!
+    assert_match /dhh.jpg/, tp2.photo.url
+    tp2.image_asset_wrapper_for("photo").remove_file!(tp2)
+    tp2.save
+    assert_match /dhh/, tp2.photo.url
+    assert !tp2.for_edit.photo.present?
+    tp2.publish!
+    assert !tp2.photo.present?
+
   end
 
 

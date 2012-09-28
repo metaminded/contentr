@@ -190,7 +190,14 @@ module Contentr
         ia.save!
         self.send "#{name}_id=", ia.id
       end
-      attr_accessible "remove_#{name}", name
+      asset_class.send(:define_method, "remove_file_unpublished!") do
+        super()
+        #paragraph.unpublished_data.delete("#{name}_id")
+      end
+      asset_class.send(:define_method, "remove_file!") do |paragraph|
+        paragraph.data.delete("#{name}_id")
+        remove_file_unpublished!
+      end
     end
 
     def self._uploader_wrappers

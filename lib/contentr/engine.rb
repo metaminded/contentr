@@ -1,7 +1,6 @@
 require 'bootstrap-sass'
 require 'jquery-rails'
 require 'compass-rails'
-require 'carrierwave'
 
 module Contentr
 

@@ -35,6 +35,10 @@ class Contentr::Admin::ParagraphsController < Contentr::Admin::ApplicationContro
 
   def update
     @paragraph = @page_or_site.paragraphs.select { |p| p.id.to_s == params[:id] }.first
+    if params[:paragraph].has_key?("remove_image")
+      @paragraph.image_asset_wrapper_for(params[:paragraph]["remove_image"]).remove_file!(@paragraph)
+      params[:paragraph].delete("remove_image")
+    end 
     if @paragraph.update_attributes(params[:paragraph])
       flash[:notice] = 'Paragraph saved'
       redirect_to contentr_admin_pages_path(root: @page.id)
