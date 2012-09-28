@@ -1,18 +1,20 @@
 <div id="page-manager">
   <div class="toolbar">
     <% if @root_page.present? %>
-      <%=
-        link_to(contentr_admin_pages_path(:root => @root_page.parent), :rel => 'pm-navigate') do
-          '<i class="icon-circle-arrow-up"></i>'.html_safe
-        end
-      %>
-      <%= link_to 'Create a new page', new_contentr_admin_page_path(:root => @root_page), :class => 'button' %>
+      <%= link_to 'Create a new page', new_contentr_admin_page_path(:root => @root_page), :class => 'button header-link' %>
     <% else %>
-    <%= link_to 'Create a new site', new_contentr_admin_site_path(), :class => 'button' %>
+    <%= link_to 'Create a new site', new_contentr_admin_site_path(), :class => 'button header-link' %>
     <% end %>
     <div class="cur_path">
       Current Path: <%= @page.present? ? @page.url_path : "/" %>
-    </div>  
+    </div>
+    <div>
+      <% if @root_page.present? %>
+        <%= link_to(raw('&#8679; Go up'), contentr_admin_pages_path(:root => @root_page.parent), :rel => 'pm-navigate', 
+          class: 'button header-link')
+        %>
+      <% end %>
+      </div>  
   </div>
 
   <table id="pages_table" class="contentr pagegrid" data-root-page-id="<%= @root_page ? @root_page.id : '' %>">
