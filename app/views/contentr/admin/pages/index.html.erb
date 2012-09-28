@@ -18,7 +18,7 @@
   <table id="pages_table" class="contentr pagegrid" data-root-page-id="<%= @root_page ? @root_page.id : '' %>">
     <thead>
       <tr>
-        <th class="icon">Icon</th>
+        <th class="type">Type</th>
         <th class="name">Name</th>
         <th class="slug">Slug</th>
         <th class="published">Published?</th>
@@ -30,9 +30,9 @@
     <tbody>
       <% @pages.each do |page| %>
         <tr data-page-id="<%= page.id %>" data-page-name="<%= page.name %>">
-          <td class="icon">
+          <td class="type">
             <div class="containr">
-              <%= image_tag('contentr/admin/page-icon.png') %>
+              <%= page.classname %>
             </div>
           </td>
           <td class="name">

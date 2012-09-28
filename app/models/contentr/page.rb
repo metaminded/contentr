@@ -56,6 +56,14 @@ module Contentr
       self.root
     end
 
+
+    # Public: Gets the classname of the page without Contentr in front
+    #
+    # Returns the class name as a string
+    def classname
+      self.class.to_s.split("::")[1].capitalize
+    end
+
     # Public: Checks if self is a descendant of node
     #
     # node - The node which might be a direct or indirect ancestor
