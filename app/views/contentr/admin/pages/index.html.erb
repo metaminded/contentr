@@ -66,7 +66,7 @@
       <% end %>
     </tbody>
   </table>
-  <% if @page.menu_only? %>
+  <% if @page.present? && @page.menu_only? %>
     <div class="btn-danger menu-only-box">Only a menu item</div>
   <% else %>
     <%= contentr_area :body %>
