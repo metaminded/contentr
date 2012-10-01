@@ -24,12 +24,11 @@ describe Contentr::Admin::PagesController do
     end
 
     it "has a link to edit the site" do
-      page.find_link("Edit").click
-      current_path.should eql edit_contentr_admin_page_path(site, root: nil)
+      page.should have_selector("icon.icon-edit")
     end
 
     it "has a link to delete the page" do
-      page.find_link("Delete").visible?
+      page.should have_selector("icon.icon-remove")
     end
 
     it "lists the current path" do
@@ -37,12 +36,8 @@ describe Contentr::Admin::PagesController do
     end
   end
 
-  describe "#edit" do
-    before { visit edit_contentr_admin_page_path(contentpage, root: nil)}
-
-    it "shows the values of the current page" do
-      page.find_field("page_name").value.should == contentpage.name
-    end
+  describe "#index" do
+    before { visit contentr_admin_pages_path(root: contentpage.id)}
 
     it "shows the paragraphs of the page" do
       page.all(:css, '.paragraph').count.should be(2)
@@ -50,7 +45,7 @@ describe Contentr::Admin::PagesController do
 
     it "deletes a paragraph when i click on delete" do
       within("#paragraph_1") do
-        page.find_link("Delete").click
+        page.click_link("Delete")
       end
       contentpage.should  have(1).paragraphs
     end
@@ -59,7 +54,7 @@ describe Contentr::Admin::PagesController do
       para = Contentr::Paragraph.find(contentpage.paragraphs.first.id)
       para.body = "hell yeah!"
       para.save!
-      visit("/contentr/admin/pages/#{para.page_id}/edit")
+      visit(contentr_admin_pages_path(root: contentpage.id))
       page.should have_content("hell yeah!")
     end
   end
