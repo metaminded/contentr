@@ -50,25 +50,6 @@ class Contentr::Admin::PagesController < Contentr::Admin::ApplicationController
     redirect_to contentr_admin_pages_path(:root => @root_page)
   end
 
-  def move_below
-    page = Contentr::Page.find(params[:id])
-    buddy_page = Contentr::Page.find(params[:buddy_id])
-    page.move_below(buddy_page)
-    render :nothing => true
-  end
-
-  def insert_into
-    page = Contentr::Page.find(params[:id])
-    if (params[:root_page_id])
-      page.parent = Contentr::Page.find(params[:root_page_id])
-    else
-      page.parent = nil
-    end
-    page.reload
-    page.move_to_top
-    render :nothing => true
-  end
-
   private
 
   def load_root_page

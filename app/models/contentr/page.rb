@@ -10,7 +10,8 @@ module Contentr
     has_many :paragraphs, class_name: 'Contentr::Paragraph'
 
     # Protect attributes from mass assignment
-    attr_accessible :name, :slug, :position, :parent, :url_path, :description, :menu_title, :published, :hidden, :parent_id
+    attr_accessible :name, :slug, :position, :parent, :url_path, :description,
+                    :menu_title, :published, :hidden, :parent_id, :menu_only
 
 
     # Validations
@@ -123,14 +124,6 @@ module Contentr
       self.paragraphs.map(&:area_name).uniq
     end
 
-
-    # Public: sets the parent of self to parent_page]
-    #
-    # Returns self
-    def move_below(parent_page)
-        self.update_attributes(parent: parent_page)
-    end
-
     # Public: Searches for all paragraphs with an exact area_name
     # 
     # area_name - the area_name to search for
@@ -138,6 +131,13 @@ module Contentr
     # Returns the matching paragraphs
     def paragraphs_for_area(area_name)
       self.paragraphs.where(area_name: area_name).order(position: :asc)
+    end
+
+    # Public: Getter for menu_only attribute
+    #
+    # Returns true or false
+    def menu_only?
+      self.menu_only
     end
 
 

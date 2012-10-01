@@ -1,20 +1,21 @@
 <%= simple_form_for 'page',
-    :url    => (@page.new_record? ? contentr_admin_pages_path(:root => @root_page) : contentr_admin_page_path(:root => @root_page)),
-    :method => (@page.new_record? ? :post : :put),
-    :html   => {:class => 'form-horizontal'} do |f| %>
+    url:    (@page.new_record? ? contentr_admin_pages_path(root: @root_page) : 
+                                 contentr_admin_page_path(root: @root_page)),
+    method: (@page.new_record? ? :post : :put),
+    html:   {class: 'form-horizontal'} do |f| %>
 
-    <%= f.input :hidden, :as => :boolean %>
-    <%= f.input :published, :as => :boolean %>
-
+    <%= f.input :hidden,    as: :boolean %>
+    <%= f.input :published, as: :boolean %>
     <%= f.input :name %>
-    <%= f.input :slug, :required => false %>
+    <%= f.input :slug, required: false %>
     <% unless @page.is_a?(Contentr::Site) %>
+        <%= f.input :menu_only, as: :boolean %>
         <%= f.input :parent_id do %>
-            <%= f.select :parent_id, Contentr::Page.where("id != #{@page.id}").map { |r| [r.name, r.id] }, :include_blank => false %>
+            <%= f.select :parent_id, Contentr::Page.where("id != #{@page.id.present? ? @page.id : -1}").map { |r| [r.url_path, r.id] }, selected: @root_page.id, include_blank: false %>
         <% end %>
-        <%= f.input :description, :required => false, :as => :text, :input_html => { :rows => 3 } %>
+        <%= f.input :description, required: false, as: :text, input_html: { rows: 3 } %>
 
-        <%= f.input :linked_to, :required => true if @page.is_a?(Contentr::LinkedPage) %>
+        <%= f.input :linked_to, required: true if @page.is_a?(Contentr::LinkedPage) %>
         <%= f.input :template if @page.is_a?(Contentr::ContentPage) %>
         <%= f.input :layout if @page.is_a?(Contentr::ContentPage) %>
     <% end %>
