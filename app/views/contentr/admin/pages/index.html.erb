@@ -54,7 +54,8 @@
           <td class="layout"><%= page.layout if page.is_a?(Contentr::ContentPage) %></td>
           </td>
           <td>
-            <li class=""><%= link_to(raw('<icon class="icon-edit"></icon>'), edit_contentr_admin_page_path(page, :root => @root_page)) %>
+            <li class="">
+              <%= link_to(raw('<icon class="icon-edit"></icon>'), edit_contentr_admin_page_path(page, :root => @root_page)) %>
             </li>
           </td><td>
             <% unless page.is_a?(Contentr::LinkedPage) %>

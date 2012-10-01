@@ -8,12 +8,16 @@
 
     <%= f.input :name %>
     <%= f.input :slug, :required => false %>
-    <%= f.input :description, :required => false, :as => :text, :input_html => { :rows => 3 } %>
+    <% unless @page.is_a?(Contentr::Site) %>
+        <%= f.input :parent_id do %>
+            <%= f.select :parent_id, Contentr::Page.where("id != #{@page.id}").map { |r| [r.name, r.id] }, :include_blank => false %>
+        <% end %>
+        <%= f.input :description, :required => false, :as => :text, :input_html => { :rows => 3 } %>
 
-    <%= f.input :linked_to, :required => true if @page.is_a?(Contentr::LinkedPage) %>
-    <%= f.input :template if @page.is_a?(Contentr::ContentPage) %>
-    <%= f.input :layout if @page.is_a?(Contentr::ContentPage) %>
-
+        <%= f.input :linked_to, :required => true if @page.is_a?(Contentr::LinkedPage) %>
+        <%= f.input :template if @page.is_a?(Contentr::ContentPage) %>
+        <%= f.input :layout if @page.is_a?(Contentr::ContentPage) %>
+    <% end %>
     <%#= f.input :linked_to, :required => false %>
 
     <%= f.submit %>

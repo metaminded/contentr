@@ -10,7 +10,7 @@ module Contentr
     has_many :paragraphs, class_name: 'Contentr::Paragraph'
 
     # Protect attributes from mass assignment
-    attr_accessible :name, :slug, :position, :parent, :url_path, :description, :menu_title, :published, :hidden
+    attr_accessible :name, :slug, :position, :parent, :url_path, :description, :menu_title, :published, :hidden, :parent_id
 
 
     # Validations

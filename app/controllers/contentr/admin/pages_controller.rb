@@ -22,7 +22,7 @@ class Contentr::Admin::PagesController < Contentr::Admin::ApplicationController
     end
 
     if @page.save
-      flash.now[:success] = 'Page created.'
+      flash[:success] = 'Page created.'
       redirect_to contentr_admin_pages_path(:root => @root_page)
     else
       render :action => :new
@@ -37,8 +37,8 @@ class Contentr::Admin::PagesController < Contentr::Admin::ApplicationController
   def update
     @page = Contentr::Page.find(params[:id])
     if @page.update_attributes(params[:page])
-      flash.now[:success] = 'Page updated.'
-      redirect_to contentr_admin_pages_path(:root => @root_page)
+      flash[:success] = 'Page updated.'
+      redirect_to contentr_admin_pages_path(:root => @page.root)
     else
       render :action => :edit
     end
