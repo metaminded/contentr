@@ -1,7 +1,28 @@
+<script type="text/javascript">
+var settings = {
+  width: '90%',
+  height: '90%',
+  close: function() {}
+};
+
+function closeIFrame(){
+  $(window).unbind('resize');
+  $('#contentr-overlay').remove();
+  settings.close();
+  location.reload();
+}
+</script>
 <div class="contentr-area" data-contentr-area="<%= area_name %>" data-contentr-page="<%= page.id %>">
   <% if authorized %>
+    <% unless page.published %>
+      <div class="page-published">
+        Page is not published yet!
+      </div>
+    <% end %>
     <div class="toolbar">
       <div class="area-name"><%= area_name %></div>
+      <div class="page-classname"><%= page.classname %></div>
+      <div class="page-urlpath"><%= page.url_path %></div>
       <div class="controls">
         <%= link_to('New', contentr_admin_new_paragraph_path(:page_id => page, :area_name => area_name, :site => page.is_a?(Contentr::Site)), :rel => 'contentr-overlay') %>
       </div>
