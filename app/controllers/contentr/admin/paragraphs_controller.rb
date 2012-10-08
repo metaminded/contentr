@@ -51,7 +51,7 @@ class Contentr::Admin::ParagraphsController < Contentr::Admin::ApplicationContro
     @paragraph = @page_or_site.paragraphs.find(params[:id])
     @paragraph.publish!
     flash[:notice] = "Published this paragraph"
-    redirect_to contentr_admin_pages_path(root: @page.id)
+    redirect_to :back
   end
 
   def revert
@@ -77,7 +77,7 @@ class Contentr::Admin::ParagraphsController < Contentr::Admin::ApplicationContro
   def reorder
     paragraphs_ids = params[:paragraph]
     paragraphs = @page_or_site.paragraphs_for_area(params[:area_name]).sort { |x,y| paragraphs_ids.index(x.id.to_s) <=> paragraphs_ids.index(y.id.to_s) }
-    paragraphs.each_with_index { |p, i| p.update_attribute(:position, i) }
+    paragraphs.each_with_index { |p, i| p.update_column(:position, i) }
     head :ok
   end
 
