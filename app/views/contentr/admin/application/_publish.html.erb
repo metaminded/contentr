@@ -1,7 +1,7 @@
 <% if Contentr::Paragraph.find(p.id).unpublished_data.empty? || Contentr::Paragraph.find(p.id).data == Contentr::Paragraph.find(p.id).unpublished_data %>
 <a href="#" class="btn btn-mini btn-success disabled" disable="disabled">No unpublished changes</a>
 <% elsif contentr_publisher? %>
-<%= link_to "Publish!", contentr_admin_publish_paragraph_path(:page_id => page.id, :id => p.id), class: "btn btn-mini btn-success", id: "publish-btn" %>
-<%= link_to raw("<icon class='icon-trash'></icon>Revert to this version"), contentr_admin_revert_paragraph_path(:page_id => page.id, :id => p.id), id: "revert-btn", class: "hide btn btn-mini" %>
+<%= link_to "Publish!", contentr_admin_publish_paragraph_path(:page_id => page.id, :id => p.id), class: "btn btn-mini btn-success", id: "publish-btn-#{p.id}" %>
+<%= link_to raw("<icon class='icon-trash'></icon>Revert to this version"), contentr_admin_revert_paragraph_path(:page_id => page.id, :id => p.id), id: "revert-btn-#{p.id}", class: "hide btn btn-mini", style: "display: none" %>
 <button data-paragraph="<%= p.id %>" data-current="0" data-page="<%= page.id %>" class="btn btn-mini btn-primary show_published_version">Show published version</button>
 <% end %>
