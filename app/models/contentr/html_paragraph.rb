@@ -9,6 +9,5 @@ module Contentr
 
     
     # Validations
-    validates_presence_of :body
   end
 end
