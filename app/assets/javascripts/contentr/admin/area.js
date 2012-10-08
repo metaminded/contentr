@@ -10,12 +10,12 @@ jQuery(function($) {
         if(clicked.data("current") == "0"){
           clicked.text("Show unpublished version");
           clicked.data("current", "1");
-          $("#publish-btn").hide();
-          $("#revert-btn").show();
+          $("#publish-btn-"+ clicked.data('paragraph')).hide();
+          $("#revert-btn-"+ clicked.data('paragraph')).show();
         }else{
           clicked.text("Show published version");
-          $("#publish-btn").show();
-          $("#revert-btn").hide();
+          $("#publish-btn-"+ clicked.data('paragraph')).show();
+          $("#revert-btn-"+ clicked.data('paragraph')).hide();
           clicked.data("current", "0");
         }
 
