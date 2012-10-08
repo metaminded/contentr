@@ -21,10 +21,21 @@ $contentr-toolbar-color: #fff !default;
     @include float-left();
     font-weight: bold;
     font-size: 110%;
+    margin-right: 10px;
     line-height: $contentr-toolbar-line-height + 3px;
     color: darken($contentr-toolbar-background-color, 15%);
     @include text-shadow(lighten($contentr-toolbar-background-color, 12%) 0 1px 1px);
   }
+
+  .page-classname {
+      @extend .area-name;
+      color: #CC5D21;
+    }
+
+    .page-urlpath {
+      @extend .area-name;
+      color: #51D4CB;
+    }
 
   .handle {
     @include float-left();
@@ -56,14 +67,55 @@ $contentr-toolbar-color: #fff !default;
   }
 }
 
+.contentrarea-overview{
+  border-radius: 5px;
+  padding-left: 10px;
+  width: 500px;
+  color: white;
+  margin-bottom: 10px;
+  margin-top: 0px !important;
+  background-image: linear-gradient(bottom, rgb(55,149,212) 24%, rgb(90,155,224) 62%, rgb(76,140,189) 81%);
+  background-image: -o-linear-gradient(bottom, rgb(55,149,212) 24%, rgb(90,155,224) 62%, rgb(76,140,189) 81%);
+  background-image: -moz-linear-gradient(bottom, rgb(55,149,212) 24%, rgb(90,155,224) 62%, rgb(76,140,189) 81%);
+  background-image: -webkit-linear-gradient(bottom, rgb(55,149,212) 24%, rgb(90,155,224) 62%, rgb(76,140,189) 81%);
+  background-image: -ms-linear-gradient(bottom, rgb(55,149,212) 24%, rgb(90,155,224) 62%, rgb(76,140,189) 81%);
+
+  background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.24, rgb(55,149,212)),
+    color-stop(0.62, rgb(90,155,224)),
+    color-stop(0.81, rgb(76,140,189))
+  );
+}
+
 .contentr-toolbar {
   @include contentr-toolbar();
 }
 
 .contentr-area {
+  margin-top: 25px;
+  width: 90%;
+  margin-left: 20px;
   .toolbar {
     @include contentr-toolbar();
     padding: 2px 8px;
+  }
+
+  .page-published {
+    padding: 8px 35px 8px 14px;
+    margin-bottom: 20px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    background-color: #fcf8e3;
+    border: 1px solid #fbeed5;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    color: red;
   }
 
   .paragraph {
