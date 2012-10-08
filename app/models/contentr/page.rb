@@ -130,7 +130,7 @@ module Contentr
     #
     # Returns the matching paragraphs
     def paragraphs_for_area(area_name)
-      self.paragraphs.where(area_name: area_name).order(position: :asc)
+      self.paragraphs.where(area_name: area_name).order("position asc")
     end
 
     # Public: Getter for menu_only attribute
