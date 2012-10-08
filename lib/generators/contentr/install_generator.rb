@@ -12,6 +12,18 @@ module Contentr
       def copy_initializer
         copy_file 'contentr.rb', 'config/initializers/contentr.rb'
       end
+
+      def seed_database
+        load "#{Rails.root}/config/initializers/contentr.rb"
+        puts "Creating some seeds"
+        Contentr::Engine.load_seed
+      end
+
+      def copy_js
+        puts "Copying important js file"
+        copy_file '../../../../app/assets/javascripts/contentr/admin/area.js', 'app/assets/javascripts/contentr/area.js'
+      end
+
     end
   end
 end
