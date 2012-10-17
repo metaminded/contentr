@@ -156,7 +156,7 @@ module Contentr
       end
       after_save :after_save_copy_unpublished
       self.form_fields ||= []
-      typ ||= "String"
+      typ ||= "text"
       self.form_fields << {name: name, typ: typ.to_sym}
       attr_accessible name
     end
