@@ -18,6 +18,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'mongoid-tree',   '~> 0.6'
   s.add_dependency 'bson_ext',       '~> 1.5'
   s.add_dependency 'compass-rails',  '~> 1.0.0.rc.3'
-  s.add_dependency 'bootstrap-sass', '~> 2.0.1'
+  s.add_dependency 'bootstrap-sass', '>= 2.0.1'
   s.add_dependency 'carrierwave-mongoid' # , :require => 'carrierwave/mongoid'
 end
