@@ -1,10 +1,10 @@
 //= require jquery
-//= require jquery-ui
+//= require jquery.ui.all
 //= require jquery_ujs
 //= require contentr/overlay
 
 (function($) {
-  
+
   $(function() {
     // setup overlay for contentr admin
     $('a[rel=contentr-overlay]').contentr_overlay({
@@ -14,9 +14,9 @@
 			  location.reload();
 			}
     });
-    
+
     // make paragraphs sortable
-    $('.contentr-area').sortable({ 
+    $('.contentr-area').sortable({
       items: '.paragraph',
       handle: '.toolbar .handle',
       update: function(event, ui) {
@@ -31,8 +31,8 @@
             alert("Error: Please try again.");
           }
         });
-      } 
+      }
     });
   });
-  
+
 })(jQuery);
