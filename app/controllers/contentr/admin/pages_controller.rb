@@ -5,8 +5,14 @@ module Contentr
 
       layout 'application'
 
+      PERMITTED_PARAMS = [
+        :name, :parent_id, :published, :language, :layout, :type,
+        :displayable_type, :displayable_id, :slug, :page_type_id,
+        :page_in_default_language_id, :password, :menu_id
+      ]
+
       def index
-        tabulatr_for current_user.filter_by_context(Contentr::Page.eager_load(:context_tags).where.not(type: 'Contentr::LinkedPage'))
+        tabulatr_for Contentr::Page.where.not(type: 'Contentr::LinkedPage')
       end
 
       def new
@@ -79,9 +85,8 @@ module Contentr
 
       def page_params
         params.require(:page).permit(
-          :name, :parent_id, :published, :language, :layout, :type,
-          :displayable_type, :displayable_id, :slug, :page_type_id,
-          :page_in_default_language_id, :password, :menu_id, context_tag_ids: [], url_prefix_tag_ids: [])
+          PERMITTED_PARAMS
+        )
       end
     end
   end

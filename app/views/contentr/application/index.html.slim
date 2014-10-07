@@ -1,15 +1,3 @@
-- if hsaa_contentr_headline(@contentr_page.context_tags).present?
-  = render hsaa_contentr_headline(@contentr_page.context_tags), obj: @contentr_page.context_tags.first.prime
-- else
-  - hsaa_simple_header do
-    - contentr_area(:headline)
-
-- hsaa_simple_sidenav_left do
-  - if @contentr_page.menu.present?
-    - contentr_menu_entries(@contentr_page.menu.sid, &hsaa_sidenav_renderer)
-  - elsif hsaa_contentr_menu(@contentr_page.context_tags).present?
-    - contentr_menu_entries(hsaa_contentr_menu(@contentr_page.context_tags), &hsaa_sidenav_renderer)
-- hsaa_main_content :left, 12, true do
+  - contentr_area(:headline)
   - contentr_area :body
-- hsaa_main_content :right, 4, 4 do
   - contentr_area :info_boxes

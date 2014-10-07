@@ -49,15 +49,6 @@ module Contentr
       result
     end
 
-    master_tag inherited_from: 'Etikett::Contentr_PageTag' do |page|
-      if page.url_path.present?
-        {
-          sid: page.name,
-          nice: page.name
-        }
-      end
-    end
-
     protected
 
     def path_rebuilding; end

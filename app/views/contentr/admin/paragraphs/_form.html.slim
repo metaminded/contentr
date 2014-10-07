@@ -14,6 +14,4 @@
       - link = paragraph.new_record? ? '#' : contentr.admin_page_area_paragraph_path(page, area_name, paragraph)
       = link_to t('action.cancel'), link, class: 'btn btn-link cancel-paragraph-edit-btn contentr-abort', data: {id: paragraph.try(:id)}
 
-javascript:
-  HSAA.selectTags($('input[data-input-class=context_tag_ids]'));
-  HSAA.selectTags($('input[data-input-class=misc_tag_ids]'));
+

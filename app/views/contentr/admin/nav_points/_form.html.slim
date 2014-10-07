@@ -3,7 +3,7 @@
   = f.languagify do |l|
     = l.input :title
   = f.input :parent_id, as: :hidden
-  = f.association :page, as: :tag_single_chooser, class_names: ['Etikett::Contentr_PageTag', 'Etikett::Contentr_LinkedPageTag']
+  = f.association :page
   = f.input :url
   .well.centered.control-bar
     = f.button :submit, class: 'submit_btn btn margin-computed-right'

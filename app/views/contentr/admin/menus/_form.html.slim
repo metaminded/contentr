@@ -4,9 +4,6 @@
       = f.input :name
     .col-xs-12.col-md-6
       = f.input :sid
-  .row
-    .col-xs-12
-      = f.association :context_tags, as: :tag_chooser
 
   .nav-point-list data-reorder-path=contentr.reorder_admin_nav_points_path
     = f.fields_for :nav_points do |nf|
@@ -20,7 +17,7 @@
           = nf.input :visible, wrapper: :vertical_boolean
           = nf.languagify do |l|
             = l.input :title
-          = nf.association :page, as: :tag_single_chooser, class_names: ['Etikett::Contentr_PageTag', 'Etikett::Contentr_LinkedPageTag']
+          = nf.association :page
           = nf.input :url
         .panel-footer
           = nf.link_to_remove fa_icon(:minus, text: t('.remove_nav_point')), class: 'btn btn-sm btn-default'
@@ -35,9 +32,6 @@
 
 
 javascript:
-  $(document).on('nested:fieldAdded', function(event) {
-    HSAA.selectTags($(event.currentTarget).find('.tag_single_chooser input').last());
-  });
 
   $('.nav-point-list').sortable({
     handle: 'i.fa-bars',

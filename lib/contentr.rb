@@ -3,7 +3,6 @@
 require 'rails'
 require 'simple_form'
 # require 'form_translation'
-require 'etikett'
 require 'cancan'
 
 module Contentr

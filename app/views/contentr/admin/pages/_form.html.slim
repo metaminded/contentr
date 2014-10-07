@@ -19,12 +19,8 @@
   - if @page.page_in_default_language.present?
     = f.input :layout, as: :hidden
   - else
-    = f.association :url_prefix_tags, as: :tag_chooser
     = f.input :slug, required: false, wrapper: :prepend, label: @page.parent_url
     = f.input :password, as: :string, autocomplete: 'off'
-  - if @page.is_a?(Contentr::ContentPage)
-    = f.input :menu_id, collection: current_user.filter_by_context(Contentr::Menu.eager_load(:context_tags)), value_method: ->(m) { m.id }, label_method: ->(m) { "#{m.name} (#{m.sid})" }, allow_blank: true, input_html: { class: 'select2' }
-  = f.association :context_tags, as: :tag_chooser
 
   .control-bar
     = f.button :submit, class: 'submit_btn btn btn-primary margin-computed-right'

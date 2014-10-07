@@ -16,8 +16,4 @@ class Contentr::PageTabulatrData < Tabulatr::Data
   end
 
   column :name
-
-  column :context_tags, table_column_options: { filter: false, sortable: false } do |p|
-    p.context_tags.distinct.map(&:name).join(' & ')
-  end
 end
