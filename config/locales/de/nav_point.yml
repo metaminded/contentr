@@ -1,0 +1,14 @@
+de:
+  activerecord:
+    models:
+      contentr/nav_point: 'Navigationspunkt'
+    attributes:
+      errors:
+        blank: darf nicht leer sein
+      contentr/nav_point:
+        title: Titel
+        url: URL
+  contentr:
+    area:
+      edit: '%{area} bearbeiten'
+      show: '%{area} anzeigen'

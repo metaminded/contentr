@@ -1,0 +1,7 @@
+- if content_block.partial.present?
+  = render "contentr/content_blocks/#{content_block.partial.gsub(/_/, '')}", paragraph: paragraph
+- else
+  - content_block.paragraphs.each do |p|
+    - template_name = p.class.to_s.underscore
+    = render(partial: "contentr/paragraphs/#{template_name}",
+        locals: {paragraph: p})

@@ -1,0 +1,19 @@
+/  Lets look for paragraph form partial (e.g. contentr/html_paragraph_form).
+/  In case such a  particular template doesn't exist, fall back to an
+/  generic, auto-generated form.
+
+= simple_form_for_contentr_paragraph(page, area_name, paragraph) do |f|
+  .panel.panel-default.paragraph-edit-box data-paragraph-id=paragraph.id
+    .panel-heading= t('.edit_paragraph', paragraph: paragraph.class.model_name.human)
+    .panel-body
+      = hidden_field_tag 'mode', mode
+      = render "/contentr/admin/paragraphs/#{@paragraph.class.to_s.underscore}_form", page: page, area_name: area_name, paragraph: paragraph, f: f
+
+    .panel-footer
+      = f.button :submit, class: 'submit_btn btn btn-primary btn-mini save-paragraph-btn'
+      - link = paragraph.new_record? ? '#' : contentr.admin_page_area_paragraph_path(page, area_name, paragraph)
+      = link_to t('action.cancel'), link, class: 'btn btn-link cancel-paragraph-edit-btn contentr-abort', data: {id: paragraph.try(:id)}
+
+javascript:
+  HSAA.selectTags($('input[data-input-class=context_tag_ids]'));
+  HSAA.selectTags($('input[data-input-class=misc_tag_ids]'));

@@ -1,7 +1,24 @@
-<a class="brand" href="#">Contentr Admin</a>
-<div class="nav-collapse">
-  <ul class="nav">
-    <li><%= link_to 'Pages', contentr_admin_pages_path() %></li>
-    <li><%= link_to 'Files', contentr_admin_files_path() %></li>
-  </ul>
-</div><!--/.nav-collapse -->
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <div class='brand'>ContentrAdmin</div>
+      <% @no_nav = true %>
+      <% unless @no_nav %>
+        <a href='#' class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+
+        <div class="nav-collapse hidden-tablet hidden-phone collapse">
+          <div class='hidden-desktop' style='margin-top:40px'></div>
+          <ul class="nav nav-tabs pull-right">
+            <li><%= link_to 'Pages', contentr_admin_pages_path() %></li>
+            <li><%= link_to 'Files', contentr_admin_files_path() %></li>
+          </ul>
+        </div>
+      <% end -%>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,10 @@
+= simple_translated_form_for @nav_point, url: (@nav_point.new_record? ? contentr.admin_nav_points_path : contentr.admin_nav_point_path(@nav_point)) do |f|
+  = f.input :visible, wrapper: :vertical_boolean
+  = f.languagify do |l|
+    = l.input :title
+  = f.input :parent_id, as: :hidden
+  = f.association :page, as: :tag_single_chooser, class_names: ['Etikett::Contentr_PageTag', 'Etikett::Contentr_LinkedPageTag']
+  = f.input :url
+  .well.centered.control-bar
+    = f.button :submit, class: 'submit_btn btn margin-computed-right'
+    = link_to t('action.cancel'), :back

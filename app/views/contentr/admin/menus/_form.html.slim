@@ -1,0 +1,60 @@
+= simple_translated_nested_form_for @contentr_menu, url: @contentr_menu.persisted? ? contentr.admin_menu_path(@contentr_menu) : contentr.admin_menus_path do |f|
+  .row
+    .col-xs-12.col-md-6
+      = f.input :name
+    .col-xs-12.col-md-6
+      = f.input :sid
+  .row
+    .col-xs-12
+      = f.association :context_tags, as: :tag_chooser
+
+  .nav-point-list data-reorder-path=contentr.reorder_admin_nav_points_path
+    = f.fields_for :nav_points do |nf|
+      .panel.panel-default.nav-point-element
+        .panel-heading
+          .panel-title = fa_icon(:bars, text: t('.nav_point'))
+        .panel-body
+          = nf.input :id, as: :hidden, :input_html => { class: 'nav-point-id' }
+          = nf.input :parent_id, as: :hidden
+          = nf.input :nav_point_type, as: :hidden, :input_html => { :value => 'menu_nav_point' }
+          = nf.input :visible, wrapper: :vertical_boolean
+          = nf.languagify do |l|
+            = l.input :title
+          = nf.association :page, as: :tag_single_chooser, class_names: ['Etikett::Contentr_PageTag', 'Etikett::Contentr_LinkedPageTag']
+          = nf.input :url
+        .panel-footer
+          = nf.link_to_remove fa_icon(:minus, text: t('.remove_nav_point')), class: 'btn btn-sm btn-default'
+
+  .row
+    .col-xs-12
+      = f.link_to_add fa_icon(:plus, text: t('.add_nav_point')), :nav_points, class: 'btn btn-sm btn-default'
+
+  .control-bar
+    = f.button :submit, class: 'btn btn-primary'
+    = link_to t('action.cancel'), contentr.admin_menus_path, class: 'btn btn-link'
+
+
+javascript:
+  $(document).on('nested:fieldAdded', function(event) {
+    HSAA.selectTags($(event.currentTarget).find('.tag_single_chooser input').last());
+  });
+
+  $('.nav-point-list').sortable({
+    handle: 'i.fa-bars',
+    itemSelector: '.fields',
+    containerPath: '.nav-point-list',
+    placeholder: '<i class="fa fa-eye" />',
+    onDrop: function ($item, container, _super, event) {
+      var ids = $('.nav-point-element').map(function(){ return $(this).find('.nav-point-id').val(); }).toArray().join(',');
+      $.ajax({
+        type: 'PATCH',
+        data: {
+          ids: ids,
+          item: $item.find('input[name=id]').val(),
+          parent: $item.find('input[name=parent_id]').val()
+        },
+        url: $('.nav-point-list').data('reorderPath')
+      });
+      _super($item);
+    }
+  });

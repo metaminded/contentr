@@ -12,38 +12,30 @@
       <%= javascript_include_tag aaj %>
     <% end %>
     <%= csrf_meta_tags %>
-    <style type="text/css" media="screen">
-      body { padding-top: 50px; }
-    </style>
   </head>
-
   <body>
-
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
+    <div id='contentr-style-node'>
+      <div id='header-wrapper'>
+        <div class='section' id='header'>
           <%= render 'menu' %>
         </div>
       </div>
-    </div>
-
-    <div class="container">
-
-      <div id="content">
-        <%= yield %>
+      <div class='hidden-tablet hidden-phone' style='margin-top:50px'></div>
+      <div class="container">
+        <!-- flash -->
+        <% if flash.present? %>
+          <% flash.each do |name, msg| %>
+            <%= content_tag :div, msg, :class => "alert #{name}" %>
+          <% end %>
+        <% end %>
+        <div id="content">
+          <%= yield %>
+        </div>
+        <hr>
+        <footer>
+          <p>&copy; <a href="http://www.metaminded.com" target="_blank">metaminded UG</a> 2011-<%= Date.today.year %></p>
+        </footer>
       </div>
-
-      <hr>
-
-      <footer>
-        <p>&copy; <a href="http://www.metaminded.com" target="_blank">metaminded UG</a> 2011-<%= Date.today.year %></p>
-      </footer>
-
     </div>
   </body>
 </html>

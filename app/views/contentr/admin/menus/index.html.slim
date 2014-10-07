@@ -1,0 +1,5 @@
+- bsat_page_title t('.menus')
+- bsat_page_actions do |action|
+  - action.add t('.new_menu'), contentr.new_admin_menu_path, icon: 'plus', link_to_options: {class: 'btn btn-primary' }
+
+= table_for Contentr::Menu, paginate: true, counter_position: :bottom

@@ -4,17 +4,18 @@ module Contentr
     # Includes
     include Rails.application.routes.url_helpers
 
-    # Fields
-    field :linked_to, :type => String, :index => true
-
     # Protect attributes from mass assignment
-    attr_accessible :linked_to
 
     # Validations
-    validates_presence_of   :linked_to
-    validates_uniqueness_of :linked_to
 
-
+    # Public: find a LinkedPage by specific parameters
+    #
+    # params - A hash containing the following keys:
+    #   controller
+    #   action
+    #   id (optional)
+    #
+    # Returns the found LinkedPage
     def self.find_by_request_params(params)
       controller = params[:controller]
       action     = params[:action]
@@ -40,31 +41,26 @@ module Contentr
     end
 
     def url
-      begin
-        if (linked_to.match(/:\/\/|^\//))
-          url_for(linked_to)
-        else
-          p = linked_to.split('#')
+      result = self.get_page_for_language(I18n.locale).url_path
+      if result.nil?
+        parts = self.name.match(/.+(frontend.+)_controller\#(\w\D+)(\d+)?$/)
+        result = Frontend::Engine.routes.url_for(controller: parts[1], action: parts[2], id: parts[3], only_path: true)
+      end
+      result
+    end
 
-          controller = p.first
-          controller = "/#{controller}" unless controller.include?('/')
-
-          action, id = p.last.split(':')
-          action = 'index' if action.blank? or action.strip == '*'
-
-          options = {}
-          options = options.merge(controller: controller, action: action, only_path: true)
-          options = options.merge(id: id) if id.present?
-
-          url_for(options)
-        end
-      rescue => e
-        logger.error e.message
-        logger.error e.backtrace.join("\n")
-        # in case we could not create a proper backlink url we will silently
-        # fail with the app's root url.
-        root_url(only_path: true)
+    master_tag inherited_from: 'Etikett::Contentr_PageTag' do |page|
+      if page.url_path.present?
+        {
+          sid: page.name,
+          nice: page.name
+        }
       end
     end
+
+    protected
+
+    def path_rebuilding; end
+
   end
 end

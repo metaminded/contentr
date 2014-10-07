@@ -3,12 +3,12 @@ module Contentr
     extend ActiveSupport::Concern
 
     included do
-      helper_method :contentr_authorized?
+      helper_method :contentr_publisher?
     end
 
     protected
-
-    def contentr_authorized?
+    
+    def contentr_publisher?
       false
     end
 

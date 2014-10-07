@@ -1,0 +1,18 @@
+- bsat_page_title @content_block.name
+- bsat_sidebar_nav do |navbar|
+  - navbar.back(t('back'), :back)
+  - navbar.divider
+  - @content_block.usages.each do |usage|
+    - navbar.link usage.page.name, contentr.admin_page_path(usage.page) unless usage.page.nil?
+
+- area = 'main'
+- page = @content_block
+
+.contentr-show.contentr-area id="area-#{area}" data-contentr-area-name=area data-content-block=@content_block.id
+  .row
+    .col-xs-12
+      - if can?(:manage, :cms) && current_user.authorized?(scope: :cms, action: :all, scope_id: area)
+        a.btn.btn-frontend.btn-xs.btn-default.pull-right.edit-area href=contentr.edit_admin_page_area_path(page, area, content_block_id: page) = fa_icon('edit', text: (t("contentr.area_names.#{area}") rescue area))
+      - page.paragraphs_for_area(area).each do |paragraph|
+        - if paragraph.visible || can?(:manage, :cms)
+          = render 'contentr/admin/application/paragraph', paragraph: paragraph

@@ -1,0 +1,83 @@
+ul.main-tree, ul.tree {
+
+  .nav-point-buttons a{
+    float: right;
+    margin: 0 5px;
+  }
+
+  &, ul {
+    list-style-type: none;
+    background: image-url("contentr/admin/ul-tree/vline.png") repeat-y;
+    margin: 8px 0;
+    padding: 0;
+  }
+
+  li {
+    margin: 5px 0;
+    padding: 0 0 0 12px;
+    line-height: 20px;
+    background: image-url("contentr/admin/ul-tree/node.png") no-repeat;
+    color: #369;
+    font-weight: bold;
+
+    div.row {
+      &:hover {
+        background-color: rgba(0, 0, 0, .2);
+      }
+    }
+  }
+
+  li:last-child {
+    background: #fff image-url("contentr/admin/ul-tree/lastnode.png") no-repeat;
+  }
+
+  &.nav-tree {
+    li a {
+      display: inline-block;
+      width: 100%;
+      padding: 2px 4px 2px 4px;
+      margin-bottom: 1px;
+      @include border-radius(5px);
+      border: 1px solid white;
+
+      &:hover {
+        background-color: #eeeeee;
+      }
+
+      &.active {
+        background-color: #eeeeee;
+        border: 1px solid #08C;
+      }
+
+    }
+
+  }
+}
+
+body.dragging, body.dragging * {
+  cursor: move !important;
+}
+
+.dragged {
+  position: absolute;
+  opacity: 0.5;
+  z-index: 2000;
+}
+
+ul.tree li.placeholder {
+  position: relative;
+  /** More li styles **/
+}
+ul.tree li.placeholder:before {
+  position: absolute;
+  content: '';
+  width: 0;
+  height: 0;
+  margin-top: -5px;
+  left: -5px;
+  top: -4px;
+  border: 5px solid transparent;
+  border-left-color: red;
+  border-right: none;
+  /** Define arrowhead **/
+}

@@ -1,5 +1,4 @@
-@import "compass/utilities";
-@import "compass/css3";
+@import "compass";
 
 @mixin contentr-button(
   $text-color,
@@ -62,7 +61,45 @@
   }
 }
 
+div.menu-only-box{
+  text-align: center;
+  width: 120px;
+  border-radius: 5px;
+  margin-left: 360px;
+  margin-top: 20px;
+  height: 25px;
+}
+
+.list-group .show-page-in-iframe{
+  margin-top: 5px;
+}
+
+h1 .show-page-in-iframe{
+  margin-left: 10px;
+}
+
+.modal.contentr-edit > .modal-dialog {
+  width: 80%;
+}
+
+.contentr-buttons {
+  .btn {
+    margin: 0 4px;
+  }
+}
+
+.actual_content {
+  // FIXME Hier nochmal wegen hover drüber
+  span.label {
+    margin-right: 6px;
+    margin-bottom: 6px;
+    opacity: 0.5;
+    &:hover {
+      opacity: 1.0;
+    };
+  }
+}
+
 @import 'contentr/frontend-editing';
 @import 'contentr/overlay';
-
-
+@import 'font-awesome';

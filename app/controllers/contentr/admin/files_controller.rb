@@ -1,5 +1,4 @@
 class Contentr::Admin::FilesController < Contentr::Admin::ApplicationController
-
   def index
     @files = Contentr::File.all
   end
@@ -9,7 +8,7 @@ class Contentr::Admin::FilesController < Contentr::Admin::ApplicationController
   end
 
   def create
-    @file = Contentr::File.new(params[:file])
+    @file = Contentr::File.new(file_params)
     if @file.save
       flash[:success] = 'File created.'
       redirect_to contentr_admin_files_path(:root => @root_file)
@@ -24,7 +23,7 @@ class Contentr::Admin::FilesController < Contentr::Admin::ApplicationController
 
   def update
     @file = Contentr::File.find(params[:id])
-    if @file.update_attributes(params[:file])
+    if @file.update_attributes(file_params)
       flash[:success] = 'File updated.'
       redirect_to contentr_admin_files_path(:root => @root_file)
     else
@@ -37,5 +36,10 @@ class Contentr::Admin::FilesController < Contentr::Admin::ApplicationController
     file.destroy
     redirect_to contentr_admin_files_path(:root => @root_file)
   end
+
+  protected
+    def file_params
+      params.require(:file).permit(*Contentr::File.permitted_attributes)
+    end
 
 end

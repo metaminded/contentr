@@ -1,10 +1,10 @@
 # coding: utf-8
 
 require 'rails'
-require 'mongoid'
-require 'mongoid/tree'
 require 'simple_form'
-
+# require 'form_translation'
+require 'etikett'
+require 'cancan'
 
 module Contentr
 
@@ -36,6 +36,20 @@ module Contentr
   mattr_reader :additional_admin_javascripts
   @@additional_admin_javascripts = []
 
+  mattr_accessor :default_areas
+  @@default_areas = []
+
+  mattr_accessor :generated_page_areas
+  @@generated_page_areas = []
+
+  mattr_accessor :available_grouped_nav_points
+  @@available_grouped_nav_points = []
+
+  mattr_accessor :divider_between_page_and_children
+  @@divider_between_page_and_children = ''
+
+  mattr_accessor :layout_type
+
   # Default way to setup Contentr
   def self.setup
     yield self
@@ -62,3 +76,6 @@ end
 # Require contentr engine
 require 'contentr/string_extensions'
 require 'contentr/engine'
+require 'contentr/backend_routing'
+require 'contentr/frontend_routing'
+require 'contentr/ext/action_controller'

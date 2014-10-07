@@ -1,0 +1,16 @@
+- bsat_page_title t('.new_page')
+
+- if @default_page.present?
+  ul.nav.nav-tabs
+    - FormTranslation.languages.each do |l|
+      li class="#{'active' if l.to_s == @page.language}"
+        - page_for_language = @default_page.get_page_for_language(l)
+        - if page_for_language.present?
+          - show_page_path = contentr.admin_page_path(page_for_language)
+        - else
+          - show_page_path = contentr.new_admin_page_path(page_for_language)
+        = link_to l, show_page_path
+
+.row
+  .col-xs-12
+    = render 'form'

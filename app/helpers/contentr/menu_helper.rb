@@ -5,33 +5,31 @@ module Contentr
 
     # Renders a dynamic menu
     def contentr_menu(options = {})
+      return ''
+
       # set the current page
       current_page = options[:page] || @contentr_page
-
+      return "" unless current_page
       # get ancestors of the current page or take the default page if no current page set
       ancestors = current_page ?
-        current_page.ancestors_and_self :
-        Contentr::Site.default.default_page.ancestors_and_self
+        current_page.ancestors :
+        Contentr::Site.default.default_page.ancestors
 
       # set start level
       start_level = (options[:start] || 0).to_i
       ancestors = ancestors[start_level..-1] || []
-
       # set the depth
       depth = (options[:depth] || 1).to_i
-
       # render function
       fn = lambda do |pages, current_depth|
         # pages present?
         return '' unless pages.present?
         # max depth?
         return '' if current_depth > depth
-
         # render the ul tag
         content_tag(:ul) do
           pages.each_with_index.collect do |page, index|
-            next if page.hidden #and not contentr_authorized?
-            next unless page.published #or contentr_authorized?
+            next unless page.published
 
             # options for the li tag
             li_options = {}
@@ -67,7 +65,7 @@ module Contentr
 
       # render yo
       if ancestors.present?
-        pages = ancestors.first.children #.where(published: true, hidden: false)
+        pages = ancestors.first.children
         if pages.present?
           content_tag(:div, :class => "contentr #{options[:class] || 'menu'}") do
             fn.call(pages, 1)
@@ -78,10 +76,11 @@ module Contentr
 
     # Renders a breadcrumb
     def contentr_breadcrumb(options = {})
+      return ''
       current_page = @contentr_page
       if current_page.present?
         content_tag(:ul, :class => "contentr #{options[:class] || 'breadcrumb'}") do
-          current_page.ancestors_and_self.collect do |page|
+          current_page.ancestors.collect do |page|
             next unless page.is_a?(Contentr::Page)
             # li tag options
             li_options = {}
@@ -112,7 +111,7 @@ module Contentr
       # set url
       #link_url = page.is_link? ? page.url_for_linked_page
       #                         : File.join('/', Contentr.default_site, page.path)
-      link_url = ::File.join('/', page.site_path)
+      link_url = ::File.join('/', page.url_path)
 
       # set link title
       link_title = page.menu_title || page.name

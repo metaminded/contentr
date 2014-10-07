@@ -1,0 +1,25 @@
+= simple_form_for(@page_type,
+  url:    (@page_type.new_record? ? contentr.admin_page_types_path : contentr.admin_page_type_path),
+  method: (@page_type.new_record? ? :post : :patch)) do |f|
+    = f.input :name
+    = f.input :header_offset
+    .row
+      .col-sm-4
+        = f.input :col1_offset
+      .col-sm-4
+        = f.input :col2_offset
+      .col-sm-4
+        = f.input :col3_offset
+    .row
+      .col-sm-4
+        = f.input :col1_width
+      .col-sm-4
+        = f.input :col2_width
+      .col-sm-4
+        = f.input :col3_width
+    .row
+      = f.input :header_allowed_paragraphs
+      = f.input :col1_allowed_paragraphs
+      = f.input :col2_allowed_paragraphs
+      = f.input :col3_allowed_paragraphs
+    = f.button :submit

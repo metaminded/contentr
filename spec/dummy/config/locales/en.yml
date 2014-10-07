@@ -1,0 +1,18 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+en:
+  hello: "Hello world"
+  contentr:
+    publish: Publish!
+  activerecord:
+    errors:
+      models:
+        contentr/page:
+          attributes:
+            slug:
+              must_be_unique: must be unique
+        contentr/content_block:
+          attributes:
+            partial:
+              partial_and_paragraphs_are_mutual_exclusive: Partial and paragraphs are mutual exclusive

@@ -1,0 +1,7 @@
+- bsat_page_title @content_block.name
+- bsat_sidebar_nav do |navbar|
+  - navbar.divider
+  - @content_block.usages.each do |usage|
+    - navbar.link usage.page.name, contentr.admin_page_path(usage.page)
+
+= render 'form'

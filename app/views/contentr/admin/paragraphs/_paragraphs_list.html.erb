@@ -1,5 +1,0 @@
-<ol>
-  <% Contentr.paragraphs.each do |pc| %>
-    <li><%= link_to pc.title, contentr_admin_new_paragraph_path(@page, @area_name, pc.paragraph_class.to_s, site: params[:site]) %></li>
-  <% end %>
-</ol>

@@ -10,14 +10,7 @@ require 'rake'
 require 'rake/testtask'
 require 'rdoc/task'
 
-Rake::TestTask.new(:test) do |t|
-  t.libs << 'lib'
-  t.libs << 'test'
-  t.pattern = 'test/**/*_test.rb'
-  t.verbose = false
-end
-
-task :default => :test
+import 'spec/dummy/Rakefile'
 
 RDoc::Task.new(:rdoc) do |rdoc|
   rdoc.rdoc_dir = 'rdoc'

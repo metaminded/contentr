@@ -1,0 +1,4 @@
+= simple_form_for @grouped_nav_point, url: (@grouped_nav_point.new_record? ? contentr.admin_grouped_nav_points_path : contentr.admin_grouped_nav_point_path(@grouped_nav_point)) do |f|
+  = f.input :title, collection: Contentr.available_grouped_nav_points, include_blank: false
+  = f.input :parent_id, as: :hidden
+  = f.button :submit

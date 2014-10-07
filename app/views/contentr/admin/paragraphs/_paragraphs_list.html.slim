@@ -1,0 +1,3 @@
+ = simple_form_for 'paragraph', url: contentr.new_admin_page_paragraph_path(page_id: page, area_name: area), remote: true, method: :get, html_options: {class: 'form-inline', role: 'form'} do |f|
+  = f.input :type, collection: Contentr.paragraphs.map{|p| [p.title, p.paragraph_class.to_s]}, label: false, include_blank: false
+  = f.button :submit, class: 'btn'

@@ -1,0 +1,44 @@
+- bsat_page_title 'Unterseiten'
+.contentr-sub-pages
+  ul.list-group data-reorder-path=contentr.reorder_admin_sub_pages_path(@parent_page)
+    - @sub_nav_items.each do |sub_nav|
+      li.list-group-item [ id="navpoints_#{sub_nav.id}"
+        class="#{sub_nav.removable? ? 'sortable' : 'unsortable'}"
+        data-id=sub_nav.id ]
+        .row
+          .col-xs-5
+            div class="page-title #{'handle' if sub_nav.removable?}"
+              - if sub_nav.removable?
+                | &#9776;
+              span
+                = sub_nav.title
+          .col-xs-3
+            = link_to(fa_icon(:pencil, text: 'Seite'), contentr.admin_page_path(sub_nav.page)) if sub_nav.page.present?
+          .col-xs-3
+            = link_to(fa_icon(:pencil, text: 'Nav'), contentr.edit_admin_nav_point_path(sub_nav))
+          .col-xs-1
+            = link_to(fa_icon('trash-o'), contentr.admin_page_path(sub_nav.page),
+              method: :delete, data: {confirm: t('action.are_you_sure')}) if sub_nav.removable?
+= simple_form_for Contentr::Page.new(parent: @parent_page),
+  url: contentr.admin_pages_path, html: {class: 'form-inline subpage-form'} do |f|
+  .form-group
+    = f.input :parent_id, as: :hidden
+    = f.input :name, label_html: {class: 'sr-only'},
+        input_html: {class: 'margin-computed-right'}, placeholder: 'Name'
+    = f.association :page_type, label_html: {class: 'sr-only'}, include_blank: false
+    = f.input :language, as: :hidden, input_html: {value: FormTranslation.default_language.to_s, class: 'margin-computed-right'}
+    = f.input :layout, as: :hidden, input_html: {value: @parent_page.layout}
+  = f.button :submit, 'Unterseite erstellen', class: 'btn btn-info dontmove'
+
+- bsat_sidebar_nav do |navbar|
+  - if @parent_page.displayable
+    - navbar.link 'Hauptseite', contentr.admin_page_path(@parent_page)
+    - navbar.link 'Unterseiten bearbeiten', contentr.admin_sub_pages_path(@parent_page), active: true
+    - navbar.divider
+    - @parent_page.children.select{|c| c.language == I18n.default_locale.to_s}.each do |child|
+      - navbar.link child.name, contentr.admin_page_path(child)
+  - else
+    - if @parent_page.parent.present?
+      - navbar.back(t('back'), contentr.admin_page_path(id: @parent_page.parent))
+    - @parent_page.siblings.select{|c| c.language == I18n.default_locale.to_s}.each do |sibling|
+        - navbar.link(sibling.name, contentr.admin_page_path(id: sibling), active: (sibling == @parent_page || sibling == @parent_page.page_in_default_language))

@@ -1,0 +1,17 @@
+= bsat_page_title 'Navigationspunkt aktualisieren'
+= render 'form'
+- bsat_sidebar_nav do |navbar|
+  - if @page.present?
+    - if @page.displayable
+      - navbar.link 'Hauptseite', contentr.admin_page_path(@page)
+      - navbar.link 'Unterseiten bearbeiten', contentr.admin_sub_pages_path(@page)
+      - navbar.divider
+      - @page.children.select{|c| c.language == I18n.default_locale.to_s}.each do |child|
+        - navbar.link child.name, contentr.admin_page_path(child)
+    - else
+      - if @page.parent.present?
+        - navbar.back(t('back'), contentr.admin_page_path(id: @page.parent))
+      - @page.siblings.select{|c| c.language == I18n.default_locale.to_s}.each do |sibling|
+          - navbar.link(sibling.name, contentr.admin_page_path(id: sibling), active: (sibling == @page || sibling == @page.page_in_default_language))
+  - else
+    - navbar.back(t('back'), contentr.admin_nav_points_path)

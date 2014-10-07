@@ -1,0 +1,7 @@
+- begin
+  = simple_form_for_content_block_paragraph(paragraph, content_block) do |f|
+    = f.input :content_block_id, as: :hidden
+    = render "contentr/admin/paragraphs/#{@paragraph.class.to_s.underscore}_form",
+      paragraph: paragraph, content_block: content_block, f: f
+- rescue ActionView::MissingTemplate
+  = render 'generic_form'

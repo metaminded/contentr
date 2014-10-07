@@ -1,0 +1,10 @@
+- bsat_page_title t('.edit_page')
+
+- bsat_page_actions do |action|
+  - action.add t('.preview'), @page.preview_path, link_to_options: { target: '_blank' }
+  - if @page.published?
+    - action.add t('.hide_page'), contentr.hide_admin_page_path(id: @page), link_to_options: { class: 'btn btn-warning' }
+  - else
+    - action.add t('.publish_page'), contentr.publish_admin_page_path(id: @page), link_to_options: { class: 'btn btn-primary' }
+
+= render 'form'

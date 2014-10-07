@@ -1,0 +1,8 @@
+- mode ||= nil
+- if can? :manage, :cms
+  .panel-group#contentr-areas-accordion
+    - areas.each do |area|
+      = render 'contentr/area', area: area, page: page, mode: mode
+- else
+  - areas.each do |area|
+    = render 'contentr/area', area: area, page: page, mode: mode

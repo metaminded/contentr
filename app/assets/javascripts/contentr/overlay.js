@@ -3,7 +3,9 @@
   var settings = {
     width: '90%',
     height: '90%',
-    close: function() {}
+    close: function() {
+      location.reload();
+    }
   };
 
   var _showOverlay = function(url) {
@@ -13,7 +15,8 @@
     var mask        = $('<div id="contentr-overlay-mask"></div>').appendTo(overlay);
     var wrapper     = $('<div id="contentr-overlay-wrapper"></div>').appendTo(overlay);
     var iframe      = $('<iframe id="contentr-overlay-iframe"></iframe>').appendTo(wrapper);
-    var closeButton = $('<div id="contentr-overlay-close"></div>').appendTo(wrapper);
+    var closeButton = $('<div id="contentr-overlay-close">x</div>').appendTo(wrapper);
+    $('body').addClass('no-scroll')
 
     // configure the iframe
     iframe.attr('src', url);
@@ -21,6 +24,7 @@
     iframe.attr('frameborder', '0');
     iframe.attr('hspace', '0');
     iframe.attr('scrolling', 'auto');
+
 
     // fit overlay wrapper
     _fitOverlayWrapper(mask, wrapper);
@@ -31,8 +35,10 @@
 
     // listen for click events on the close button
     closeButton.bind('click', function(e) {
+      $('body').removeClass('no-scroll')
       _closeOverlay();
     });
+
   };
 
   var _closeOverlay = function() {
@@ -57,9 +63,9 @@
       }
 
       // listen for click events on matched elements
-      this.click(function(e) {
-        e.preventDefault();
-        _showOverlay(this.href);
+      $(document).on('click', 'a[rel=contentr-overlay]', function() {
+        _showOverlay($(this).attr('href'));
+        return false;
       });
 
       // be nice
@@ -81,5 +87,6 @@
       $.error('Method ' +  method + ' does not exist on jQuery.contentr_overlay');
     }
   };
+  $('a[rel=contentr-overlay]').contentr_overlay('init');
 
 })(jQuery);

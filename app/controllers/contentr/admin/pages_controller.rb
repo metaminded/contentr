@@ -1,75 +1,88 @@
-class Contentr::Admin::PagesController < Contentr::Admin::ApplicationController
+module Contentr
+  module Admin
+    class PagesController < ApplicationController
+      before_action :load_root_page
 
-  before_filter :load_root_page
+      layout 'application'
 
-  def index
-    @pages = @root_page.present? ? @root_page.children
-                                 : Contentr::Site.default.children
-  end
+      def index
+        tabulatr_for current_user.filter_by_context(Contentr::Page.eager_load(:context_tags).where.not(type: 'Contentr::LinkedPage'))
+      end
 
-  def new
-    @page = Contentr::ContentPage.new
-  end
+      def new
+        @default_page = Contentr::Page.find(params[:default_page]) if params[:default_page].present?
+        @page = Contentr::ContentPage.new(language: params[:language])
+        @page.type = params[:page_type].constantize if (params[:page_type].present?)
+        authorize!(:manage, @page)
 
-  def create
-    @page = Contentr::ContentPage.new(params[:page])
-    if @root_page.present?
-      @page.parent = @root_page
-    else
-      @page.parent = Contentr::Site.default
+        if @default_page.present?
+          @page.page_in_default_language = @default_page
+          @page.displayable = @default_page.displayable
+          @page.parent = @default_page.parent
+          @page.page_type = @default_page.page_type
+          @page.layout = @default_page.layout
+        end
+      end
+
+      def create
+        @page = Contentr::Page.new(page_params)
+        return render(:new) unless can?(:manage, @page)
+        if @page.save
+          redirect_to contentr.edit_admin_page_path(@page), notice: 'Seite wurde erstellt.'
+        else
+          redirect_to :back, notice: @page.errors.full_messages.join
+        end
+      end
+
+      def edit
+        @page = Contentr::Page.find(params[:id])
+        authorize!(:manage, @page)
+        @contentr_page = Contentr::Page.find(params[:id])
+      end
+
+      def update
+        @page = Contentr::Page.find(params[:id])
+        return render(:edit) unless can?(:manage, @page)
+        if @page.update(page_params)
+          redirect_to contentr.edit_admin_page_path(@page), notice: 'Seite wurde aktualisiert.'
+        else
+          render :action => :edit
+        end
+      end
+
+      def destroy
+        page = Contentr::Page.find(params[:id])
+        authorize!(:manage, page)
+        page.destroy
+        redirect_to :back, notice: 'Seite wurde entfernt'
+      end
+
+      def publish
+        page = Contentr::Page.find(params[:id])
+        page.publish!
+        redirect_to :back, notice: 'Seite wurde veröffentlicht'
+      end
+
+      def hide
+        page = Contentr::Page.find(params[:id])
+        page.hide!
+        redirect_to :back, notice: 'Seite ist jetzt verborgen'
+      end
+
+      private
+
+      def load_root_page
+        @root_page = Contentr::Page.find(params[:root]) if params[:root].present?
+      end
+
+      protected
+
+      def page_params
+        params.require(:page).permit(
+          :name, :parent_id, :published, :language, :layout, :type,
+          :displayable_type, :displayable_id, :slug, :page_type_id,
+          :page_in_default_language_id, :password, :menu_id, context_tag_ids: [], url_prefix_tag_ids: [])
+      end
     end
-
-    if @page.save
-      flash[:success] = 'Page created.'
-      redirect_to contentr_admin_pages_path(:root => @root_page)
-    else
-      render :action => :new
-    end
   end
-
-  def edit
-    @page = Contentr::Page.find(params[:id])
-  end
-
-  def update
-    @page = Contentr::Page.find(params[:id])
-    if @page.update_attributes(params[:page])
-      flash[:success] = 'Page updated.'
-      redirect_to contentr_admin_pages_path(:root => @root_page)
-    else
-      render :action => :edit
-    end
-  end
-
-  def destroy
-    page = Contentr::ContentPage.find(params[:id])
-    page.destroy
-    redirect_to contentr_admin_pages_path(:root => @root_page)
-  end
-
-  def move_below
-    page = Contentr::Page.find(params[:id])
-    buddy_page = Contentr::Page.find(params[:buddy_id])
-    page.move_below(buddy_page)
-    render :nothing => true
-  end
-
-  def insert_into
-    page = Contentr::Page.find(params[:id])
-    if (params[:root_page_id])
-      page.parent = Contentr::Page.find(params[:root_page_id])
-    else
-      page.parent = nil
-    end
-    page.reload
-    page.move_to_top
-    render :nothing => true
-  end
-
-  private
-
-  def load_root_page
-    @root_page = Contentr::Page.find(params[:root]) if params[:root].present?
-  end
-
 end

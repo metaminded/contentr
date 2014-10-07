@@ -1,0 +1,4 @@
+- bsat_page_title t('.content_blocks')
+- bsat_page_actions do |actions|
+  - actions.add(t('.add_content_blocks'), contentr.new_admin_content_block_path, icon: 'plus-circle', link_to_options: {class: 'btn btn-primary' })
+= table_for Contentr::ContentBlock, paginate: true, counter_position: :bottom
