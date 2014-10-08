@@ -1,7 +1,6 @@
 # encoding: utf-8
 class Contentr::Admin::ParagraphsController < Contentr::Admin::ApplicationController
   include Contentr::ApplicationHelper
-  helper Frontend::HsaaHelper
 
   before_filter :find_page_or_site
 

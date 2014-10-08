@@ -1,4 +1,3 @@
-require 'bootstrap-sass'
 require 'jquery-rails'
 # require 'compass-rails'
 require 'tabulatr2'

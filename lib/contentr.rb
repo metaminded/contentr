@@ -2,8 +2,9 @@
 
 require 'rails'
 require 'simple_form'
-# require 'form_translation'
+require 'form_translation'
 require 'cancan'
+require 'tabulatr'
 
 module Contentr
 

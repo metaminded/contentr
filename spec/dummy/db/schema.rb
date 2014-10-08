@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140502102250) do
+ActiveRecord::Schema.define(version: 20141008111152) do
 
   create_table "articles", force: true do |t|
     t.string   "title"
@@ -44,6 +44,11 @@ ActiveRecord::Schema.define(version: 20140502102250) do
     t.datetime "updated_at"
   end
 
+  create_table "contentr_menus", force: true do |t|
+    t.string "name"
+    t.string "sid"
+  end
+
   create_table "contentr_nav_points", force: true do |t|
     t.integer  "page_id"
     t.integer  "site_id"
@@ -55,8 +60,11 @@ ActiveRecord::Schema.define(version: 20140502102250) do
     t.string   "type"
     t.text     "payload"
     t.boolean  "removable",      default: true
+    t.boolean  "visible",        default: true
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "menu_id"
+    t.string   "nav_point_type"
   end
 
   add_index "contentr_nav_points", ["ancestry"], name: "index_contentr_nav_points_on_ancestry"
@@ -88,6 +96,7 @@ ActiveRecord::Schema.define(version: 20140502102250) do
     t.string   "ancestry"
     t.string   "url_path"
     t.string   "language"
+    t.string   "password"
     t.boolean  "removable",                   default: true
     t.integer  "page_in_default_language_id"
     t.integer  "page_type_id"
@@ -95,6 +104,7 @@ ActiveRecord::Schema.define(version: 20140502102250) do
     t.string   "displayable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "menu_id"
   end
 
   add_index "contentr_pages", ["ancestry"], name: "index_contentr_pages_on_ancestry"
