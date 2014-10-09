@@ -1,5 +1,3 @@
-//= require ./overlay
-
 Contentr = {
   area: null,
   modal: null,
