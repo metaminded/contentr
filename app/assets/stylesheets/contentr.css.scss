@@ -8,7 +8,6 @@
   // ---------------------------------------------------------------------------
   @include nested-reset();
   @include inline-block();
-  @include border-radius(4px);
   @include single-transition(all, 0.1s, linear);
 
   @include background-image(

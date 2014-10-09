@@ -37,7 +37,6 @@ ul.main-tree, ul.tree {
       width: 100%;
       padding: 2px 4px 2px 4px;
       margin-bottom: 1px;
-      @include border-radius(5px);
       border: 1px solid white;
 
       &:hover {
