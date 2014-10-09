@@ -1,38 +1,40 @@
-# Configure Rails Envinronment
+ENV["RAILS_ENV"] ||= 'test'
 
-ENV["RAILS_ENV"] = "test"
 require File.expand_path("../dummy/config/environment.rb",  __FILE__)
+ActiveRecord::Migrator.migrate File.expand_path("../dummy/db/migrate/", __FILE__)
 
 require 'rspec/rails'
-require 'capybara/rspec'
+require 'capybara/rails'
+require 'capybara/poltergeist'
 require 'factory_girl'
 require 'database_cleaner'
-require 'capybara/poltergeist'
-
-include ActionDispatch::TestProcess
-
-Capybara.javascript_driver = :poltergeist
 
 FactoryGirl.find_definitions
 
-ENGINE_RAILS_ROOT=File.join(File.dirname(__FILE__), '../')
+Capybara.javascript_driver = :poltergeist
+
+Capybara.register_driver :poltergeist do |app|
+  Capybara::Poltergeist::Driver.new(app, {js_errors: true})
+end
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
-Dir[File.join(ENGINE_RAILS_ROOT, "spec/support/**/*.rb")].each {|f| require f }
-
+Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 
 RSpec.configure do |config|
   config.use_transactional_fixtures = false
 
+  # config.include Contentr::Engine.routes.url_helpers
+
   config.include FactoryGirl::Syntax::Methods
+
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
   end
 
   config.before(:each) do
-    DatabaseCleaner.strategy = :truncation
+    DatabaseCleaner.strategy = :transaction
   end
 
   config.before(:each, :js => true) do
@@ -44,7 +46,6 @@ RSpec.configure do |config|
   end
 
   config.after(:each) do
-    Capybara.reset_sessions!
     DatabaseCleaner.clean
   end
 

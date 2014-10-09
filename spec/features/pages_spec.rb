@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe "pages" do
+feature "pages" do
 
-  it 'displays the content', js: true do
+  scenario 'displays the content', js: true do
     site = create(:site, slug: 'en', published: true)
     a = create(:article, title: 'wicked product', body: 'this article is awesome!')
     content_page = create(:contentpage, name: 'info', parent: a.default_page,

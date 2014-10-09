@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "files" do
+feature "files" do
 
   before do
     file = File.new(Rails.root + '../support/dummy.jpg')
@@ -13,14 +13,14 @@ describe "files" do
   end
 
   context "file is found" do
-    it "displays the page name" do
+    scenario "displays the page name" do
      visit '/file/test'
      expect(response_headers['Content-Type']).to eql 'image/jpeg'
     end
   end
 
   context "file is not found" do
-    it "should redirect to root page" do
+    scenario "should redirect to root page" do
       visit "/file/foobar123"
       expect(page.status_code).to be 404
     end

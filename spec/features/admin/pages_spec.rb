@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe Contentr::Admin::PagesController do
+feature Contentr::Admin::PagesController do
 
-  describe '#show' do
-    it 'displays the page\'s areas' do
+  feature '#show' do
+    scenario 'displays the page\'s areas' do
       contentpage_two = create(:contentpage, name: 'bar', slug: 'bar')
       visit contentr.admin_page_path(id: contentpage_two)
       contentpage_two.areas.each do |area|
@@ -11,7 +11,7 @@ describe Contentr::Admin::PagesController do
       end
     end
 
-    it 'is able to add paragraphs to areas', js: true do
+    scenario 'is able to add paragraphs to areas', js: true do
       contentr_page = create(:contentpage, name: 'bar', slug: 'bar')
       visit contentr.admin_page_path(id: contentr_page)
       within('#area-left_column .new-paragraph-buttons') do
@@ -24,7 +24,7 @@ describe Contentr::Admin::PagesController do
       expect(page.find(".paragraph")).to have_content('hello world!')
     end
 
-    it "resets the publish button if i click on it", js: true do
+    scenario "resets the publish button if i click on it", js: true do
       contentpage = create(:contentpage_with_paragraphs)
       @para = contentpage.paragraphs.first
       @para.body = "hell yeah"
@@ -38,13 +38,13 @@ describe Contentr::Admin::PagesController do
     end
 
 
-    it "shows the paragraphs of the page" do
+    scenario "shows the paragraphs of the page" do
       contentpage = create(:contentpage_with_paragraphs)
       visit(contentr.admin_page_path(contentpage))
       expect(page.all(:css, '.existing-paragraphs').count).to be(4)
     end
 
-    it "deletes a paragraph when i click on delete" do
+    scenario "deletes a paragraph when i click on delete" do
       contentpage = create(:contentpage_with_paragraphs)
       expect(contentpage.paragraphs.count).to be 2
       visit(contentr.admin_page_path(contentpage))
@@ -54,7 +54,7 @@ describe Contentr::Admin::PagesController do
       expect(contentpage.paragraphs.count).to be 1
     end
 
-    it "shows the unpublished version of a paragraph if there is one" do
+    scenario "shows the unpublished version of a paragraph if there is one" do
       contentpage = create(:contentpage_with_paragraphs)
       para = contentpage.paragraphs.first
       para.body = "hell yeah!"
@@ -63,7 +63,7 @@ describe Contentr::Admin::PagesController do
       expect(page).to have_content("hell yeah!")
     end
 
-    it 'lets the user add content blocks', js: true do
+    scenario 'lets the user add content blocks', js: true do
       create(:site)
       contentpage = create(:contentpage_with_paragraphs)
       article = create(:article, title: 'My new article')
@@ -81,7 +81,7 @@ describe Contentr::Admin::PagesController do
       expect(page.find('.existing-paragraphs[data-area="area-center_column"]')).to have_content(article.title)
     end
 
-    it 'loads existing content blocks' do
+    scenario 'loads existing content blocks' do
       create(:site)
       article = create(:article)
       contentpage = create(:contentpage_with_content_block_paragraph)
