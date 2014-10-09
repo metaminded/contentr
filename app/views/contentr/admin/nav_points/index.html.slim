@@ -1,11 +1,10 @@
-- bsat_page_title 'Navigation'
+- contentr_title 'Navigation'
 ul.main-tree data-reorder-path=contentr.reorder_admin_nav_points_path
   - @nav_tree.keys.each do |nt|
     li.row data-id=nt.id
       = create_nav_point_title_and_buttons(nt)
       = show_subtree(@nav_tree[nt]).join('').html_safe
-- bsat_page_actions do |actions|
-  - actions.add fa_icon('plus-circle', text: t('.new')), contentr.new_admin_nav_point_path, link_to_options: { class: 'btn btn-primary'}
+- contentr_buttons([{text: t('.new'), target: contentr.new_admin_nav_point_path, icon: 'plus-circle', class: 'btn btn-primary'}])
 
 javascript:
   $('ul.main-tree').sortable({

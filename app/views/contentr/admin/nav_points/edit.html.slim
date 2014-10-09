@@ -1,6 +1,6 @@
-= bsat_page_title 'Navigationspunkt aktualisieren'
+= contentr_title 'Navigationspunkt aktualisieren'
 = render 'form'
-- bsat_sidebar_nav do |navbar|
+- contentr_navigation do |navbar|
   - if @page.present?
     - if @page.displayable
       - navbar.link 'Hauptseite', contentr.admin_page_path(@page)

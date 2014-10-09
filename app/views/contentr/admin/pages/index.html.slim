@@ -1,5 +1,5 @@
-- bsat_page_title t('.pages')
-- bsat_page_actions do |action|
-  - action.add t('.new_page'), contentr.new_admin_page_path(page_type: params[:page_type].presence), icon: 'plus', link_to_options: { class: 'btn btn-primary' }
-
+- contentr_title t('.pages')
 = table_for Contentr::Page, paginate: true, counter_position: :bottom
+- contentr_buttons([{text: t('.new_page'),\
+    target: contentr.new_admin_page_path(page_type: params[:page_type].presence),\
+    class: 'btn btn-primary'}])

@@ -74,6 +74,22 @@ module Contentr
           s
         end.html_safe
       end
+
+      def contentr_title(title)
+        content_for(:contentr_title, title)
+      end
+
+      def contentr_buttons(buttons)
+        content = buttons.collect do |button|
+          button[:link_to_options] ||= {}
+          link_to "#{fa_icon(button[:icon])} #{button[:text]}".html_safe, button[:target], button[:link_to_options].reverse_merge(class: button[:class])
+        end
+        content_for(:contentr_buttons, content.join.html_safe)
+      end
+
+      def contentr_navigation &block
+        content_for(:contentr_navigation, '')
+      end
     end
   end
 end

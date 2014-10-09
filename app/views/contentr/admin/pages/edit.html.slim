@@ -1,10 +1,11 @@
-- bsat_page_title t('.edit_page')
+- contentr_title t('.edit_page')
 
-- bsat_page_actions do |action|
-  - action.add t('.preview'), @page.preview_path, link_to_options: { target: '_blank' }
-  - if @page.published?
-    - action.add t('.hide_page'), contentr.hide_admin_page_path(id: @page), link_to_options: { class: 'btn btn-warning' }
-  - else
-    - action.add t('.publish_page'), contentr.publish_admin_page_path(id: @page), link_to_options: { class: 'btn btn-primary' }
+- button_content = [{text: t('.preview'), target: @page.preview_path, link_to_options: { target: '_blank' }}]
+- if @page.published?
+  - button_content.push({text: t('.hide_page'), target: contentr.hide_admin_page_path(id: @page), class: 'btn btn-warning'})
+- else
+  - button_content.push({text: t('.publish_page'), target: contentr.publish_admin_page_path(id: @page), class: 'btn btn-primary'})
+- contentr_buttons(button_content)
+
 
 = render 'form'

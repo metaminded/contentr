@@ -1,4 +1,4 @@
-- bsat_page_title 'Unterseiten'
+- contentr_title 'Unterseiten'
 .contentr-sub-pages
   ul.list-group data-reorder-path=contentr.reorder_admin_sub_pages_path(@parent_page)
     - @sub_nav_items.each do |sub_nav|
@@ -30,7 +30,7 @@
     = f.input :layout, as: :hidden, input_html: {value: @parent_page.layout}
   = f.button :submit, 'Unterseite erstellen', class: 'btn btn-info dontmove'
 
-- bsat_sidebar_nav do |navbar|
+- contentr_navigation do |navbar|
   - if @parent_page.displayable
     - navbar.link 'Hauptseite', contentr.admin_page_path(@parent_page)
     - navbar.link 'Unterseiten bearbeiten', contentr.admin_sub_pages_path(@parent_page), active: true

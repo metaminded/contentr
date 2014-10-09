@@ -1,12 +1,14 @@
-- bsat_page_title @content_block.name
-- bsat_sidebar_nav do |navbar|
-  - navbar.back(t('back'), :back)
-  - navbar.divider
-  - @content_block.usages.each do |usage|
-    - navbar.link usage.page.name, contentr.admin_page_path(usage.page) unless usage.page.nil?
+- contentr_title @content_block.name
 
 - area = 'main'
 - page = @content_block
+
+ul
+  li = link_to t('back'), :back
+  - @content_block.usages.each do |usage|
+    - if usage.page.present?
+      li
+        = link_to usage.page.name, contentr.admin_page_path(usage.page)
 
 .contentr-show.contentr-area id="area-#{area}" data-contentr-area-name=area data-content-block=@content_block.id
   .row
