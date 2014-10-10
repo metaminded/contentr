@@ -3,6 +3,7 @@ module Contentr
 
     # Includes
     include Rails.application.routes.url_helpers
+    include LinkedPageExtension
 
     # Protect attributes from mass assignment
 

@@ -1,4 +1,5 @@
 class Contentr::Admin::MenusController < Contentr::Admin::ApplicationController
+  prepend PrependedMenusControllerExtension
 
   PERMITTED_PARAMS = [
     :name, :sid,

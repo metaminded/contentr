@@ -1,6 +1,8 @@
 module Contentr
   module Admin
     class PagesController < ApplicationController
+      prepend PrependedPagesControllerExtension
+
       before_action :load_root_page
 
       layout 'application'

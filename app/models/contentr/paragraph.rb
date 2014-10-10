@@ -5,6 +5,7 @@ module Contentr
     include ActionView::Helpers::SanitizeHelper
     include ParagraphFields
     include ParagraphPublishing
+    include ParagraphExtension
 
     default_scope ->{ order(position: :asc) }
 

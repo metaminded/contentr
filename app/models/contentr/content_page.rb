@@ -1,5 +1,7 @@
 module Contentr
   class ContentPage < Page
+    include ContentPageExtension
+    prepend PrependedContentPageExtension
 
     belongs_to :menu
 

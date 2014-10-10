@@ -1,5 +1,6 @@
 class Contentr::Admin::ApplicationController < Contentr::ApplicationController
-  before_action :authenticate_user!
+  include ApplicationControllerExtension
+
   before_action :check_authorization
   before_action :set_layout
 
