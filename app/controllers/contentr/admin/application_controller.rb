@@ -29,6 +29,6 @@ class Contentr::Admin::ApplicationController < Contentr::ApplicationController
   private
 
   def current_ability
-    @current_ability ||= Ability.new(current_user, params, self)
+    @current_ability ||= Ability.new(current_contentr_user, params, self)
   end
 end

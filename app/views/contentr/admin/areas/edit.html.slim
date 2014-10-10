@@ -25,7 +25,7 @@
     = t('.new_paragraph')
     select#choose-paragraph-type.form-control name="paragraph_links"
       - Contentr.paragraphs.sort_by{|paragraph| paragraph.options[:position]}.each do |pc|
-        - if contentr_can_use_paragraph?(current_user, @area_name, pc.paragraph_class)
+        - if contentr_can_use_paragraph?(current_contentr_user, @area_name, pc.paragraph_class)
           option data-path="#{contentr.new_admin_page_area_paragraph_path(@page.id, @area_name, type: pc.paragraph_class.to_s)}" = pc.title
     a.btn.btn-primary.add-paragraph#add_paragraph_btn
       = fa_icon :plus

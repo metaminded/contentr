@@ -6,9 +6,9 @@
     - if !paragraph.visible
       =<> fa_icon(:'eye-slash')
     =<> paragraph.class.model_name.human
-    - if contentr_can_use_paragraph?(current_user, paragraph.area_name, paragraph.class)
+    - if contentr_can_use_paragraph?(current_contentr_user, paragraph.area_name, paragraph.class)
       .pull-right
         => render partial: "/contentr/admin/application/paragraph_buttons", locals: {paragraph: paragraph, area_name: paragraph.area_name, page: page}
-  - if contentr_can_use_paragraph?(current_user, paragraph.area_name, paragraph.class)
+  - if contentr_can_use_paragraph?(current_contentr_user, paragraph.area_name, paragraph.class)
     .panel-body data-paragraph-id=paragraph.id
       = paragraph.summary

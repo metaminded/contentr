@@ -166,6 +166,6 @@ protected
 
   def check_permission!(paragraph)
     c = paragraph.is_a?(Class) ? paragraph : paragraph.class
-    raise 'NO!' unless contentr_can_use_paragraph?(current_user, params[:area_id], c)
+    raise 'NO!' unless contentr_can_use_paragraph?(current_contentr_user, params[:area_id], c)
   end
 end

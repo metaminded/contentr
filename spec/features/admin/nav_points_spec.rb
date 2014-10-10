@@ -7,7 +7,7 @@ feature 'Navigation management' do
     child_lvl_two = create(:nav_point, title: 'child lvl two', parent: child_lvl_one)
     visit contentr.admin_nav_points_path
     expect(page.all('li[data-id]').count).to be 3
-    page.find("li[data-id='#{child_lvl_one.id}'] > .remove-nav-point").click
+    page.find("li[data-id='#{child_lvl_one.id}'] .remove-nav-point", match: :first).click
     expect(page.all('li[data-id]').count).to be 1
   end
 end

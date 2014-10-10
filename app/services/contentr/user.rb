@@ -1,7 +1,11 @@
 module Contentr
   class User
     def authorized?(options)
-      true
+      false
+    end
+
+    def self.current
+      @_contentr_current ||= new
     end
   end
 end
