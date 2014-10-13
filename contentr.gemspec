@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = 'contentr'
-  s.version = '0.1.0'
+  s.version = '0.5.0'
   s.summary = %q{CMS engine for Rails}
   s.description = %q{Contentr is a Content Management System (CMS) that plugs into any Rails 3.1 application as an engine.}
   s.authors = ["Rene Sprotte", "Dr. Peter Horn"]
@@ -17,9 +17,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'simple_form',    '~> 3.1.0.rc1'
   s.add_dependency 'bson_ext',       '~> 1.5'
   s.add_dependency 'sass-rails', '~> 4.0'
-  # s.add_dependency 'compass-rails',  "~> 1.1.3"
   s.add_dependency 'font-awesome-rails'
-  # s.add_dependency 'carrierwave', '~> 0.10.0'
   s.add_dependency 'jquery-rails', '~> 3.1.0'
   s.add_dependency 'jquery-ui-rails', '~> 4.2.0'
   s.add_dependency 'ancestry', '~> 2.1.0'
