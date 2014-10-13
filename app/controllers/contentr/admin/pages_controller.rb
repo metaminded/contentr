@@ -1,17 +1,17 @@
 module Contentr
   module Admin
     class PagesController < ApplicationController
-      prepend PrependedPagesControllerExtension
-
-      before_action :load_root_page
-
-      layout 'application'
-
       PERMITTED_PARAMS = [
         :name, :parent_id, :published, :language, :layout, :type,
         :displayable_type, :displayable_id, :slug, :page_type_id,
         :page_in_default_language_id, :password, :menu_id
       ]
+
+      before_action :load_root_page
+
+      layout 'application'
+
+      prepend PrependedPagesControllerExtension
 
       def index
         tabulatr_for Contentr::Page.where.not(type: 'Contentr::LinkedPage')

@@ -1,10 +1,11 @@
 class Contentr::Admin::MenusController < Contentr::Admin::ApplicationController
-  prepend PrependedMenusControllerExtension
-
   PERMITTED_PARAMS = [
     :name, :sid,
     nav_points_attributes: [:id, :title, :parent_id, :nav_point_type, :url, :page_id, :en_title, :visible, :_destroy]
   ]
+
+  prepend PrependedMenusControllerExtension
+
   def index
     authorize! :manage, Contentr::Menu.new
     tabulatr_for Contentr::Menu
