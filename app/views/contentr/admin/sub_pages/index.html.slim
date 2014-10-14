@@ -37,7 +37,7 @@
       - navbar.link child.name, contentr.admin_page_path(child)
   - else
     - if @parent_page.parent.present?
-      - navbar.back(t('back'), contentr.admin_page_path(id: @parent_page.parent))
+      - navbar.back(t('action.back'), contentr.admin_page_path(id: @parent_page.parent))
     - @parent_page.siblings.select{|c| c.language == I18n.default_locale.to_s}.each do |sibling|
         - navbar.link(sibling.name, contentr.admin_page_path(id: sibling), active: (sibling == @parent_page || sibling == @parent_page.page_in_default_language))
 

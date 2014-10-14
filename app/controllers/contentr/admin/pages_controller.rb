@@ -35,11 +35,12 @@ module Contentr
       def create
         @page = Contentr::Page.new(page_params)
         return render(:new) unless can?(:manage, @page)
-        if @page.save
-          redirect_to contentr.edit_admin_page_path(@page), notice: 'Seite wurde erstellt.'
-        else
-          redirect_to :back, notice: @page.errors.full_messages.join
+        ActiveRecord::Base.transaction do
+          @page.save!
+          NavPoint.create!(page: @page, title: @page.name, parent_page_id: @page.parent_id)
+          return redirect_to contentr.edit_admin_page_path(@page), notice: 'Seite wurde erstellt.'
         end
+        redirect_to :back, notice: @page.errors.full_messages.join
       end
 
       def edit

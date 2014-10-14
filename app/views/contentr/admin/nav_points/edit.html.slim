@@ -10,8 +10,8 @@
         - navbar.link child.name, contentr.admin_page_path(child)
     - else
       - if @page.parent.present?
-        - navbar.back(t('back'), contentr.admin_page_path(id: @page.parent))
+        - navbar.back(t('action.back'), contentr.admin_page_path(id: @page.parent))
       - @page.siblings.select{|c| c.language == I18n.default_locale.to_s}.each do |sibling|
           - navbar.link(sibling.name, contentr.admin_page_path(id: sibling), active: (sibling == @page || sibling == @page.page_in_default_language))
   - else
-    - navbar.back(t('back'), contentr.admin_nav_points_path)
+    - navbar.back(t('action.back'), contentr.admin_nav_points_path)
