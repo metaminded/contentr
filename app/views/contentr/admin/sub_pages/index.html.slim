@@ -1,6 +1,6 @@
 - contentr_title 'Unterseiten'
 .contentr-sub-pages
-  ul.list-group data-reorder-path=contentr.reorder_admin_sub_pages_path(@parent_page)
+  ul.list-group.sub-page-list data-reorder-path=contentr.reorder_admin_sub_pages_path(@parent_page)
     - @sub_nav_items.each do |sub_nav|
       li.list-group-item [ id="navpoints_#{sub_nav.id}"
         class="#{sub_nav.removable? ? 'sortable' : 'unsortable'}"
@@ -21,13 +21,11 @@
               method: :delete, data: {confirm: t('action.are_you_sure')}) if sub_nav.removable?
 = simple_form_for Contentr::Page.new(parent: @parent_page),
   url: contentr.admin_pages_path, html: {class: 'form-inline subpage-form'} do |f|
-  .form-group
-    = f.input :parent_id, as: :hidden
-    = f.input :name, label_html: {class: 'sr-only'},
-        input_html: {class: 'margin-computed-right'}, placeholder: 'Name'
-    = f.association :page_type, label_html: {class: 'sr-only'}, include_blank: false
-    = f.input :language, as: :hidden, input_html: {value: FormTranslation.default_language.to_s, class: 'margin-computed-right'}
-    = f.input :layout, as: :hidden, input_html: {value: @parent_page.layout}
+  = f.input :parent_id, as: :hidden
+  = f.input :name, label_html: {class: 'sr-only'}, input_html: {class: 'margin-computed-right'}, placeholder: 'Name'
+  =< f.association :page_type, label_html: {class: 'sr-only'}, include_blank: false
+  = f.input :language, as: :hidden, input_html: {value: FormTranslation.default_language.to_s, class: 'margin-computed-right'}
+  = f.input :layout, as: :hidden, input_html: {value: @parent_page.layout}
   = f.button :submit, 'Unterseite erstellen', class: 'btn btn-info dontmove'
 
 - contentr_navigation do |navbar|
@@ -42,3 +40,22 @@
       - navbar.back(t('back'), contentr.admin_page_path(id: @parent_page.parent))
     - @parent_page.siblings.select{|c| c.language == I18n.default_locale.to_s}.each do |sibling|
         - navbar.link(sibling.name, contentr.admin_page_path(id: sibling), active: (sibling == @parent_page || sibling == @parent_page.page_in_default_language))
+
+coffee:
+  $('ul.sub-page-list').sortable
+    handle: '.handle'
+    itemSelector: 'li.sortable'
+    containerPath: 'ul'
+    placeholder: '<i class="fa fa-eye" />'
+    onDrop: ($item, container, _super, event) ->
+      ids =
+        $('li.sortable').map(() ->
+          $(this).data('id')
+        ).toArray().join(',')
+      $.ajax
+        type: 'PATCH'
+        data:
+          ids: ids
+          item: $item.data('id')
+        url: $('ul.sub-page-list').data('reorderPath')
+      _super($item);
