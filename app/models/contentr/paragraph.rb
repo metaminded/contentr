@@ -9,6 +9,11 @@ module Contentr
 
     default_scope ->{ order(position: :asc) }
 
+    scope :visible_and_not_empty, -> () {
+      where(visible: true).
+      where.not(data: nil).
+      where.not(data: ActiveSupport::HashWithIndifferentAccess.new.to_yaml) }
+
     permitted_attributes :area_name, :position, :data, :unpublished_data,
       :content_block_to_display_id, {headers: []}
 

@@ -34,4 +34,13 @@ describe Contentr::Paragraph do
     expect(tp.name).to eq 'hallo!'
     expect(tp.unpublished_data['name']).to eql 'hallo!'
   end
+
+  it '.visible_and_not_empty' do
+    p = create(:paragraph, visible: true)
+    expect(Contentr::Paragraph.visible_and_not_empty).to be_empty
+    p.publish!
+    expect(Contentr::Paragraph.visible_and_not_empty).to eq [p]
+    p.update(visible: false)
+    expect(Contentr::Paragraph.visible_and_not_empty).to be_empty
+  end
 end
