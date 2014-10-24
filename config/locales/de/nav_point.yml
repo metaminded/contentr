@@ -8,6 +8,7 @@ de:
       contentr/nav_point:
         title: Titel
         url: URL
+        open_in_new_tab: Link in neuem Tab öffnen
   contentr:
     area:
       edit: '%{area} bearbeiten'

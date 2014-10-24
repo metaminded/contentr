@@ -3,7 +3,7 @@ module Contentr
     class MenusController < ApplicationController
       PERMITTED_PARAMS = [
         :name, :sid,
-        nav_points_attributes: [:id, :title, :parent_id, :nav_point_type, :url, :page_id, :en_title, :visible, :_destroy]
+        nav_points_attributes: [:id, :title, :parent_id, :nav_point_type, :url, :page_id, :en_title, :visible, :open_in_new_tab, :_destroy]
       ]
 
       prepend PrependedMenusControllerExtension
