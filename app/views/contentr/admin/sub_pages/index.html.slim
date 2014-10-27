@@ -13,7 +13,7 @@
               span
                 = sub_nav.title
           .col-xs-3
-            = link_to(fa_icon(:pencil, text: 'Seite'), contentr.admin_page_path(sub_nav.page)) if sub_nav.page.present?
+            = link_to(fa_icon(:pencil, text: 'Seite'), contentr.edit_admin_page_path(sub_nav.page)) if sub_nav.page.present?
           .col-xs-3
             = link_to(fa_icon(:pencil, text: 'Nav'), contentr.edit_admin_nav_point_path(sub_nav))
           .col-xs-1
