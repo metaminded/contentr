@@ -38,7 +38,9 @@ module Contentr
         ActiveRecord::Base.transaction do
           begin
             @page.save!
-            Contentr::NavPoint.create!(page: @page, title: @page.name, parent_page_id: @page.parent_id, visible: false)
+            if @page.type.nil?
+              Contentr::NavPoint.create!(page: @page, title: @page.name, parent_page_id: @page.parent_id)
+            end
           rescue ActiveRecord::RecordInvalid
             redirect_to :back, notice: @page.errors.full_messages.join
             return
