@@ -3,7 +3,7 @@
 .contentr-show.contentr-area id="area-#{area}" data-contentr-area-name=area
   .row
     .col-xs-20
-      - if contentr_has_authorized_paragraphs?(current_contentr_user, area)
+      - if contentr_has_authorized_paragraphs?(current_contentr_user, area, authorized)
         .row
           .col-xs-20
             a.btn.btn-frontend.btn-xs.btn-default.pull-right.edit-area href=contentr.edit_admin_page_area_path(page, area) = fa_icon('edit', text: (area_name_generated?(area) ? t('contentr.area_names.edit') : t("contentr.area_names.#{area}")))

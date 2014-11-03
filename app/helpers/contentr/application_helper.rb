@@ -13,10 +13,10 @@ module Contentr
     #
     # @param [String] The name of the area that should be rendered.
     #
-    def contentr_area(area_name, pristine: false)
+    def contentr_area(area_name, pristine: false, editable: nil)
       raise "No area name given" if area_name.blank?
       if @contentr_page.present?
-        contentr_render_area(area_name, @contentr_page, pristine: pristine)
+        contentr_render_area(area_name, @contentr_page, pristine: pristine, editable: editable)
       end
     end
 
@@ -86,12 +86,12 @@ module Contentr
 
     private
 
-    def contentr_render_area(area_name, page, pristine: false)
+    def contentr_render_area(area_name, page, pristine: false, editable: nil)
       area_name  = area_name.to_s
-      authorized = can? :manage, :cms
+      authorized = editable.nil? ? can?(:manage, :cms) : editable
       publisher = contentr_publisher?
       paragraphs = page.paragraphs_for_area(area_name)
-      partial = if pristine && !can?(:manage, :cms)
+      partial = if pristine && !authorized
         'contentr/area_pristine'
       else
         'contentr/area'
@@ -110,9 +110,9 @@ module Contentr
       )
     end
 
-    def contentr_has_authorized_paragraphs?(user, area)
+    def contentr_has_authorized_paragraphs?(user, area, authorized)
       area = area.to_s.split('-').first
-      can?(:manage, :cms) && user.authorized?(scope: :cms, action: :all, scope_id: area)
+      can?(:manage, :cms) && user.authorized?(scope: :cms, action: :all, scope_id: area) && authorized
     end
 
     def contentr_can_use_paragraph?(user, area, paragraph)
