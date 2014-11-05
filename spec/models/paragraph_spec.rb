@@ -43,4 +43,13 @@ describe Contentr::Paragraph do
     p.update(visible: false)
     expect(Contentr::Paragraph.visible_and_not_empty).to be_empty
   end
+
+  it 'does not reset unpublished_data on save' do
+    p = create(:paragraph)
+    expect(p.body).to_not be_present
+    expect(p.unpublished_data[:body]).to be_present
+    p.save!
+    expect(p.body).to_not be_present
+    expect(p.unpublished_data[:body]).to be_present
+  end
 end

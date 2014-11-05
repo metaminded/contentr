@@ -17,7 +17,9 @@ module Contentr
     end
 
     def copy_unpublished()
-      self.unpublished_data = data.clone
+      if self.data_changed?
+        self.unpublished_data = data.clone
+      end
       if @_publish_now
         @_data_was = data.clone
       else
