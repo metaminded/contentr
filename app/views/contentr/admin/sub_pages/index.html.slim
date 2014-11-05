@@ -17,8 +17,13 @@
           .col-xs-3
             = link_to(fa_icon(:pencil, text: 'Nav'), contentr.edit_admin_nav_point_path(sub_nav))
           .col-xs-1
-            = link_to(fa_icon('trash-o'), contentr.admin_page_path(sub_nav.page),
-              method: :delete, data: {confirm: t('action.are_you_sure')}) if sub_nav.removable?
+            - if sub_nav.removable?
+              - if sub_nav.page.present?
+                = link_to(fa_icon('trash-o'), contentr.admin_page_path(sub_nav.page),
+                    method: :delete, data: {confirm: t('action.are_you_sure')})
+              - else
+                = link_to(fa_icon('trash-o'), contentr.admin_nav_point_path(sub_nav),
+                    method: :delete, data: {confirm: t('action.are_you_sure')})
 = simple_form_for Contentr::Page.new(parent: @parent_page),
   url: contentr.admin_pages_path, html: {class: 'form-inline subpage-form'} do |f|
   = f.input :parent_id, as: :hidden

@@ -34,7 +34,7 @@ class Contentr::Admin::NavPointsController < Contentr::Admin::ApplicationControl
   def destroy
     @nav_point = Contentr::NavPoint.find(params[:id])
     @nav_point.destroy
-    redirect_to({action: 'index'}, notice: t('.success'))
+    redirect_to(:back, notice: t('.success'))
   end
 
   def reorder
