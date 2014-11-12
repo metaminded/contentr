@@ -50,6 +50,10 @@ module Contentr
       result
     end
 
+    def slug_unique_within_siblings
+      true
+    end
+
     protected
 
     def path_rebuilding; end
