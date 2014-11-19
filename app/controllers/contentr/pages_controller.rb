@@ -1,7 +1,7 @@
 class Contentr::PagesController < Contentr::ApplicationController
   def index
-    params[:slug] = params[:slug].split('_').last
-    @contentr_page = Contentr::Page.find_by slug: params[:slug]
+    pages = Contentr::Page.where slug: params[:slug].split('_').last
+    @contentr_page = pages.find{ |p| p.url.downcase == request.path.downcase }
     if @contentr_page.present?
       self.class.layout("layouts/frontend/application")
     else
