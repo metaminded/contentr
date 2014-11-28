@@ -50,7 +50,7 @@ module Contentr
       result
     end
 
-    def slug_unique_within_siblings
+    def unique_url
       true
     end
 
