@@ -1,4 +1,4 @@
-## contentr
+## contentr [![Build Status](https://travis-ci.org/metaminded/contentr.svg?branch=master)](https://travis-ci.org/metaminded/contentr)
 
 ## Requirements
 
