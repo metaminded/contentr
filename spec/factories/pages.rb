@@ -14,4 +14,10 @@ FactoryGirl.define do
       after(:create) { |instance| create(:content_block_paragraph, page: instance, area_name: :body, position: 0)}
     end
   end
+
+  factory :page, class: Contentr::Page do
+    name 'Bar'
+    slug 'bar'
+    language 'en'
+  end
 end

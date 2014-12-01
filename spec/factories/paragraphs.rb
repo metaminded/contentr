@@ -9,4 +9,10 @@ FactoryGirl.define do
     h.area_name :body
     h.position 0
   end
+
+  factory :content_block_paragraph, class: Contentr::ContentBlockParagraph do
+    content_block
+    area_name :body
+    position 0
+  end
 end
