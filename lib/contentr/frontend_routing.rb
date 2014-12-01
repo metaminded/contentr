@@ -5,9 +5,9 @@ module Contentr::FrontendRouting
   end
 
   def contentr_frontend_routes_for(klass, &block)
-    scope 'seiten' do
+    scope "#{Contentr.divider_between_page_and_children}" do
       yield if block_given?
     end
-    get 'seiten/*args', to: 'contentr/pages#show', defaults: {klass: klass}
+    get "#{Contentr.divider_between_page_and_children}/*args", to: 'contentr/pages#show', defaults: {klass: klass}
   end
 end
