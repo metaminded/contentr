@@ -1,0 +1,8 @@
+language: ruby
+rvm:
+  - 2.1.5
+cache: bundler
+branches:
+  only:
+    - master
+script: bundle exec rspec spec
