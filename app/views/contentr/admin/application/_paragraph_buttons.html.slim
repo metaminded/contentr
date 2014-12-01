@@ -1,7 +1,5 @@
 .btn-group id="contentr-group-paragraph-button-dropdown-btn-#{paragraph.id}"
-  => link_to(fa_icon(:pencil),
-      contentr.edit_admin_page_area_paragraph_path(page, paragraph.area_name, paragraph),
-      class: 'btn btn-default btn-xs paragraph-edit-btn', remote: true, data: {id: paragraph.id})
+  => link_to(fa_icon(:pencil), contentr.edit_admin_page_area_paragraph_path(page, paragraph.area_name, paragraph), class: 'btn btn-default btn-xs paragraph-edit-btn', remote: true, data: {id: paragraph.id})
   button.btn.btn-default.dropdown-toggle.btn-xs.contentr-open-paragraph-button-dropdown-btn type="button" data-toggle="dropdown" id="contentr-open-paragraph-button-dropdown-btn-#{paragraph.id}"
     = fa_icon :cog
     span.sr-only Paragraphen-Menü anzeigen

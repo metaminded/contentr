@@ -22,9 +22,9 @@ module Contentr
       protected
         def set_layout
           if params[:layout_type] == 'embedded'
-            self.class.layout 'embedded'
+            self.class.layout Contentr.embedded_admin_layout
           else
-            self.class.layout 'application'
+            self.class.layout Contentr.admin_layout
           end
         end
 

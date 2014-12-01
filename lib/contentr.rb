@@ -50,6 +50,11 @@ module Contentr
 
   mattr_accessor :layout_type
 
+  mattr_accessor :admin_layout
+  @@admin_layout = 'application'
+  mattr_accessor :embedded_admin_layout
+  @@admin_layout = 'application'
+
   # Default way to setup Contentr
   def self.setup
     yield self
