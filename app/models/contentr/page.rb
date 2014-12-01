@@ -24,7 +24,7 @@ module Contentr
     # validates_uniqueness_of :path, allow_nil: false, allow_blank: false
     validate                :check_nodes
 
-    validate :slug_unique_within_siblings
+    validate :unique_url
 
     # Node checks
     class_attribute :run_node_checks
@@ -306,8 +306,11 @@ module Contentr
       # errors.add(:base, "Unsupported child node.")  if parent.present? and not parent.accepts_child?(self)
     end
 
-    def slug_unique_within_siblings
-      cnt = self.siblings.select{|s| s.slug == self.slug && s.id != self.id}.count
+    def unique_url
+      cnt = self.siblings.where.not(type: 'Contentr::LinkedPage')
+              .where.not(id: self.id)
+              .where(slug: self.slug)
+              .select{|s| s.url == self.url}.count
       errors.add(:slug, :must_be_unique) if cnt > 0
     end
 
