@@ -6,7 +6,14 @@ module Contentr
       raise "No menu name given" if menu_name.blank?
       raise "Block needed" unless block_given?
       @contentr_menu = Contentr::Menu.find_or_create_by(sid: menu_name)
-      yield(@contentr_menu.nav_points)
+      cache_key =  "Contentr::Menu-#{@contentr_menu.id}-#{I18n.locale}-#{Contentr::NavPoint.where(menu_id: @contentr_menu.id, nav_point_type: [nil, 'nav_point']).latest_change}-#{Contentr::NavPoint.where(menu_id: @contentr_menu.id, nav_point_type: [nil, 'nav_point']).count}"
+      if controller.fragment_exist?(cache_key)
+        controller.read_fragment(cache_key)
+      else
+        output = yield(@contentr_menu.nav_points)
+        controller.write_fragment(cache_key, output)
+        output
+      end
     end
 
     # Renders an area of paragraphs
