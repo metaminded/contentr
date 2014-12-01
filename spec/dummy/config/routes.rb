@@ -1,7 +1,15 @@
 Rails.application.routes.draw do
-  resources :articles
 
   mount Contentr::Engine, at: 'contentr'
+
+  scope '(:locale)', locale: /#{I18n.available_locales.join("|")}/ do
+    contentr_frontend_routes
+    resources :articles do
+      member do
+        contentr_frontend_routes_for 'Article'
+      end
+    end
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

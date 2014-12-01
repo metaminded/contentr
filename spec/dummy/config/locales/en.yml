@@ -21,3 +21,10 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+    errors:
+      models:
+        contentr/content_page:
+          attributes:
+            slug:
+              must_be_unique: must be unique

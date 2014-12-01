@@ -42,9 +42,9 @@ describe Contentr::Page do
 
     it "gets the url for a custom subpage" do
       site = create(:site, name: 'en', slug: 'en')
-      a = Article.create!(title: 'awesome product', body: 'hell yeah!')
+      a = create(:article, title: 'awesome product', body: 'hell yeah!').reload
       custom_page = Contentr::Page.create(name: 'foo', parent: a.default_page, language: 'en').reload
-      expect(custom_page.url).to eq "/en/articles/#{a.id}/seiten/foo"
+      expect(custom_page.url).to eq "/en/articles/#{a.id}/foo"
     end
   end
 end

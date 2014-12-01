@@ -27,8 +27,8 @@ describe Contentr::ContentBlock do
       paragraph2 = build(:paragraph)
       content_block.paragraphs << paragraph
       content_block.paragraphs << paragraph2
-      expect(paragraph.position).to be 0
-      expect(paragraph2.position).to be 1
+      expect(paragraph.position).to be 1
+      expect(paragraph2.position).to be 2
     end
   end
 

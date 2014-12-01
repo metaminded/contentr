@@ -1,15 +1,15 @@
 require 'spec_helper'
 
-describe 'contentr/content_blocks/content_block' do
+describe 'contentr/content_blocks/content_block', type: :view do
   it  'renders a partial if it is set' do
     cb = build(:content_block)
-    cb.partial = '_article'
+    cb.partial = '_articles'
     # assign(:content_block, cb)
     create(:site)
     create(:article, title: 'first product')
     create(:article, title: 'second one')
 
-    render 'contentr/content_blocks/content_block', content_block: cb
+    render 'contentr/content_blocks/content_block', content_block: cb, paragraph: build(:content_block_paragraph)
 
     expect(rendered).to match /first product/
     expect(rendered).to match /second one/
