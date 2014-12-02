@@ -22,17 +22,8 @@ module Contentr
     # validates_format_of     :slug, with: /\A[a-z0-9\s-]+\z/
     # validates_presence_of   :path
     # validates_uniqueness_of :path, allow_nil: false, allow_blank: false
-    validate                :check_nodes
 
     validate :unique_url
-
-    # Node checks
-    class_attribute :run_node_checks
-    class_attribute :accepted_child_nodes
-    class_attribute :accepted_parent_nodes
-    self.run_node_checks       = true
-    self.accepted_parent_nodes = [:any]
-    self.accepted_child_nodes  = [:any]
 
     # Callbacks
     before_validation :generate_slug
@@ -41,42 +32,6 @@ module Contentr
     before_destroy    :remove_navpoints
 
     attr_accessor :in_preview_mode
-    # Node checks
-    # self.accepted_parent_nodes = [Contentr::Page]
-    # self.accepted_child_nodes  = [Contentr::Page]
-
-    # Public: Find a Node by path
-    #
-    # path - The path to search for
-    #
-    # Returns the found path
-    def self.find_by_path(path)
-      self.where(url_path: ::File.join('/', path)).try(:first)
-    end
-
-    # Public: Gets the root element
-    #
-    # Returns the root of the tree the record is in, self for a root node
-    def site
-      self.root == self ? nil : self.root
-    end
-
-
-    # Public: Gets the classname of the page without Contentr in front
-    #
-    # Returns the class name as a string
-    def classname
-      self.class.to_s.split("::")[1].capitalize
-    end
-
-    # Public: Checks if self is a descendant of node
-    #
-    # node - The node which might be a direct or indirect ancestor
-    #
-    # Returns true if self is a descendant, false otherwise
-    def descendant_of?(node)
-      self.class.descendants_of(node).include?(self)
-    end
 
     # Public: Raises an error if url_path is set directly
     #
@@ -84,28 +39,8 @@ module Contentr
     #
     # Returns a runtime error
     def url_path=(value)
-      raise "url_path is generated and can't be set manually." unless self.classname == 'Linkedpage'
+      raise "url_path is generated and can't be set manually." unless self.class.to_s == 'Contentr::LinkedPage'
       super
-    end
-
-
-    # Public: Gets the url path without the site name
-    #
-    # Example:
-    #
-    #  self.url_path = "/cms/foo/bar"
-    #  => "/foo/bar"
-    #
-    # Returns the path without the site
-    def site_path
-      "/#{self.url_path.split('/').slice(2..-1).join('/')}"
-    end
-
-    # Public: Publishes the caller
-    #
-    # Sets published to true
-    def publish!
-      self.update_attribute(:published, true)
     end
 
     # Public: Checks if a page is visible
@@ -113,20 +48,6 @@ module Contentr
     # Returns if visable or not
     def visible?
       self.published?
-    end
-
-    # Public: Fetches all visible and published children
-    #
-    # Returns the matching children
-    def visible_children
-      self.children.where(published: true)
-    end
-
-    # Public: gets all area_names of this page's paragraphs
-    #
-    # Returns an array of the found area_names without duplicates
-    def expected_areas
-      self.paragraphs.map(&:area_name).uniq
     end
 
     # Public: Searches for all paragraphs with an exact area_name
@@ -145,27 +66,9 @@ module Contentr
       paragraphs
     end
 
-    # Public: Getter for menu_only attribute
-    #
-    # Returns true or false
-    def menu_only?
-      self.children.none?
-    end
-
     def preview!
       self.in_preview_mode = true
     end
-
-    def stable!
-      self.in_preview_mode = false
-    end
-
-    # Protected: Builts the url_path from ancestry's path
-    #
-    # Updates the url_path of the caller
-    # def url_path
-    #   @url_path ||= "/#{path.collect(&:slug).join('/')}"
-    # end
 
     def url
       if self.page_in_default_language.present?
@@ -298,14 +201,6 @@ module Contentr
       Contentr::NavPoint.destroy_all(page: self)
     end
 
-    # Protected: Checks if this is a valid node
-    #
-    # Adding errors if this node is not valid
-    def check_nodes
-      # errors.add(:base, "Unsupported parent node.") unless accepts_parent?(parent)
-      # errors.add(:base, "Unsupported child node.")  if parent.present? and not parent.accepts_child?(self)
-    end
-
     def unique_url
       cnt = self.siblings.where.not(type: 'Contentr::LinkedPage')
               .where.not(id: self.id)
@@ -313,30 +208,6 @@ module Contentr
               .select{|s| s.url == self.url}.count
       errors.add(:slug, :must_be_unique) if cnt > 0
     end
-
-    # Protected: Checks if this node accepts a child node
-    #
-    # child - the child node to test against
-    #
-    # Returns true if this child is accepted, false otherwise
-    def accepts_child?(child)
-      return true if accepted_child_nodes.include?(:any)
-      return accepted_child_nodes.any?{ |node_class| node_class.kind_of?(Class) and child.is_a?(node_class) }
-    end
-
-    # Protected: Checks if this node accepts a parent
-    #
-    # parent - the parent node to test against
-    #
-    # Returns true if this parent is accepted, false otherwise
-    def accepts_parent?(parent)
-      return true  if self.accepted_parent_nodes.include?(:any)
-      return true  if self.is_root? && self.accepted_parent_nodes.include?(:root)
-      return false if self.is_root? && !self.accepted_parent_nodes.include?(:root)
-      return self.accepted_parent_nodes.any?{ |node_class| node_class.kind_of?(Class) && parent.is_a?(node_class) }
-
-    end
-
 
   end
 end

@@ -27,7 +27,6 @@ module Contentr::BackendRouting
           end
         end
       end
-      resources :files
       resources :menus
       resources :nav_points, only: [:index, :show, :new, :create, :edit, :update, :destroy] do
         collection do

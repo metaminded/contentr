@@ -7,10 +7,6 @@ module Contentr
 
     validate :has_no_parent
 
-    # Node checks
-    self.accepted_parent_nodes = [:root]
-    self.accepted_child_nodes  = [Contentr::Page]
-
     # Public: Gets the default site
     #
     # Returns the default site from the db

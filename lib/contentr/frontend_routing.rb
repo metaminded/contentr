@@ -1,6 +1,5 @@
 module Contentr::FrontendRouting
   def contentr_frontend_routes
-    get 'file/:slug' => 'contentr/files#show'
     get 'pages/:slug', to: 'contentr/pages#index'
   end
 

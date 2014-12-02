@@ -36,15 +36,6 @@ module Contentr
       contentr_render_area(area_name, Contentr::Site.default, pristine: pristine)
     end
 
-    # Renders the contentr toolbar in the page
-    def contentr_toolbar(options = {})
-      if can? :manage, :cms
-        return render(
-          partial: 'contentr/toolbar',
-        )
-      end
-    end
-
     # Inserts Google Anylytics into the page
     def contentr_google_analytics
       if Contentr.google_analytics_account.present?

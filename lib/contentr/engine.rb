@@ -21,7 +21,6 @@ module Contentr
         helper Contentr::ApplicationHelper
         helper Contentr::Admin::ParagraphsHelper
         helper Contentr::Admin::ApplicationHelper
-        helper Contentr::MenuHelper
       end
     end
 

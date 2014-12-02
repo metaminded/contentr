@@ -31,17 +31,6 @@ module Contentr
           end
       end
 
-      def simple_form_for_contentr_file(file, &block)
-        simple_form_for(
-          'file',
-          :url     => (file.new_record? ? contentr.admin_files_path() : contentr.admin_file_path(file)),
-          :method  => (file.new_record? ? :post : :put),
-          :enctype => "multipart/form-data",
-          :html    => {:class => 'form-horizontal'}) do |f|
-            yield(f)
-          end
-      end
-
       def link_to_add_to_subtree(subtree)
         [ link_to(fa_icon('minus-circle'), contentr.admin_nav_point_path(subtree),
             method: :delete, data: {confirm: 'Sind Sie sicher?'}, class: 'btn btn-xs btn-danger remove-nav-point'),

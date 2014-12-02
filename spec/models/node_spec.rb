@@ -59,15 +59,4 @@ describe Contentr::Page do
     expect(page.url_path).to eql '/page1'
     expect{page.url_path = 'this_is_not_allowed'}.to raise_error(RuntimeError)
   end
-
-  it 'one can find a node by path' do
-    site = create(:site)
-    page1 = create(:contentpage, name: 'Page 1', slug: 'page1', parent: site)
-    page2 = create(:contentpage, :name => 'Page 2', :slug => 'page2', :parent => page1)
-    page3 = create(:contentpage, :name => 'Page 3', :slug => 'page3', :parent => page2)
-    expect(Contentr::Page.find_by_path('/page1')).to eq page1
-    expect(Contentr::Page.find_by_path('/page1/page2')).to eq page2
-    expect(Contentr::Page.find_by_path('/page1/page2/page3')).to eq page3
-    expect(Contentr::Page.find_by_path('/no_such_page')).to be_nil
-  end
 end
