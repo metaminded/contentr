@@ -23,6 +23,12 @@ module Contentr
     # Validations
     validates :area_name, presence: true, unless: ->{self.content_block.present?}
 
+    attr_accessor :skip_callbacks
+
+    def skip_callbacks?
+      skip_callbacks
+    end
+
     after_create do
       update_column(:position, self.id)
     end

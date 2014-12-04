@@ -5,10 +5,12 @@ module Contentr
     included do
       class_attribute :be_auto_published
       store :unpublished_data
-      after_find :save_old_data
-      before_save :copy_unpublished
+      after_find :save_old_data, unless: :skip_callbacks?
+      before_save :copy_unpublished, unless: :skip_callbacks?
       after_validation do
-        @_for_edit = false
+        unless skip_callbacks?
+          @_for_edit = false
+        end
       end
     end
 
