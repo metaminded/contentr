@@ -1,5 +1,7 @@
 module Contentr
   class ContentBlock < ActiveRecord::Base
+    include ContentBlockExtension
+
     has_many :paragraphs, dependent: :destroy, before_add: :set_actual_position,
              inverse_of: :content_block, class_name: 'Contentr::Paragraph'
     has_many :usages, dependent: :destroy, inverse_of: :content_block_to_display,
