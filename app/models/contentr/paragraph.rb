@@ -33,7 +33,7 @@ module Contentr
       update_column(:position, self.id)
     end
 
-    def summary()
+    def summary
       return 'Einige Felder des Paragraphen sind ungültig. Bitte ändern Sie die Werte.' unless self.form_fields.present?
       u ||= unpublished_changes?
       self.form_fields.map do |f|
@@ -45,6 +45,12 @@ module Contentr
       end.compact.join('; ').truncate(140, separator: /\s/)
     end
 
+    def self.cache_key
+      order(updated_at: :desc).limit(1).pluck(:updated_at).first.to_s
+    end
 
+    def self.cache?
+      true
+    end
   end
 end
