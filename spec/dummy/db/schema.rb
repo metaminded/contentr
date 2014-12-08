@@ -36,14 +36,6 @@ ActiveRecord::Schema.define(version: 20141008111152) do
     t.datetime "updated_at"
   end
 
-  create_table "contentr_image_assets", force: true do |t|
-    t.string   "file"
-    t.string   "file_unpublished"
-    t.string   "type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "contentr_menus", force: true do |t|
     t.string "name"
     t.string "sid"
