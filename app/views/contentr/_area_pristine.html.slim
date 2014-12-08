@@ -1,4 +1,4 @@
 / = render 'contentr/admin/pages/areas', areas: [area_name], page: page, mode: 'frontend'
 - page.paragraphs_for_area(area).each do |paragraph|
-  - cache_if(paragraph.class.cache?, "#{paragraph.class.string_for_cache_key}")
+  - cache_if(paragraph.class.cache?, "#{paragraph.class.cache_key}")
     = render(partial: "contentr/paragraphs/#{paragraph.class.to_s.underscore}", locals: {paragraph: paragraph})
