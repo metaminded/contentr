@@ -46,7 +46,7 @@ module Contentr
     end
 
     def self.cache_key
-      order(updated_at: :desc).limit(1).pluck(:updated_at).first.to_s
+      "Paragraph-#{order(updated_at: :desc).limit(1).pluck(:updated_at).first.to_s}"
     end
 
     def self.cache?
