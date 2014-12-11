@@ -9,7 +9,6 @@ module Contentr
 
     belongs_to :menu
 
-    validate :site, presence: true
     validate :url_xor_page
 
     translate_me :title
