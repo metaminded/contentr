@@ -46,7 +46,7 @@ module Contentr
     end
 
     def self.cache_key
-      "Paragraph-#{order(updated_at: :desc).limit(1).pluck(:updated_at).first.to_s}"
+      Digest::MD5.hexdigest("Paragraph-#{self.reorder(updated_at: :desc).limit(1).pluck(:updated_at).first.to_i}")
     end
 
     def self.cache?

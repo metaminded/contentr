@@ -10,7 +10,7 @@
       - page.paragraphs_for_area(area).each do |paragraph|
         - if paragraph.visible || can?(:manage, :cms)
           - paragraph = paragraph.for_edit if can? :manage, :cms
-          - cache_if(paragraph.class.cache?, "id-#{paragraph.id}-#{paragraph.class.cache_key}-manage=#{can?(:manage, :cms)}-#{I18n.locale.to_s}")
+          - cache_if(paragraph.class.cache?, Digest::MD5.hexdigest("id-#{paragraph.id}-#{paragraph.class.cache_key}-manage=#{can?(:manage, :cms)}-#{I18n.locale.to_s}"))
             .paragraph [ id="paragraph_#{paragraph.id}" data-id=paragraph.id ]
               .actual_content
                 = contentr_paragraph_labels(paragraph)

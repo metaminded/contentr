@@ -11,6 +11,7 @@ module Contentr
         #{@contentr_menu.nav_points.reorder('updated_at desc').first.try(:updated_at).to_i}-
         #{@contentr_menu.nav_points.count}
       CACHEKEY
+      cache_key = Digest::MD5.hexdigest(cache_key)
       if controller.fragment_exist?(cache_key)
         controller.read_fragment(cache_key)
       else
