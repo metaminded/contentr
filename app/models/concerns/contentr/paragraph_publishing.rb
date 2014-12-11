@@ -46,12 +46,14 @@ module Contentr
     end
 
     def show!
-      self.update_column(:visible, true)
+      self.skip_callbacks = true
+      self.update(visible: true)
       reload
     end
 
     def hide!
-      self.update_column(:visible, false)
+      self.skip_callbacks = true
+      self.update(visible: false)
       reload
     end
 

@@ -40,7 +40,10 @@ class Contentr::Admin::ContentBlock::ParagraphsController < Contentr::Admin::App
   def reorder
     paragraphs_ids = params[:paragraph]
     paragraphs = Contentr::ContentBlock.find(params[:content_block_id]).paragraphs.sort { |x,y| paragraphs_ids.index(x.id.to_s) <=> paragraphs_ids.index(y.id.to_s) }
-    paragraphs.each_with_index { |p, i| p.update_column(:position, i) }
+    paragraphs.each_with_index do |p, i|
+      p.skip_callbacks = true
+      p.update(position: i)
+    end
     head :ok
   end
 
