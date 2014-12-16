@@ -1,11 +1,20 @@
 module Contentr
   class User
-    def authorized?(options)
+    def contentr_authorized?(options)
       false
     end
 
-    def self.current
-      @_contentr_current ||= new
+    def self.current(new_user = nil)
+      if new_user
+        @_contentr_current = new_user
+      else
+        @_contentr_current ||= new
+      end
+      @_contentr_current
+    end
+
+    def allowed_to_interact_with_contentr?
+      false
     end
   end
 end

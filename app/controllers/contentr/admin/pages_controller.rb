@@ -21,7 +21,7 @@ module Contentr
         @default_page = Contentr::Page.find(params[:default_page]) if params[:default_page].present?
         @page = Contentr::ContentPage.new(language: params[:language])
         @page.type = params[:page_type].constantize if (params[:page_type].present?)
-        authorize!(:manage, @page)
+        contentr_authorize!(type: :manage, object: @page)
 
         if @default_page.present?
           @page.page_in_default_language = @default_page
@@ -34,7 +34,7 @@ module Contentr
 
       def create
         @page = Contentr::Page.new(page_params)
-        return render(:new) unless can?(:manage, @page)
+        return render(:new) unless contentr_authorized?(type: :manage, object: @page)
         ActiveRecord::Base.transaction do
           begin
             @page.save!
@@ -45,19 +45,19 @@ module Contentr
             redirect_to :back, notice: @page.errors.full_messages.join
             return
           end
-          return redirect_to contentr.edit_admin_page_path(@page), notice: 'Seite wurde erstellt.'
+          return redirect_to contentr.edit_admin_page_path(@page), notice: t('.create_success')
         end
       end
 
       def edit
         @page = Contentr::Page.find(params[:id])
-        authorize!(:manage, @page)
+        contentr_authorize!(type: :manage, object: @page)
         @contentr_page = Contentr::Page.find(params[:id])
       end
 
       def update
         @page = Contentr::Page.find(params[:id])
-        return render(:edit) unless can?(:manage, @page)
+        return render(:edit) unless contentr_authorized?(type: :manage, object: @page)
         if @page.update(page_params)
           redirect_to contentr.edit_admin_page_path(@page), notice: 'Seite wurde aktualisiert.'
         else
@@ -67,7 +67,7 @@ module Contentr
 
       def destroy
         page = Contentr::Page.find(params[:id])
-        authorize!(:manage, page)
+        contentr_authorize!(type: :manage, object: page)
         page.destroy
         redirect_to :back, notice: 'Seite wurde entfernt'
       end

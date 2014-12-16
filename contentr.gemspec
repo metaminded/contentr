@@ -22,7 +22,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'jquery-ui-rails', '~> 4.2.0'
   s.add_dependency 'ancestry', '~> 2.1.0'
   s.add_dependency 'tabulatr2'
-  s.add_dependency 'cancan', '~> 1.6'
   s.add_dependency 'request_store', '~> 1.1.0'
   s.add_development_dependency 'capybara'
   s.add_development_dependency 'launchy'

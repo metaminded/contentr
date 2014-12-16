@@ -54,7 +54,7 @@ module Contentr
     end
 
     def contentr_paragraph_labels(paragraph)
-      return '' if !can? :manage, :cms
+      return '' unless current_contentr_user.allowed_to_interact_with_contentr?
       return '' if paragraph.visible &&
                    (paragraph.unpublished_data.empty? || !paragraph.changed?) &&
                    paragraph.page.present? && paragraph.page.language == I18n.locale.to_s
@@ -91,7 +91,7 @@ module Contentr
 
     def contentr_render_area(area_name, page, pristine: false, editable: nil)
       area_name  = area_name.to_s
-      authorized = editable.nil? ? can?(:manage, :cms) : editable
+      authorized = editable.nil? ? current_contentr_user.allowed_to_interact_with_contentr? : editable
       publisher = contentr_publisher?
       partial = if pristine && !authorized
         'contentr/area_pristine'
@@ -113,12 +113,12 @@ module Contentr
 
     def contentr_has_authorized_paragraphs?(user, area, authorized)
       area = area.to_s.split('-').first
-      can?(:manage, :cms) && user.authorized?(scope: :cms, action: :all, scope_id: area) && authorized
+      current_contentr_user.allowed_to_interact_with_contentr? && user.contentr_authorized?(scope: :cms, action: :all, scope_id: area) && authorized
     end
 
     def contentr_can_use_paragraph?(user, area, paragraph)
       area = area.to_s.split('-').first
-      can? :cms, { area: area, paragraph: paragraph }
+      current_contentr_user.contentr_authorized?(type: :cms, object: { area: area, paragraph: paragraph })
     end
 
     def area_name_generated?(area)

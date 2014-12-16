@@ -1,4 +1,4 @@
-- paragraph = paragraph.for_edit if can? :manage, :cms
+- paragraph = paragraph.for_edit if current_contentr_user.allowed_to_interact_with_contentr?
 
 .paragraph [ id="paragraph_#{paragraph.id}" data-id=paragraph.id ]
   .actual_content
