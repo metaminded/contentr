@@ -16,3 +16,5 @@
 //= require contentr
 //= require turbolinks
 //= require_tree .
+
+jQuery(Contentr.init);

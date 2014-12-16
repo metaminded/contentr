@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141008111152) do
+ActiveRecord::Schema.define(version: 20141202140246) do
 
   create_table "articles", force: true do |t|
     t.string   "title"
@@ -48,15 +48,16 @@ ActiveRecord::Schema.define(version: 20141008111152) do
     t.string   "ancestry"
     t.string   "url"
     t.integer  "parent_page_id"
-    t.integer  "position",       default: 0
+    t.integer  "position",        default: 0
     t.string   "type"
     t.text     "payload"
-    t.boolean  "removable",      default: true
-    t.boolean  "visible",        default: true
+    t.boolean  "removable",       default: true
+    t.boolean  "visible",         default: true
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "menu_id"
     t.string   "nav_point_type"
+    t.boolean  "open_in_new_tab"
   end
 
   add_index "contentr_nav_points", ["ancestry"], name: "index_contentr_nav_points_on_ancestry"

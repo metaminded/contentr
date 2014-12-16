@@ -28,3 +28,13 @@ en:
           attributes:
             slug:
               must_be_unique: must be unique
+  contentr:
+    admin:
+      menus:
+        index:
+          new_menu: New menu
+        create:
+          create_success: Menu was successfully created
+      pages:
+        create:
+          create_success: Page was successfully created

@@ -1,6 +1,8 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :edit, :update, :destroy]
 
+  before_action :get_linked_page, only: [:show]
+
   # GET /articles
   # GET /articles.json
   def index
@@ -70,5 +72,14 @@ class ArticlesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def article_params
       params.require(:article).permit(:title, :body)
+    end
+
+    def get_linked_page
+      id_param = params.select { |i| i =~ /id$/ }
+      if id_param.present?
+        contentr_link_me append: id_param[:id]
+      else
+        contentr_link_me
+      end
     end
 end

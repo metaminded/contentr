@@ -9,6 +9,7 @@
   <strong>Body:</strong>
   <%= @article.body %>
 </p>
+<%= contentr_area :body %>
 
-<%= link_to 'Edit', edit_article_path(@article) %> |
+<%= link_to 'Edit', edit_article_path(id: @article) %> |
 <%= link_to 'Back', articles_path %>

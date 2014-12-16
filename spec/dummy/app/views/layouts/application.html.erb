@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Dummy</title>
+  <title><%= content_for(:contentr_title) %></title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
-
-<%= yield %>
-
+<body class="test">
+<% [:notice, :error, :alert].each do |level| %>
+  <% unless flash[level].blank? %>
+    <div class="alert alert-#{flash_class(level)}">
+      <button class='close' type="button" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= content_tag :p, flash[level] %>
+    </div>
+  <% end %>
+<% end %>
+<%= content_for :contentr_buttons %>
+  <div class="container">
+    <div class="row">
+      <%= yield %>
+    </div>
+  </div>
 </body>
 </html>
