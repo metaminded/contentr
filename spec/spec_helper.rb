@@ -19,13 +19,15 @@ end
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
-Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
+require File.expand_path("../support/features/session_helpers.rb",  __FILE__)
 
 
 RSpec.configure do |config|
   config.use_transactional_fixtures = false
+  config.order = "random"
 
   # config.include Contentr::Engine.routes.url_helpers
+  config.include Features::SessionHelpers, type: :feature
 
   config.include FactoryGirl::Syntax::Methods
 
@@ -49,5 +51,8 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 
+  config.after(:each, type: :feature) do
+    Contentr::User.instance_variable_set(:@_contentr_current, nil)
+  end
 
 end
