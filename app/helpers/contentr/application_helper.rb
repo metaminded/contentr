@@ -113,12 +113,12 @@ module Contentr
 
     def contentr_has_authorized_paragraphs?(user, area, authorized)
       area = area.to_s.split('-').first
-      current_contentr_user.allowed_to_interact_with_contentr? && user.contentr_authorized?(scope: :cms, action: :all, scope_id: area) && authorized
+      user.allowed_to_interact_with_contentr? && user.allowed_to_use_paragraphs?(area: area) && authorized
     end
 
     def contentr_can_use_paragraph?(user, area, paragraph)
       area = area.to_s.split('-').first
-      current_contentr_user.contentr_authorized?(type: :cms, object: { area: area, paragraph: paragraph })
+      user.allowed_to_use_paragraphs?(area: area, subject: paragraph)
     end
 
     def area_name_generated?(area)
