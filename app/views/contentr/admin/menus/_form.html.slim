@@ -14,7 +14,7 @@
           = nf.input :id, as: :hidden, :input_html => { class: 'nav-point-id' }
           = nf.input :parent_id, as: :hidden
           = nf.input :nav_point_type, as: :hidden, :input_html => { :value => 'menu_nav_point' }
-          = nf.input :visible, wrapper: :vertical_boolean
+          = nf.input :visible
           = nf.languagify do |l|
             = l.input :title
           = nf.association :page
