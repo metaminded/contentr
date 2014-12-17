@@ -47,10 +47,6 @@ module Contentr
         end
       end
 
-      def paragraphs
-        @content_block = Contentr::ContentBlock.find(params[:id])
-      end
-
       private
 
       def content_block_params

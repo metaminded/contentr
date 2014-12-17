@@ -1,37 +1,39 @@
 .btn-group id="contentr-group-paragraph-button-dropdown-btn-#{paragraph.id}"
-  => link_to(fa_icon(:pencil), contentr.edit_admin_page_area_paragraph_path(page, paragraph.area_name, paragraph), class: 'btn btn-default btn-xs paragraph-edit-btn', remote: true, data: {id: paragraph.id})
+  / # TODO: FIX THE LINKS
+  - if area_containing_element.is_a?(Contentr::Page)
+    => link_to(fa_icon(:pencil), contentr.edit_admin_page_area_paragraph_path(area_containing_element, paragraph.area_name, paragraph), class: 'btn btn-default btn-xs paragraph-edit-btn', remote: true, data: {id: paragraph.id})
   button.btn.btn-default.dropdown-toggle.btn-xs.contentr-open-paragraph-button-dropdown-btn type="button" data-toggle="dropdown" id="contentr-open-paragraph-button-dropdown-btn-#{paragraph.id}"
     = fa_icon :cog
     span.sr-only Paragraphen-Menü anzeigen
   ul.dropdown-menu.menu.pull-right id="contentr-paragraph-button-dropdown-#{paragraph.id}"
     - if contentr_publisher?
       - if !paragraph.visible
-        li= link_to contentr.display_admin_page_area_paragraph_path(page, paragraph.area_name, paragraph), id: "display-btn-#{paragraph.id}", class: 'contentr-remote display-paragraph-btn' do
+        li= link_to contentr.display_admin_page_area_paragraph_path(area_containing_element, paragraph.area_name, paragraph), id: "display-btn-#{paragraph.id}", class: 'contentr-remote display-paragraph-btn' do
           => fa_icon(:'exclamation-triangle')
           | Sichtbar machen
       - else
-        li= link_to contentr.hide_admin_page_area_paragraph_path(page, paragraph.area_name, paragraph), id: "display-btn-#{paragraph.id}", class: 'contentr-remote publish-paragraph-btn' do
+        li= link_to contentr.hide_admin_page_area_paragraph_path(area_containing_element, paragraph.area_name, paragraph), id: "display-btn-#{paragraph.id}", class: 'contentr-remote publish-paragraph-btn' do
           => fa_icon(:'times')
           | Unsichtbar machen
     - if paragraph.unpublished_changes? && contentr_publisher?
       / visibility
       / publish changes
-      li= link_to contentr.publish_admin_page_area_paragraph_path(page, paragraph.area_name, paragraph), id: "publish-btn-#{paragraph.id}", class: 'contentr-remote publish-paragraph-btn' do
+      li= link_to contentr.publish_admin_page_area_paragraph_path(area_containing_element, paragraph.area_name, paragraph), id: "publish-btn-#{paragraph.id}", class: 'contentr-remote publish-paragraph-btn' do
         => fa_icon(:check)
         | Veröffentlichen
       / revert changes
-      li= link_to contentr.revert_admin_page_area_paragraph_path(page, paragraph.area_name, paragraph), id: "revert-btn-#{paragraph.id}", class: 'contentr-remote revert-paragraph-btn' do
+      li= link_to contentr.revert_admin_page_area_paragraph_path(area_containing_element, paragraph.area_name, paragraph), id: "revert-btn-#{paragraph.id}", class: 'contentr-remote revert-paragraph-btn' do
         => fa_icon(:undo)
         | Unveröffentlichte Änderungen verwerfen
     / show published version
-    li= link_to contentr.show_version_admin_page_area_paragraph_path(page, paragraph.area_name, paragraph, version: :published), id: "show-published-btn-#{paragraph.id}", class: 'contentr-remote show-published-paragraph-btn', data: {target: '.panel-body'} do
+    li= link_to contentr.show_version_admin_page_area_paragraph_path(area_containing_element, paragraph.area_name, paragraph, version: :published), id: "show-published-btn-#{paragraph.id}", class: 'contentr-remote show-published-paragraph-btn', data: {target: '.panel-body'} do
       => fa_icon(:eye)
       | Veröffentlichte Version zeigen
-    li= link_to contentr.show_version_admin_page_area_paragraph_path(page, paragraph.area_name, paragraph, version: :unpublished), id: "show-unpublished-btn-#{paragraph.id}", class: 'contentr-remote show-unpublished-paragraph-btn', data: {target: '.panel-body'} do
+    li= link_to contentr.show_version_admin_page_area_paragraph_path(area_containing_element, paragraph.area_name, paragraph, version: :unpublished), id: "show-unpublished-btn-#{paragraph.id}", class: 'contentr-remote show-unpublished-paragraph-btn', data: {target: '.panel-body'} do
       => fa_icon(:'eye-slash')
       | Unveröffentlichte Version zeigen
     li.divider
-    li= link_to contentr.admin_page_area_paragraph_path(page, paragraph.area_name, paragraph), :method => :delete, class: 'contentr-remote remove-paragraph-btn', data: { confirm: t('contentr.really_delete') } do
+    li= link_to contentr.admin_page_area_paragraph_path(area_containing_element, paragraph.area_name, paragraph), :method => :delete, class: 'contentr-remote remove-paragraph-btn', data: { confirm: t('contentr.really_delete') } do
       => fa_icon(:'trash-o')
       | Paragraph löschen
 

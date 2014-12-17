@@ -5,8 +5,9 @@ class Contentr::Admin::ContentBlock::ParagraphsController < Contentr::Admin::App
     paragraph_class = paragraph_type_class
     if paragraph_class
       @paragraph = paragraph_class.new
-      @content_block = Contentr::ContentBlock.find(params[:content_block_id])
-      render 'new', layout: false
+      @area_containing_element = Contentr::ContentBlock.find(params[:content_block_id])
+      @area_name = params[:area_id]
+      render  'contentr/admin/paragraphs/new', layout: false
     else
       raise 'Invalid Paragraph class'
     end
@@ -56,7 +57,9 @@ class Contentr::Admin::ContentBlock::ParagraphsController < Contentr::Admin::App
   end
 
   def paragraph_params
-    type = params['type']
-    params.require(type.constantize.model_name.param_key.to_sym).permit(*(type.constantize.permitted_attributes + [:content_block_id]))
+    type =  params['type'] || Contentr::Paragraph.unscoped.find(params[:id]).class.name
+    scope = type.split('::').last.underscore.to_sym
+    return {} unless params[scope].present?
+    params.require(scope).permit!
   end
 end

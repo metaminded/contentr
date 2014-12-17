@@ -4,29 +4,22 @@ module Contentr
   module Admin
     module ApplicationHelper
 
-      def simple_form_for_contentr_paragraph(page, area_name, paragraph, &block)
+      def simple_form_for_contentr_paragraph(area_containing_element, area_name, paragraph, &block)
+        if area_containing_element.is_a?(Contentr::Page)
+          url = paragraph.new_record? ? contentr.admin_page_area_paragraphs_path(area_containing_element, area_id: area_name, type: paragraph.class.to_s) :
+            contentr.admin_page_area_paragraph_path(area_containing_element, area_name, paragraph)
+        else
+          url = (paragraph.new_record? ? contentr.admin_content_block_paragraphs_path(content_block_id: area_containing_element, type: paragraph.class) :
+                  contentr.admin_content_block_paragraph_path(area_containing_element, paragraph))
+        end
         simple_form_for(
           paragraph,
-          :url     => (paragraph.new_record? ? contentr.admin_page_area_paragraphs_path(page, area_id: area_name, type: paragraph.class.to_s) :
-            contentr.admin_page_area_paragraph_path(page, area_name, paragraph)),
+          :url     => url,
           :method  => (paragraph.new_record? ? :post : :patch),
           :enctype => "multipart/form-data",
           remote: true,
           data: {id: paragraph.try(:id)},
           html: {class: 'paragraph', role: 'form'}) do |f|
-            yield(f)
-          end
-      end
-
-      def simple_form_for_content_block_paragraph(paragraph, content_block, &block)
-        paragraph.content_block = content_block
-        simple_form_for(
-          paragraph,
-          :url     => (paragraph.new_record? ? contentr.admin_content_block_paragraphs_path(content_block, type: paragraph.class) : contentr.admin_content_block_paragraph_path(content_block, paragraph)),
-          :method  => (paragraph.new_record? ? :post : :patch),
-          :enctype => "multipart/form-data",
-          remote: true,
-          data: {id: paragraph.try(:id)}) do |f|
             yield(f)
           end
       end

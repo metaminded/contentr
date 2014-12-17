@@ -36,7 +36,7 @@ module Contentr
         else
           @paragraph.content_block_id = params[:content_block_id]
         end
-        if @paragraph.save
+        if @paragraph.save!
           render partial: 'summary', locals: { paragraph: @paragraph.reload.for_edit, page: @page }
         else
           render text: "Fehler :("
@@ -149,13 +149,13 @@ module Contentr
       def find_page_or_site
         if (params[:site] == 'true')
           @page_or_site = Contentr::Site.default
-          @page = Contentr::Page.find(params[:page_id])
+          @area_containing_element = Contentr::Page.find(params[:page_id])
         elsif params[:content_block_id].present?
           @page_or_site = Contentr::ContentBlock.find_by(id: params[:content_block_id])
-          @page = @page_or_site
+          @area_containing_element = @page_or_site
         else
           @page_or_site = Contentr::Page.find_by(id: params[:page_id])
-          @page = @page_or_site
+          @area_containing_element = @page_or_site
         end
       end
 
