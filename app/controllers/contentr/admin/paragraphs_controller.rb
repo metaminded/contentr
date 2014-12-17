@@ -92,7 +92,7 @@ module Contentr
       end
 
       def show_version
-        raise ActiveRecord::RecordNotFound.new('Not Found') if @page.nil?
+        raise ActiveRecord::RecordNotFound.new('Not Found') if @area_containing_element.nil?
         if params[:id] == 'all'
           pp = @page.paragraphs_for_area(params[:area_id])
           h = Hash[pp.map do |paragraph|
