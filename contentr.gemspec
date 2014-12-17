@@ -23,6 +23,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'ancestry', '~> 2.1.0'
   s.add_dependency 'tabulatr2'
   s.add_dependency 'request_store', '~> 1.1.0'
+  s.add_dependency 'nested_form', '~> 0.3.2'
   s.add_development_dependency 'capybara'
   s.add_development_dependency 'launchy'
   s.add_development_dependency 'factory_girl_rails', "~> 4.4.0"
