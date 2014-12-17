@@ -31,6 +31,16 @@ gem 'bootstrap-sass', '~> 3.2'
 
 gem 'form_translation', github: 'crunch09/form_translation'
 
+group :development, :test do
+  gem 'pry',                            '~> 0.10.0'
+  gem 'pry-stack_explorer',             '~> 0.4.9.1'
+  gem 'pry-byebug',                     '~> 1.3.3'
+end
+
+group :development do
+  gem 'better_errors',                  '~> 1.1.0'
+  gem 'binding_of_caller',              '~> 0.7.2'
+end
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
