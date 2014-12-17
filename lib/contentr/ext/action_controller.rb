@@ -15,7 +15,7 @@ class ActionController::Base
     else
       @contentr_page = @default_page = nil
     end
-    if @contentr_page.present? && (@contentr_page.viewable?(preview_mode: in_preview_mode?) || can?(:manage, @contentr_page))
+    if @contentr_page.present? && (@contentr_page.viewable?(preview_mode: in_preview_mode?) || contentr_authorized?(type: :manage, object: @contentr_page))
       @page_to_display = @contentr_page.get_page_for_language(I18n.locale)
       if @page_to_display.present?
         if I18n.locale.to_s != @contentr_page.language
