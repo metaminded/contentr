@@ -5,6 +5,7 @@ require 'simple_form'
 require 'form_translation'
 require 'cancan'
 require 'tabulatr'
+require 'request_store'
 
 module Contentr
 

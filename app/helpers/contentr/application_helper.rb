@@ -93,7 +93,6 @@ module Contentr
       area_name  = area_name.to_s
       authorized = editable.nil? ? can?(:manage, :cms) : editable
       publisher = contentr_publisher?
-      paragraphs = page.paragraphs_for_area(area_name)
       partial = if pristine && !authorized
         'contentr/area_pristine'
       else
@@ -106,7 +105,6 @@ module Contentr
           area: area_name,
           authorized: authorized,
           publisher: publisher,
-          paragraphs: paragraphs,
           mode: 'frontend',
           pristine: pristine
         }

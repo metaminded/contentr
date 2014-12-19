@@ -52,5 +52,10 @@ module Contentr
     def self.cache?
       true
     end
+
+    def self.memoized_cache_key
+      RequestStore.store['paragraph_cache_keys'] ||= {}
+      RequestStore.store['paragraph_cache_keys'][self.name] ||= self.cache_key
+    end
   end
 end
