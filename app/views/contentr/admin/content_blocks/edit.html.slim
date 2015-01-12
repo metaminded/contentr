@@ -1,7 +1,19 @@
 - contentr_title @content_block.name
 - contentr_navigation do |navbar|
   - navbar.divider
-  - @content_block.usages.each do |usage|
-    - navbar.link usage.page.name, contentr.admin_page_path(usage.page)
 
+.panel-group
+  .panel.panel-default
+    .panel-heading
+      h4 = link_to t('.usages'), '#content-block-usages', data: {toggle: 'collapse'}
+    .panel-collapse.collapse id="content-block-usages"
+        - if @content_block.usages.any?
+          ul
+            - @content_block.usages.each do |usage|
+              li
+                = link_to usage.page.name, usage.page.url, target: :_blank
+        - else
+          p = t('.no_usages')
 = render 'form'
+
+
