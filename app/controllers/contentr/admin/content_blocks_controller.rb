@@ -39,8 +39,12 @@ module Contentr
 
       def destroy
         @content_block = Contentr::ContentBlock.find(params[:id])
-        @content_block.destroy
-        redirect_to contentr.content_blocks_path, notice: t('.success')
+        if @content_block.usages.none?
+          @content_block.destroy
+          redirect_to contentr.admin_content_blocks_path, notice: t('.success')
+        else
+          redirect_to contentr.admin_content_blocks_path, alert: t('.failure')
+        end
       end
 
       def paragraphs

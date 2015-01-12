@@ -34,7 +34,7 @@ module Contentr::BackendRouting
         end
       end
       resources :page_types, only: [:new, :create, :index, :edit, :update]
-      resources :content_blocks, only: [:new, :create, :edit, :update, :index] do
+      resources :content_blocks, only: [:new, :create, :edit, :update, :index, :destroy] do
         resources :paragraphs, only: [:new, :create, :index], controller: 'content_block/paragraphs' do
           collection do
             patch 'reorder' => 'content_block/paragraphs#reorder'
