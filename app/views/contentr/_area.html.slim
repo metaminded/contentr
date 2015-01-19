@@ -9,7 +9,7 @@
       - paragraph_types = page.paragraphs.where(area_name: area).pluck(:type)
       - if paragraph_types.any?
         - paragraph_types = paragraph_types.map &:constantize
-        - cache_if(paragraph_types.all?{|p| p.cache? }, Digest::MD5.hexdigest("page-#{page.id}-#{paragraph_types.map{|par| par.memoized_cache_key}.join('-')}-#{can?(:manage, :cms)}-#{I18n.locale.to_s}"))
+        - cache_if(paragraph_types.all?{|p| p.cache? }, Digest::MD5.hexdigest("page-#{page.id}-#{paragraph_types.map{|par| par.memoized_cache_key}.join('-')}-#{can?(:manage, :cms)}-#{I18n.locale.to_s}-#{area}"))
           - page.paragraphs_for_area(area).each do |paragraph|
             - if paragraph.visible || can?(:manage, :cms)
               - paragraph = paragraph.for_edit if can? :manage, :cms
