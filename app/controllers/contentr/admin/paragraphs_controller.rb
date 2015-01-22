@@ -1,7 +1,7 @@
 # encoding: utf-8
 module Contentr
   module Admin
-    class ParagraphsController < ApplicationController
+    class ParagraphsController < Contentr::Admin::ApplicationController
       include ::Contentr::ApplicationHelper
       include ParagraphsControllerExtension
 

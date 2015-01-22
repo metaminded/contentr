@@ -1,6 +1,6 @@
 module Contentr
   module Admin
-    class AreasController < ApplicationController
+    class AreasController < Contentr::Admin::ApplicationController
 
       def edit
         if params[:content_block_id].present?

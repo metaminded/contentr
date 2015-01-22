@@ -1,6 +1,6 @@
 module Contentr
   module Admin
-    class ContentBlocksController < ApplicationController
+    class ContentBlocksController < Contentr::Admin::ApplicationController
       PERMITTED_PARAMS = [:name, :partial]
 
       layout 'application'

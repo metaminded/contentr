@@ -1,6 +1,6 @@
 module Contentr
   module Admin
-    class PagesController < ApplicationController
+    class PagesController < Contentr::Admin::ApplicationController
       PERMITTED_PARAMS = [
         :name, :parent_id, :published, :language, :layout, :type,
         :displayable_type, :displayable_id, :slug, :page_type_id,
