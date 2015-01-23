@@ -54,7 +54,7 @@ module Contentr
     end
 
     def contentr_paragraph_labels(paragraph)
-      return '' unless current_contentr_user.allowed_to_interact_with_contentr?
+      return '' unless allowed_to_interact_with_contentr?
       return '' if paragraph.visible &&
                    (paragraph.unpublished_data.empty? || !paragraph.changed?) &&
                    paragraph.page.present? && paragraph.page.language == I18n.locale.to_s
@@ -91,7 +91,7 @@ module Contentr
 
     def contentr_render_area(area_name, area_containing_element, pristine: false, editable: nil)
       area_name  = area_name.to_s
-      authorized = editable.nil? ? current_contentr_user.allowed_to_interact_with_contentr? : editable
+      authorized = editable.nil? ? allowed_to_interact_with_contentr? : editable
       publisher = contentr_publisher?
       partial = if pristine && !authorized
         'contentr/area_pristine'
@@ -113,7 +113,7 @@ module Contentr
 
     def contentr_has_authorized_paragraphs?(user, area, authorized)
       area = area.to_s.split('-').first
-      user.allowed_to_interact_with_contentr? && user.allowed_to_use_paragraphs?(area: area) && authorized
+      allowed_to_interact_with_contentr? && user.allowed_to_use_paragraphs?(area: area) && authorized
     end
 
     def contentr_can_use_paragraph?(user, area, paragraph)

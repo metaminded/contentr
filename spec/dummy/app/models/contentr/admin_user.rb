@@ -4,10 +4,6 @@ module Contentr
       true
     end
 
-    def allowed_to_interact_with_contentr?
-      true
-    end
-
     def allowed_to_use_paragraphs?(area:, subject: nil)
       true
     end

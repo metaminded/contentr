@@ -5,6 +5,7 @@ module Contentr
     included do
       helper_method :contentr_publisher?
       helper_method :current_contentr_user
+      helper_method :allowed_to_interact_with_contentr?
     end
 
     protected
@@ -17,5 +18,12 @@ module Contentr
       Contentr::User.current
     end
 
+    def allowed_to_interact_with_contentr?
+      false
+    end
+
+    def contentr_authorize!(type:, object:)
+      raise 'Not allowed to access!'
+    end
   end
 end

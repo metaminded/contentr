@@ -13,10 +13,6 @@ module Contentr
       @_contentr_current
     end
 
-    def allowed_to_interact_with_contentr?
-      false
-    end
-
     def allowed_to_use_paragraphs?(area:, subject: nil)
       false
     end

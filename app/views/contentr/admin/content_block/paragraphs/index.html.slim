@@ -1,20 +1,19 @@
-- contentr_title @content_block.name
+- contentr_title @area_containing_element.name
 
 - area = 'main'
-- page = @content_block
 
 ul
   li = link_to t('back'), :back
-  - @content_block.usages.each do |usage|
+  - @area_containing_element.usages.each do |usage|
     - if usage.page.present?
       li
         = link_to usage.page.name, contentr.admin_page_path(usage.page)
 
-.contentr-show.contentr-area id="area-#{area}" data-contentr-area-name=area data-content-block=@content_block.id
+.contentr-show.contentr-area id="area-#{area}" data-contentr-area-name=area data-content-block=@area_containing_element.id
   .row
     .col-xs-12
-      - if current_contentr_user.allowed_to_interact_with_contentr? && current_contentr_user.allowed_to_use_paragraphs?(area: area)
-        a.btn.btn-frontend.btn-xs.btn-default.pull-right.edit-area href=contentr.edit_admin_page_area_path(page, area, content_block_id: page) = fa_icon('edit', text: (t("contentr.area_names.#{area}") rescue area))
-      - page.paragraphs_for_area(area).each do |paragraph|
-        - if paragraph.visible || current_contentr_user.allowed_to_interact_with_contentr?
+      - if allowed_to_interact_with_contentr? && current_contentr_user.allowed_to_use_paragraphs?(area: area)
+        a.btn.btn-frontend.btn-xs.btn-default.pull-right.edit-area href=contentr.admin_edit_area_path(area, @area_containing_element.class.name, @area_containing_element.id) = fa_icon('edit', text: (t("contentr.area_names.#{area}") rescue area))
+      - @area_containing_element.paragraphs_for_area(area).each do |paragraph|
+        - if paragraph.visible || allowed_to_interact_with_contentr?
           = render 'contentr/admin/application/paragraph', paragraph: paragraph

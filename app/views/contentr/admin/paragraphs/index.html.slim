@@ -1,35 +1,20 @@
-<h1>Paragraphs on page <%= @page.name %></h1>
+- contentr_title @area_containing_element.name
 
-<div id="page-manager">
-  <div class="toolbar">
-    <%= link_to 'Create a new paragraph', '#', :class => 'button' %>
-  </div>
+- area = 'main'
+- page = @area_containing_element
 
-  <table class="contentr pagegrid">
-    <thead>
-      <tr>
-        <th class="icon">Icon</th>
-        <th class="name">Name</th>
-        <th class="slug">Area</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @paragraphs.each do |paragraph| %>
-        <tr data-paragraph-id="<%= paragraph.id %>">
-          <td class="icon">
-            <div class="containr">
-              <%= image_tag('contentr/admin/page-icon.png') %>
-            </div>
-          </td>
-          <td class="name">
-            <div class="containr">
-              <%= paragraph.id %>
-            </div>
-          </td>
-          <td class="slug"><%= paragraph.area_name %></td>
-          <td class="edit"><%= link_to 'Edit', contentr_admin_edit_paragraph_path(@page.id, paragraph.id) %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+ul
+  li = link_to t('action.back'), :back
+  - @area_containing_element.usages.each do |usage|
+    - if usage.page.present?
+      li
+        = link_to usage.page.name, contentr.admin_page_path(usage.page)
+
+.contentr-show.contentr-area id="area-#{area}" data-contentr-area-name=area data-content-block=@area_containing_element.id
+  .row
+    .col-xs-12
+      - if allowed_to_interact_with_contentr? && current_contentr_user.allowed_to_use_paragraphs?(area: area)
+        a.btn.btn-frontend.btn-xs.btn-default.pull-right.edit-area href=contentr.edit_admin_area_path(page.class.name, page.id, area) = fa_icon('edit', text: (t("contentr.area_names.#{area}") rescue area))
+      - page.paragraphs_for_area(area).each do |paragraph|
+        - if paragraph.visible || allowed_to_interact_with_contentr?
+          = render 'contentr/admin/application/paragraph', paragraph: paragraph

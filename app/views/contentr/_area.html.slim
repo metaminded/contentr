@@ -2,7 +2,7 @@
 .contentr-show.contentr-area id="area-#{area}" data-contentr-area-name=area
   .row
     .col-xs-20
-      - current_user_allowed = current_contentr_user.allowed_to_interact_with_contentr?
+      - current_user_allowed = allowed_to_interact_with_contentr?
       - if contentr_has_authorized_paragraphs?(current_contentr_user, area, authorized)
         .row
           .col-xs-20

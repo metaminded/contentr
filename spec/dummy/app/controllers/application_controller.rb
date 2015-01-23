@@ -13,4 +13,12 @@ class ApplicationController < ActionController::Base
 
   end
 
+  def allowed_to_interact_with_contentr?
+    if current_contentr_user.class.name == 'Contentr::AdminUser'
+      true
+    else
+      false
+    end
+  end
+
 end

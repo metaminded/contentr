@@ -1,5 +1,5 @@
 - mode ||= nil
-- if current_contentr_user.allowed_to_interact_with_contentr?
+- if allowed_to_interact_with_contentr?
   .panel-group#contentr-areas-accordion
     - areas.each do |area|
       = render 'contentr/area', area: area, page: page, mode: mode
