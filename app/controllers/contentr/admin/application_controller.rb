@@ -14,6 +14,10 @@ module Contentr
         { layout_type: (Contentr.layout_type || 'admin') }
       end
 
+      def _contentr_confirm_access
+        true
+      end
+
       protected
 
       def set_layout
