@@ -5,10 +5,10 @@ module Contentr
       include ::Contentr::ApplicationHelper
       include ParagraphsControllerExtension
 
-      before_filter :find_page_or_site
+      before_filter :find_page_or_content_block, only: [:new, :create, :index]
 
       def index
-        @paragraphs = @page.paragraphs.order_by(:area_id, :asc).order_by(:position, :asc)
+        @paragraphs = @area_containing_element.paragraphs.order(:area_id, :asc).order(:position, :asc)
       end
 
       def new
@@ -16,10 +16,10 @@ module Contentr
         if params[:type].present?
           @paragraph = paragraph_type_class.new(area_name: @area_name)
           check_permission!(@paragraph)
-          if !params[:content_block_id].present?
-            @paragraph.page_id = params[:page_id]
+          if params[:type] == 'Contentr::ContentBlock'
+            @paragraph.content_block_id = params[:area_containing_element_id]
           else
-            @paragraph.content_block_id = params[:content_block_id]
+            @paragraph.page_id = params[:area_containing_element_id]
           end
           render 'new', layout: false
         else
@@ -31,10 +31,10 @@ module Contentr
         @paragraph = paragraph_type_class.new(paragraph_params)
         check_permission!(@paragraph)
         @paragraph.area_name = params[:area_id]
-        if !params[:content_block_id].present?
-          @paragraph.page_id = params[:page_id]
+        if params[:type] == 'Contentr::ContentBlock'
+          @paragraph.content_block_id = params[:area_containing_element_id]
         else
-          @paragraph.content_block_id = params[:content_block_id]
+          @paragraph.page_id = params[:area_containing_element_id]
         end
         if @paragraph.save!
           render partial: 'summary', locals: { paragraph: @paragraph.reload.for_edit, page: @page }
@@ -72,7 +72,7 @@ module Contentr
       end
 
       def show
-        @paragraph = @page_or_site.paragraphs.find(params[:id])
+        @paragraph = @area_containing_element.paragraphs.find(params[:id])
         @paragraph.for_edit
         render partial: 'summary', locals: { paragraph: @paragraph, page: @page }
       end
@@ -92,21 +92,10 @@ module Contentr
       end
 
       def show_version
-        raise ActiveRecord::RecordNotFound.new('Not Found') if @area_containing_element.nil?
-        if params[:id] == 'all'
-          pp = @page.paragraphs_for_area(params[:area_id])
-          h = Hash[pp.map do |paragraph|
-            paragraph.for_edit if params[:version] == 'unpublished'
-            s = render_to_string partial: "contentr/paragraphs/#{paragraph.class.to_s.underscore}", locals: { paragraph: paragraph }
-            [paragraph.id, s]
-          end]
-          render json: h
-        else
-          @paragraph = Contentr::Paragraph.find(params[:id])
-          check_permission!(@paragraph)
-          @paragraph.for_edit if params[:version] == 'unpublished'
-          render partial: "contentr/paragraphs/#{@paragraph.class.to_s.underscore}", locals: { paragraph: @paragraph }
-        end
+        @paragraph = Contentr::Paragraph.find(params[:id])
+        check_permission!(@paragraph)
+        @paragraph.for_edit if params[:version] == 'unpublished'
+        render partial: "contentr/paragraphs/#{@paragraph.class.to_s.underscore}", locals: { paragraph: @paragraph }
       end
 
       def destroy
@@ -114,12 +103,11 @@ module Contentr
         check_permission!(paragraph)
         paragraph.destroy
         render text: ''
-        # redirect_to :back, notice: t('.message')
       end
 
       def reorder
         paragraphs_ids = params[:paragraph_ids].split(',')
-        paragraphs = @page_or_site.paragraphs_for_area(params[:area_id]).sort{|x,y| paragraphs_ids.index(x.id.to_s) <=> paragraphs_ids.index(y.id.to_s) }
+        paragraphs = @area_containing_element.paragraphs_for_area(params[:area_id]).sort{|x,y| paragraphs_ids.index(x.id.to_s) <=> paragraphs_ids.index(y.id.to_s) }
         paragraphs.each_with_index { |p, i| p.update_column(:position, i) }
         head :ok
       end
@@ -141,34 +129,26 @@ module Contentr
     protected
 
       def paragraph_type_class
-        paragraph_type_string = params[:type] # e.g. Contentr::HtmlParagraph
+        paragraph_type_string = params[:paragraph_type] # e.g. Contentr::HtmlParagraph
         paragraph_type_class = paragraph_type_string.classify.constantize # just to be sure
         paragraph_type_class if paragraph_type_class < Contentr::Paragraph
       end
 
-      def find_page_or_site
-        if (params[:site] == 'true')
-          @page_or_site = Contentr::Site.default
-          @area_containing_element = Contentr::Page.find(params[:page_id])
-        elsif params[:content_block_id].present?
-          @page_or_site = Contentr::ContentBlock.find_by(id: params[:content_block_id])
-          @area_containing_element = @page_or_site
-        else
-          @page_or_site = Contentr::Page.find_by(id: params[:page_id])
-          @area_containing_element = @page_or_site
-        end
+      def find_page_or_content_block
+        @area_containing_element = params[:type].constantize.find(params[:area_containing_element_id])
       end
 
       def paragraph_params
-        type =  params['type'] || Contentr::Paragraph.unscoped.find(params[:id]).class.name
+        type =  params['paragraph_type'] || Contentr::Paragraph.unscoped.find(params[:id]).class.name
         scope = type.split('::').last.underscore.to_sym
         return {} unless params[scope].present?
         params.require(scope).permit!
       end
 
       def check_permission!(paragraph)
+        area_name = params[:area_id] || paragraph.try(:area_name)
         c = paragraph.is_a?(Class) ? paragraph : paragraph.class
-        raise 'NO!' unless contentr_can_use_paragraph?(current_contentr_user, params[:area_id], c)
+        raise 'NO!' unless contentr_can_use_paragraph?(current_contentr_user, area_name, c)
       end
     end
   end

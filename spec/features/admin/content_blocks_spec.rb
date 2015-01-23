@@ -5,7 +5,7 @@ feature Contentr::Admin::ContentBlocksController do
   scenario 'is able to add paragraphs to the content block', js: true do
     content_block = create(:content_block, partial: '').reload
     login_as_admin
-    visit contentr.admin_content_block_paragraphs_path(content_block_id: content_block)
+    visit contentr.admin_area_paragraphs_path(content_block.class.name, content_block.id, 'main')
     expect(page).to have_no_content('Edit Paragraphs')
     click_link 'Main'
     expect(page).to have_content('Edit Paragraphs')

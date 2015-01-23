@@ -2,6 +2,26 @@ module Contentr::BackendRouting
   def contentr_backend_routes
     scope '(:layout_type)', layout_type: /(admin)|(embedded)/, module: 'admin', as: :admin, defaults: {layout_type: 'admin'} do
       root to: 'pages#index'
+
+      resources :areas, only: [:edit], path: 'areas/:type/:area_containing_element_id' do
+        resources :paragraphs, only: [:new, :create, :index] do
+          collection do
+            patch 'reorder'
+          end
+        end
+        get 'show_version/:version', action: :show_version, as: 'show_version'
+      end
+
+      resources :paragraphs, except: [:new, :create, :index] do
+        member do
+          get 'publish'
+          get 'revert'
+          get 'show_version/:version', action: :show_version, as: 'show_version'
+          get :display
+          get :hide
+        end
+      end
+
       resources :pages, only: [:index, :new, :create, :edit, :update, :destroy] do
         member do
           get :publish
@@ -9,20 +29,6 @@ module Contentr::BackendRouting
           resources :sub_pages, only: [:index] do
             collection do
               patch :reorder
-            end
-          end
-        end
-        resources :areas, only: [:edit] do
-          resources :paragraphs do
-            collection do
-              patch 'reorder'
-            end
-            member do
-              get 'publish'
-              get 'revert'
-              get 'show_version/:version', action: :show_version, as: 'show_version'
-              get :display
-              get :hide
             end
           end
         end
@@ -34,13 +40,7 @@ module Contentr::BackendRouting
         end
       end
       resources :page_types, only: [:new, :create, :index, :edit, :update]
-      resources :content_blocks, only: [:new, :create, :edit, :update, :index, :destroy] do
-        resources :paragraphs, only: [:new, :create, :index], controller: 'content_block/paragraphs' do
-          collection do
-            patch 'reorder' => 'content_block/paragraphs#reorder'
-          end
-        end
-      end
+      resources :content_blocks, only: [:new, :create, :edit, :update, :index, :destroy]
       resources :content_block_usages, only: [:create]
     end
   end

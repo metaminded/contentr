@@ -7,19 +7,19 @@ class ActionController::Base
     obj = self.instance_variable_get("@#{klass_name.downcase}")
     if obj.default_page.present?
       if params[:slug].present?
-        @contentr_page = obj.sub_pages.includes(:paragraphs).find_by(slug: params[:slug])
+        @area_containing_element = obj.sub_pages.includes(:paragraphs).find_by(slug: params[:slug])
       else
-        @contentr_page = obj.sub_pages.includes(:paragraphs).find_by(slug: params[:args])
+        @area_containing_element = obj.sub_pages.includes(:paragraphs).find_by(slug: params[:args])
       end
       @default_page = obj.default_page
     else
-      @contentr_page = @default_page = nil
+      @area_containing_element = @default_page = nil
     end
-    if @contentr_page.present? && (@contentr_page.viewable?(preview_mode: in_preview_mode?) || contentr_authorized?(type: :manage, object: @contentr_page))
-      @page_to_display = @contentr_page.get_page_for_language(I18n.locale)
+    if @area_containing_element.present? && (@area_containing_element.viewable?(preview_mode: in_preview_mode?) || contentr_authorized?(type: :manage, object: @area_containing_element))
+      @page_to_display = @area_containing_element.get_page_for_language(I18n.locale)
       if @page_to_display.present?
-        if I18n.locale.to_s != @contentr_page.language
-          flash.now[:notice] = I18n.t('contentr.content_not_available_in_language') if @contentr_page
+        if I18n.locale.to_s != @area_containing_element.language
+          flash.now[:notice] = I18n.t('contentr.content_not_available_in_language') if @area_containing_element
         end
         @page_to_display.preview! if in_preview_mode?
         self.class.layout("layouts/#{@page_to_display.layout}")
@@ -36,25 +36,25 @@ class ActionController::Base
   end
 
   def find_page_for_object obj, params
-    @contentr_page = @page_to_display = obj.generated_page_for_locale(I18n.locale)
-    if @contentr_page.present?
-      if I18n.locale.to_s != @contentr_page.language
+    @area_containing_element = @page_to_display = obj.generated_page_for_locale(I18n.locale)
+    if @area_containing_element.present?
+      if I18n.locale.to_s != @area_containing_element.language
         flash.now[:alert] = t('contentr.content_not_available_in_language')
       end
       if params[:preview] == 'true'
-        @contentr_page.preview!
+        @area_containing_element.preview!
       end
-      @default_page = @contentr_page
-      self.class.layout(@contentr_page.layout)
+      @default_page = @area_containing_element
+      self.class.layout(@area_containing_element.layout)
     else
       raise ActionController::RoutingError.new('Not Found')
     end
   end
 
   def _contentr_confirm_access
-    if @contentr_page.present? && @contentr_page.password?
+    if @area_containing_element.present? && @area_containing_element.password?
       authenticate_or_request_with_http_basic do |u, p|
-        p.strip == @contentr_page.password
+        p.strip == @area_containing_element.password
       end
     end
   end

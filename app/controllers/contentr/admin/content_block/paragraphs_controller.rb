@@ -15,12 +15,13 @@ class Contentr::Admin::ContentBlock::ParagraphsController < Contentr::Admin::App
 
   def create
     @paragraph = paragraph_type_class.new(paragraph_params)
+    @paragraph.area_name = params[:area_id]
     @content_block = Contentr::ContentBlock.find(params[:content_block_id])
     @content_block.paragraphs << @paragraph
-    if @content_block.save!
+    if @content_block.save
       if request.xhr?
         @paragraph = @paragraph.for_edit
-        render action: 'show', layout: false
+        render partial: 'summary', locals: { paragraph: @paragraph.reload.for_edit, page: @page }
       else
         redirect_to contentr.edit_admin_content_block_path(@content_block), 'Paragraph created'
       end
@@ -30,11 +31,11 @@ class Contentr::Admin::ContentBlock::ParagraphsController < Contentr::Admin::App
   end
 
   def index
-    @content_block = Contentr::ContentBlock.find(params[:content_block_id])
-    if @content_block.partial.present?
+    @area_containing_element = Contentr::ContentBlock.find(params[:content_block_id])
+    if @area_containing_element.partial.present?
       redirect_to :back, 'Paragraphen können nur benutzt werden, wenn kein Partial gesetzt ist'
     else
-      @paragraphs = @content_block.paragraphs
+      @paragraphs = @area_containing_element.paragraphs
     end
   end
 

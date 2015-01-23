@@ -27,8 +27,8 @@ module Contentr
     #
     def contentr_area(area_name, pristine: false, editable: nil)
       raise "No area name given" if area_name.blank?
-      if @contentr_page.present?
-        contentr_render_area(area_name, @contentr_page, pristine: pristine, editable: editable)
+      if @area_containing_element.present?
+        contentr_render_area(area_name, @area_containing_element, pristine: pristine, editable: editable)
       end
     end
 
@@ -89,7 +89,7 @@ module Contentr
 
     private
 
-    def contentr_render_area(area_name, page, pristine: false, editable: nil)
+    def contentr_render_area(area_name, area_containing_element, pristine: false, editable: nil)
       area_name  = area_name.to_s
       authorized = editable.nil? ? current_contentr_user.allowed_to_interact_with_contentr? : editable
       publisher = contentr_publisher?
@@ -101,7 +101,7 @@ module Contentr
       render(
         partial: partial,
         locals: {
-          page: page,
+          area_containing_element: area_containing_element,
           area: area_name,
           authorized: authorized,
           publisher: publisher,

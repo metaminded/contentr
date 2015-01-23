@@ -5,13 +5,8 @@ module Contentr
     module ApplicationHelper
 
       def simple_form_for_contentr_paragraph(area_containing_element, area_name, paragraph, &block)
-        if area_containing_element.is_a?(Contentr::Page)
-          url = paragraph.new_record? ? contentr.admin_page_area_paragraphs_path(area_containing_element, area_id: area_name, type: paragraph.class.to_s) :
-            contentr.admin_page_area_paragraph_path(area_containing_element, area_name, paragraph)
-        else
-          url = (paragraph.new_record? ? contentr.admin_content_block_paragraphs_path(content_block_id: area_containing_element, type: paragraph.class) :
-                  contentr.admin_content_block_paragraph_path(area_containing_element, paragraph))
-        end
+        url = (paragraph.new_record? ? contentr.admin_area_paragraphs_path(area_containing_element.class.name, area_containing_element.id, area_name, paragraph_type: paragraph.class) :
+          contentr.admin_paragraph_path(paragraph))
         simple_form_for(
           paragraph,
           :url     => url,
@@ -71,6 +66,10 @@ module Contentr
 
       def contentr_navigation &block
         content_for(:contentr_navigation, '')
+      end
+
+      def path_to_update_area(area_containing_element, area_name)
+        contentr.edit_admin_area_path(area_containing_element.class.name, area_containing_element, area_name)
       end
 
       def method_missing method, *args, &block

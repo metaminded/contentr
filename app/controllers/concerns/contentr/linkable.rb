@@ -6,23 +6,23 @@ module Contentr
     end
 
     def contentr_link_me linked_to: nil, append: "", object: nil
-      @contentr_page = find_or_create_linked_page(linked_to, append, object, I18n.locale)
+      @area_containing_element = find_or_create_linked_page(linked_to, append, object, I18n.locale)
       @page_in_default_language = find_or_create_linked_page(linked_to, append, object, I18n.default_locale)
-      if @contentr_page.language != @page_in_default_language.language
-        if @page_in_default_language.language.to_s == I18n.default_locale.to_s && @contentr_page.page_in_default_language.nil?
-          @contentr_page.update(page_in_default_language: @page_in_default_language)
+      if @area_containing_element.language != @page_in_default_language.language
+        if @page_in_default_language.language.to_s == I18n.default_locale.to_s && @area_containing_element.page_in_default_language.nil?
+          @area_containing_element.update(page_in_default_language: @page_in_default_language)
         end
-        if @contentr_page.paragraphs.none?
+        if @area_containing_element.paragraphs.none?
           flash.now[:notice] = t('contentr.content_not_available_in_language')
         end
       end
     end
 
     def contentr_context(object)
-      raise "No Contentr Page available." unless @contentr_page
-      if @contentr_page.displayable != object
-        @contentr_page.displayable = object
-        @contentr_page.save!
+      raise "No Contentr Page available." unless @area_containing_element
+      if @area_containing_element.displayable != object
+        @area_containing_element.displayable = object
+        @area_containing_element.save!
       end
       object
     end

@@ -6,17 +6,16 @@
       - if contentr_has_authorized_paragraphs?(current_contentr_user, area, authorized)
         .row
           .col-xs-20
-            a.btn.btn-frontend.btn-xs.btn-default.pull-right.edit-area href=contentr.edit_admin_page_area_path(page, area) = fa_icon('edit', text: (area_name_generated?(area) ? t('contentr.area_names.edit') : t("contentr.area_names.#{area}")))
-      - paragraph_types = page.paragraphs.where(area_name: area).pluck(:type)
+            a.btn.btn-frontend.btn-xs.btn-default.pull-right.edit-area href=path_to_update_area(area_containing_element, area) = fa_icon('edit', text: (area_name_generated?(area) ? t('contentr.area_names.edit') : t("contentr.area_names.#{area}")))
+      - paragraph_types = area_containing_element.paragraphs.where(area_name: area).pluck(:type)
       - if paragraph_types.any?
         - paragraph_types = paragraph_types.map &:constantize
-        - cache_if(paragraph_types.all?{|p| p.cache? }, Digest::MD5.hexdigest("page-#{page.id}-#{paragraph_types.map{|par| par.memoized_cache_key}.join('-')}-#{current_user_allowed}-#{I18n.locale.to_s}-#{area}"))
-      - page.paragraphs_for_area(area).each do |paragraph|
-        - if paragraph.visible || current_user_allowed
-          - paragraph = paragraph.for_edit if current_user_allowed
-          - cache_if(paragraph.class.cache?, Digest::MD5.hexdigest("id-#{paragraph.id}-#{paragraph.class.cache_key}-manage=#{current_user_allowed}-#{I18n.locale.to_s}"))
-            .paragraph [ id="paragraph_#{paragraph.id}" data-id=paragraph.id ]
-              .actual_content
-                = contentr_paragraph_labels(paragraph)
-                = render(partial: "contentr/paragraphs/#{paragraph.class.to_s.underscore}", locals: {paragraph: paragraph})
-
+        - cache_if(paragraph_types.all?{|p| p.cache? }, Digest::MD5.hexdigest("page-#{area_containing_element.id}-#{area_containing_element.class}-#{paragraph_types.map{|par| par.memoized_cache_key}.join('-')}-#{current_user_allowed}-#{I18n.locale.to_s}-#{area}")) do
+          - area_containing_element.paragraphs_for_area(area).each do |paragraph|
+            - if paragraph.visible || current_user_allowed
+              - paragraph = paragraph.for_edit if current_user_allowed
+              - cache_if(paragraph.class.cache?, Digest::MD5.hexdigest("id-#{paragraph.id}-#{paragraph.class.cache_key}-manage=#{current_user_allowed}-#{I18n.locale.to_s}"))
+                .paragraph [ id="paragraph_#{paragraph.id}" data-id=paragraph.id ]
+                  .actual_content
+                    = contentr_paragraph_labels(paragraph)
+                    = render(partial: "contentr/paragraphs/#{paragraph.class.to_s.underscore}", locals: {paragraph: paragraph})

@@ -6,7 +6,7 @@ class Contentr::ContentBlockTabulatrData < Tabulatr::Data
     end
     unless r.partial.present?
       b.submenu do |s|
-        s.button :list, contentr.admin_content_block_paragraphs_path(content_block_id: record.id), label: I18n.t('.contentr.content_block.paragraphs')
+        s.button :list, contentr.admin_area_paragraphs_path(record.class.name, record.id, 'main'), label: I18n.t('.contentr.content_block.paragraphs')
       end
     end
   end
