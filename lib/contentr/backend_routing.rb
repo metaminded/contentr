@@ -1,6 +1,6 @@
 module Contentr::BackendRouting
   def contentr_backend_routes
-    scope '(:layout_type)', layout_type: /(admin)|(embedded)/, module: 'admin', as: :admin, defaults: {layout_type: 'admin'} do
+    scope 'admin', module: 'admin', as: :admin do
       root to: 'pages#index'
 
       resources :areas, only: [:edit], path: 'areas/:type/:area_containing_element_id' do

@@ -74,17 +74,12 @@ module Contentr
       end
     end
 
-    def contentr_new_subpage_link(parent: nil)
-      link_to fa_icon(:plus, text: 'Neue Unterseite'), contentr.admin_sub_pages_path(id: @contentr_page, layout_type: 'embedded'), class: 'btn btn-danger show-page-in-iframe', rel: 'contentr-overlay', remote: true
-    end
-
     def contentr_edit_page_link(page, klass: 'btn btn-danger')
       if page.visible?
         link_to fa_icon(:eye, text: t('contentr.hide_page')), contentr.hide_admin_page_path(page), class: klass
       else
         link_to fa_icon(:eye, text: t('contentr.publish_page')), contentr.publish_admin_page_path(page), class: klass
       end
-      #link_to fa_icon(:pencil, text: t('contentr.edit_page')), contentr.admin_page_path(id: page, layout_type: 'embedded'), class: 'btn btn-danger show-page-in-iframe', rel: 'contentr-overlay', remote: true
     end
 
     private

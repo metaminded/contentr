@@ -49,11 +49,8 @@ module Contentr
   mattr_accessor :divider_between_page_and_children
   @@divider_between_page_and_children = ''
 
-  mattr_accessor :layout_type
 
   mattr_accessor :admin_layout
-  @@admin_layout = 'application'
-  mattr_accessor :embedded_admin_layout
   @@admin_layout = 'application'
 
   mattr_accessor :frontend_layout
