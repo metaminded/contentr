@@ -1,4 +1,6 @@
 class Contentr::PagesController < Contentr::ApplicationController
+  include Contentr::PagesControllerExtension
+
   def index
     pages = Contentr::Page.where slug: params[:slug].split('_').last
     @area_containing_element = pages.find{ |p| p.url.downcase == request.path.downcase }
