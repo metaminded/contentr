@@ -1,9 +1,5 @@
 module Contentr
   class User
-    def contentr_authorized?(options)
-      false
-    end
-
     def self.current(new_user = nil)
       if new_user
         @_contentr_current = new_user

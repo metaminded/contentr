@@ -6,11 +6,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def contentr_authorized?(type:, object:)
-    current_contentr_user.contentr_authorized?(type: type, object: object)
-  end
-
-  def contentr_authorize!(type:, object:)
-
+    allowed_to_interact_with_contentr?
   end
 
   def allowed_to_interact_with_contentr?
