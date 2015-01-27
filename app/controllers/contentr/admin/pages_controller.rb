@@ -35,17 +35,13 @@ module Contentr
       def create
         @page = Contentr::Page.new(page_params)
         return render(:new) unless contentr_authorized?(type: :manage, object: @page)
-        ActiveRecord::Base.transaction do
-          begin
-            @page.save!
-            if @page.type.nil?
-              Contentr::NavPoint.create!(page: @page, title: @page.name, parent_page_id: @page.parent_id)
-            end
-          rescue ActiveRecord::RecordInvalid
-            redirect_to :back, notice: @page.errors.full_messages.join
-            return
+        if @page.save
+          if @page.type.nil?
+            Contentr::NavPoint.create!(page: @page, title: @page.name, parent_page_id: @page.parent_id)
           end
-          return redirect_to contentr.edit_admin_page_path(@page), notice: t('.create_success')
+          redirect_to contentr.edit_admin_page_path(@page), notice: t('.create_success')
+        else
+          render :new
         end
       end
 
