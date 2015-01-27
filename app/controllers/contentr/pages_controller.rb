@@ -4,10 +4,11 @@ class Contentr::PagesController < Contentr::ApplicationController
   def index
     pages = Contentr::Page.where slug: params[:slug].split('_').last
     @area_containing_element = pages.find{ |p| p.url.downcase == request.path.downcase }
-    if @area_containing_element.present?
+    if @area_containing_element.present? && (@area_containing_element.viewable?(preview_mode: in_preview_mode?) || contentr_authorized?(type: :manage, object: @area_containing_element))
+      @area_containing_element.preview! if in_preview_mode?
       self.class.layout("layouts/#{Contentr.frontend_layout}")
     else
-      render text: 'Not Found', status: '404'
+      raise ActionController::RoutingError.new('Not Found')
     end
   end
 
