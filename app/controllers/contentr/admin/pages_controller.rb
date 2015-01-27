@@ -9,7 +9,7 @@ module Contentr
 
       before_action :load_root_page
 
-      layout 'application'
+      layout Contentr.admin_layout
 
       prepend PrependedPagesControllerExtension
 
