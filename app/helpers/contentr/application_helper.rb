@@ -113,7 +113,7 @@ module Contentr
 
     def contentr_can_use_paragraph?(user, area, paragraph)
       area = area.to_s.split('-').first
-      user.allowed_to_use_paragraphs?(area: area, subject: paragraph)
+      user.allowed_to_use_paragraphs?(area: area, paragraph_class: paragraph)
     end
 
     def area_name_generated?(area)

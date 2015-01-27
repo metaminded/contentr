@@ -4,7 +4,7 @@ module Contentr
       true
     end
 
-    def allowed_to_use_paragraphs?(area:, subject: nil)
+    def allowed_to_use_paragraphs?(area:, paragraph_class: nil)
       true
     end
   end

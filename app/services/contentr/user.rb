@@ -13,7 +13,7 @@ module Contentr
       @_contentr_current
     end
 
-    def allowed_to_use_paragraphs?(area:, subject: nil)
+    def allowed_to_use_paragraphs?(area:, paragraph_class: nil)
       false
     end
   end
