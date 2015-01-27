@@ -14,7 +14,7 @@ module Contentr
       prepend PrependedPagesControllerExtension
 
       def index
-        tabulatr_for Contentr::Page.where.not(type: 'Contentr::LinkedPage')
+        tabulatr_for Contentr::Page.where.not(type: ['Contentr::Site','Contentr::LinkedPage'])
       end
 
       def new
