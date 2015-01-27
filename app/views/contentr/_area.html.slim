@@ -4,9 +4,7 @@
     .col-xs-20
       - current_user_allowed = allowed_to_interact_with_contentr?
       - if contentr_has_authorized_paragraphs?(current_contentr_user, area, authorized)
-        .row
-          .col-xs-20
-            a.btn.btn-frontend.btn-xs.btn-default.pull-right.edit-area href=path_to_update_area(area_containing_element, area) = fa_icon('edit', text: (area_name_generated?(area) ? t('contentr.area_names.edit') : t("contentr.area_names.#{area}")))
+        a.btn.btn-frontend.btn-xs.btn-default.pull-right.edit-area href=path_to_update_area(area_containing_element, area) = fa_icon('edit', text: (area_name_generated?(area) ? t('contentr.area_names.edit') : t("contentr.area_names.#{area}")))
       - paragraph_types = area_containing_element.paragraphs.where(area_name: area).pluck(:type)
       - if paragraph_types.any?
         - paragraph_types = paragraph_types.map &:constantize

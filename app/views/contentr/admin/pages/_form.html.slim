@@ -1,9 +1,12 @@
 = simple_form_for @page, as: :page,
-    url:    (@page.new_record? ? contentr.admin_pages_path(root: @root_page) : contentr.admin_page_path(root: @root_page)), method: (@page.new_record? ? :post : :patch), html: {class: "form-horizontal" } do |f|
+    url:    (@page.new_record? ? contentr.admin_pages_path(root: @root_page) : contentr.admin_page_path(root: @root_page)), method: (@page.new_record? ? :post : :patch) do |f|
 
   = f.input :type, as: :hidden
-  = f.input :published
-  = f.input :name
+  .row
+    .col-xs-12.col-md-2
+      = f.input :published
+    .col-xs-12.col-md-10
+      = f.input :name
   - if @page.id.present?
     = f.input :language, as: :hidden
   - else
@@ -12,14 +15,21 @@
   = f.input :displayable_id, as: :hidden
   = f.input :page_in_default_language_id, as: :hidden
   = f.input :parent_id, as: :hidden
-  = f.input :linked_to, required: true if @page.is_a?(Contentr::LinkedPage)
+  - if @page.is_a?(Contentr::LinkedPage)
+    .row
+      .col-xs-12
+        = f.input :linked_to, required: true
   = f.input :page_type_id, as: :hidden, input_html: {value: 2}
   - if @page.page_in_default_language.present?
     = f.input :layout, as: :hidden
   - else
-    = f.input :slug, required: false, wrapper: :prepend, label: @page.parent_url
-    = f.input :password, as: :string, autocomplete: 'off'
+    .row
+      .col-xs-12
+        = f.input :slug, required: false, wrapper: :prepend, label: @page.parent_url, placeholder: t('.custom_url')
+    .row
+      .col-xs-12
+        = f.input :password, as: :string, autocomplete: 'off'
 
   .control-bar
     = f.button :submit, class: 'submit_btn btn btn-primary margin-computed-right'
-    = link_to t('action.cancel'), :back
+    = link_to t('action.cancel'), contentr.admin_pages_path

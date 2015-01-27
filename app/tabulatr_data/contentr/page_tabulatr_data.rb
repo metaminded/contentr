@@ -8,10 +8,10 @@ class Contentr::PageTabulatrData < Tabulatr::Data
   end
 
   actions do
-    if record.is_a? Contentr::LinkedPage
-      fa_icon :link
+    if record.visible?
+      fa_icon :eye
     else
-      fa_icon :'file-code-o'
+      fa_icon :'eye-slash'
     end
   end
 
