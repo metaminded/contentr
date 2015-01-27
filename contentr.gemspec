@@ -12,15 +12,15 @@ Gem::Specification.new do |s|
   s.files = `git ls-files`.split("\n")
   s.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
 
-  s.add_dependency 'rake',           '~> 10.3.0'
+  s.add_dependency 'rake',           '~> 10.3'
   s.add_dependency 'rails',          '>= 4.0.0'
   s.add_dependency 'simple_form',    '~> 3.1.0.rc1'
   s.add_dependency 'bson_ext',       '~> 1.5'
   s.add_dependency 'sass-rails', '~> 4.0'
   s.add_dependency 'font-awesome-rails'
-  s.add_dependency 'jquery-rails', '~> 3.1.0'
-  s.add_dependency 'jquery-ui-rails', '~> 4.2.0'
-  s.add_dependency 'ancestry', '~> 2.1.0'
+  s.add_dependency 'jquery-rails', '>= 3.1.0'
+  s.add_dependency 'jquery-ui-rails', '>= 4.0.0'
+  s.add_dependency 'ancestry', '~> 2.0.0'
   s.add_dependency 'tabulatr2'
   s.add_dependency 'request_store', '~> 1.1.0'
   s.add_dependency 'nested_form', '~> 0.3.2'
