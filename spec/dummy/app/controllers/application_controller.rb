@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
-  def contentr_authorized?(type:, object:)
+  def contentr_authorized?(type: nil, object: nil)
     allowed_to_interact_with_contentr?
   end
 

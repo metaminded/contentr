@@ -9,7 +9,7 @@ module Contentr
       @_contentr_current
     end
 
-    def allowed_to_use_paragraphs?(area:, paragraph_class: nil)
+    def allowed_to_use_paragraphs?(area: nil, paragraph_class: nil)
       false
     end
   end

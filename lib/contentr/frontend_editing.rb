@@ -22,11 +22,11 @@ module Contentr
       false
     end
 
-    def contentr_authorized?(type:, object:)
+    def contentr_authorized?(type: nil, object: nil)
       false
     end
 
-    def contentr_authorize!(type:, object:)
+    def contentr_authorize!(type: nil, object: nil)
       raise 'Not allowed to access!' unless contentr_authorized?(type: type, object: object)
     end
   end
