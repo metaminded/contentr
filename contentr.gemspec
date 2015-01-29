@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'font-awesome-rails'
   s.add_dependency 'jquery-rails', '>= 3.1.0'
   s.add_dependency 'jquery-ui-rails', '>= 4.0.0'
-  s.add_dependency 'ancestry', '~> 2.0.0'
+  s.add_dependency 'ancestry', '~> 2.0'
   s.add_dependency 'tabulatr2'
   s.add_dependency 'request_store', '~> 1.1.0'
   s.add_dependency 'nested_form', '~> 0.3.2'
