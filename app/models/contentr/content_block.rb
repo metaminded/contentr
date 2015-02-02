@@ -21,7 +21,7 @@ module Contentr
     #
     # Returns the matching paragraphs
     def paragraphs_for_area(area_name, inherit: true)
-      paragraphs = self.paragraphs.order('position asc')
+      paragraphs = self.paragraphs.where(area_name: area_name).order('position asc')
       paragraphs
     end
 
