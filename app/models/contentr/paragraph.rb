@@ -21,7 +21,7 @@ module Contentr
     belongs_to :content_block, class_name: 'Contentr::ContentBlock'
 
     # Validations
-    validates :area_name, presence: true, unless: ->{self.content_block.present?}
+    validates :area_name, presence: true
 
     attr_accessor :skip_callbacks
 
