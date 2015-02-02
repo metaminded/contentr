@@ -56,6 +56,9 @@ module Contentr
   mattr_accessor :frontend_layout
   @@frontend_layout = 'application'
 
+  mattr_accessor :full_width_class
+  @@full_width_class = 'col-xs-12'
+
   # Default way to setup Contentr
   def self.setup
     yield self

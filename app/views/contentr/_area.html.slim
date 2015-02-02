@@ -1,7 +1,7 @@
 - nested ||= false
 .contentr-show.contentr-area id="area-#{area}" data-contentr-area-name=area
   .row
-    .col-xs-20
+    .div class=Contentr.full_width_class
       - current_user_allowed = allowed_to_interact_with_contentr?
       - if contentr_has_authorized_paragraphs?(current_contentr_user, area, authorized)
         a.btn.btn-frontend.btn-xs.btn-default.pull-right.edit-area href=path_to_update_area(area_containing_element, area) = fa_icon('edit', text: (area_name_generated?(area) ? t('contentr.area_names.edit') : t("contentr.area_names.#{area}")))

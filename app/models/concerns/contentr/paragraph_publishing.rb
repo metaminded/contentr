@@ -36,6 +36,10 @@ module Contentr
 
     def publish!
       self.data = self.unpublished_data.clone
+      self.class._uploader_wrappers.try :each do |name|
+        w = image_asset_wrapper_for name
+        w.try :publish!
+      end
       @_publish_now = true
       save!
     end
@@ -64,7 +68,12 @@ module Contentr
     end
 
     def unpublished_changes?
-      @_data_was != unpublished_data_was
+      u = (@_data_was != unpublished_data_was)
+      self.class._uploader_wrappers.inject(u) do |a, name|
+        c = image_asset_wrapper_for(name).try(:unpublished_changes?) || false
+        logger.info "#{name}: #{c}, #{a}"
+        a || c
+      end
     end
 
     def for_edit

@@ -118,9 +118,25 @@ Contentr = {
   // saves a previously edited or newly created paragraph
   saveParagraph: function() {
       var form = $($(this).parents('form').first());
-      var data = form.serializeArray();
-      data.push({name: 'content_block_id', value: Contentr.content_block});
+
+      var data = new FormData();
+      $.each(form.serializeArray(), function(i, elem){
+        // console.log(elem);
+        data.append(elem.name, elem.value);
+        // console.log([elem.name, elem.value]);
+      });
+      form.find('input[type="file"]').each(function(){
+        var input = $(this);
+        if(this.files[0]) {
+          data.append(input.attr('name'), this.files[0])
+          // console.log([input.attr('name'), this.files[0]]);
+        }
+      });
+      data.append('content_block_id', Contentr.content_block);
+      console.log(data);
       $.ajax(form.attr('action'), {
+        processData: false,
+        contentType: false,
         type: form.attr('method'),
         data: data,
         success: function(data) {
