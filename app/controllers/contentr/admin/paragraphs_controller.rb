@@ -5,7 +5,7 @@ module Contentr
       include ::Contentr::ApplicationHelper
       include ParagraphsControllerExtension
 
-      before_filter :find_page_or_content_block, only: [:new, :create, :index]
+      before_filter :find_page_or_content_block, only: [:new, :create, :index, :reorder]
 
       def index
         @paragraphs = @area_containing_element.paragraphs.order(:area_id, :asc).order(:position, :asc)
@@ -107,7 +107,7 @@ module Contentr
 
       def reorder
         paragraphs_ids = params[:paragraph_ids].split(',')
-        paragraphs = @area_containing_element.paragraphs_for_area(params[:area_id]).sort{|x,y| paragraphs_ids.index(x.id.to_s) <=> paragraphs_ids.index(y.id.to_s) }
+        paragraphs = @area_containing_element.paragraphs.sort{|x,y| paragraphs_ids.index(x.id.to_s) <=> paragraphs_ids.index(y.id.to_s) }
         paragraphs.each_with_index { |p, i| p.update_column(:position, i) }
         head :ok
       end
