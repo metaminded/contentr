@@ -37,7 +37,7 @@ module Contentr
           @paragraph.page_id = params[:area_containing_element_id]
         end
         if @paragraph.save!
-          render partial: 'summary', locals: { paragraph: @paragraph.reload.for_edit, page: @page }
+          render partial: 'summary', locals: { paragraph: @paragraph.reload.for_edit }
         else
           render text: "Fehler :("
         end
@@ -65,30 +65,30 @@ module Contentr
           @paragraph.reload
           @paragraph = @paragraph.for_edit
           @mode = params[:mode]
-          render partial: 'summary', locals: { paragraph: @paragraph, page: @page }
+          render partial: 'summary', locals: { paragraph: @paragraph }
         else
           render text: "Problem! #{@paragraph.errors.full_messages}"
         end
       end
 
       def show
-        @paragraph = @area_containing_element.paragraphs.find(params[:id])
+        @paragraph = Contentr::Paragraph.find(params[:id])
         @paragraph.for_edit
-        render partial: 'summary', locals: { paragraph: @paragraph, page: @page }
+        render partial: 'summary', locals: { paragraph: @paragraph }
       end
 
       def publish
         @paragraph = Contentr::Paragraph.find(params[:id])
         check_permission!(@paragraph)
         @paragraph.publish!
-        render partial: 'summary', locals: { paragraph: @paragraph, page: @page }
+        render partial: 'summary', locals: { paragraph: @paragraph }
       end
 
       def revert
         @paragraph = Contentr::Paragraph.find(params[:id])
         check_permission!(@paragraph)
         @paragraph.revert!
-        render partial: 'summary', locals: { paragraph: @paragraph, page: @page }
+        render partial: 'summary', locals: { paragraph: @paragraph }
       end
 
       def show_version
@@ -116,14 +116,14 @@ module Contentr
         paragraph = Contentr::Paragraph.find(params[:id])
         check_permission!(paragraph)
         paragraph.show!
-        render partial: 'summary', locals: { paragraph: paragraph.for_edit, page: @page }
+        render partial: 'summary', locals: { paragraph: paragraph.for_edit }
       end
 
       def hide
         paragraph = Contentr::Paragraph.find(params[:id])
         check_permission!(paragraph)
         paragraph.hide!
-        render partial: 'summary', locals: { paragraph: paragraph.for_edit, page: @page }
+        render partial: 'summary', locals: { paragraph: paragraph.for_edit }
       end
 
     protected

@@ -33,6 +33,26 @@ feature "pages" do
     expect(page).to have_content('Hello World!')
   end
 
+  scenario 'able to cancel editing of an existing paragraph', js: true do
+    login_as_admin
+    a = create(:article)
+    visit article_path(id: a)
+    expect(page).to have_no_content('Hello World!')
+    click_link 'Body'
+    select 'Standard', from: 'choose-paragraph-type'
+    find('#add_paragraph_btn').trigger('click')
+    expect(page).to have_css('.panel-heading', text: 'Edit Paragraph')
+    fill_in 'Headline', with: 'Hello World!'
+    fill_in 'Body', with: 'lorem ipsum'
+    expect(page).to have_no_css('.paragraph-box .panel-heading')
+    click_button 'Create Standard paragraph'
+    expect(page).to have_css('.paragraph-box .panel-heading', text: 'Standard paragraph')
+    find('.paragraph-edit-btn').click
+    expect(page).to have_css('.paragraph-edit-box .panel-heading', text: 'Edit Paragraph')
+    click_link 'Cancel'
+    expect(page).to have_css('.paragraph-box .panel-heading', text: 'Standard paragraph')
+  end
+
   context 'unpublished page' do
     scenario 'an authorized user can see the unpublished page' do
       login_as_admin

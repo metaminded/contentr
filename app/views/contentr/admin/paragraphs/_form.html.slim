@@ -10,7 +10,7 @@
 
     .panel-footer
       = f.button :submit, class: 'submit_btn btn btn-primary btn-mini save-paragraph-btn'
-      - link = paragraph.new_record? ? '#' : 'FIXME!!'#contentr.admin_page_area_paragraph_path(page, area_name, paragraph)
+      - link = paragraph.new_record? ? '#' : contentr.admin_paragraph_path(paragraph)
       = link_to t('action.cancel'), link, class: 'btn btn-link cancel-paragraph-edit-btn contentr-abort', data: {id: paragraph.try(:id)}
 
 
