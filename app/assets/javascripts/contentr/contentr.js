@@ -133,7 +133,6 @@ Contentr = {
         }
       });
       data.append('content_block_id', Contentr.content_block);
-      console.log(data);
       $.ajax(form.attr('action'), {
         processData: false,
         contentType: false,
