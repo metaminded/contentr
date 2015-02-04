@@ -106,9 +106,8 @@ module Contentr
       end
 
       def reorder
-        paragraphs_ids = params[:paragraph_ids].split(',')
-        paragraphs = @area_containing_element.paragraphs.sort{|x,y| paragraphs_ids.index(x.id.to_s) <=> paragraphs_ids.index(y.id.to_s) }
-        paragraphs.each_with_index { |p, i| p.update_column(:position, i) }
+        paragraphs_ids = params[:paragraph_ids].split(',').map(&:to_i)
+        @area_containing_element.paragraphs.each { |p| p.update_column(:position, paragraphs_ids.index(p.id)) }
         head :ok
       end
 
