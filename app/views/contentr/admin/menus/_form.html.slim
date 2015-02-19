@@ -17,8 +17,15 @@
           = nf.input :visible
           = nf.languagify do |l|
             = l.input :title
-          = nf.association :page
-          = nf.input :url
+            - if l.respond_to?(:language)
+              - if nf.object.alternative_links.empty?
+                - nf.object.alternative_links.build(language: l.language)
+              = nf.fields_for :alternative_links do |al|
+                = al.input :language, as: :hidden
+                = al.association :page
+            - else
+              = nf.association :page
+            = l.input :url
           = nf.input :open_in_new_tab
         .panel-footer
           = nf.link_to_remove fa_icon(:minus, text: t('.remove_nav_point')), class: 'btn btn-sm btn-default'

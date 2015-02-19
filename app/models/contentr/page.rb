@@ -11,6 +11,7 @@ module Contentr
     belongs_to :page_in_default_language, class_name: 'Contentr::Page'
     has_many :sub_nav_items, class_name: 'Contentr::NavPoint', foreign_key: :parent_page_id, dependent: :destroy
     has_many :pages_in_foreign_languages, class_name: 'Contentr::Page', foreign_key: :page_in_default_language_id, dependent: :destroy
+    has_many :alternative_links, class_name: 'Contentr::AlternativeLink', dependent: :destroy
 
     acts_as_tree
 

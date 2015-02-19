@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141202140246) do
+ActiveRecord::Schema.define(version: 20150219110743) do
 
   create_table "articles", force: true do |t|
     t.string   "title"
@@ -19,6 +19,15 @@ ActiveRecord::Schema.define(version: 20141202140246) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "contentr_alternative_links", force: true do |t|
+    t.string  "language"
+    t.integer "page_id"
+    t.integer "nav_point_id"
+  end
+
+  add_index "contentr_alternative_links", ["nav_point_id"], name: "index_contentr_alternative_links_on_nav_point_id"
+  add_index "contentr_alternative_links", ["page_id"], name: "index_contentr_alternative_links_on_page_id"
 
   create_table "contentr_content_blocks", force: true do |t|
     t.string   "name"
@@ -36,9 +45,19 @@ ActiveRecord::Schema.define(version: 20141202140246) do
     t.datetime "updated_at"
   end
 
+  create_table "contentr_image_assets", force: true do |t|
+    t.string   "file"
+    t.string   "file_unpublished"
+    t.string   "type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "contentr_menus", force: true do |t|
-    t.string "name"
-    t.string "sid"
+    t.string   "name"
+    t.string   "sid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "contentr_nav_points", force: true do |t|

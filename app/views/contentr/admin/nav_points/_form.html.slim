@@ -2,9 +2,16 @@
   = f.input :visible, wrapper: :vertical_boolean
   = f.languagify do |l|
     = l.input :title
+    - if l.respond_to?(:language)
+      - if f.object.alternative_links.empty?
+        - f.object.alternative_links.build(language: l.language)
+      = f.fields_for :alternative_links do |al|
+        = al.input :language, as: :hidden
+        = al.association :page
+    - else
+      = f.association :page
+    = l.input :url
   = f.input :parent_id, as: :hidden
-  = f.association :page
-  = f.input :url
   .well.centered.control-bar
     = f.button :submit, class: 'submit_btn btn margin-computed-right'
     = link_to t('action.cancel'), :back

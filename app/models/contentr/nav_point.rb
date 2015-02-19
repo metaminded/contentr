@@ -5,18 +5,24 @@ module Contentr
     belongs_to :site, class_name: 'Contentr::Site'
     belongs_to :page, class_name: 'Contentr::Page'
     belongs_to :parent_page, class_name: 'Contentr::Page'
+    has_many :alternative_links, class_name: 'Contentr::AlternativeLink', dependent: :destroy
+
     after_create :set_actual_position!
 
     belongs_to :menu
 
     validate :url_xor_page
 
-    translate_me :title
+    translate_me :title, :url
 
     default_scope -> { order('position asc') }
     scope :visible, ->() { where(visible: true).order('position asc') }
 
     acts_as_tree
+
+    accepts_nested_attributes_for :alternative_links, allow_destroy: true, reject_if: ->(attributes){
+      attributes[:page_id].blank? && !attributes[:id].present?
+    }
 
     def only_link?
       self.page.nil?
@@ -38,10 +44,15 @@ module Contentr
     end
 
     def link
-      if self.page.present?
-        self.page.url
-      elsif self.url.present?
-        self.url
+      if I18n.locale == I18n.default_locale
+        url_xor_page_link
+      else
+        alternative = self.alternative_links.find_by(language: I18n.locale.to_s)
+        if alternative.present?
+          alternative.page.try(:url) || url_xor_page_link
+        else
+          url_xor_page_link
+        end
       end
     end
 
@@ -50,6 +61,14 @@ module Contentr
     end
 
     private
+
+    def url_xor_page_link
+      if self.page.present?
+        self.page.url
+      elsif self.url.present?
+        self.url
+      end
+    end
 
     def url_xor_page
       if [page, url].compact.select(&:present?).count > 1

@@ -3,7 +3,7 @@ module Contentr
     class MenusController < Contentr::Admin::ApplicationController
       PERMITTED_PARAMS = [
         :name, :sid,
-        nav_points_attributes: [:id, :title, :parent_id, :nav_point_type, :url, :page_id, :en_title, :visible, :open_in_new_tab, :_destroy]
+        nav_points_attributes: [:id, :title, :parent_id, :nav_point_type, :url, :page_id, :en_title, :visible, :open_in_new_tab, :_destroy, :en_url, alternative_links_attributes: [:id, :page_id, :language]]
       ]
 
       prepend PrependedMenusControllerExtension
@@ -25,7 +25,7 @@ module Contentr
           flash[:notice] = t('.create_success')
           redirect_to contentr.admin_menus_path
         else
-          flash[:notice] = t('.create_problem')
+          flash[:alert] = t('.create_problem')
           render :new
         end
       end
@@ -42,7 +42,7 @@ module Contentr
           flash[:notice] = t('.update_success')
           redirect_to contentr.admin_menus_path
         else
-          flash[:notice] = t('.update_problem')
+          flash[:alert] = t('.update_problem')
           render :edit
         end
       end
