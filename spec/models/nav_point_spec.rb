@@ -31,4 +31,19 @@ describe Contentr::NavPoint do
       expect(tree[keys.first].first.first.title).to eq 'child'
     end
   end
+
+  describe '#link' do
+    it 'gets the link for a given locale' do
+      nav_point = create(:nav_point_with_alternative_link)
+      allow(I18n).to receive(:locale).and_return(:de)
+      expect(nav_point.link).not_to eq nav_point.page.url
+      expect(nav_point.link).to eq nav_point.alternative_links.first.page.url
+    end
+
+    it 'gets the page link if it is the default locale' do
+      nav_point = create(:nav_point_with_alternative_link)
+      expect(nav_point.link).to eq nav_point.page.url
+      expect(nav_point.link).not_to eq nav_point.alternative_links.first.page.url
+    end
+  end
 end

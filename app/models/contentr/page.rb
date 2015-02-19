@@ -72,12 +72,8 @@ module Contentr
     end
 
     def url
-      if self.page_in_default_language.present?
-        PathMapper.locale = self.language
-        current_page = self.page_in_default_language
-      else
-        current_page = self
-      end
+      PathMapper.locale = I18n.locale
+      current_page = get_page_for_language(I18n.locale)
       url_path = "#{current_page.path.includes(:displayable).select{|p| p.displayable || p.id == current_page.id}.collect(&:url_map).compact.join('/')}".squeeze('/')
       PathMapper.locale = nil
       url_path
