@@ -19,7 +19,7 @@ class ActionController::Base
       @page_to_display = @area_containing_element.get_page_for_language(I18n.locale)
       if @page_to_display.present?
         if I18n.locale.to_s != @area_containing_element.language
-          flash.now[:notice] = I18n.t('contentr.content_not_available_in_language') if @area_containing_element
+          flash.now[:notice] = I18n.t('contentr.content_not_available_in_language') if @area_containing_element.paragraphs.any?
         end
         @page_to_display.preview! if in_preview_mode?
         self.class.layout("layouts/#{@page_to_display.layout}")
@@ -39,7 +39,7 @@ class ActionController::Base
     @area_containing_element = @page_to_display = obj.generated_page_for_locale(I18n.locale)
     if @area_containing_element.present?
       if I18n.locale.to_s != @area_containing_element.language
-        flash.now[:alert] = t('contentr.content_not_available_in_language')
+        flash.now[:alert] = t('contentr.content_not_available_in_language') if @area_containing_element.paragraphs.any?
       end
       if params[:preview] == 'true'
         @area_containing_element.preview!
