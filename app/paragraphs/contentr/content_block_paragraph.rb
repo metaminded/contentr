@@ -14,5 +14,9 @@ module Contentr
         "Noch kein Inhaltsblock ausgewählt"
       end
     end
+
+    def self.cache?
+      false
+    end
   end
 end
