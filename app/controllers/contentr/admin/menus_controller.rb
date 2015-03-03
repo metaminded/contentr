@@ -37,13 +37,23 @@ module Contentr
 
       def update
         @contentr_menu = Contentr::Menu.find(params[:id])
-        return render(:edit) unless contentr_authorized?(type :manage, object: @contentr_menu)
+        return render(:edit) unless contentr_authorized?(type: :manage, object: @contentr_menu)
         if @contentr_menu.update(menu_params)
           flash[:notice] = t('.update_success')
           redirect_to contentr.admin_menus_path
         else
           flash[:alert] = t('.update_problem')
           render :edit
+        end
+      end
+
+      def destroy
+        @contentr_menu = Contentr::Menu.find(params[:id])
+        return render(:index) unless contentr_authorized?(type: :manage, object: @contentr_menu)
+        if @contentr_menu.destroy
+          redirect_to contentr.admin_menus_path, notice: t('.destroy_success')
+        else
+          redirect_to contentr.admin_menus_path, alert: t('.destroy_problem')
         end
       end
 
