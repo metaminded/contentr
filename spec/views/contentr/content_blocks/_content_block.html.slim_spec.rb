@@ -17,10 +17,11 @@ describe 'contentr/content_blocks/content_block', type: :view do
 
   it 'renders paragraphs if they are set' do
     cb = build(:content_block)
-    paragraph = create(:paragraph, body: 'this is a paragraph of a contentblock.')
+    paragraph = create(:paragraph, body: 'this is a paragraph of a contentblock.', area_name: 'main')
     paragraph.publish!
     cb.partial = nil
     cb.paragraphs << paragraph
+    cb.save
 
     render 'contentr/content_blocks/content_block', content_block: cb
 
