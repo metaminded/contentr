@@ -32,7 +32,7 @@ module Contentr
     def find_or_create_linked_page(linked_to, append, object, locale)
       linked_to ||= "#{locale}_#{self.class.name.underscore}##{action_name}"
       linked_to_page = linked_to + append
-      Contentr::LinkedPage.includes(paragraphs: :content_block).find_or_create_by!(linked_to: linked_to_page) do |cp|
+      Contentr::LinkedPage.find_or_create_by!(linked_to: linked_to_page) do |cp|
         cp.language = I18n.locale.to_s
         cp.name = linked_to_page
         cp.displayable = object

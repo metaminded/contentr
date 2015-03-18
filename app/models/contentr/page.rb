@@ -57,7 +57,7 @@ module Contentr
     #
     # Returns the matching paragraphs
     def paragraphs_for_area(area_name, inherit: true)
-      paragraphs = self.paragraphs.where(area_name: area_name).order('position asc')
+      paragraphs = self.paragraphs.where(area_name: area_name).includes(:page).order('position asc')
       if paragraphs.none? && page_in_default_language.present? && inherit
         paragraphs = page_in_default_language.paragraphs.where(area_name: area_name).order('position asc')
       end

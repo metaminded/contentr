@@ -15,7 +15,7 @@ module Contentr
       if controller.fragment_exist?(cache_key)
         controller.read_fragment(cache_key)
       else
-        output = yield(@contentr_menu.nav_points)
+        output = yield(@contentr_menu.nav_points.includes(page: :displayable))
         controller.write_fragment(cache_key, output)
         output
       end
