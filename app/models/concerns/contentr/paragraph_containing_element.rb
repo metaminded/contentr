@@ -17,7 +17,7 @@ module Contentr
 
     def select_types
       if self.class.connection.adapter_name.downcase.to_sym == :postgresql
-        paragraphs.unscope(:order).select('array_agg(type ORDER BY position ASC) as types, area_name, NULL as data').group(:area_name)
+        paragraphs.unscope(:order).select("array_agg(type ORDER BY position ASC) as types, area_name, 'unused' as data").group(:area_name)
       else
         paragraph_types = {}
         pars = paragraphs.select("type, area_name, 'unused' as data")
