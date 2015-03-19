@@ -4,7 +4,7 @@
 .contentr-show.contentr-area id="area-#{area}" class="#{current_user_allowed ? 'contentr-editable' : ''}" data-contentr-area-name=area
   - if contentr_has_authorized_paragraphs?(current_contentr_user, area, authorized)
     a.btn.btn-frontend.btn-xs.btn-default.pull-right.edit-area href=path_to_update_area(area_containing_element, area) = fa_icon('edit', text: (area_name_generated?(area) ? t('contentr.area_names.edit') : t("contentr.area_names.#{area}")))
-  - paragraph_types = area_containing_element.paragraphs.where(area_name: area).pluck(:type)
+  - paragraph_types = area_containing_element.types_for_area(area)
   - if paragraph_types.any?
     - paragraph_types = paragraph_types.map &:constantize
     - cache_if(paragraph_types.all?{|p| p.cache? }, Digest::MD5.hexdigest("page-#{area_containing_element.id}-#{area_containing_element.class}-#{paragraph_types.map{|par| par.memoized_cache_key}.join('-')}-#{current_user_allowed}-#{I18n.locale.to_s}-#{area}")) do

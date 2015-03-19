@@ -1,6 +1,7 @@
 module Contentr
   class ContentBlock < ActiveRecord::Base
     include ContentBlockExtension
+    include ParagraphContainingElement
 
     has_many :paragraphs, dependent: :destroy, before_add: :set_actual_position,
              inverse_of: :content_block, class_name: 'Contentr::Paragraph'

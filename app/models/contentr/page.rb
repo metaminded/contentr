@@ -3,6 +3,7 @@
 module Contentr
   class Page < ActiveRecord::Base
     include PageExtension
+    include ParagraphContainingElement
 
     # Relations
     has_many :paragraphs, class_name: 'Contentr::Paragraph', dependent: :destroy
