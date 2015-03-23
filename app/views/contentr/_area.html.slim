@@ -9,7 +9,7 @@
     - paragraph_types = paragraph_types.map &:constantize
     - cache_if(paragraph_types.all?{|p| p.cache? }, Digest::MD5.hexdigest("page-#{area_containing_element.id}-#{area_containing_element.class}-#{paragraph_types.map{|par| par.memoized_cache_key}.join('-')}-#{current_user_allowed}-#{I18n.locale.to_s}-#{area}")) do
       - area_containing_element.paragraphs_for_area(area).each do |paragraph|
-        - if paragraph.visible || current_user_allowed
+        - if paragraph.currently_visible? || current_user_allowed
           - paragraph = paragraph.for_edit if current_user_allowed
           - cache_if(paragraph.class.cache?, Digest::MD5.hexdigest("id-#{paragraph.id}-#{paragraph.class.memoized_cache_key}-manage=#{current_user_allowed}-#{I18n.locale.to_s}"))
             .paragraph [ id="paragraph_#{paragraph.id}" data-id=paragraph.id ]

@@ -16,5 +16,5 @@ ul
       - if allowed_to_interact_with_contentr? && current_contentr_user.allowed_to_use_paragraphs?(area: area)
         a.btn.btn-frontend.btn-xs.btn-default.pull-right.edit-area href=contentr.edit_admin_area_path(page.class.name, page.id, area) = fa_icon('edit', text: (t("contentr.area_names.#{area}") rescue area))
       - page.paragraphs_for_area(area).each do |paragraph|
-        - if paragraph.visible || allowed_to_interact_with_contentr?
+        - if paragraph.currently_visible? || allowed_to_interact_with_contentr?
           = render 'contentr/admin/application/paragraph', paragraph: paragraph

@@ -3,7 +3,7 @@
 .panel.paragraph-box class=c data-paragraph-id=paragraph.id
   .panel-heading
     span.handle= fa_icon :bars
-    - if !paragraph.visible
+    - if !paragraph.currently_visible?
       =<> fa_icon(:'eye-slash')
     =<> paragraph.class.model_name.human
     - if contentr_can_use_paragraph?(current_contentr_user, paragraph.area_name, paragraph.class)
