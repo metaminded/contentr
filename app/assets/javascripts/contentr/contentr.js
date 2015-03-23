@@ -36,6 +36,7 @@ Contentr = {
       modal.on('click',  'a.contentr-abort',     Contentr.abortEdit);
       modal.on('click',  'a#show-published-btn-all',   Contentr.showAllParagraphs);
       modal.on('click',  'a#show-unpublished-btn-all', Contentr.showAllParagraphs);
+      modal.on('click',  'a.show-visible-time-fields', Contentr.showVisibleTimeFields);
       modal.on('hidden.bs.modal', function () {
         if(!$('body').hasClass('test')){
           window.location.reload();
@@ -113,6 +114,7 @@ Contentr = {
       var option = m.find('select#choose-paragraph-type option:selected');
       $.get(option.data('path'), function(data) {
         m.find('.existing-paragraphs').append(data);
+        Contentr.enableDateTimePicker();
       });
     },
   // saves a previously edited or newly created paragraph
@@ -157,7 +159,10 @@ Contentr = {
       var url = a.attr('href');
       $.ajax(url, {
         data: { content_block_id: Contentr.content_block },
-        success: function(data){box.replaceWith(data);}
+        success: function(data){
+          box.replaceWith(data);
+          Contentr.enableDateTimePicker();
+        }
       });
       return false;
     },
@@ -236,5 +241,18 @@ Contentr = {
         Contentr.endEditing();
       });
       return false;
+    },
+  showVisibleTimeFields: function() {
+    $('.visible-time-fields').toggle();
+    return false;
+  },
+
+  enableDateTimePicker: function() {
+    if($.isFunction($.fn.datetimepicker)){
+      $('.visible-time-fields .input-group.datetime').datetimepicker({
+        language: $('.visible-time-fields').data('locale'),
+        minuteStepping: 15
+      });
     }
+  }
 }

@@ -26,6 +26,8 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = false
   config.order = "random"
 
+  config.include ActiveSupport::Testing::TimeHelpers
+
   # config.include Contentr::Engine.routes.url_helpers
   config.include Features::SessionHelpers, type: :feature
 
