@@ -10,15 +10,15 @@
       - vtf_style = 'display: none;'
       - vtf_style = '' if f.object.visible_at? || f.object.hide_at?
       .row.visible-time-fields data-locale=I18n.locale style=vtf_style
-        .col-xs-12
+        .col-xs-12.col-md-4
           span.help-block
             = t('.visible_must_be_set')
-        .col-xs-12
+        .col-xs-12.col-md-4
           = f.input :visible_at, as: :datetimepicker
-        .col-xs-12
+        .col-xs-12.col-md-4
           = f.input :hide_at, as: :datetimepicker
     .panel-footer
       = f.button :submit, class: 'submit_btn btn btn-primary btn-mini save-paragraph-btn'
       - link = paragraph.new_record? ? '#' : contentr.admin_paragraph_path(paragraph)
+      = link_to fa_icon('clock-o'), '#', class: 'show-visible-time-fields btn btn-default', title: t('.adjust_time')
       = link_to t('action.cancel'), link, class: 'btn btn-link cancel-paragraph-edit-btn contentr-abort', data: {id: paragraph.try(:id)}
-      = link_to fa_icon('clock-o'), '#', class: 'show-visible-time-fields btn btn-default'
