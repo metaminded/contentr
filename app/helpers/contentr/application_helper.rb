@@ -5,11 +5,16 @@ module Contentr
     def contentr_menu_entries(menu_name, &block)
       raise "No menu name given" if menu_name.blank?
       raise "Block needed" unless block_given?
-      @contentr_menu = Contentr::Menu.find_or_create_by(sid: menu_name)
+
+      if menu_name.is_a?(Contentr::Menu)
+        @contentr_menu = menu_name
+      else
+        @contentr_menu = Contentr::Menu.find_or_create_by(sid: menu_name)
+      end
       cache_key =  <<-CACHEKEY.strip_heredoc.delete("\n")
         Contentr::Menu-#{@contentr_menu.id}-#{I18n.locale}-#{@contentr_menu.updated_at.to_i}-
-        #{@contentr_menu.nav_points.reorder('updated_at desc').first.try(:updated_at).to_i}-
-        #{@contentr_menu.nav_points.count}
+        #{@contentr_menu.nav_points.sort_by(&:updated_at).reverse!.first.try(:updated_at).to_i}-
+        #{@contentr_menu.nav_points.length}
       CACHEKEY
       cache_key = Digest::MD5.hexdigest(cache_key)
       if controller.fragment_exist?(cache_key)
