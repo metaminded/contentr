@@ -13,6 +13,7 @@ class String
     s.gsub!(/-\z/, '')          # Remove trailing dashes
     s.gsub!(/-+/, '-')          # get rid of double-dashes
     s.gsub!(/[&\?]/, '')
+    s.gsub!(/\./, '')           # Remove dots
     s.strip!
     s
   end
