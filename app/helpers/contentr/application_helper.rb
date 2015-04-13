@@ -11,12 +11,8 @@ module Contentr
       else
         @contentr_menu = Contentr::Menu.find_or_create_by(sid: menu_name)
       end
-      cache_key =  <<-CACHEKEY.strip_heredoc.delete("\n")
-        Contentr::Menu-#{@contentr_menu.id}-#{I18n.locale}-#{@contentr_menu.updated_at.to_i}-
-        #{@contentr_menu.nav_points.sort_by(&:updated_at).reverse!.first.try(:updated_at).to_i}-
-        #{@contentr_menu.nav_points.length}
-      CACHEKEY
-      cache_key = Digest::MD5.hexdigest(cache_key)
+
+      cache_key = Digest::MD5.hexdigest(@contentr_menu.cache_key(current_user))
       if controller.fragment_exist?(cache_key)
         controller.read_fragment(cache_key)
       else
