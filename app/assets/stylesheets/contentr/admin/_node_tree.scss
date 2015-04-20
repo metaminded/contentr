@@ -20,7 +20,7 @@ ul.main-tree, ul.tree {
     color: #369;
     font-weight: bold;
 
-    div.row {
+    div {
       &:hover {
         background-color: rgba(0, 0, 0, .2);
       }

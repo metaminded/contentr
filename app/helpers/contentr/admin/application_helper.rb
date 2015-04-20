@@ -29,7 +29,7 @@ module Contentr
 
       def show_subtree(children)
         st = children.keys.collect do |nt|
-          lic = content_tag(:li, class: 'row', :'data-id' => nt.id) do
+          lic = content_tag(:li, :'data-id' => nt.id) do
             st = show_subtree(children[nt])
             "#{create_nav_point_title_and_buttons(nt)} #{st.join('')}".html_safe
           end
@@ -41,11 +41,11 @@ module Contentr
       end
 
       def create_nav_point_title_and_buttons nt
-        content_tag(:div, class: 'row') do
-          s = content_tag(:span, class: 'navpoint-title col-xs-8 col-sm-7') do
+        content_tag(:div) do
+          s = content_tag(:span, class: 'navpoint-title') do
             nt.title
           end
-          s += content_tag(:div, class: 'nav-point-buttons col-xs-4 col-sm-5') do
+          s += content_tag(:div, class: 'nav-point-buttons pull-right') do
             link_to_add_to_subtree(nt).html_safe
           end
           s
