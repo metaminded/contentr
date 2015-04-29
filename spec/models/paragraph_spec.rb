@@ -48,6 +48,7 @@ describe Contentr::Paragraph do
     p = create(:paragraph)
     expect(p.body).to_not be_present
     expect(p.unpublished_data[:body]).to be_present
+    p = p.for_edit
     p.save!
     expect(p.body).to_not be_present
     expect(p.unpublished_data[:body]).to be_present

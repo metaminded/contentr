@@ -1,5 +1,6 @@
 FactoryGirl.define do
   factory :paragraph, class: Contentr::StandardParagraph do |h|
+    h.headline { generate(:paragraph_title) } 
     h.body %{
         <div class="content-txt start white start">
         <h1><span style="color:#005C94">Agapedia</span> ist die von J&uuml;rgen Klinsmann 1995 gegr&uuml;ndete Stiftung, die Projekte zur F&ouml;rderung von hilfsbed&uuml;rftigen und Not leidenden Kindern aufbaut.

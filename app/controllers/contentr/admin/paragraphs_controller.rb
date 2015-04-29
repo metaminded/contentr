@@ -36,10 +36,11 @@ module Contentr
         else
           @paragraph.page_id = params[:area_containing_element_id]
         end
-        if @paragraph.save!
+        if @paragraph.save
           render partial: 'summary', locals: { paragraph: @paragraph.reload.for_edit }
         else
-          render text: "Fehler :("
+          @area_name = params[:area_id]
+          render 'new', layout: false
         end
       end
 
@@ -67,7 +68,7 @@ module Contentr
           @mode = params[:mode]
           render partial: 'summary', locals: { paragraph: @paragraph }
         else
-          render text: "Problem! #{@paragraph.errors.full_messages}"
+          render action: 'edit', layout: false
         end
       end
 

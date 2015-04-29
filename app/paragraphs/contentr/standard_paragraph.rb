@@ -7,5 +7,6 @@ module Contentr
     field :headline, type: 'string'
     field :body,     type: 'text'
 
+    validates :headline, presence: true
   end
 end
