@@ -12,6 +12,7 @@ module Contentr
     belongs_to :menu
 
     validate :url_xor_page
+    validate :site_or_page_or_url_if_title_present
 
     translate_me :title, :url
 
@@ -73,6 +74,12 @@ module Contentr
     def url_xor_page
       if [page, url].compact.select(&:present?).count > 1
         errors.add(:url, :page_and_url_are_mutual_exclusive)
+      end
+    end
+
+    def site_or_page_or_url_if_title_present
+      if title.present? && [site, page, url].compact.select(&:present?).count == 0
+        errors.add(:page, :site_or_page_or_url_must_be_present)
       end
     end
   end

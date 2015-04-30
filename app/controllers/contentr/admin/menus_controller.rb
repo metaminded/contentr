@@ -31,7 +31,7 @@ module Contentr
       end
 
       def edit
-        @contentr_menu = Contentr::Menu.includes(nav_points: :page).find(params[:id])
+        @contentr_menu = Contentr::Menu.includes(nav_points: [:page, :alternative_links]).find(params[:id])
         contentr_authorize!(type: :manage, object: @contentr_menu)
       end
 
