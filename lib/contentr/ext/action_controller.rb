@@ -58,4 +58,10 @@ class ActionController::Base
       end
     end
   end
+
+  protected
+
+  def render_page(action:, layout:)
+    render action, layout: layout
+  end
 end
