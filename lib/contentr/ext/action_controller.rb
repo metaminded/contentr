@@ -61,7 +61,7 @@ class ActionController::Base
 
   protected
 
-  def render_page(action:, layout:)
+  def render_page(action: nil, layout: nil)
     render action, layout: layout
   end
 end
