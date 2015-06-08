@@ -41,22 +41,24 @@
 
 javascript:
 
-  $('.nav-point-list').sortable({
-    handle: 'i.fa-bars',
-    itemSelector: '.fields',
-    containerPath: '.nav-point-list',
-    placeholder: '<i class="fa fa-eye" />',
-    onDrop: function ($item, container, _super, event) {
-      var ids = $('.nav-point-element').map(function(){ return $(this).find('.nav-point-id').val(); }).toArray().join(',');
-      $.ajax({
-        type: 'PATCH',
-        data: {
-          ids: ids,
-          item: $item.find('input[name=id]').val(),
-          parent: $item.find('input[name=parent_id]').val()
-        },
-        url: $('.nav-point-list').data('reorderPath')
-      });
-      _super($item);
-    }
+  $(function(){
+    $('.nav-point-list').sortable({
+      handle: 'i.fa-bars',
+      itemSelector: '.fields',
+      containerPath: '.nav-point-list',
+      placeholder: '<i class="fa fa-eye" />',
+      onDrop: function ($item, container, _super, event) {
+        var ids = $('.nav-point-element').map(function(){ return $(this).find('.nav-point-id').val(); }).toArray().join(',');
+        $.ajax({
+          type: 'PATCH',
+          data: {
+            ids: ids,
+            item: $item.find('input[name=id]').val(),
+            parent: $item.find('input[name=parent_id]').val()
+          },
+          url: $('.nav-point-list').data('reorderPath')
+        });
+        _super($item);
+      }
+    });
   });

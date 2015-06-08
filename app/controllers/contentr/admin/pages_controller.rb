@@ -9,8 +9,6 @@ module Contentr
 
       before_action :load_root_page
 
-      layout Contentr.admin_layout
-
       prepend PrependedPagesControllerExtension
 
       def index
