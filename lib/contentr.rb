@@ -59,6 +59,9 @@ module Contentr
   mattr_accessor :full_width_class
   @@full_width_class = 'col-xs-12'
 
+  mattr_accessor :available_templates
+  @@available_templates = [['Index', 'index']]
+
   # Default way to setup Contentr
   def self.setup
     yield self

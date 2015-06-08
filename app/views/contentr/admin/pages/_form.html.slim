@@ -20,6 +20,7 @@
       .col-xs-12
         = f.input :linked_to, required: true
   = f.input :page_type_id, as: :hidden, input_html: {value: 2}
+  = f.input :template, collection: Contentr.available_templates, include_blank: false
   - if @page.page_in_default_language.present?
     = f.input :layout, as: :hidden
   - else
