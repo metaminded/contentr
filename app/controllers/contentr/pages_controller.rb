@@ -9,6 +9,7 @@ class Contentr::PagesController < Contentr::ApplicationController
     end
     @area_containing_element = possible_pages.find{|pp| pp.url_slug == params[:slug]}
     if @area_containing_element.present? && (@area_containing_element.viewable?(preview_mode: in_preview_mode?) || contentr_authorized?(type: :manage, object: @area_containing_element))
+      @area_containing_element = @area_containing_element.get_page_for_language(I18n.locale)
       @area_containing_element.preview! if in_preview_mode?
       flash.now[:notice] = t('contentr.content_not_available_in_language') if @area_containing_element.language != I18n.locale.to_s
       tmpl = @area_containing_element.try(:template).presence || action_name
