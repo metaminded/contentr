@@ -1,0 +1,17 @@
+.panel.panel-info
+  .panel-heading
+    h3.panel-title
+      = t('.additional_language')
+    .panel-body
+      .row
+        .col-sm-4
+          = f.input :published
+        .col-sm-8
+          = f.input :language, collection: FormTranslation.languages, include_blank: false
+      .row
+        .col-sm-8
+          = f.input :name
+        .col-sm-4
+          = f.input :password, as: :string, autocomplete: 'off'
+    .panel-footer
+      = f.link_to_remove t('.remove_page')

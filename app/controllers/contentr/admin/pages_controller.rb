@@ -4,7 +4,8 @@ module Contentr
       PERMITTED_PARAMS = [
         :name, :parent_id, :published, :language, :layout, :type,
         :displayable_type, :displayable_id, :slug, :page_type_id,
-        :page_in_default_language_id, :password, :menu_id, :template
+        :page_in_default_language_id, :password, :menu_id, :template,
+        {pages_in_foreign_languages_attributes: [:id, :published, :language, :name, :password, :_destroy]}
       ]
 
       before_action :load_root_page

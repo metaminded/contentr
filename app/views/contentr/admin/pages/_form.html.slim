@@ -1,6 +1,12 @@
-= simple_form_for @page, as: :page,
+= simple_nested_form_for @page, as: :page,
     url:    (@page.new_record? ? contentr.admin_pages_path(root: @root_page) : contentr.admin_page_path(root: @root_page)), method: (@page.new_record? ? :post : :patch) do |f|
 
+  - if f.object.errors[:base].any?
+    .alert.alert-warning
+      button.close type="button" data-dismiss="alert" aria-hidden="true" &times;
+      ul
+        - f.object.errors[:base].each do |e|
+          li = e
   = f.input :type, as: :hidden
   .row
     .col-xs-12.col-md-2
@@ -29,6 +35,11 @@
     .row
       .col-xs-12
         = f.input :password, as: :string, autocomplete: 'off'
+    .row
+      .col-xs-12
+        = f.fields_for :pages_in_foreign_languages
+        = f.link_to_add t('.add_language'), :pages_in_foreign_languages, class: 'add-page-in-foreign-language'
+
 
   .control-bar
     = f.button :submit, class: 'submit_btn btn btn-primary margin-computed-right'

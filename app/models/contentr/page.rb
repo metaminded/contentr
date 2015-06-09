@@ -26,11 +26,13 @@ module Contentr
     # validates_uniqueness_of :path, allow_nil: false, allow_blank: false
 
     validate :unique_url
+    validate :unique_translations
 
     # Callbacks
     before_validation :generate_slug
     before_validation :clean_slug
     after_save        :path_rebuilding
+    before_save       :inherit_from_default_language
     before_destroy    :remove_navpoints
 
     attr_accessor :in_preview_mode
@@ -205,6 +207,19 @@ module Contentr
               .where(slug: self.slug)
               .select{|s| s.url == self.url}.count
       errors.add(:slug, :must_be_unique) if cnt > 0
+    end
+
+    def inherit_from_default_language
+      if page_in_default_language.present?
+        self.layout = page_in_default_language.layout
+        self.template = page_in_default_language.template
+      end
+    end
+
+    def unique_translations
+      foreign_locals = pages_in_foreign_languages.map &:language
+      locals = foreign_locals << language
+      errors.add(:base, :languages_must_be_unique) if locals.count != locals.uniq.count
     end
 
   end

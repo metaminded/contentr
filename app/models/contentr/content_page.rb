@@ -7,6 +7,8 @@ module Contentr
 
     before_destroy :remove_navpoints
 
+    accepts_nested_attributes_for :pages_in_foreign_languages, allow_destroy: true
+
     def url
       "/pages/#{self.slug}"
     end

@@ -1,3 +1,4 @@
+//= require jquery_nested_form
 Contentr = {
   area: null,
   modal: null,
