@@ -1,6 +1,6 @@
 module Contentr::FrontendRouting
   def contentr_frontend_routes
-    get 'pages/:slug', to: 'contentr/pages#index'
+    get 'pages/:slug', to: 'contentr/pages#index', as: 'contentr_page'
   end
 
   def contentr_frontend_routes_for(klass, &block)
