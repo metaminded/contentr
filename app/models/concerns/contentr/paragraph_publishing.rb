@@ -46,6 +46,10 @@ module Contentr
 
     def revert!
       self.unpublished_data = self.data.clone
+      self.class._uploader_wrappers.try :each do |name|
+        w = image_asset_wrapper_for name
+        w.try :revert!
+      end
       save!
     end
 

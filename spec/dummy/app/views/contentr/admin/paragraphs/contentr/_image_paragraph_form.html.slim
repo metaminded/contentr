@@ -1,0 +1,5 @@
+= f.input :headline
+= image_tag(f.object.image.url(:thumb)) if f.object.image.present?
+= f.input :image
+- if f.object.image_id.present?
+  = f.input :remove_image, as: :boolean

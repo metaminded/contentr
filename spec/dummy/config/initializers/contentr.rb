@@ -5,3 +5,4 @@ FormTranslation.config do |ft|
 end
 
 Contentr.register_paragraph(Contentr::StandardParagraph, 'Standard', position: 1)
+Contentr.register_paragraph(Contentr::ImageParagraph, 'Image', position: 2)

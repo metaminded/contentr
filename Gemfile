@@ -31,6 +31,10 @@ gem 'bootstrap-sass', '~> 3.2'
 
 gem 'form_translation', github: 'crunch09/form_translation'
 
+gem 'carrierwave',                     '~> 0.10'
+gem 'rmagick'
+
+
 group :development, :test do
   gem 'pry',                            '~> 0.10.0'
   gem 'pry-stack_explorer',             '~> 0.4.9.1'

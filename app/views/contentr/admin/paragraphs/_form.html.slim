@@ -17,6 +17,8 @@
           = f.input :visible_at, as: :datetimepicker
         .col-xs-12.col-md-4
           = f.input :hide_at, as: :datetimepicker
+      - paragraph.form_fields.select{|f| f[:type] == :file}.each do |form_field|
+        = f.input "#{form_field[:name]}_id".to_sym, as: :hidden
     .panel-footer
       = f.button :submit, class: 'submit_btn btn btn-primary btn-mini save-paragraph-btn'
       - link = paragraph.new_record? ? '#' : contentr.admin_paragraph_path(paragraph)
