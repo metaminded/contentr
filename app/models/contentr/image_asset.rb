@@ -9,6 +9,10 @@ class Contentr::ImageAsset < ActiveRecord::Base
     save!
   end
 
+  def revert!
+    self.update(file_unpublished: file)
+  end
+
   def unpublished_changes?
     return false if !file.present? && !file_unpublished.present?
     return true  if !(file.present? && file_unpublished.present?)
