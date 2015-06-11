@@ -57,10 +57,6 @@ module Contentr
       def update
         @paragraph = Contentr::Paragraph.unscoped.find(params[:id])
         check_permission!(@paragraph)
-        if paragraph_params.has_key?("remove_image")
-          @paragraph.image_asset_wrapper_for(params[type.split('::').last.underscore.to_sym]["remove_image"]).remove_file!(@paragraph)
-          params[type.split('::').last.underscore.to_sym].delete("remove_image")
-        end
         if @paragraph.update(paragraph_params)
           @paragraph.reload
           @paragraph = @paragraph.for_edit
