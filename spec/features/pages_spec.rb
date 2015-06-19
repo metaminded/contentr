@@ -19,7 +19,7 @@ feature "pages" do
     a = create(:article)
     visit article_path(id: a)
     expect(page).to have_no_content('Hello World!')
-    click_link 'Body'
+    click_link 'body'
     select 'Standard', from: 'choose-paragraph-type'
     find('#add_paragraph_btn').trigger('click')
     expect(page).to have_css('.panel-heading', text: 'Edit Paragraph')
@@ -38,7 +38,7 @@ feature "pages" do
     a = create(:article)
     visit article_path(id: a)
     expect(page).to have_no_content('Hello World!')
-    click_link 'Body'
+    click_link 'body'
     select 'Standard', from: 'choose-paragraph-type'
     find('#add_paragraph_btn').trigger('click')
     expect(page).to have_css('.panel-heading', text: 'Edit Paragraph')

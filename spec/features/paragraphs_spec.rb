@@ -6,7 +6,7 @@ feature 'interact with uploader paragraphs', js: true do
     login_as_admin
     a = create(:article)
     visit article_path(id: a)
-    click_link 'Body'
+    click_link 'body'
     select 'Image', from: 'choose-paragraph-type'
     find('#add_paragraph_btn').trigger('click')
     expect(page).to have_css('.panel-heading', text: 'Edit Paragraph')
@@ -22,7 +22,7 @@ feature 'interact with uploader paragraphs', js: true do
     login_as_admin
     a = create(:article)
     visit article_path(id: a)
-    click_link 'Body'
+    click_link 'body'
     select 'Image', from: 'choose-paragraph-type'
     find('#add_paragraph_btn').trigger('click')
     expect(page).to have_css('.panel-heading', text: 'Edit Paragraph')
