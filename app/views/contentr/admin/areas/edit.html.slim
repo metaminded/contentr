@@ -15,12 +15,10 @@
     / show published version
     = link_to contentr.admin_area_show_version_path(@area_containing_element.class.name, @area_containing_element, @area_name, 'published'), id: "show-published-btn-all", class: 'btn btn-success pull-left' do
       => fa_icon(:eye)
-      | Veröffentlichte zeigen
+      = t('.show_published_paragraphs')
     = link_to contentr.admin_area_show_version_path(@area_containing_element.class.name, @area_containing_element, @area_name, 'unpublished'), id: 'show-unpublished-btn-all', class: 'btn btn-warning pull-left' do
       => fa_icon(:'eye-slash')
-      | Unveröffentlichte zeigen
-
-
+      = t('.show_unpublished_paragraphs')
 
     = t('.new_paragraph')
     select#choose-paragraph-type.form-control name="paragraph_links"
