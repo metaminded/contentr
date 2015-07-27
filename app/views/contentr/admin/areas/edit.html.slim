@@ -3,9 +3,9 @@
 .modal-content
   .modal-header
     button.close type="button" data-dismiss="modal" aria-hidden="true"
-      | &times
+      | &times;
       span.sr-only Contentr-Modal schliessen
-    h4.modal-title= t('.edit_paragraphs_for', area: (area_name_generated?(@area_name) ? t('contentr.area_names.edit') : t("contentr.area_names.#{@area_name}", default: @area_name)))
+    h4.modal-title= t('.edit_paragraphs_for', area: (area_name_generated?(@area_name) ? t('contentr.area_names.edit') : t("contentr.area_names.#{@area_name}", default: @area_name)).html_safe)
   .modal-body
     .existing-paragraphs data-area="area-#{@area_name.to_s}" data-reorder-path=contentr.reorder_admin_area_paragraphs_path(@area_containing_element.class.name, @area_containing_element, @area_name)
       - @area_containing_element.paragraphs_for_area(@area_name, inherit: false).each do |paragraph|
