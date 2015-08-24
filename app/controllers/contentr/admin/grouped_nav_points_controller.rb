@@ -1,5 +1,4 @@
 class Contentr::Admin::GroupedNavPointsController < Contentr::Admin::ApplicationController
-  layout 'application'
 
   def new
     @grouped_nav_point = Contentr::GroupedNavPoint.new(parent_id: params[:parent])

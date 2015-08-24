@@ -3,8 +3,6 @@ module Contentr
     class ContentBlocksController < Contentr::Admin::ApplicationController
       PERMITTED_PARAMS = [:name, :partial]
 
-      layout 'application'
-
       prepend PrependedContentBlocksControllerExtension
 
       def index

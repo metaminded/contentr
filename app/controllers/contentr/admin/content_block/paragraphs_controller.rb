@@ -1,5 +1,4 @@
 class Contentr::Admin::ContentBlock::ParagraphsController < Contentr::Admin::ApplicationController
-  layout 'application'
 
   def new
     paragraph_class = paragraph_type_class
