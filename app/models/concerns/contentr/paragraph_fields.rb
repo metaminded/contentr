@@ -95,6 +95,31 @@ module Contentr
         @_uploader_wrappers ||= []
       end
 
+      def has_many_field(assoc, class_name: nil)
+        assoc = assoc.to_s
+        assoc_ids = "#{assoc.singularize}_ids"
+        fname = "_raw_#{assoc}_ids"
+        klass ||= (class_name || assoc.singularize.classify).constantize
+        field fname
+
+        define_method assoc_ids do
+          (self.send(fname) || '').split(',').map(&:to_i)
+        end
+
+        define_method "#{assoc_ids}=" do |ids|
+          self.send("#{fname}=", ids.map(&:presence).compact.map(&:to_s).join(','))
+        end
+
+        define_method assoc do
+          klass.find(self.send "#{assoc_ids}")
+        end
+
+        define_method "#{assoc}=" do |pp|
+          self.send "#{assoc_ids}=", pp.map(&:id)
+        end
+      end
+
+
     end # ClassMethods
   end
 end
