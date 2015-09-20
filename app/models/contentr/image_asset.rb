@@ -16,7 +16,7 @@ class Contentr::ImageAsset < ActiveRecord::Base
   def unpublished_changes?
     return false if !file.present? && !file_unpublished.present?
     return true  if !(file.present? && file_unpublished.present?)
-    logger.info "comparing #{file.file.file} and #{file_unpublished.file.file}"
+    # logger.info "comparing #{file.file.file} and #{file_unpublished.file.file}"
     !FileUtils.compare_file file.file.file, file_unpublished.file.file
   end
 

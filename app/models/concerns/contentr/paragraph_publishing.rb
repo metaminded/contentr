@@ -75,7 +75,7 @@ module Contentr
       u = (@_data_was != unpublished_data_was)
       self.class._uploader_wrappers.inject(u) do |a, name|
         c = image_asset_wrapper_for(name).try(:unpublished_changes?) || false
-        logger.info "#{name}: #{c}, #{a}"
+        # logger.info "#{name}: #{c}, #{a}"
         a || c
       end
     end
