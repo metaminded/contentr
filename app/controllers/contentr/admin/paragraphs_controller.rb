@@ -13,7 +13,14 @@ module Contentr
 
       def new
         @area_name = params[:area_id]
-        if params[:type].present?
+        if params[:paste_paragraph]
+          para = Contentr::Paragraph.find(session[:contentr_copied_paragraph_id])
+          check_permission!(para)
+          @paragraph = para.dup
+          @paragraph.for_edit
+          check_permission!(@paragraph)
+          render 'new', layout: false
+        elsif params[:type].present?
           @paragraph = paragraph_type_class.new(area_name: @area_name)
           check_permission!(@paragraph)
           if params[:type] == 'Contentr::ContentBlock'
@@ -119,6 +126,13 @@ module Contentr
         check_permission!(paragraph)
         paragraph.hide!
         render partial: 'summary', locals: { paragraph: paragraph.for_edit }
+      end
+
+      def copy
+        @paragraph = Contentr::Paragraph.unscoped.find(params[:id])
+        check_permission!(@paragraph)
+        session[:contentr_copied_paragraph_id] = @paragraph.id
+        render partial: 'summary', locals: { paragraph: @paragraph }
       end
 
     protected

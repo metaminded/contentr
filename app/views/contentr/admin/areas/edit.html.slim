@@ -20,15 +20,17 @@
       => fa_icon(:'eye-slash')
       | Unveröffentlichte zeigen
 
-
-
     = t('.new_paragraph')
     select#choose-paragraph-type.form-control name="paragraph_links"
       - Contentr.paragraphs.sort_by{|paragraph| paragraph.options[:position]}.each do |pc|
         - if contentr_can_use_paragraph?(current_contentr_user, @area_name, pc.paragraph_class)
           - path_to_add_paragraph = contentr.new_admin_area_paragraph_path(@area_containing_element.class.name, @area_containing_element, @area_name, paragraph_type: pc.paragraph_class.to_s)
-
           option data-path=path_to_add_paragraph = pc.title
+      - if session[:contentr_copied_paragraph_id].present?
+        - path_to_add_paragraph = contentr.new_admin_area_paragraph_path(@area_containing_element.class.name, @area_containing_element, @area_name, paste_paragraph: session[:contentr_copied_paragraph_id])
+        option data-path=path_to_add_paragraph = "Kopierten Paragraph einsetzen"
+
+
     a.btn.btn-primary.add-paragraph#add_paragraph_btn
       = fa_icon :plus
       span.sr-only Paragraph hinzufügen

@@ -32,6 +32,9 @@
       => fa_icon(:'eye-slash')
       | Unveröffentlichte Version zeigen
     li.divider
+    li= link_to contentr.copy_admin_paragraph_path(paragraph), class: 'contentr-remote copy-paragraph-btn' do
+      => fa_icon(:'copy')
+      | Paragraph kopieren
     li= link_to contentr.admin_paragraph_path(paragraph), :method => :delete, class: 'contentr-remote remove-paragraph-btn', data: { confirm: t('contentr.really_delete') } do
       => fa_icon(:'trash-o')
       | Paragraph löschen

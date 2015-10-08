@@ -19,6 +19,7 @@ module Contentr::BackendRouting
           get 'show_version/:version', action: :show_version, as: 'show_version'
           get :display
           get :hide
+          get :copy
         end
       end
 

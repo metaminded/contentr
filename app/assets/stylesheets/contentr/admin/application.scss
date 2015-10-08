@@ -2,8 +2,11 @@
 @import "contentr";
 @import "contentr/admin/_node_tree";
 
-.existing-paragraphs{
+.existing-paragraphs {
   .handle{
+    display: inline-block;
+    padding-left: 3px;
+    padding-right: 3px;
     cursor: move;
   }
 }
