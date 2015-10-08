@@ -2,7 +2,7 @@
 - c = paragraph.unpublished_changes? ? 'panel-warning' : 'panel-success'
 .panel.paragraph-box class=c data-paragraph-id=paragraph.id
   .panel-heading
-    span.handle= fa_icon :bars
+    span.handle= fa_icon :'arrows-v'
     - if !paragraph.currently_visible?
       =<> fa_icon(:'eye-slash')
     =<> paragraph.class.model_name.human
