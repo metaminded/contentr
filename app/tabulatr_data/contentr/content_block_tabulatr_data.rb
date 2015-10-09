@@ -1,4 +1,6 @@
 class Contentr::ContentBlockTabulatrData < Tabulatr::Data
+  search :name
+
   buttons do |b, r|
     b.button :pencil, contentr.edit_admin_content_block_path(id: r.id)
     if r.usages.none?
