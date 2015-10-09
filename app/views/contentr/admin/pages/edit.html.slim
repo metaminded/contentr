@@ -1,10 +1,6 @@
 - contentr_title t('.edit_page')
 
 - button_content = [{text: t('.preview'), target: @page.preview_path, class: 'btn btn-info', link_to_options: { target: '_blank'}}]
-- if @page.published?
-  - button_content.push({text: t('.hide_page'), target: contentr.hide_admin_page_path(id: @page), class: 'btn btn-warning'})
-- else
-  - button_content.push({text: t('.publish_page'), target: contentr.publish_admin_page_path(id: @page), class: 'btn btn-primary'})
 - contentr_buttons(button_content)
 
 

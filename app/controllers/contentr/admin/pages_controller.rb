@@ -66,18 +66,6 @@ module Contentr
         redirect_to :back, notice: 'Seite wurde entfernt'
       end
 
-      def publish
-        page = Contentr::Page.find(params[:id])
-        page.publish!
-        redirect_to :back, notice: 'Seite wurde veröffentlicht'
-      end
-
-      def hide
-        page = Contentr::Page.find(params[:id])
-        page.hide!
-        redirect_to :back, notice: 'Seite ist jetzt verborgen'
-      end
-
       private
 
       def load_root_page

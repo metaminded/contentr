@@ -25,8 +25,6 @@ module Contentr::BackendRouting
 
       resources :pages, only: [:index, :new, :create, :edit, :update, :destroy] do
         member do
-          get :publish
-          get :hide
           resources :sub_pages, only: [:index] do
             collection do
               patch :reorder

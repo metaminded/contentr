@@ -31,6 +31,7 @@ module Contentr
     before_validation :generate_slug
     before_validation :clean_slug
     after_save        :path_rebuilding
+    after_save        :hide_navpoints
     before_destroy    :remove_navpoints
 
     attr_accessor :in_preview_mode
@@ -193,6 +194,14 @@ module Contentr
       new_path = "#{local_path.collect(&:url_slug).compact.join('/')}".gsub(/\/+/, '/')
       new_path = new_path.prepend('/') unless new_path.start_with?('/')
       self.update_column(:url_path,  new_path) if self.displayable.nil?
+    end
+
+    def hide_navpoints
+      if published_was && !published
+        Contentr::NavPoint.where(page: self).each do |n|
+          n.update visible: false
+        end
+      end
     end
 
     def remove_navpoints
