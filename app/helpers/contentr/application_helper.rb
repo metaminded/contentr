@@ -76,10 +76,15 @@ module Contentr
     end
 
     def contentr_edit_page_link(page, klass: 'btn btn-danger')
+      # binding.pry
       if page.visible?
-        link_to fa_icon(:eye, text: t('contentr.hide_page')), contentr.admin_page_path(page, 'page[published]' => '0'), class: klass
+        link_to fa_icon(:eye, text: t('contentr.hide_page')),
+          contentr.admin_page_path(page, 'page[published]' => '0', return_to: request.path),
+          class: klass, 'data-method' => 'patch'
       else
-        link_to fa_icon(:eye, text: t('contentr.publish_page')), contentr.admin_page_path(page, 'page[published]' => '1'), class: klass
+        link_to fa_icon(:eye, text: t('contentr.publish_page')),
+          contentr.admin_page_path(page, 'page[published]' => '1', return_to: request.path),
+          class: klass, 'data-method' => 'patch'
       end
     end
 
