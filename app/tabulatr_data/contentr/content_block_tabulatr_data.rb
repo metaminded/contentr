@@ -12,5 +12,5 @@ class Contentr::ContentBlockTabulatrData < Tabulatr::Data
   end
 
   column :name
-  association :usages, :count, table_column_options: {sortable: false, filter: false, header: I18n.t('.content_block.paragraphs.usages')}
+  association :usages, :count, sortable: false, filter: false, header: I18n.t('.content_block.paragraphs.usages')
 end
