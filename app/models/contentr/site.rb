@@ -14,6 +14,10 @@ module Contentr
       self.find_or_create_by!(slug: Contentr.default_site, name: Contentr.default_site, language: I18n.default_locale.to_s)
     end
 
+    def self.current
+      RequestStore.store[:contentr_current_site] ||= default
+    end
+
     # Public: Gets the default_page
     #
     # Returns the first children of the caller
@@ -34,6 +38,10 @@ module Contentr
     end
 
     def rebuild_path!
+    end
+
+    def use!
+      RequestStore.store[:contentr_current_site] = self
     end
 
     private

@@ -39,7 +39,7 @@ module Contentr
     #
     def contentr_site_area(area_name, pristine: false)
       raise "No area name given" if area_name.blank?
-      contentr_render_area(area_name, Contentr::Site.default, pristine: pristine)
+      contentr_render_area(area_name, Contentr::Site.current, pristine: pristine)
     end
 
     # Inserts Google Anylytics into the page
