@@ -114,12 +114,12 @@ module Contentr
 
     def contentr_has_authorized_paragraphs?(user, area, authorized)
       area = area.to_s.split('-').first
-      allowed_to_interact_with_contentr? && user.allowed_to_use_paragraphs?(area: area) && authorized
+      allowed_to_interact_with_contentr? && user.try(:allowed_to_use_paragraphs?, area: area) && authorized
     end
 
     def contentr_can_use_paragraph?(user, area, paragraph)
       area = area.to_s.split('-').first
-      user.allowed_to_use_paragraphs?(area: area, paragraph_class: paragraph)
+      allowed_to_interact_with_contentr? && user.try(:allowed_to_use_paragraphs?, area: area, paragraph_class: paragraph)
     end
 
     def area_name_generated?(area)
