@@ -10,7 +10,7 @@ class Contentr::PagesController < Contentr::ApplicationController
       tmpl = @area_containing_element.try(:template).presence || action_name
       render_page(action: tmpl, layout: "layouts/#{frontend_layout}")
     else
-      raise ActionController::RoutingError.new('Not Found')
+      raise ActiveRecord::RecordNotFound, "Contentr::Page not found: `#{params[:slug]}'"
     end
   end
 
