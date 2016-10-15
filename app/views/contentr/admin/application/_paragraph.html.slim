@@ -3,4 +3,18 @@
 .paragraph [ id="paragraph_#{paragraph.id}" data-id=paragraph.id ]
   .actual_content
     = contentr_paragraph_labels(paragraph)
-    = render(partial: "contentr/paragraphs/#{paragraph.class.to_s.underscore}", locals: {paragraph: paragraph})
+    - begin
+      = render(partial: "contentr/paragraphs/#{paragraph.class.to_s.underscore}", locals: {paragraph: paragraph})
+    - rescue Exception => e
+      - raise e if Rails.env.development?
+      - if allowed_to_interact_with_contentr?
+        .panel.panel-danger
+          .panel-heading: h3.panel-title Rendering Error
+          .panel-body
+            b Message:
+            =< e.message
+            br
+            b> Paragraph:
+            = "#{paragraph.class.name}, id=#{paragraph.id}"
+      - else
+        .error-rendering-paragraph data-error=e.message ∅
