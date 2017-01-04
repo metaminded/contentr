@@ -4,7 +4,7 @@ require 'rails'
 require 'simple_form'
 require 'nested_form'
 require 'form_translation'
-require 'tabulatr'
+# require 'tabulatr'
 require 'request_store'
 
 module Contentr
