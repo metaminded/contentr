@@ -1,6 +1,12 @@
+- nested ||= false
+- current_user_allowed = allowed_to_interact_with_contentr?
 / = render 'contentr/admin/pages/areas', areas: [area_name], page: page, mode: 'frontend'
 - area_containing_element.paragraphs_for_area(area).each do |paragraph|
-  - cache_if(paragraph.class.cache?, "#{paragraph.class.memoized_cache_key}")
+  - paragraph_types = area_containing_element.types_for_area(area)
+  / - if paragraph_types.any?
+  - paragraph_types = paragraph_types.map &:constantize
+  - digest = Digest::MD5.hexdigest("page-#{area_containing_element.id}-#{area_containing_element.class}-#{paragraph_types.map{|par| par.memoized_cache_key}.join('-')}-#{current_user_allowed}-#{I18n.locale.to_s}-#{area}")
+  - cache_if(paragraph_types.all?{|p| p.cache? }, digest)
     - begin
       = render(partial: "contentr/paragraphs/#{paragraph.class.to_s.underscore}", locals: {paragraph: paragraph})
     - rescue Exception => e
