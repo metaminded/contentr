@@ -5,7 +5,7 @@ module Contentr
       include ::Contentr::ApplicationHelper
       include ParagraphsControllerExtension
 
-      before_filter :find_page_or_content_block, only: [:new, :create, :index, :reorder]
+      before_action :find_page_or_content_block, only: [:new, :create, :index, :reorder]
 
       def index
         @paragraphs = @area_containing_element.paragraphs.order(:area_id, :asc).order(:position, :asc)
