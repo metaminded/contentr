@@ -46,7 +46,7 @@ module Contentr
         if @paragraph.save!
           render partial: 'summary', locals: { paragraph: @paragraph.reload.for_edit }
         else
-          render text: "Fehler :("
+          render plain: "Fehler :("
         end
       end
 
@@ -70,7 +70,7 @@ module Contentr
           @mode = params[:mode]
           render partial: 'summary', locals: { paragraph: @paragraph }
         else
-          render text: "Problem! #{@paragraph.errors.full_messages}"
+          render plain: "Problem! #{@paragraph.errors.full_messages}"
         end
       end
 
@@ -105,7 +105,7 @@ module Contentr
         paragraph = Contentr::Paragraph.find(params[:id])
         check_permission!(paragraph)
         paragraph.destroy
-        render text: ''
+        head :ok
       end
 
       def reorder
