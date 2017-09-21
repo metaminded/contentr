@@ -80,7 +80,7 @@ module Contentr
         end
       end
 
-      def respond_to?(method)
+      def respond_to?(method, include_all=false)
         main_app_url_helper?(method) || super
       end
 
