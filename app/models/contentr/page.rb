@@ -197,7 +197,7 @@ module Contentr
     end
 
     def hide_navpoints
-      if published_was && !published
+      if published_before_last_save && !published
         Contentr::NavPoint.where(page: self).each do |n|
           n.update visible: false
         end
