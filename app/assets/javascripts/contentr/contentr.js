@@ -250,8 +250,8 @@ Contentr = {
   enableDateTimePicker: function() {
     if($.isFunction($.fn.datetimepicker)){
       $('.visible-time-fields .input-group.datetime').datetimepicker({
-        language: $('.visible-time-fields').data('locale'),
-        minuteStepping: 15
+        locale: $('.visible-time-fields').data('locale'),
+        stepping: 15
       });
     }
   }

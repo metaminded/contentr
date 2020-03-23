@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = 'contentr'
-  s.version = '0.5.0'
+  s.version = '0.5.1'
   s.summary = %q{CMS engine for Rails}
   s.description = %q{Contentr is a Content Management System (CMS) that plugs into any Rails 3.1 application as an engine.}
   s.authors = ["Rene Sprotte", "Dr. Peter Horn"]
