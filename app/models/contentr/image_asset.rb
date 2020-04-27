@@ -14,10 +14,14 @@ class Contentr::ImageAsset < ActiveRecord::Base
   end
 
   def unpublished_changes?
+    # check presence of object in db
     return false if !file.present? && !file_unpublished.present?
     return true  if !(file.present? && file_unpublished.present?)
-    # logger.info "comparing #{file.file.file} and #{file_unpublished.file.file}"
-    !FileUtils.compare_file file.file.file, file_unpublished.file.file
+
+    # check for files in memory
+    return false if !file_unpublished.file.present? # the unpublished file was lost on disk, publishing would break
+    return true  if !file.file.present?             # the published file was lost on disk, publish again to restore
+    return !FileUtils.identical?(file.file.file, file_unpublished.file.file)
   end
 
 end
