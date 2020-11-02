@@ -13,7 +13,7 @@ module Contentr
           @area_containing_element.update(page_in_default_language: @page_in_default_language)
         end
         if @area_containing_element.paragraphs.none? && @page_in_default_language.paragraphs.any?
-          flash.now[:notice] = t('contentr.content_not_available_in_language')
+          # flash.now[:notice] = t('contentr.content_not_available_in_language')
         end
       end
     end
