@@ -62,6 +62,10 @@ class ActionController::Base
   protected
 
   def render_page(action: nil, layout: nil)
-    render action, layout: layout
+    if request.format.html?
+      render action, layout: layout
+    else
+      render plain: "format '#{request.format}' not found", status: :not_found
+    end
   end
 end
